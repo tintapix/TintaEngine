@@ -1,0 +1,602 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugX64|Win32">
+      <Configuration>DebugX64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugX64|x64">
+      <Configuration>DebugX64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\BoostAsioInteract\tintaAsioClientImpl.cpp" />
+    <ClCompile Include="src\BoostAsioInteract\tintaAsioInteract.cpp" />
+    <ClCompile Include="src\BoostAsioInteract\tintaInteractFunction.cpp" />
+    <ClCompile Include="src\BoostAsioInteract\tintaInteractPool.cpp" />
+    <ClCompile Include="src\BoostAsioInteract\tintaServedPool.cpp" />
+    <ClCompile Include="src\BoostAsioInteract\tintaPacket.cpp" />
+    <ClCompile Include="src\Crypto\tintaAes256.cpp" />
+    <ClCompile Include="src\ImageCodecs\tintaJpgImgCodec.cpp" />
+    <ClCompile Include="src\ImageCodecs\tintaPngImgCodec.cpp" />
+    <ClCompile Include="src\libjpeg\jcapimin.c" />
+    <ClCompile Include="src\libjpeg\jcapistd.c" />
+    <ClCompile Include="src\libjpeg\jccoefct.c" />
+    <ClCompile Include="src\libjpeg\jccolor.c" />
+    <ClCompile Include="src\libjpeg\jcdctmgr.c" />
+    <ClCompile Include="src\libjpeg\jchuff.c" />
+    <ClCompile Include="src\libjpeg\jcinit.c" />
+    <ClCompile Include="src\libjpeg\jcmainct.c" />
+    <ClCompile Include="src\libjpeg\jcmarker.c" />
+    <ClCompile Include="src\libjpeg\jcmaster.c" />
+    <ClCompile Include="src\libjpeg\jcomapi.c" />
+    <ClCompile Include="src\libjpeg\jcparam.c" />
+    <ClCompile Include="src\libjpeg\jcphuff.c" />
+    <ClCompile Include="src\libjpeg\jcprepct.c" />
+    <ClCompile Include="src\libjpeg\jcsample.c" />
+    <ClCompile Include="src\libjpeg\jctrans.c" />
+    <ClCompile Include="src\libjpeg\jdapimin.c" />
+    <ClCompile Include="src\libjpeg\jdapistd.c" />
+    <ClCompile Include="src\libjpeg\jdatadst.c" />
+    <ClCompile Include="src\libjpeg\jdatasrc.c" />
+    <ClCompile Include="src\libjpeg\jdcoefct.c" />
+    <ClCompile Include="src\libjpeg\jdcolor.c" />
+    <ClCompile Include="src\libjpeg\jddctmgr.c" />
+    <ClCompile Include="src\libjpeg\jdhuff.c" />
+    <ClCompile Include="src\libjpeg\jdinput.c" />
+    <ClCompile Include="src\libjpeg\jdmainct.c" />
+    <ClCompile Include="src\libjpeg\jdmarker.c" />
+    <ClCompile Include="src\libjpeg\jdmaster.c" />
+    <ClCompile Include="src\libjpeg\jdmerge.c" />
+    <ClCompile Include="src\libjpeg\jdphuff.c" />
+    <ClCompile Include="src\libjpeg\jdpostct.c" />
+    <ClCompile Include="src\libjpeg\jdsample.c" />
+    <ClCompile Include="src\libjpeg\jdtrans.c" />
+    <ClCompile Include="src\libjpeg\jerror.c" />
+    <ClCompile Include="src\libjpeg\jfdctflt.c" />
+    <ClCompile Include="src\libjpeg\jfdctfst.c" />
+    <ClCompile Include="src\libjpeg\jfdctint.c" />
+    <ClCompile Include="src\libjpeg\jidctflt.c" />
+    <ClCompile Include="src\libjpeg\jidctfst.c" />
+    <ClCompile Include="src\libjpeg\jidctint.c" />
+    <ClCompile Include="src\libjpeg\jidctred.c" />
+    <ClCompile Include="src\libjpeg\jmemansi.c" />
+    <ClCompile Include="src\libjpeg\jmemmgr.c" />
+    <ClCompile Include="src\libjpeg\jmemname.c" />
+    <ClCompile Include="src\libjpeg\jmemnobs.c" />
+    <ClCompile Include="src\libjpeg\jquant1.c" />
+    <ClCompile Include="src\libjpeg\jquant2.c" />
+    <ClCompile Include="src\libjpeg\jutils.c" />
+    <ClCompile Include="src\libpng\example.c" />
+    <ClCompile Include="src\libpng\png.c" />
+    <ClCompile Include="src\libpng\pngerror.c" />
+    <ClCompile Include="src\libpng\pngget.c" />
+    <ClCompile Include="src\libpng\pngmem.c" />
+    <ClCompile Include="src\libpng\pngpread.c" />
+    <ClCompile Include="src\libpng\pngread.c" />
+    <ClCompile Include="src\libpng\pngrio.c" />
+    <ClCompile Include="src\libpng\pngrtran.c" />
+    <ClCompile Include="src\libpng\pngrutil.c" />
+    <ClCompile Include="src\libpng\pngset.c" />
+    <ClCompile Include="src\libpng\pngtest.c" />
+    <ClCompile Include="src\libpng\pngtrans.c" />
+    <ClCompile Include="src\libpng\pngwio.c" />
+    <ClCompile Include="src\libpng\pngwrite.c" />
+    <ClCompile Include="src\libpng\pngwtran.c" />
+    <ClCompile Include="src\libpng\pngwutil.c" />
+    <ClCompile Include="src\OCL\tintaBox2dProgram.cpp" />
+    <ClCompile Include="src\OCL\tintaClBaseImpl.cpp" />
+    <ClCompile Include="src\OCL\tintaClObjectContainer.cpp" />
+    <ClCompile Include="src\OCL\tintaGPUExt.cpp" />
+    <ClCompile Include="src\tintaArrayBox.cpp" />
+    <ClCompile Include="src\tintaBoxContainer.cpp" />
+    <ClCompile Include="src\tintaFont.cpp" />
+    <ClCompile Include="src\tintaImageFont.cpp" />
+    <ClCompile Include="src\tintaUInt8Image.cpp" />
+    <ClCompile Include="src\tintaUInt8ImageSeamless.cpp" />
+    <ClCompile Include="src\tintaLogger.cpp" />
+    <ClCompile Include="src\lua\lapi.c" />
+    <ClCompile Include="src\lua\lauxlib.c" />
+    <ClCompile Include="src\lua\lbaselib.c" />
+    <ClCompile Include="src\lua\lbitlib.c" />
+    <ClCompile Include="src\lua\lcode.c" />
+    <ClCompile Include="src\lua\lcorolib.c" />
+    <ClCompile Include="src\lua\lctype.c" />
+    <ClCompile Include="src\lua\ldblib.c" />
+    <ClCompile Include="src\lua\ldebug.c" />
+    <ClCompile Include="src\lua\ldo.c" />
+    <ClCompile Include="src\lua\ldump.c" />
+    <ClCompile Include="src\lua\lfunc.c" />
+    <ClCompile Include="src\lua\lgc.c" />
+    <ClCompile Include="src\lua\linit.c" />
+    <ClCompile Include="src\lua\liolib.c" />
+    <ClCompile Include="src\lua\llex.c" />
+    <ClCompile Include="src\lua\lmathlib.c" />
+    <ClCompile Include="src\lua\lmem.c" />
+    <ClCompile Include="src\lua\loadlib.c" />
+    <ClCompile Include="src\lua\lobject.c" />
+    <ClCompile Include="src\lua\lopcodes.c" />
+    <ClCompile Include="src\lua\loslib.c" />
+    <ClCompile Include="src\lua\lparser.c" />
+    <ClCompile Include="src\lua\lstate.c" />
+    <ClCompile Include="src\lua\lstring.c" />
+    <ClCompile Include="src\lua\lstrlib.c" />
+    <ClCompile Include="src\lua\ltable.c" />
+    <ClCompile Include="src\lua\ltablib.c" />
+    <ClCompile Include="src\lua\ltm.c" />
+    <ClCompile Include="src\lua\lua.c" />
+    <ClCompile Include="src\lua\luac.c" />
+    <ClCompile Include="src\lua\lundump.c" />
+    <ClCompile Include="src\lua\lutf8lib.c" />
+    <ClCompile Include="src\lua\lvm.c" />
+    <ClCompile Include="src\lua\lzio.c" />
+    <ClCompile Include="src\Math\tintaCatRomSpline.cpp" />
+    <ClCompile Include="src\Math\tintaMatrix33.cpp" />
+    <ClCompile Include="src\Math\tintaMatrix44.cpp" />
+    <ClCompile Include="src\Math\tintaQuatern.cpp" />
+    <ClCompile Include="src\Math\tintaVector2.cpp" />
+    <ClCompile Include="src\Math\tintaVector3.cpp" />
+    <ClCompile Include="src\Math\tintaVector4.cpp" />
+    <ClCompile Include="src\tintaAsyncTimer.cpp" />
+    <ClCompile Include="src\tintaBufferIO.cpp" />
+    <ClCompile Include="src\tintaCommFunc.cpp" />
+    <ClCompile Include="src\tintaCommon.cpp" />
+    <ClCompile Include="src\tintaControls.cpp" />
+    <ClCompile Include="src\tintaException.cpp" />
+    <ClCompile Include="src\tintaIImgCodec.cpp" />
+    <ClCompile Include="src\tintaScriptContext.cpp" />
+    <ClCompile Include="src\tintaMemoryAllocator.cpp" />
+    <ClCompile Include="src\MemTracker.cpp" />
+    <ClCompile Include="src\tintaProcessQueue.cpp" />
+    <ClCompile Include="src\tintaSignalHandler.cpp" />
+    <ClCompile Include="src\tintaThreadPool.cpp" />
+    <ClCompile Include="src\tintaTimer.cpp" />
+    <ClCompile Include="src\nedmalloc\nedmalloc.c" />
+    <ClCompile Include="src\tintaTreeConfig\tintaConfNode.cpp" />
+    <ClCompile Include="src\tintaTreeConfig\tintaTreeConfig.cpp" />
+    <ClCompile Include="src\zlib\adler32.c" />
+    <ClCompile Include="src\zlib\compress.c" />
+    <ClCompile Include="src\zlib\crc32.c" />
+    <ClCompile Include="src\zlib\deflate.c" />
+    <ClCompile Include="src\zlib\gzclose.c" />
+    <ClCompile Include="src\zlib\gzlib.c" />
+    <ClCompile Include="src\zlib\gzread.c" />
+    <ClCompile Include="src\zlib\gzwrite.c" />
+    <ClCompile Include="src\zlib\infback.c" />
+    <ClCompile Include="src\zlib\inffast.c" />
+    <ClCompile Include="src\zlib\inflate.c" />
+    <ClCompile Include="src\zlib\inftrees.c" />
+    <ClCompile Include="src\zlib\trees.c" />
+    <ClCompile Include="src\zlib\uncompr.c" />
+    <ClCompile Include="src\zlib\zutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\BoostAsioInteract\tintaAsioClient.h" />
+    <ClInclude Include="src\BoostAsioInteract\tintaAsioClientImpl.h" />
+    <ClInclude Include="src\BoostAsioInteract\tintaAsioInteract.h" />
+    <ClInclude Include="src\BoostAsioInteract\tintaInteractFunction.h" />
+    <ClInclude Include="src\BoostAsioInteract\tintaIInteracted.h" />
+    <ClInclude Include="src\BoostAsioInteract\tintaInteractPool.h" />
+    <ClInclude Include="src\BoostAsioInteract\tintaServedPool.h" />
+    <ClInclude Include="src\BoostAsioInteract\tintaIHandlerFactory.h" />
+    <ClInclude Include="src\BoostAsioInteract\tintaInteractHandler.h" />
+    <ClInclude Include="src\BoostAsioInteract\tintaPacket.h" />
+    <ClInclude Include="src\Crypto\tintaAes256.h" />
+    <ClInclude Include="src\ImageCodecs\tintaJpgImgCodec.h" />
+    <ClInclude Include="src\ImageCodecs\tintaPngImgCodec.h" />
+    <ClInclude Include="src\libjpeg\cderror.h" />
+    <ClInclude Include="src\libjpeg\cdjpeg.h" />
+    <ClInclude Include="src\libjpeg\jchuff.h" />
+    <ClInclude Include="src\libjpeg\jconfig.h" />
+    <ClInclude Include="src\libjpeg\jdct.h" />
+    <ClInclude Include="src\libjpeg\jdhuff.h" />
+    <ClInclude Include="src\libjpeg\jerror.h" />
+    <ClInclude Include="src\libjpeg\jinclude.h" />
+    <ClInclude Include="src\libjpeg\jmemsys.h" />
+    <ClInclude Include="src\libjpeg\jmorecfg.h" />
+    <ClInclude Include="src\libjpeg\jpegint.h" />
+    <ClInclude Include="src\libjpeg\jpeglib.h" />
+    <ClInclude Include="src\libjpeg\jversion.h" />
+    <ClInclude Include="src\libjpeg\transupp.h" />
+    <ClInclude Include="src\libpng\png.h" />
+    <ClInclude Include="src\libpng\pngconf.h" />
+    <ClInclude Include="src\libpng\pngdebug.h" />
+    <ClInclude Include="src\libpng\pnginfo.h" />
+    <ClInclude Include="src\libpng\pnglibconf.h" />
+    <ClInclude Include="src\libpng\pngpriv.h" />
+    <ClInclude Include="src\libpng\pngstruct.h" />
+    <ClInclude Include="src\OCL\tintaBox2dProgram.h" />
+    <ClInclude Include="src\OCL\tintaClBaseImpl.h" />
+    <ClInclude Include="src\OCL\tintaCLConfig.h" />
+    <ClInclude Include="src\OCL\tintaClObjectContainer.h" />
+    <ClInclude Include="src\OCL\tintaGPUExt.h" />
+    <ClInclude Include="src\OCL\tintaIClBase.h" />
+    <ClInclude Include="src\OCL\tintaLibsConfig.h" />
+    <ClInclude Include="src\tintaArrayBox.h" />
+    <ClInclude Include="src\tintaArrayBoxFactory.h" />
+    <ClInclude Include="src\tintaBoxContainer.h" />
+    <ClInclude Include="src\tintaFactoryObj.h" />
+    <ClInclude Include="src\tintaFont.h" />
+    <ClInclude Include="src\tintaFontFactory.h" />
+    <ClInclude Include="src\tintaImageFactory.h" />
+    <ClInclude Include="src\tintaImageFont.h" />
+    <ClInclude Include="src\tintaPixel.h" />
+    <ClInclude Include="src\tintaUInt8Image.h" />
+    <ClInclude Include="src\tintaUInt8ImageSeamless.h" />
+    <ClInclude Include="src\tintaLogger.h" />
+    <ClInclude Include="src\lua\lapi.h" />
+    <ClInclude Include="src\lua\lauxlib.h" />
+    <ClInclude Include="src\lua\lcode.h" />
+    <ClInclude Include="src\lua\lctype.h" />
+    <ClInclude Include="src\lua\ldebug.h" />
+    <ClInclude Include="src\lua\ldo.h" />
+    <ClInclude Include="src\lua\lfunc.h" />
+    <ClInclude Include="src\lua\lgc.h" />
+    <ClInclude Include="src\lua\llex.h" />
+    <ClInclude Include="src\lua\llimits.h" />
+    <ClInclude Include="src\lua\lmem.h" />
+    <ClInclude Include="src\lua\lobject.h" />
+    <ClInclude Include="src\lua\lopcodes.h" />
+    <ClInclude Include="src\lua\lparser.h" />
+    <ClInclude Include="src\lua\lprefix.h" />
+    <ClInclude Include="src\lua\lstate.h" />
+    <ClInclude Include="src\lua\lstring.h" />
+    <ClInclude Include="src\lua\ltable.h" />
+    <ClInclude Include="src\lua\ltm.h" />
+    <ClInclude Include="src\lua\lua.h" />
+    <ClInclude Include="src\lua\lua.hpp" />
+    <ClInclude Include="src\lua\luaconf.h" />
+    <ClInclude Include="src\lua\lualib.h" />
+    <ClInclude Include="src\lua\lundump.h" />
+    <ClInclude Include="src\lua\lvm.h" />
+    <ClInclude Include="src\lua\lzio.h" />
+    <ClInclude Include="src\Math\tintaAxisAlignedBox.h" />
+    <ClInclude Include="src\Math\tintaBox3.h" />
+    <ClInclude Include="src\Math\tintaCatRomSpline.h" />
+    <ClInclude Include="src\Math\tintaCommonMath.h" />
+    <ClInclude Include="src\Math\tintaMatrix33.h" />
+    <ClInclude Include="src\Math\tintaMatrix44.h" />
+    <ClInclude Include="src\Math\tintaQuatern.h" />
+    <ClInclude Include="src\Math\tintaSphere3.h" />
+    <ClInclude Include="src\Math\tintaVector2.h" />
+    <ClInclude Include="src\Math\tintaVector3.h" />
+    <ClInclude Include="src\Math\tintaVector4.h" />
+    <ClInclude Include="src\tintaArray2d.h" />
+    <ClInclude Include="src\tintaAsyncTimer.h" />
+    <ClInclude Include="src\tintaBufferIO.h" />
+    <ClInclude Include="src\tintaCommFunc.h" />
+    <ClInclude Include="src\tintaCommon.h" />
+    <ClInclude Include="src\tintaConnectionEvents.h" />
+    <ClInclude Include="src\tintaControls.h" />
+    <ClInclude Include="src\tintaConsoleOutput.h" />
+    <ClInclude Include="src\tintaDispatcher.h" />
+    <ClInclude Include="src\tintaException.h" />
+    <ClInclude Include="src\tintaExtreme.h" />
+    <ClInclude Include="src\tintaGeomFuncs.h" />
+    <ClInclude Include="src\tintaCoord2.h" />
+    <ClInclude Include="src\tintaIImgCodec.h" />
+    <ClInclude Include="src\tintaObserved.h" />
+    <ClInclude Include="src\tintaISendEvents.h" />
+    <ClInclude Include="src\tintaISerialisable.h" />
+    <ClInclude Include="src\tintaISerialisableSet.h" />
+    <ClInclude Include="src\tintaScriptContext.h" />
+    <ClInclude Include="src\tintaMemoryAllocator.h" />
+    <ClInclude Include="src\MemTracker.h" />
+    <ClInclude Include="src\tintaObjContainer.h" />
+    <ClInclude Include="src\tintaObjCreator.h" />
+    <ClInclude Include="src\tintaOSHeaders.h" />
+    <ClInclude Include="src\tintaProcessQueue.h" />
+    <ClInclude Include="src\tintaScriptFunc.h" />
+    <ClInclude Include="src\tintaSignalHandler.h" />
+    <ClInclude Include="src\tintaStdHeaders.h" />
+    <ClInclude Include="src\tintaThread.h" />
+    <ClInclude Include="src\tintaThreadPool.h" />
+    <ClInclude Include="src\tintaTimer.h" />
+    <ClInclude Include="src\nedmalloc\malloc.c.h" />
+    <ClInclude Include="src\nedmalloc\nedmalloc.h" />
+    <ClInclude Include="src\tintaPlatform.h" />
+    <ClInclude Include="src\tintaPredefine.h" />
+    <ClInclude Include="src\tintaSingleton.h" />
+    <ClInclude Include="src\tintaTreeConfig\tintaConfNode.h" />
+    <ClInclude Include="src\tintaTreeConfig\tintaTreeConfig.h" />
+    <ClInclude Include="src\tintaUtilLocalEn.h" />
+    <ClInclude Include="src\tintaUtilLocalRu.h" />
+    <ClInclude Include="src\utf8.h" />
+    <ClInclude Include="src\utf8\checked.h" />
+    <ClInclude Include="src\utf8\core.h" />
+    <ClInclude Include="src\utf8\unchecked.h" />
+    <ClInclude Include="src\zlib\crc32.h" />
+    <ClInclude Include="src\zlib\deflate.h" />
+    <ClInclude Include="src\zlib\gzguts.h" />
+    <ClInclude Include="src\zlib\inffast.h" />
+    <ClInclude Include="src\zlib\inffixed.h" />
+    <ClInclude Include="src\zlib\inflate.h" />
+    <ClInclude Include="src\zlib\inftrees.h" />
+    <ClInclude Include="src\zlib\trees.h" />
+    <ClInclude Include="src\zlib\zconf.h" />
+    <ClInclude Include="src\zlib\zlib.h" />
+    <ClInclude Include="src\zlib\zutil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\libpng\ANNOUNCE" />
+    <None Include="src\libpng\CHANGES" />
+    <None Include="src\libpng\configure" />
+    <None Include="src\libpng\INSTALL" />
+    <None Include="src\libpng\libpng-1.4.0-manual.pdf" />
+    <None Include="src\libpng\libpng-config.in" />
+    <None Include="src\libpng\libpng.3" />
+    <None Include="src\libpng\libpng.pc.in" />
+    <None Include="src\libpng\libpngpf.3" />
+    <None Include="src\libpng\LICENSE" />
+    <None Include="src\libpng\png.5" />
+    <None Include="src\libpng\README" />
+    <None Include="src\libpng\TODO" />
+    <None Include="src\lua\Makefile" />
+    <None Include="src\zlib\ChangeLog" />
+    <None Include="src\zlib\configure" />
+    <None Include="src\zlib\FAQ" />
+    <None Include="src\zlib\INDEX" />
+    <None Include="src\zlib\Makefile" />
+    <None Include="src\zlib\Makefile.in" />
+    <None Include="src\zlib\README" />
+    <None Include="src\zlib\zconf.h.cmakein" />
+    <None Include="src\zlib\zconf.h.in" />
+    <None Include="src\zlib\zlib.3" />
+    <None Include="src\zlib\zlib.3.pdf" />
+    <None Include="src\zlib\zlib.map" />
+    <None Include="src\zlib\zlib.pc.cmakein" />
+    <None Include="src\zlib\zlib.pc.in" />
+    <None Include="src\zlib\zlib2ansi" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\libpng\CMakeLists.txt" />
+    <Text Include="src\libpng\libpng-manual.txt" />
+    <Text Include="src\zlib\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\libpng\pngbar.jpg" />
+    <Image Include="src\libpng\pngbar.png" />
+    <Image Include="src\libpng\pngnow.png" />
+    <Image Include="src\libpng\pngtest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="src\zlib\treebuild.xml" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>tintaCommon</ProjectName>
+    <ProjectGuid>{4906D2D6-63C9-40CC-BF64-951CF4EFA004}</ProjectGuid>
+    <RootNamespace>tintaCommon</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\bin\Debug\</OutDir>
+    <IntDir>..\lib\Debug\tintaCommon\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\bin\Release\</OutDir>
+    <IntDir>..\lib\Release\tintaCommon\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|x64'">
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>c:\boost_1_70_0;src;src/zlib;src/OCL;..;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;TINTA_LIB;STATIC_LIB;LUA_COMPAT_ALL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader />
+      <ObjectFileName>../lib/Debug/tintaCommon/</ObjectFileName>
+      <ProgramDataBaseFileName>../lib/Debug/tintaCommon/</ProgramDataBaseFileName>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <UseUnicodeResponseFiles>false</UseUnicodeResponseFiles>
+      <AdditionalDependencies />
+      <OutputFile>../lib/Debug/tintaCommon.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>c:\boost_1_70_0;..;src;src/zlib;src/OCL;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v6.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_WINDOWS;TINTA_LIB;TIXML_USE_STL;STATIC_LIB;LUA_COMPAT_ALL;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <AssemblerListingLocation>../lib/Release/tintaCommon/</AssemblerListingLocation>
+      <ObjectFileName>../lib/Release/tintaCommon/</ObjectFileName>
+      <ProgramDataBaseFileName>../lib/Release/tintaCommon/</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4100;4127;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib>
+      <UseUnicodeResponseFiles>false</UseUnicodeResponseFiles>
+      <OutputFile>../lib/Release/tintaCommon.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../molyBuild;../molyCommon/Src;Src/Math;Src/Win32;../molyLuaLib/Src;Src/nedmalloc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;CORE_NONCLIENT_BUILD;TIXML_USE_STL;CORE_STATIC_LIB;LUA_COMPAT_ALL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <UseUnicodeResponseFiles>false</UseUnicodeResponseFiles>
+      <AdditionalDependencies />
+      <OutputFile>../lib/Debug/tintaCommon_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../molyBuild;../molyCommon/Src;Src/Math;Src/Win32;../molyLuaLib/Src;Src/nedmalloc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;CORE_NONCLIENT_BUILD;TIXML_USE_STL;CORE_STATIC_LIB;LUA_COMPAT_ALL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <UseUnicodeResponseFiles>false</UseUnicodeResponseFiles>
+      <AdditionalDependencies />
+      <OutputFile>../lib/Debug/tintaCommon_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>../../molyBuild;../molyCommon/Src;Src/Math;Src/Win32;../molyLuaLib/Src;Src/nedmalloc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_WINDOWS;CORE_NONCLIENT_BUILD;TIXML_USE_STL;CORE_STATIC_LIB;LUA_COMPAT_ALL;BOOST_ALL_NO_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <UseUnicodeResponseFiles>false</UseUnicodeResponseFiles>
+      <OutputFile>../lib/Release/tintaCommon.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../../molyBuild;../molyCommon/Src;Src/Math;Src/Win32;../molyLuaLib/Src;Src/nedmalloc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;CORE_NONCLIENT_BUILD;TIXML_USE_STL;CORE_STATIC_LIB;LUA_COMPAT_ALL;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <UseUnicodeResponseFiles>false</UseUnicodeResponseFiles>
+      <AdditionalDependencies />
+      <OutputFile>../lib/Debug/tintaCommon_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

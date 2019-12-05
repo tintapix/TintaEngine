@@ -1,0 +1,1079 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{e861e00c-ed72-4a6d-bfd1-48b69ac9e607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\BoostAsioInteract">
+      <UniqueIdentifier>{2bf15dc8-4050-4720-a139-61cd27aaa0c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ImageCodecs">
+      <UniqueIdentifier>{449ae867-49a4-4d48-8f44-e5f6f123cc76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\libjpeg">
+      <UniqueIdentifier>{45779151-6ec0-441f-a19c-91bdd143edb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\libpng">
+      <UniqueIdentifier>{a58ecbb4-df11-4766-9b27-e6c807fc90c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\lua">
+      <UniqueIdentifier>{efefcf89-c218-4f90-ab37-4a1ac7335ab3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Math">
+      <UniqueIdentifier>{73a05951-8576-49a5-8bb4-040b32cf8d68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\nedmalloc">
+      <UniqueIdentifier>{baffc82c-300f-49c4-96bb-8fb2c2aae822}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\zlib">
+      <UniqueIdentifier>{a9112547-05c8-447a-b177-060bd83df623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\tintaTreeConfig">
+      <UniqueIdentifier>{e29bdfbd-8d3e-4e03-90d3-dd885b5cf8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utf8">
+      <UniqueIdentifier>{2927f005-24b9-4a50-81d2-619534e3ae1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\OCL">
+      <UniqueIdentifier>{a612356f-8765-4454-a6cf-eb652f8e42a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Crypto">
+      <UniqueIdentifier>{1fe4ed0b-5ed4-4899-b81b-12affd66d089}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\libjpeg\jcapimin.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcapistd.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jccoefct.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jccolor.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcdctmgr.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jchuff.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcinit.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcmainct.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcmarker.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcmaster.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcomapi.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcparam.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcphuff.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcprepct.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jcsample.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jctrans.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdapimin.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdapistd.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdatadst.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdatasrc.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdcoefct.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdcolor.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jddctmgr.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdhuff.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdinput.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdmainct.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdmarker.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdmaster.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdmerge.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdphuff.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdpostct.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdsample.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jdtrans.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jerror.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jfdctflt.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jfdctfst.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jfdctint.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jidctflt.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jidctfst.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jidctint.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jidctred.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jmemansi.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jmemmgr.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jmemname.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jmemnobs.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jquant1.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jquant2.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libjpeg\jutils.c">
+      <Filter>src\libjpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\example.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\png.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngerror.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngget.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngmem.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngpread.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngread.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngrio.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngrtran.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngrutil.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngset.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngtest.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngtrans.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngwio.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngwrite.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngwtran.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\libpng\pngwutil.c">
+      <Filter>src\libpng</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lapi.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lauxlib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lbaselib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lbitlib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lcode.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lcorolib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lctype.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\ldblib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\ldebug.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\ldo.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\ldump.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lfunc.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lgc.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\linit.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\liolib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\llex.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lmathlib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lmem.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\loadlib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lobject.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lopcodes.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\loslib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lparser.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lstate.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lstring.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lstrlib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\ltable.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\ltablib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\ltm.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lua.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\luac.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lundump.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lutf8lib.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lvm.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lua\lzio.c">
+      <Filter>src\lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nedmalloc\nedmalloc.c">
+      <Filter>src\nedmalloc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\adler32.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\compress.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\crc32.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\deflate.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\gzclose.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\gzlib.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\gzread.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\gzwrite.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\infback.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\inffast.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\inflate.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\inftrees.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\trees.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\uncompr.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\zlib\zutil.c">
+      <Filter>src\zlib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaLogger.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaScriptContext.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaTreeConfig\tintaConfNode.cpp">
+      <Filter>src\tintaTreeConfig</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaTreeConfig\tintaTreeConfig.cpp">
+      <Filter>src\tintaTreeConfig</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BoostAsioInteract\tintaServedPool.cpp">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BoostAsioInteract\tintaInteractFunction.cpp">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BoostAsioInteract\tintaPacket.cpp">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\tintaCatRomSpline.cpp">
+      <Filter>src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\tintaMatrix33.cpp">
+      <Filter>src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\tintaMatrix44.cpp">
+      <Filter>src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\tintaQuatern.cpp">
+      <Filter>src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\tintaVector2.cpp">
+      <Filter>src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\tintaVector3.cpp">
+      <Filter>src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Math\tintaVector4.cpp">
+      <Filter>src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BoostAsioInteract\tintaInteractPool.cpp">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BoostAsioInteract\tintaAsioClientImpl.cpp">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BoostAsioInteract\tintaAsioInteract.cpp">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaAsyncTimer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImageCodecs\tintaJpgImgCodec.cpp">
+      <Filter>src\ImageCodecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImageCodecs\tintaPngImgCodec.cpp">
+      <Filter>src\ImageCodecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaBufferIO.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaCommFunc.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaCommon.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaException.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaIImgCodec.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaMemoryAllocator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemTracker.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaProcessQueue.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaSignalHandler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaThreadPool.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaTimer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaControls.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaFont.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaImageFont.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaUInt8Image.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaUInt8ImageSeamless.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaArrayBox.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaBoxContainer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OCL\tintaBox2dProgram.cpp">
+      <Filter>src\OCL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OCL\tintaClBaseImpl.cpp">
+      <Filter>src\OCL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OCL\tintaClObjectContainer.cpp">
+      <Filter>src\OCL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OCL\tintaGPUExt.cpp">
+      <Filter>src\OCL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Crypto\tintaAes256.cpp">
+      <Filter>src\Crypto</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\libjpeg\cderror.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\cdjpeg.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jchuff.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jconfig.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jdct.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jdhuff.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jerror.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jinclude.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jmemsys.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jmorecfg.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jpegint.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jpeglib.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\jversion.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libjpeg\transupp.h">
+      <Filter>src\libjpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libpng\png.h">
+      <Filter>src\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libpng\pngconf.h">
+      <Filter>src\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libpng\pngdebug.h">
+      <Filter>src\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libpng\pnginfo.h">
+      <Filter>src\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libpng\pnglibconf.h">
+      <Filter>src\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libpng\pngpriv.h">
+      <Filter>src\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\libpng\pngstruct.h">
+      <Filter>src\libpng</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lapi.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lauxlib.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lcode.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lctype.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\ldebug.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\ldo.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lfunc.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lgc.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\llex.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\llimits.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lmem.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lobject.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lopcodes.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lparser.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lprefix.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lstate.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lstring.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\ltable.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\ltm.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lua.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lua.hpp">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\luaconf.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lualib.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lundump.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lvm.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\lua\lzio.h">
+      <Filter>src\lua</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nedmalloc\malloc.c.h">
+      <Filter>src\nedmalloc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nedmalloc\nedmalloc.h">
+      <Filter>src\nedmalloc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\crc32.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\deflate.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\gzguts.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\inffast.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\inffixed.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\inflate.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\inftrees.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\trees.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\zconf.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\zlib.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\zlib\zutil.h">
+      <Filter>src\zlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaLogger.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaPlatform.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaPredefine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaSingleton.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaServedPool.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaScriptContext.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaTreeConfig\tintaConfNode.h">
+      <Filter>src\tintaTreeConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaTreeConfig\tintaTreeConfig.h">
+      <Filter>src\tintaTreeConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaIInteracted.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaInteractFunction.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaIHandlerFactory.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaInteractHandler.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaPacket.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaAxisAlignedBox.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaBox3.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaCatRomSpline.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaCommonMath.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaMatrix33.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaMatrix44.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaQuatern.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaSphere3.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaVector2.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaVector3.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Math\tintaVector4.h">
+      <Filter>src\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaInteractPool.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaAsioClient.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaAsioClientImpl.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BoostAsioInteract\tintaAsioInteract.h">
+      <Filter>src\BoostAsioInteract</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaAsyncTimer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaUtilLocalEn.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaUtilLocalRu.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaThread.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaObserved.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaArray2d.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImageCodecs\tintaJpgImgCodec.h">
+      <Filter>src\ImageCodecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImageCodecs\tintaPngImgCodec.h">
+      <Filter>src\ImageCodecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaBufferIO.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaCommFunc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaCommon.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaConnectionEvents.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaDispatcher.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaException.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaExtreme.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGeomFuncs.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaCoord2.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaIImgCodec.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaISendEvents.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaISerialisable.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaISerialisableSet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaMemoryAllocator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MemTracker.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaObjContainer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaObjCreator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaOSHeaders.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaPixel.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaProcessQueue.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaScriptFunc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaSignalHandler.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaStdHeaders.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaThreadPool.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaTimer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaConsoleOutput.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaControls.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utf8\checked.h">
+      <Filter>src\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utf8\core.h">
+      <Filter>src\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utf8\unchecked.h">
+      <Filter>src\utf8</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utf8.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaFont.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaFontFactory.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaFactoryObj.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaImageFactory.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaImageFont.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaUInt8Image.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaUInt8ImageSeamless.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaArrayBox.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaArrayBoxFactory.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaBoxContainer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OCL\tintaBox2dProgram.h">
+      <Filter>src\OCL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OCL\tintaClBaseImpl.h">
+      <Filter>src\OCL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OCL\tintaCLConfig.h">
+      <Filter>src\OCL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OCL\tintaClObjectContainer.h">
+      <Filter>src\OCL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OCL\tintaGPUExt.h">
+      <Filter>src\OCL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OCL\tintaIClBase.h">
+      <Filter>src\OCL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OCL\tintaLibsConfig.h">
+      <Filter>src\OCL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Crypto\tintaAes256.h">
+      <Filter>src\Crypto</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\libpng\ANNOUNCE">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\CHANGES">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\configure">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\INSTALL">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\libpng.3">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\libpng.pc.in">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\libpng-1.4.0-manual.pdf">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\libpng-config.in">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\libpngpf.3">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\LICENSE">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\png.5">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\README">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\libpng\TODO">
+      <Filter>src\libpng</Filter>
+    </None>
+    <None Include="src\lua\Makefile">
+      <Filter>src\lua</Filter>
+    </None>
+    <None Include="src\zlib\ChangeLog">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\configure">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\FAQ">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\INDEX">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\Makefile">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\Makefile.in">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\README">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\zconf.h.cmakein">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\zconf.h.in">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\zlib.3">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\zlib.3.pdf">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\zlib.map">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\zlib.pc.cmakein">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\zlib.pc.in">
+      <Filter>src\zlib</Filter>
+    </None>
+    <None Include="src\zlib\zlib2ansi">
+      <Filter>src\zlib</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\libpng\CMakeLists.txt">
+      <Filter>src\libpng</Filter>
+    </Text>
+    <Text Include="src\libpng\libpng-manual.txt">
+      <Filter>src\libpng</Filter>
+    </Text>
+    <Text Include="src\zlib\CMakeLists.txt">
+      <Filter>src\zlib</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\libpng\pngbar.jpg">
+      <Filter>src\libpng</Filter>
+    </Image>
+    <Image Include="src\libpng\pngbar.png">
+      <Filter>src\libpng</Filter>
+    </Image>
+    <Image Include="src\libpng\pngnow.png">
+      <Filter>src\libpng</Filter>
+    </Image>
+    <Image Include="src\libpng\pngtest.png">
+      <Filter>src\libpng</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="src\zlib\treebuild.xml">
+      <Filter>src\zlib</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>

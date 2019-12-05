@@ -1,0 +1,7 @@
+tintaCommon library
+- BoostAsioInteract: boost asio TCP wrapper
+- Crypto: crypto aes256 algorithms
+- ImageCodecs: codec wrapper for png and jpeg 
+- Math: math functions and algorithms
+- OCL: openCL wrapper
+- tintaTreeConfig: tintaTree configuration file parser
