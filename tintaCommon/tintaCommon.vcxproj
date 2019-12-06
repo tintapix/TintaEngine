@@ -108,6 +108,7 @@
     <ClCompile Include="src\tintaArrayBox.cpp" />
     <ClCompile Include="src\tintaBoxContainer.cpp" />
     <ClCompile Include="src\tintaFont.cpp" />
+    <ClCompile Include="src\tintaHermSpline.cpp" />
     <ClCompile Include="src\tintaImageFont.cpp" />
     <ClCompile Include="src\tintaUInt8Image.cpp" />
     <ClCompile Include="src\tintaUInt8ImageSeamless.cpp" />
@@ -235,6 +236,7 @@
     <ClInclude Include="src\tintaFactoryObj.h" />
     <ClInclude Include="src\tintaFont.h" />
     <ClInclude Include="src\tintaFontFactory.h" />
+    <ClInclude Include="src\tintaHermSpline.h" />
     <ClInclude Include="src\tintaImageFactory.h" />
     <ClInclude Include="src\tintaImageFont.h" />
     <ClInclude Include="src\tintaPixel.h" />

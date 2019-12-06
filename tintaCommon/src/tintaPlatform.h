@@ -9,6 +9,11 @@
 
 namespace Tinta {
 
+
+ // byte order
+#define CORE_ENDIAN_LITTLE 0
+#define CORE_ENDIAN_BIG 1
+
 #define CORE_PLATFORM_WIN32 1
 #define CORE_PLATFORM_LINUX 2
 

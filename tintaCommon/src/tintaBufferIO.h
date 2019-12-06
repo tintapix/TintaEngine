@@ -57,7 +57,7 @@ namespace Tinta {
     template< class T >
     size_t StringPackSize(const T &v){
         // size = data_length + char_size + data_size + \0
-        return sizeof(m_uint32) + sizeof(m_byte) + v.length()*sizeof(char_m) + sizeof(char_m);
+        return sizeof(m_uint32) + sizeof(m_uint8) + v.length()*sizeof(char_m) + sizeof(char_m);
     }
 
     /*
@@ -68,7 +68,7 @@ namespace Tinta {
         size_t offset = iCurOffset;
         // data_length = length * char_size + terminating_symbol
         offset = WriteToBuffer<m_uint32>( pBuffer, offset, str.length() * sizeof(T) + sizeof(T) ); // total length
-        offset = WriteToBuffer<m_byte>(pBuffer, offset, sizeof(T)); // char size
+        offset = WriteToBuffer<m_uint8>(pBuffer, offset, sizeof(T)); // char size
         for (size_t c = 0; c < str.length(); c++){
             offset = WriteToBuffer<T>(pBuffer, offset, str[c]);
         }

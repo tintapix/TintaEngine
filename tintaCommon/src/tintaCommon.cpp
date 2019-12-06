@@ -458,7 +458,7 @@ namespace Tinta {
 	}
 
 
-	m_uint32	packColor3( m_byte r, m_byte g, m_byte b ) {
+	m_uint32	packColor3( m_uint8 r, m_uint8 g, m_uint8 b ) {
 
 
 #if CORE_ENDIAN == CORE_ENDIAN_BIG //RGB
@@ -469,7 +469,7 @@ namespace Tinta {
 		
 	}
 
-    m_uint32	packColor4(m_byte r, m_byte g, m_byte b, m_byte a) {
+    m_uint32	packColor4(m_uint8 r, m_uint8 g, m_uint8 b, m_uint8 a) {
 
 
 #if CORE_ENDIAN == CORE_ENDIAN_BIG //RGB
@@ -480,7 +480,7 @@ namespace Tinta {
 
     }
 
-	void	unpackColor3( const m_uint32 color, m_byte &r, m_byte &g, m_byte &b ) {
+	void	unpackColor3( const m_uint32 color, m_uint8 &r, m_uint8 &g, m_uint8 &b ) {
 
 #if CORE_ENDIAN == CORE_ENDIAN_BIG
 		r =  ( ( color >> 0 ) & 255 );
@@ -494,7 +494,7 @@ namespace Tinta {
 
 	}
 
-    void	unpackColor4(const m_uint32 color, m_byte &r, m_byte &g, m_byte &b, m_byte &a) {
+    void	unpackColor4(const m_uint32 color, m_uint8 &r, m_uint8 &g, m_uint8 &b, m_uint8 &a) {
 
 #if CORE_ENDIAN == CORE_ENDIAN_BIG
         r = ((color >> 0) & 255);
@@ -1067,7 +1067,7 @@ bool createProcess(const String &path_to_process, char_m *params) {
 #if CORE_ENDIAN == CORE_ENDIAN_LITTLE
 #  define GET16BITS(d) (*((const m_uint16 *) (d)))
 #else
-	// Cast to m_uint16 in little endian means first m_byte is least significant
+	// Cast to m_uint16 in little endian means first m_uint8 is least significant
 	// replicate that here
 #  define GET16BITS(d) (*((const uint8 *) (d)) + (*((const uint8 *) (d+1))<<8))
 #endif

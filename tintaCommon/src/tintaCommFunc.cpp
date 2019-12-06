@@ -249,7 +249,7 @@ namespace  Tinta {
                 return 0;
             }
 
-            m_byte rez = floatToByte(GET_VAL_FLOAT(L, 1));
+            m_uint8 rez = floatToByte(GET_VAL_FLOAT(L, 1));
             PUSH_INT_ARG(L, (int)rez); // return value
 
             return 1;
@@ -543,9 +543,9 @@ namespace  Tinta {
         int packcolor(SCRIPT_STATE *L){
             
 
-            m_byte rv = GET_VAL_UBYTE(L, 1);
-            m_byte gv = GET_VAL_UBYTE(L, 2);
-            m_byte bv = GET_VAL_UBYTE(L, 3);
+            m_uint8 rv = GET_VAL_UBYTE(L, 1);
+            m_uint8 gv = GET_VAL_UBYTE(L, 2);
+            m_uint8 bv = GET_VAL_UBYTE(L, 3);
 
             //const tintaVector3f &color
             m_uint32 r = packColor3(rv, gv, bv);
@@ -568,7 +568,7 @@ namespace  Tinta {
 
             m_uint32 v = GET_VAL_UINT(L, 1);
 
-            m_byte r(0), g(0), b(0);
+            m_uint8 r(0), g(0), b(0);
 
             //const tintaVector3f &color
             unpackColor3(v, r, g, b);

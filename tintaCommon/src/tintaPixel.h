@@ -103,9 +103,9 @@ protected:
 
 };
 
-    typedef tintaPixel<u8bitCh_t, ImgChannels_4> tintaPixel24b;
+    typedef tintaPixel<m_uint8, ImgChannels_4> tintaPixel24b;
     // with luminance
-    typedef tintaPixel<u8bitCh_t, ImgChannels_5> tintaPixel32b;
+    typedef tintaPixel<m_uint8, ImgChannels_5> tintaPixel32b;
 }
 
 #endif

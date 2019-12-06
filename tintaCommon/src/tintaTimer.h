@@ -18,7 +18,7 @@ private:
 
 public:
 	tintaTimer(void);
-	~tintaTimer(void);
+	virtual ~tintaTimer(void);
 	
 	void reset();	
     m_uint32 getMilliseconds();

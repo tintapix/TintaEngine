@@ -519,6 +519,9 @@
     <ClCompile Include="src\Crypto\tintaAes256.cpp">
       <Filter>src\Crypto</Filter>
     </ClCompile>
+    <ClCompile Include="src\tintaHermSpline.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\libjpeg\cderror.h">
@@ -955,6 +958,9 @@
     </ClInclude>
     <ClInclude Include="src\Crypto\tintaAes256.h">
       <Filter>src\Crypto</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaHermSpline.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

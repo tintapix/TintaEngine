@@ -19,7 +19,7 @@ namespace Tinta {
  typedef       color_type* pixelp_t;
  typedef       const color_type* pixelcp_t;
  typedef const color_type* pixelcp_t;
- typedef tintaArray2d<m_byte, sizetype_t> tintaArray2dImage_t;
+ typedef tintaArray2d<m_uint8, sizetype_t> tintaArray2dImage_t;
 
 class _CoreExport tintaUInt8Image 
 	: public AllocatedObjectImage	
@@ -67,19 +67,19 @@ virtual bool		setPixel(m_uint32 linear_index, const color_type &new_value);
 
 virtual bool		setPixel(const coord2dI_t& coord, const color_type &new_value);
 
-virtual bool		setChannel(const coord2dI_t& coord, int ch, u8bitCh_t value);
+virtual bool		setChannel(const coord2dI_t& coord, int ch, m_uint8 value);
 
-virtual bool		setChannel(m_uint32 linear_index, int ch, u8bitCh_t value);
+virtual bool		setChannel(m_uint32 linear_index, int ch, m_uint8 value);
 
-virtual u8bitCh_t	getChannel(m_uint32 linear_index, int ch) const;
+virtual m_uint8	getChannel(m_uint32 linear_index, int ch) const;
 
 virtual bool		setPixelAlpha(const coord2dI_t& coord, m_float32 in_value);
 
 virtual bool		setPixelAlpha(m_uint32 index, m_float32 in_value);
 
-virtual bool		setPixelAlpha(const coord2dI_t& coord, u8bitCh_t in_value);
+virtual bool		setPixelAlpha(const coord2dI_t& coord, m_uint8 in_value);
 
-virtual bool		setPixelAlpha(m_uint32 index, u8bitCh_t in_value);
+virtual bool		setPixelAlpha(m_uint32 index, m_uint8 in_value);
 
 virtual const void *getMemPtr();
 

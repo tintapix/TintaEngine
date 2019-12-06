@@ -27,11 +27,8 @@ public:
 	};
 	tintaArrayBox( void );
 
-	//tintaArrayBox( const tintaArrayBox &rVal );
 
-	virtual ~tintaArrayBox( void );
-
-	
+	virtual ~tintaArrayBox( void );	
 	
 	virtual const tintaArray2dFloat_t	   *getFloatBox() const;
 

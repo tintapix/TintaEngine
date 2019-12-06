@@ -46,10 +46,10 @@ namespace Tinta {
 		/*
             Assigns the value. Size of pixel depends of mChanneltype  parameter
         */
-        bool setPixel(m_uint32 x, m_uint32 y, const m_byte *pixel);
+        bool setPixel(m_uint32 x, m_uint32 y, const m_uint8 *pixel);
 
 
-        bool writeData( const m_byte *data);
+        bool writeData( const m_uint8 *data);
 		/*
             Saves image data in to the file
         */
@@ -70,9 +70,9 @@ namespace Tinta {
         */
 		unsigned getHeight() const;		
 		
-        bool getPixel(m_uint32 x_coord, m_uint32 y_coord, m_byte *pixel) const;
+        bool getPixel(m_uint32 x_coord, m_uint32 y_coord, m_uint8 *pixel) const;
 
-        bool getPixel(m_uint32 pos, m_byte *pixel) const;
+        bool getPixel(m_uint32 pos, m_uint8 *pixel) const;
 		
 		tintaJpgImgCodec& operator=(const tintaJpgImgCodec& rVal); 
 
@@ -90,7 +90,7 @@ namespace Tinta {
         m_uint32 		mWidth;        
        
         bool 			mOpened;
-        m_byte * mData;		
+        m_uint8 * mData;		
 	};
 
 }

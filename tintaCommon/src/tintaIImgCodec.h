@@ -50,9 +50,9 @@ namespace Tinta {
 		virtual bool getAttribs(int attribs [5]) = 0;
 		
 		///set value to the pixel. Size of pixel depends of channelByte  parameter
-        virtual bool setPixel(m_uint32 xCoord, m_uint32 yCoord, const m_byte *pixel) = 0;
+        virtual bool setPixel(m_uint32 xCoord, m_uint32 yCoord, const m_uint8 *pixel) = 0;
 
-        virtual bool writeData(const m_byte *data) = 0;
+        virtual bool writeData(const m_uint8 *data) = 0;
 		/// saving image to the file
 		virtual bool saveImage(const String &image_path) = 0;
 		/// if image selected return value > 0  
@@ -61,11 +61,11 @@ namespace Tinta {
 		/// if image selected return value > 0  
         virtual m_uint32 getHeight() const = 0;
 
-		//virtual void getImage( m_byte *image ) = 0;
+		//virtual void getImage( m_uint8 *image ) = 0;
 
-        virtual bool getPixel(m_uint32 x_coord, m_uint32 y_coord, m_byte *pixel) const = 0;
+        virtual bool getPixel(m_uint32 x_coord, m_uint32 y_coord, m_uint8 *pixel) const = 0;
 
-        virtual bool getPixel(m_uint32 pos, m_byte *pixel) const = 0;
+        virtual bool getPixel(m_uint32 pos, m_uint8 *pixel) const = 0;
 		
 
         virtual EnImagesTypes getType() {

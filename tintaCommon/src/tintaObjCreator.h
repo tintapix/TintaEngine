@@ -16,10 +16,9 @@ namespace Tinta {
         typedef typename std::map< StringBasic, TFactory* >::const_iterator ObjFactories_cit;
         typedef typename std::map<StringBasic, TFactory*>::value_type ObjFactories_val;
 
-
-
         tintaObjCreator(void){}
-        ~tintaObjCreator(void){}
+
+        virtual ~tintaObjCreator(void){}
 
         bool registerFactory(TFactory *objFact){
 

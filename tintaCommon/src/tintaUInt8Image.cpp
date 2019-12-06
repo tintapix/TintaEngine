@@ -47,7 +47,7 @@ namespace Tinta
         color_type pix = { 0,0,0,255 };
         int begin = index * mChannels;
         for ( auto i = 0; i < mChannels; i++ ) {
-            pix.setVal((m_byte)i, mData.at(begin + i ) );
+            pix.setVal((m_uint8)i, mData.at(begin + i ) );
         }
 
         return pix;
@@ -61,7 +61,7 @@ namespace Tinta
         color_type pix = { 0,0,0,255 };
         size_t begin = index * mChannels;
         for (auto i = 0; i < mChannels; i++) {
-            pix.setVal((m_byte)i, mData.at(begin + i));
+            pix.setVal((m_uint8)i, mData.at(begin + i));
         }
 
         return pix;
@@ -123,12 +123,12 @@ namespace Tinta
 
         size_t begin = linear_index * mChannels;
         for (auto i = 0; i < mChannels; i++) {
-            mData.at(begin + i) = new_value.getVal((m_byte)i);
+            mData.at(begin + i) = new_value.getVal((m_uint8)i);
         }
         return true;
     }
 
-    bool tintaUInt8Image::setChannel(const coord2dI_t& coord, int ch, u8bitCh_t value) {
+    bool tintaUInt8Image::setChannel(const coord2dI_t& coord, int ch, m_uint8 value) {
 
         int index = toIndex(coord);
 
@@ -141,7 +141,7 @@ namespace Tinta
         return true;
     }
 
-    bool tintaUInt8Image::setChannel(m_uint32 linear_index, int ch, u8bitCh_t value) {
+    bool tintaUInt8Image::setChannel(m_uint32 linear_index, int ch, m_uint8 value) {
 
         if (!validPos(linear_index) || mChannels <= ch )
             return false;
@@ -189,7 +189,7 @@ namespace Tinta
                 m_uint32 wg = mImgWidth;
                 m_uint32 hg = mImgHeight;
 
-                m_byte vals[4] = { 0, 0, 0, 255 };
+                m_uint8 vals[4] = { 0, 0, 0, 255 };
                 for (m_uint32 h = 0; h < hg; h++) {
                     for (m_uint32 w = 0; w < wg; w++) {
                         imgFile->getPixel(w, h, vals);
@@ -219,7 +219,7 @@ namespace Tinta
                   
                     color_type pixel_src = getPixel(coord2dI_t(x, y));
 
-                    m_byte pixel[4] = {0,0,0,255};
+                    m_uint8 pixel[4] = {0,0,0,255};
 
                     pixel[0] = pixel_src.getVal(0);
                     pixel[1] = pixel_src.getVal(1);
@@ -258,14 +258,14 @@ namespace Tinta
             color_type color_new = pix;
             color_type color_origin = getPixel(coord);
 
-            u8bitCh_t a = pix.getVal(3);
+            m_uint8 a = pix.getVal(3);
 
             /// aditional factor
             m_float32 af = byteToFloat(a) * alphaFact;
 
-            color_new.setVal(0, (u8bitCh_t)(color_origin.getVal(0) * (1 - af) + color_new.getVal(0) * af));
-            color_new.setVal(1, (u8bitCh_t)(color_origin.getVal(1) * (1 - af) + color_new.getVal(1) * af));
-            color_new.setVal(2, (u8bitCh_t)(color_origin.getVal(2) * (1 - af) + color_new.getVal(2) * af));
+            color_new.setVal(0, (m_uint8)(color_origin.getVal(0) * (1 - af) + color_new.getVal(0) * af));
+            color_new.setVal(1, (m_uint8)(color_origin.getVal(1) * (1 - af) + color_new.getVal(1) * af));
+            color_new.setVal(2, (m_uint8)(color_origin.getVal(2) * (1 - af) + color_new.getVal(2) * af));
             // alpha is origin always
             color_new.setVal(3, color_origin.getVal(3));
 
@@ -298,7 +298,7 @@ namespace Tinta
             /// additional factor
             m_float32 alphaf = byteToFloat(color_origin.getVal(3)) * alphaFact;
 
-            color_new.setVal(3, (u8bitCh_t)((color_new.getVal(3) * (1 - alphaf) + color_new.getVal(3) * alphaf) * alphaFact));
+            color_new.setVal(3, (m_uint8)((color_new.getVal(3) * (1 - alphaf) + color_new.getVal(3) * alphaf) * alphaFact));
 
             setPixel(coord, color_new);
         }
@@ -339,7 +339,7 @@ namespace Tinta
         return true;
     }
 
-    bool tintaUInt8Image::setPixelAlpha(const coord2dI_t& coord, u8bitCh_t in_value)
+    bool tintaUInt8Image::setPixelAlpha(const coord2dI_t& coord, m_uint8 in_value)
     {
         return setChannel(coord, 3, in_value);
         //pixelp_t pixel = tintaUInt8Image::getPixelPtr(index);
@@ -348,7 +348,7 @@ namespace Tinta
 
     }
 
-    bool tintaUInt8Image::setPixelAlpha(m_uint32 index, u8bitCh_t in_value) {
+    bool tintaUInt8Image::setPixelAlpha(m_uint32 index, m_uint8 in_value) {
 
         return setChannel(index, 3, in_value);
 
@@ -420,7 +420,7 @@ namespace Tinta
         //scaleBox( newW, newH );
     }
 
-    u8bitCh_t		tintaUInt8Image::getChannel( m_uint32 linear_index, int ch ) const {
+    m_uint8		tintaUInt8Image::getChannel( m_uint32 linear_index, int ch ) const {
         color_type pixel = getPixel(linear_index);
         return pixel.getVal(3);
     }
@@ -441,11 +441,11 @@ namespace Tinta
         iCurOffset = WriteToBuffer<sizetype_t>(data, iCurOffset, height());
 
        
-        const m_byte* dataPtr = getPtr( elements );
+        const m_uint8* dataPtr = getPtr( elements );
         //iCurOffset = WriteToBuffer<sizetype_t>( data, iCurOffset,   sizeData );	
-        mlMemcpy(data + iCurOffset, elements * sizeof(m_byte), dataPtr, elements * sizeof(m_byte));
+        mlMemcpy(data + iCurOffset, elements * sizeof(m_uint8), dataPtr, elements * sizeof(m_uint8));
         */
-        return iCurOffset + elements * sizeof(m_byte);
+        return iCurOffset + elements * sizeof(m_uint8);
 
     }
 
@@ -467,11 +467,11 @@ namespace Tinta
             return iCurOffset;
 
         size_t elements = 0;
-        m_byte* dataPtr = getPtr(elements);
+        m_uint8* dataPtr = getPtr(elements);
         //size_t s = sizeof(color_type);
-        mlMemcpy(dataPtr, elements * sizeof(m_byte), data + iCurOffset, elements * sizeof(m_byte));
+        mlMemcpy(dataPtr, elements * sizeof(m_uint8), data + iCurOffset, elements * sizeof(m_uint8));
         */
-        return iCurOffset + elements * sizeof(m_byte);
+        return iCurOffset + elements * sizeof(m_uint8);
     }
 
     const StringBasic& tintaUInt8Image::getName() const {

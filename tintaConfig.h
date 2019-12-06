@@ -14,8 +14,15 @@
 #define TINTA_PIX_COPYRIGNT "Tintapix(c) 2019"
 
 
+/*
+if the message has priority > LOG_LEVEL it will be logged
 
-// 
+0 debug mode		        
+1 EXCEPTIONs and etc.
+2 script executing errors        
+3 system messages
+4 trivial messages
+*/
 #define LOG_LEVEL 0
 
 // local setup

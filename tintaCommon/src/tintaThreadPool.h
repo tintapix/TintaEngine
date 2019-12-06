@@ -33,12 +33,12 @@ namespace Tinta
 			m_uint16 mChannel;			
 			m_uint16 mType;						
             tintaBufferIO   mData;
-			m_byte         mRetryCount;			
+			m_uint8         mRetryCount;			
 			RequestID      mID;			
 		public:
 
-            Request(m_uint16 channel, m_uint16 rtype, const tintaBufferIO& rData, m_byte retry, RequestID rid);
-			~Request();
+            Request(m_uint16 channel, m_uint16 rtype, const tintaBufferIO& rData, m_uint8 retry, RequestID rid);
+			virtual ~Request();
 			
 			
 			m_uint16 getChannel() const { return mChannel; }
@@ -47,9 +47,9 @@ namespace Tinta
 			
             const tintaBufferIO& getData() const { return mData; }
 			
-			m_byte getRetryCount() const { return mRetryCount; }	
+			m_uint8 getRetryCount() const { return mRetryCount; }	
 
-			RequestID getID() const { return mID; }         
+			RequestID getID() const { return mID; }        
             
 
 		};
@@ -78,7 +78,7 @@ namespace Tinta
 		
         virtual RequestID addRequest(m_uint16 channel, 
                             m_uint16 requestType, const tintaBufferIO& rData, 
-                                            m_byte retryCount = 0, bool forceSynchronous = false) = 0;
+                                            m_uint8 retryCount = 0, bool forceSynchronous = false) = 0;
 				
 		virtual void shutdown() = 0;
 		
@@ -112,7 +112,7 @@ namespace Tinta
 		
 		virtual void removeRequestHandler(m_uint16 channel, RequestHandler* rh = NULL_M);
 						
-        virtual RequestID addRequest(m_uint16 channel, m_uint16 requestType, const tintaBufferIO& rData, m_byte retryCount = 0, bool forceSynchronous = false);
+        virtual RequestID addRequest(m_uint16 channel, m_uint16 requestType, const tintaBufferIO& rData, m_uint8 retryCount = 0, bool forceSynchronous = false);
         		
 		
 	protected:

@@ -23,7 +23,7 @@ namespace Tinta {
           public tintaINamed {
 
 			tintaBoxContainer();
-			~tintaBoxContainer();
+			virtual ~tintaBoxContainer();
 
             
             static tintaBoxContainer* getPtr(void)	{

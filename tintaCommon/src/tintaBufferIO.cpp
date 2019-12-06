@@ -17,10 +17,10 @@ namespace Tinta {
     
     m_uint32 dataSize{ 0 };
     offset = ReadFromBuffer<m_uint32>(buff, offset, dataSize);
-    m_byte charSize{ 0 };
-    offset = ReadFromBuffer<m_byte>(buff, offset, charSize);
+    m_uint8 charSize{ 0 };
+    offset = ReadFromBuffer<m_uint8>(buff, offset, charSize);
     // subsrtuct charsize 
-    size_t finalSize = dataSize;// -sizeof(m_byte);
+    size_t finalSize = dataSize;// -sizeof(m_uint8);
     if ( charSize == UTF8_SIZE ){
 
         StringBasic buffStr;

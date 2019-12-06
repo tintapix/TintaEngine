@@ -24,7 +24,7 @@ namespace Tinta
 #define GET_VAL_UINT(L, INDEX) ( static_cast<m_uint32> ( (lua_tointeger(L, INDEX)  >= 0) ? lua_tointeger(L, INDEX) : 0) )
 #define GET_VAL_STRING(L, INDEX) (lua_tostring(L, INDEX) ? lua_tostring(L, INDEX) : ("" ) )
 #define GET_VAL_STRING_EX(L, INDEX) (lua_tostring(L, INDEX) ? (toWideChar(lua_tostring(L, INDEX))) : (_M("")) )
-#define GET_VAL_UBYTE(L, INDEX) (static_cast<m_byte> ((lua_tointeger(L, INDEX) > UCHAR_MAX) ? (UCHAR_MAX) : \
+#define GET_VAL_UBYTE(L, INDEX) (static_cast<m_uint8> ((lua_tointeger(L, INDEX) > UCHAR_MAX) ? (UCHAR_MAX) : \
 	((lua_tointeger(L, INDEX) < 0) ? 0 : lua_tointeger(L, INDEX))))
 
 #define GET_VAL_FLOAT(L, INDEX) (static_cast<float> (lua_tonumber(L, INDEX)))
@@ -95,7 +95,7 @@ protected:
 public:
 		
 	 tintaScriptContext(void);	
-	  ~tintaScriptContext(void);
+	 virtual ~tintaScriptContext(void);
   
 	void createState( );
 	//void createState_threaded(const char* file_path = 0);

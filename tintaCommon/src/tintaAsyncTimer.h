@@ -29,7 +29,7 @@ namespace Tinta{
             const TimeoutFunc &timeout);
         tintaAsyncTimer(const TimeoutFunc &timeout);
 
-        ~tintaAsyncTimer();
+        virtual ~tintaAsyncTimer();
 
         void start();
 

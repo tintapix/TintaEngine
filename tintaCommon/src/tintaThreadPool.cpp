@@ -19,7 +19,7 @@ namespace Tinta
 	}
 	
     tintaThreadPool::Request::Request(m_uint16 channel, m_uint16 rtype,
-                                    const tintaBufferIO& rData, m_byte retry, RequestID rid)
+                                    const tintaBufferIO& rData, m_uint8 retry, RequestID rid)
 		: mChannel(channel), 
           mType(rtype),
           mData(rData), 
@@ -120,7 +120,7 @@ namespace Tinta
 	
 	
     tintaThreadPool::RequestID DefaultThreadPoolBase::addRequest(m_uint16 channel, m_uint16 requestType,
-        const tintaBufferIO& rData, m_byte retryCount, bool forceSynchronous)
+        const tintaBufferIO& rData, m_uint8 retryCount, bool forceSynchronous)
 	{
 		Request* req = NULL_M;
 		RequestID rid = 0;

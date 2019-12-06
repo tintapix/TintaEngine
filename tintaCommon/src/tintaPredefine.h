@@ -72,9 +72,9 @@ namespace Tinta {
         ZERO_ID = 0
     };
 
-    enum CharSize : m_byte { ASCII_SIZE = 1, UTF8_SIZE = 1 };
+    enum CharSize : m_uint8 { ASCII_SIZE = 1, UTF8_SIZE = 1 };
 	
-    typedef u8bitCh_t channelByte;
+    typedef m_uint8 channelByte;
 
     typedef float channelFloat;
     enum ImgChannels{

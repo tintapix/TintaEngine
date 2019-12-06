@@ -33,7 +33,7 @@ namespace Tinta {
         tintaException( const String& descr, const char* src ); 
 
         tintaException(const tintaException& rhs);		
-		~tintaException() throw() {}
+		virtual ~tintaException() throw() {}
         
         void operator = (const tintaException& rhs);        
 		virtual const String& getDescr(void) const;  

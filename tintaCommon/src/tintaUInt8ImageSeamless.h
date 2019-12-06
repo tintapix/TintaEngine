@@ -20,7 +20,7 @@ namespace Tinta {
 			tintaUInt8ImageSeamless (size_t width, size_t height);
             tintaUInt8ImageSeamless(tintaUInt8ImageSeamless&& rVal);
 
-			~tintaUInt8ImageSeamless(void);
+			virtual ~tintaUInt8ImageSeamless(void);
 		public:
 			// overloaded - without border test could shoot troubles when coordinate out of range
 			virtual	color_type  getPixel( const coord2dI_t& coord ) const;

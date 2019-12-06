@@ -261,8 +261,8 @@ namespace Tinta
 
 	static const m_uint32 colorMask[2] = { 255, 0 };
 
-    FORCEINL m_byte floatToByte(float c) { 
-		return (m_byte)(((m_uint32)(c * 255.0f)) & colorMask[FLOATSIGNBITSET(c)]);
+    FORCEINL m_uint8 floatToByte(float c) { 
+		return (m_uint8)(((m_uint32)(c * 255.0f)) & colorMask[FLOATSIGNBITSET(c)]);
 	}
 
     /*
@@ -275,7 +275,7 @@ namespace Tinta
 		return (x < a ? a : (x > b ? b : x));
 	}
 
-    FORCEINL float byteToFloat(m_byte val) {
+    FORCEINL float byteToFloat(m_uint8 val) {
 		return clamp((float)((val & 0x0000ff) / 255.f), 0.0f, 1.0f);
 	}
 
@@ -488,11 +488,11 @@ namespace Tinta
 	void		_CoreExport unpackColor3(const m_uint32 color, tintaVector3f &unpackedColor);
     
 
-	m_uint32	_CoreExport packColor3( m_byte r, m_byte g, m_byte b );
-	void		_CoreExport unpackColor3( const m_uint32 color, m_byte &r, m_byte &g, m_byte &b );
+	m_uint32	_CoreExport packColor3( m_uint8 r, m_uint8 g, m_uint8 b );
+	void		_CoreExport unpackColor3( const m_uint32 color, m_uint8 &r, m_uint8 &g, m_uint8 &b );
 
-    m_uint32	_CoreExport packColor4(m_byte r, m_byte g, m_byte b, m_byte a);
-    void		_CoreExport unpackColor4(const m_uint32 color, m_byte &r, m_byte &g, m_byte &b, m_byte &a);
+    m_uint32	_CoreExport packColor4(m_uint8 r, m_uint8 g, m_uint8 b, m_uint8 a);
+    void		_CoreExport unpackColor4(const m_uint32 color, m_uint8 &r, m_uint8 &g, m_uint8 &b, m_uint8 &a);
 
      
     #define BOOL_RAND (((int)((float)rand() * (1.0 / ((float)RAND_MAX + 1.0))*2.0) - 1) == 0 )

@@ -46,9 +46,9 @@ namespace Tinta {
 		
         	
 		
-        bool setPixel(m_uint32 xCoord, m_uint32 yCoord, const m_byte *pixel);
+        bool setPixel(m_uint32 xCoord, m_uint32 yCoord, const m_uint8 *pixel);
 
-        bool writeData(const m_byte *data);
+        bool writeData(const m_uint8 *data);
 
 		bool saveImage(const String &image_path);
 
@@ -63,9 +63,9 @@ namespace Tinta {
 		unsigned getHeight() const ;
 		
 		
-        bool getPixel(m_uint32 x_coord, m_uint32 y_coord, m_byte *pixel) const;
+        bool getPixel(m_uint32 x_coord, m_uint32 y_coord, m_uint8 *pixel) const;
 
-        bool getPixel(m_uint32 pos, m_byte *pixel) const;
+        bool getPixel(m_uint32 pos, m_uint8 *pixel) const;
 		
 		tintaPngImgCodec& operator=(const tintaPngImgCodec& rVal);
 		
@@ -76,7 +76,7 @@ namespace Tinta {
 		// pngLib specific funnction
 		ImageBits getCannels(int pngLibVal );
         ImgChannels getColorFormat(int pngLibVal);
-        m_byte getColorType(ImgChannels format);
+        m_uint8 getColorType(ImgChannels format);
 
         void deleteStructs();
 

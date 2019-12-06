@@ -51,8 +51,8 @@ namespace Tinta
 
 		size_t getIdpoolFromSize(size_t a_reqSize)
 		{
-			// Requests size 16 or smaller are allocated at a 4 m_byte granularity.
-			// Requests size 17 or larger are allocated at a 16 m_byte granularity.
+			// Requests size 16 or smaller are allocated at a 4 m_uint8 granularity.
+			// Requests size 17 or larger are allocated at a 16 m_uint8 granularity.
 			// With a s_poolCount of 14, requests size 177 or larger go in the default pool.
 
 			// spreadsheet style =IF(B35<=16; FLOOR((B35-1)/4;1); MIN(FLOOR((B35-1)/16; 1) + 3; 14))

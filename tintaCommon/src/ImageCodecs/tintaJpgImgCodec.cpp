@@ -103,7 +103,7 @@ m_uint32    tintaJpgImgCodec::toIndex( int x, int y ) const {
     return y * mWidth + x;
 }
 
-bool tintaJpgImgCodec::getPixel(m_uint32 x, m_uint32 y, m_byte * pixel) const {
+bool tintaJpgImgCodec::getPixel(m_uint32 x, m_uint32 y, m_uint8 * pixel) const {
 
     if (!mOpened || x >= (m_uint32)mWidth || y >= (m_uint32)mHeight)
  		return false;
@@ -115,7 +115,7 @@ bool tintaJpgImgCodec::getPixel(m_uint32 x, m_uint32 y, m_byte * pixel) const {
 	return true;
 }	
 
-bool tintaJpgImgCodec::getPixel(m_uint32 pos, m_byte *pixel) const {
+bool tintaJpgImgCodec::getPixel(m_uint32 pos, m_uint8 *pixel) const {
     for (m_uint8 ch = 0; ch < mChannels; ch++, pos++) {
         pixel[ch] = mData[pos];
     }
@@ -192,7 +192,7 @@ tintaJpgImgCodec& tintaJpgImgCodec::operator=(const tintaJpgImgCodec& rVal)
 }
 
 ///set value to the pixel. Size of pixel depends of channelByte  parameter
-bool tintaJpgImgCodec::setPixel(m_uint32 x, m_uint32 y, const m_byte *pixel) {
+bool tintaJpgImgCodec::setPixel(m_uint32 x, m_uint32 y, const m_uint8 *pixel) {
 
 	if( !mOpened )
 		return false;
@@ -209,7 +209,7 @@ bool tintaJpgImgCodec::setPixel(m_uint32 x, m_uint32 y, const m_byte *pixel) {
 	return true;
 
 }
-bool tintaJpgImgCodec::writeData( const m_byte *data ) {
+bool tintaJpgImgCodec::writeData( const m_uint8 *data ) {
     if ( !mOpened )
         return false;
     m_uint32 size = mHeight * mWidth * (int)mChannels;

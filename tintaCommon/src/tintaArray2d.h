@@ -579,7 +579,7 @@ namespace Tinta {
 	typedef tintaArray2d<m_int32, m_int32> tintaArray2dInt_t;
 	typedef tintaArray2d<String, m_int32> tintaArray2dString_t;
 	typedef tintaArray2d<m_int16, m_int32> tintaArray2dInt16_t;
-	typedef tintaArray2d<m_byte, m_int32> tintaArray2dByte_t;
+	typedef tintaArray2d<m_uint8, m_int32> tintaArray2dByte_t;
 	typedef tintaArray2dUInt_t TMap2dUInt_t;
 	typedef tintaArray2dFloat_t TMap2dFloat_t;
 	

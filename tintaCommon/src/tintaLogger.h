@@ -32,7 +32,7 @@ namespace Tinta {
 
         tintaLogger( const String& name );	
         
-        ~tintaLogger();        
+        virtual ~tintaLogger();        
 
 		void    createLog(const String& name, bool printTime = true);
 

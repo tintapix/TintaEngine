@@ -149,7 +149,7 @@ bool tintaPngImgCodec::readImage( const String &image_path ){
 }
 
 
-bool tintaPngImgCodec::getPixel(m_uint32 x_coord, m_uint32 y_coord, m_byte * pixel) const {
+bool tintaPngImgCodec::getPixel(m_uint32 x_coord, m_uint32 y_coord, m_uint8 * pixel) const {
 
 	if( !mOpened )
 		return false;
@@ -166,7 +166,7 @@ bool tintaPngImgCodec::getPixel(m_uint32 x_coord, m_uint32 y_coord, m_byte * pix
 	return true;
 }	
 
-bool tintaPngImgCodec::getPixel(m_uint32 pos, m_byte *pixel) const {
+bool tintaPngImgCodec::getPixel(m_uint32 pos, m_uint8 *pixel) const {
     
     png_byte* ptr = row_pointers[pos];
     const m_uint32 colorChannels = (unsigned)mChannels;
@@ -206,9 +206,9 @@ tintaIImgCodec::ImageBits tintaPngImgCodec::getCannels(int pngLibVal ){
 
 	
 }
-m_byte tintaPngImgCodec::getColorType(ImgChannels format){
+m_uint8 tintaPngImgCodec::getColorType(ImgChannels format){
 
-	m_byte rez = PNG_COLOR_MASK_COLOR;
+	m_uint8 rez = PNG_COLOR_MASK_COLOR;
     if (format == ImgChannels_4)
 		     rez |= PNG_COLOR_MASK_ALPHA;
 	return rez;
@@ -280,7 +280,7 @@ tintaPngImgCodec& tintaPngImgCodec::operator=(const tintaPngImgCodec& rVal)
 }
 
 ///set value to the pixel. Size of pixel depends of channelByte  parameter
-bool tintaPngImgCodec::setPixel(unsigned xCoord, unsigned yCoord, const m_byte *pixel) {
+bool tintaPngImgCodec::setPixel(unsigned xCoord, unsigned yCoord, const m_uint8 *pixel) {
 
 	if( !mOpened )
 		return false;
@@ -299,7 +299,7 @@ bool tintaPngImgCodec::setPixel(unsigned xCoord, unsigned yCoord, const m_byte *
 
 }
 
-bool tintaPngImgCodec::writeData(const m_byte *data) {
+bool tintaPngImgCodec::writeData(const m_uint8 *data) {
 
     if (!mOpened)
         return false;
