@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\tintaConfigurator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaChildProc.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaCommonImageFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaCompGeom.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaGeomTypes.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaGeomSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaGeomCatRom.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaInteractHandlerImpl.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaInteractUnit.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaInteractUnitsSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaRandGen.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaScriptTaskExecutor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaTaskQueue.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaPrecompile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaFunctions.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaTexSpringMain.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaImgStack.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaImgCanvas.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaExecutingTask.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaExecutingUnit.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaUnitsSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaInteractPool.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\tintaConfigurator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaInteractUnitsCallback.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaChildProc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaCommonImageFactory.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaCompGeom.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGeomTypes.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGeomSet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGeomFactory.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaPrimitives.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaAlgorithm.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaFactoryObj.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaFunctions.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGeomCatRom.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaInteractHandlerImpl.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaInteractUnit.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaInteractUnitsSet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaRandGen.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaScriptTaskExecutor.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaTaskQueue.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaPrecompile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaIImgWindow.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaTexSpringMain.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaImgStack.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaImgCanvas.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaExecutingTask.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaExecutingUnit.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaUnitsSet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaInteractPool.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{b45e2a02-04bd-413c-a9db-e6643c1f919b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
