@@ -351,10 +351,10 @@ bool tintaTexSpringMain::initialize(const String &configName, tintaConsoleOutput
 	mCompObjFactVec.push_back( M_NEW  TintaGeomTypes::tintaCompGeomPolyLineFactory () );
 	mCompObjFactVec.push_back( M_NEW  tintaCatRomFactory() );	
 
- 	/*for( compObjfactories_t::iterator it = mCompObjFactVec.begin(); it!= mCompObjFactVec.end(); it++ )	{
+ 	for( compObjfactories_t::iterator it = mCompObjFactVec.begin(); it!= mCompObjFactVec.end(); it++ )	{
  		bool rez = 	mCompObjects.registerFactory( *it );	
 		CoreAssert( rez ,"bool rez = 	mCompObjects->registerFactory( *it );");
- 	}*/
+ 	}
     
 	
 
