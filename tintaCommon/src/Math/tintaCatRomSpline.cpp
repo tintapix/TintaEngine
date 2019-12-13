@@ -44,7 +44,7 @@ float tintaCatRomSpline::getValue(float x, int nknots, const float *knot)
 
     /* factors of the cubic*/
 	float cO, cl, c2, c3; 
-	if (nspans < 1){		
+    if (nspans < 1){
 		return 0.f;
 	}
 

@@ -463,7 +463,7 @@ namespace Tinta
         len - buffer len
         hashSoFar - offset
 	*/ 
-	m_uint32 _CoreExport FastHash(const char * data, int len, m_uint32 hashSoFar = 0);
+    m_uint32 _CoreExport FastHash(const char * data, m_uint32 len, m_uint32 hashSoFar = 0);
 
 	//// Colors 	
 

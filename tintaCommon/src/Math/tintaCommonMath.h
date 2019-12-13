@@ -161,29 +161,29 @@ namespace TintaMath {
 		return floorf( f + 0.5f );
 	}
 
-	FORCEINL constexpr float max( float f_lval,  float f_rval){
+    FORCEINL  float max( float f_lval,  float f_rval){
 		return std::max( f_lval  , f_rval);
 	}
 
-	FORCEINL constexpr float max( float fXVal,  float fYVal, float fZVal){
+    FORCEINL  float max( float fXVal,  float fYVal, float fZVal){
 		return std::max( std::max( fXVal  , fYVal) , fZVal);
 	}
 
-	FORCEINL constexpr float min( float f_lval,  float f_rval ){
+    FORCEINL  float min( float f_lval,  float f_rval ){
 		return  std::min( f_lval  , f_rval);
 	}
 
-	FORCEINL constexpr float min( float fXVal,  float fYVal, float fZVal ){
+    FORCEINL  float min( float fXVal,  float fYVal, float fZVal ){
 		return std::min( std::min( fXVal  , fYVal), fZVal);
 	}
     
 	
-	FORCEINL constexpr int max( int f_lval,  int f_rval){
+    FORCEINL  int max( int f_lval,  int f_rval){
 		return f_lval ^ ((f_lval ^ f_rval) & -(f_lval < f_rval));
 	}
 
 	
-	FORCEINL constexpr int min( int f_lval,  int f_rval ){
+    FORCEINL  int min( int f_lval,  int f_rval ){
 		//return  (int)(std::min( (int)f_lval  , (int)f_rval));
 		return (f_rval ^ ((f_lval ^ f_rval) & -(f_lval < f_rval) ) );
 	}

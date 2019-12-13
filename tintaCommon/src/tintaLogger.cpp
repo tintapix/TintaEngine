@@ -3,6 +3,7 @@
     tintapix@gmail.com  */
 
 #include "tintaLogger.h"
+#include "tintaCommon.h"
 
 
 namespace Tinta
@@ -33,8 +34,8 @@ namespace Tinta
         //mFileStream.write( UTF8BOM.c_str(), sBOM);
 #else
 
-        mStream.open( name.c_str() );
-
+        mFileStream.open( name.c_str() );
+        mFileStream << UTF8BOM.c_str();
 #endif		
 		mLogName = name;	
         mTime = printTime;
@@ -99,14 +100,14 @@ namespace Tinta
         }
     }
 
-    void tintaLogger::clearQueue() {
+    void tintaLogger::clearQueue() {        
+
         Tinta::tintaConsoleOutput *c = mObserved.getFirst();
         for (; c; c = mObserved.getNext()){ c->clear(); }
     }
 
+
 	template<> tintaLogger* Singleton<tintaLogger>::mPtr = 0;
 
-	tintaLogger* tintaLogger::getPtr(void){		
-		return mPtr;
-	}	
+
 }

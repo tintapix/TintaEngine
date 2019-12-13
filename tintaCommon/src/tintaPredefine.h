@@ -23,9 +23,9 @@
 #ifdef  USING_BOOST
 
 #   ifdef FILESYSTEM_BOOST
-	    #include <boost/filesystem.hpp>
-	    #include <boost/filesystem.hpp>
-	    #include <boost/filesystem/operations.hpp>       
+        #include <boost/filesystem.hpp>
+        #include <boost/filesystem.hpp>
+        #include <boost/filesystem/operations.hpp>
 #   endif
 #   ifdef LOCALE_BOOST
         #include <boost/locale.hpp>
@@ -33,14 +33,14 @@
 #endif
 
 // configure memory tracking
-#if DEBUG_MODE 
-#	if CORE_MEMORY_TRACKER_DEBUG_MODE
+#if DEBUG_MODE
+#	ifdef CORE_MEMORY_TRACKER_DEBUG_MODE
 #		define CORE_MEMORY_TRACKER 1
 #	else
 #		define CORE_MEMORY_TRACKER 0
 #	endif
 #else
-#	if CORE_MEMORY_TRACKER_RELEASE_MODE
+#	ifdef CORE_MEMORY_TRACKER_RELEASE_MODE
 #		define CORE_MEMORY_TRACKER 1
 #	else
 #		define CORE_MEMORY_TRACKER 0
@@ -104,7 +104,11 @@ typedef std::vector<StringBasic> tintaBasicStringVector;
 
 typedef StringBasic StringBase;
 typedef std::basic_stringstream<char,std::char_traits<char>,std::allocator<char> > StringStreamBase;	
+#if CORE_PLATFORM == CORE_PLATFORM_WIN32
     #define _M(x)  u8 ## x
+#else
+    #define _M(x) x
+#endif
 	#define stream_out std::cout
 	#define stream_in std::cin
 	#define stream_fout std::ofstream
@@ -137,7 +141,7 @@ typedef std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>
 
 
 
-#include "tintaMemoryAllocator.h"
+//#include "tintaMemoryAllocator.h"
 
 
 #endif

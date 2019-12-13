@@ -7,7 +7,6 @@
 
 
 #include "tintaPredefine.h"
-#include "tintaScriptContext.h"
 
 namespace Tinta
 {

@@ -107,7 +107,7 @@ struct AtomicKeeper {
 
     ~AtomicKeeper() {
         Val.store(mValOnDel);
-        std::cout << Val << "\n";
+        //std::cout << Val << "\n";
     }
 
     std::atomic<T> &Val;

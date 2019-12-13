@@ -5,7 +5,7 @@
 #ifndef _TINTA_MEMORY_ALLOCATOR_H_
 #define _TINTA_MEMORY_ALLOCATOR_H_
 
-//#include "tintaPredefine.h"
+
 #include "MemTracker.h"
 #include <memory>
 

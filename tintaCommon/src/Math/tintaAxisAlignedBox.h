@@ -6,6 +6,8 @@
 #define _TINTA_AXIS_ALIGNED_BOX__H_
 
 
+#include "tintaPredefine.h"
+
 namespace Tinta
 {
 
@@ -26,22 +28,22 @@ public:
         mMax[2] = zMax;
     }
     
-    template <typename T>
+    template <T>
     bool hasxOverlap( const tintaAxisAlignedBox<T>& box) const{
         return mMax[0] >= box.mMin[0]
             && mMin[0] <= box.mMax[0];
     }
-    template <typename T>
+    template <T>
     bool hasyOverlap(const tintaAxisAlignedBox& box) const {
         return mMax[1] >= box.mMin[1]
             && mMin[1] <= box.mMax[1];
     }
-    template <typename T>
+    template <T>
     bool haszOverlap(const tintaAxisAlignedBox& box) const {
         return mMax[2] >= box.mMin[2]
             && mMin[2] <= box.mMax[2];
     }
-    template <typename T>
+    template <T>
     bool intersection(const tintaAxisAlignedBox& box) const{
         for (int i = 0; i < mAxes; i++){
             if (mMax[i] < box.mMin[i] || mMin[i] > box.mMax[i]){
@@ -51,7 +53,7 @@ public:
         return true;
     }
     
-    template <typename T>
+    template <T>
     bool findIntersection(const tintaAxisAlignedBox& box, 
                                         tintaAxisAlignedBox& intersect) const {
         
@@ -68,7 +70,7 @@ public:
             else
                 intersect.mMax[i] = box.mMax[i];
 
-            if (mMin[i] <= rkBox.mMin[i])            
+            if (mMin[i] <= box.mMin[i])
                 intersect.mMin[i] = box.mMin[i];
             else
                 intersect.mMin[i] = mMin[i];

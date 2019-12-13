@@ -3,13 +3,14 @@
     tintapix@gmail.com  */
 
 
-#ifndef __TINTA_LOGGER_H__
-#define __TINTA_LOGGER_H__
+#ifndef __TINTA_LOGGER_H___
+#define __TINTA_LOGGER_H___
 
 #include "tintaConsoleOutput.h"
 #include "tintaObserved.h"
 #include "tintaPredefine.h"
 #include "tintaSingleton.h"
+#include "tintaMemoryAllocator.h"
 
 namespace Tinta {
 	
@@ -56,7 +57,9 @@ namespace Tinta {
 		
 		 
 
-		static tintaLogger* getPtr(void);
+        static tintaLogger* getPtr(void){
+            return  mPtr;
+        }
 
 		tintaObserved< Tinta::tintaConsoleOutput > mObserved;		
 

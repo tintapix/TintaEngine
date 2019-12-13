@@ -5,6 +5,7 @@
 #ifndef _TINTA_STD_HEADERS_H_
 #define _TINTA_STD_HEADERS_H_
 
+#include "tintaPlatform.h"
 
 #include <cstring>
 #include <cstdarg>

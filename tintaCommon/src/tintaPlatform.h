@@ -56,6 +56,7 @@ namespace Tinta {
 	(__GNUC_MINOR__*10) + \
 	__GNUC_PATCHLEVEL__)
 
+#	define CPP_x14
 
 #ifdef CPP_x11  // detecting CPPx11 standard
 # 		define CORE_CPP_STANDART CORE_CPPx11
@@ -146,10 +147,20 @@ namespace Tinta {
 
 #define CORE_ENDIAN CORE_ENDIAN_LITTLE	
 
+#ifndef QT_NO_DEBUG
+    #define DEBUG_MODE 1
+#else
+    #define DEBUG_MODE 0
+#endif
+
 #   ifdef DEBUG || (RELEASE_TEST)
+#ifndef DEBUG_MODE
 #       define DEBUG_MODE 1
+#endif
 #   else
+#ifndef DEBUG_MODE
 #       define DEBUG_MODE 0
+#endif
 #   endif
 #endif
 

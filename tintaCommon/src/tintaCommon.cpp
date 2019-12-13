@@ -28,7 +28,7 @@ namespace Tinta {
 
     const StringBasic digitsSymbols   = "1234567890";
     const StringBasic alphabetSymbols = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmonpqrstuvwxyz";
-    const StringBasic specialSymbols  = " ~!@#$%^&*()_+-={}:\"|<>?/,.'][¹;`\\";
+    const StringBasic specialSymbols  = " ~!@#$%^&*()_+-={}:\"|<>?/,.'][;`\\";
     //const StringBasic fullSymbols = digitsSymbols + alphabetSymbols + specialSymbols;
 	
     //public static final byte[] UTF8_BOM = { (byte)0xEF, (byte)0xBB, (byte)0xBF };
@@ -125,7 +125,7 @@ namespace Tinta {
             start = found_pos + 1;
         } while (pos < str.size());
 
-        return std::move(result);
+        return result;
     }
 
     const String StringUtil::replaceAll(const String& source, const String& replaceWhat, const String& replaceWithWhat){
@@ -138,7 +138,7 @@ namespace Tinta {
             result.replace(pos, replaceWhat.size(), replaceWithWhat);
             pos += replaceWithWhat.size();
         }
-        return std::move(result);
+        return result;
     }
 
     StringBasic StringUtil::genString( size_t length, const StringBasic &symbols, TintaMath::tintaRandomV2 *rand ) {
@@ -155,7 +155,7 @@ namespace Tinta {
         int maxPos = (int)alphabetSymbols.length() - 1;
         std::generate(rez.begin(), rez.end(), [&gen, alphabet, maxPos]() { return alphabet.at((*gen).randomInt(0, maxPos)); });
 
-        return std::move(rez);
+        return rez;
     }
 
     StringBasic StringUtil::genStringAlphabet(size_t length, TintaMath::tintaRandomV2 *rand) {
@@ -180,17 +180,19 @@ namespace Tinta {
                 toParse = r.at(r.size() - 1);
             }
         }
-        return std::move(toParse);
+        return toParse;
     }
     String StringUtil::getFileExt(const String &path){
                
         String rez;
-        unsigned found = path.find_last_of(_M("."));
+
+        size_t found = path.find_last_of(_M("."));
+
 
         if ( found != String::npos ){
             rez.insert( rez.begin(), path.begin() + found + 1, path.end() );
         }
-        return std::move(rez);
+        return rez;
 
     }
 
@@ -258,7 +260,7 @@ namespace Tinta {
         if (winDir && rez.length() > 0 && rez.at(rez.length() - 1) == _M(':'))
             rez.push_back(_M('/'));
 
-        return std::move(rez);
+        return rez;
     }
 
     String StringUtil::delLastLeaf(String &path, const String& delim, const String& delimDbl){
@@ -289,7 +291,7 @@ namespace Tinta {
         leaf.assign(path, assignPos + 1, path.size());
 
         path.assign(temp);
-        return std::move(leaf);
+        return leaf;
     }
 
     StringVector StringUtil::tokenise(const String& str, const String& singleDelims,
@@ -345,7 +347,7 @@ namespace Tinta {
 
         } while (pos != String::npos);
 
-        return std::move(ret);
+        return ret;
     }
 #if    CORE_PLATFORM == CORE_PLATFORM_WIN32
 
@@ -1072,7 +1074,7 @@ bool createProcess(const String &path_to_process, char_m *params) {
 #  define GET16BITS(d) (*((const uint8 *) (d)) + (*((const uint8 *) (d+1))<<8))
 #endif
 	//hashSoFar - hash offset
-	m_uint32 _CoreExport FastHash (const char * data, int len, m_uint32 hashSoFar)
+    m_uint32 _CoreExport FastHash (const char * data, m_uint32 len, m_uint32 hashSoFar)
 	{
 		m_uint32 hash;
 		m_uint32 tmp;
@@ -1083,7 +1085,7 @@ bool createProcess(const String &path_to_process, char_m *params) {
 		else
 			hash = len;
 
-		if (len <= 0 || data == NULL) return 0;
+        if (len <= 0 || data == nullptr) return 0;
 
 		rem = len & 3;
 		len >>= 2;
