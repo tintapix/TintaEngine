@@ -1138,7 +1138,7 @@ bool tintaTexSpringMain::registerCl(const String &program, const String &kernel)
     }        
 
     if ( isPathValid( fullPath ) ) {
-
+#ifdef USING_GPUCL
         tintaIClBase* clProg = Tinta::tintaTexSpringMain::getPtr()->getGPUProgram(fullPath);
         if (clProg) {
             Tinta::tintaTexSpringMain::getPtr()->deleteGPU(fullPath);
@@ -1157,6 +1157,7 @@ bool tintaTexSpringMain::registerCl(const String &program, const String &kernel)
             if( Tinta::tintaLogger::getPtr() )
                 Tinta::tintaLogger::getPtr()->logMsg( e.getDescr() );          
         }
+#endif
     }
     return false;
 }

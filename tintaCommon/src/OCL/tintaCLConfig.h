@@ -7,6 +7,8 @@
 
 
 #include <tintaPredefine.h> 
+#include <tintaConfig.h> 
+
 
 #ifdef USING_GPUCL 
 

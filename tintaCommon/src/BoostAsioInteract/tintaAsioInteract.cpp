@@ -377,7 +377,7 @@ void tintaAsioInteractServer::addSession_t( servedPtr_t session, const boost::sy
         if ( boost::asio::error::connection_reset != error ) {
 #if DEBUG_MODE
             std::string msg = error.message();
-            cout << msg;
+            std::cout << msg;
 #endif
         }
     }
@@ -483,7 +483,7 @@ void tintaAsioInteractClient::onConnect(const boost::system::error_code& error ,
         if ( Tinta::tintaLogger::getPtr() )
             Tinta::tintaLogger::getPtr()->logMsg(msg);
         else
-            cout << msg << _M("\n");
+            std::cout << msg << _M("\n");
 
         mbConnected = false;
 

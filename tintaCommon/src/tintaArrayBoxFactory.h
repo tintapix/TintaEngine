@@ -6,7 +6,7 @@
 #define _TINTA_VAL_BOX_FACTORY_H_
 
 #include <tintaFactoryObj.h>
-
+#include "tintaMemoryAllocator.h"
 
 namespace Tinta {
 

@@ -15,6 +15,7 @@
 #include <tintaException.h>
 #include <tintaPredefine.h>
 #include "tintaIClBase.h"
+#include "tintaMemoryAllocator.h"
 
 #ifdef USING_GPUCL 
 

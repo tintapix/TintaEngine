@@ -146,8 +146,8 @@ namespace Tinta
 					}
 				};
 
-		typedef list< RequestHandlerHolder* > RequestHandlerList;		
-		typedef map< m_uint16, RequestHandlerList > RequestHandlerListByChannel;		
+		typedef std::list< RequestHandlerHolder* > RequestHandlerList;		
+		typedef std::map< m_uint16, RequestHandlerList > RequestHandlerListByChannel;
 
 		/// Thread function
 		struct WorkerFunc{
@@ -169,7 +169,7 @@ namespace Tinta
 		bool        mAcceptRequests;
 		Request*    mLastRequest;
 		bool        mShuttingDown;
-		typedef deque<Request*> RequestQueue;		
+		typedef std::deque<Request*> RequestQueue;		
 		RequestQueue mRequestQueue;
 		RequestQueue mProcessQueue;		
 

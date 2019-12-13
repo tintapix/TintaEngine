@@ -7,6 +7,7 @@
 #define _TINTA_IIMG_CODEC_H_
 
 #include "tintaPredefine.h"
+#include "tintaMemoryAllocator.h"
 
 
 namespace Tinta {

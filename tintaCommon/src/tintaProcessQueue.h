@@ -37,7 +37,7 @@ namespace Tinta
 
         THREAD_CONDITION(mRequestCondition);
 
-		typedef vector<THREAD_TYPE*> WorkerThreadList;
+		typedef std::vector<THREAD_TYPE*> WorkerThreadList;
 		WorkerThreadList mWorkers;
 
 	};

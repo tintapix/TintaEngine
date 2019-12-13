@@ -8,6 +8,7 @@
 #include <tintaSingleton.h>
 #include "tintaPredefine.h"
 #include "tintaCLConfig.h"
+#include "tintaMemoryAllocator.h"
 
 namespace Tinta {
 

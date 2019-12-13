@@ -7,7 +7,7 @@
 
 
 // compile with openCL support if defined
-//#define USING_GPUCL
+#define USING_GPUCL
 
 
 

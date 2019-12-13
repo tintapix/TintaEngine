@@ -3,7 +3,7 @@
     tintapix@gmail.com  */
 
 #include "tintaClObjectContainer.h"
-
+#include "tintaMemoryAllocator.h"
 
 namespace Tinta {
 

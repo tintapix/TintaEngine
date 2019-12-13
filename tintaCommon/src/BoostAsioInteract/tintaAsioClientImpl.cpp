@@ -11,7 +11,7 @@
 #include "tintaAsioInteract.h"
 
 #include <boost/bind.hpp>
-
+#include <iostream>
 
 namespace Tinta {
     
@@ -48,7 +48,7 @@ namespace Tinta {
             mFunc = NULL_M;
         }       
         mInterHandler = NULL_M;
-        cout << "~tintaAsioClientImpl id: " << mid << "\n";
+        std::cout << "~tintaAsioClientImpl id: " << mid << "\n";
     }
 
     tintaInteractFunction *tintaAsioClientImpl::getFunc() {
@@ -82,7 +82,7 @@ namespace Tinta {
                 
                 std::string msg = error.message();
 
-                cout << "Client receive data error id: " << mid << " " << msg << "\n";
+                std::cout << "Client receive data error id: " << mid << " " << msg << "\n";
 
                 if ( mInterHandler )
                     mInterHandler->clear();
@@ -106,11 +106,11 @@ namespace Tinta {
         }
         else {
             
-            cout << "Received: ";
+            std::cout << "Received: ";
             for (auto i = 0; i < DefBufferSize; i++)
-                cout <<  m_defBuffer[i];
+                std::cout <<  m_defBuffer[i];
 
-            cout << "\n";
+            std::cout << "\n";
 
             boost::asio::async_read(mSocket,
                 boost::asio::buffer(m_defBuffer, DefBufferSize),

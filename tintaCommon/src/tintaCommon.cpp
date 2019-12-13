@@ -6,6 +6,7 @@
 #include "Math/tintaMatrix44.h"
 #include "tintaLogger.h"
 #include "tintaException.h"
+#include <iostream>
 
 namespace Tinta {
 
@@ -386,7 +387,7 @@ namespace Tinta {
         }
         catch ( std::exception e ){    
 #ifdef _DEBUG
-            cout << "Convert in UTF16 error for string :"<< inStr;
+            std::cout << "Convert in UTF16 error for string :"<< inStr;
 #endif
         }
 //#else
