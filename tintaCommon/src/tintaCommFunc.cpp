@@ -188,13 +188,13 @@ namespace  Tinta {
                     Tinta::tintaLogger::getPtr()->logMsg(toWideChar(msg.str()));
                 return 0;
             }
-            bool rez = false;
+
             String realPath = toWideChar(path);
             
-            rez = writeUTF8toFile(realPath, StringVector{ data }, true);
+            bool rez = writeUTF8toFile(realPath, StringVector{ data }, true);
             
 
-            return 0;
+            return rez;
         }
 
         int msgf(SCRIPT_STATE *L) {
@@ -622,7 +622,7 @@ namespace  Tinta {
         }
 
         int regexmatch(SCRIPT_STATE *L) {
-#if         	CORE_COMPILER == CORE_COMPILER_MSVC
+//#if         	CORE_COMPILER == CORE_COMPILER_MSVC
             try {
                 regex_t regex(toWideChar(GET_VAL_STRING(L, 1)));
 
@@ -640,7 +640,7 @@ namespace  Tinta {
                 if (Tinta::tintaLogger::getPtr())
                     Tinta::tintaLogger::getPtr()->logMsg(_M("Regex error!"));
             }
-#endif
+//#endif
             return 0;
         }
 

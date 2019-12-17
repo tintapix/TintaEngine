@@ -10,7 +10,8 @@
 #include "tintaStdHeaders.h"
 #include "tintaOSHeaders.h"
 #include "tintaConfNode.h"
-#include <EXCEPTION>
+
+
 
 namespace Tinta {
 

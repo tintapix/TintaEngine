@@ -11,14 +11,13 @@ namespace Tinta
 
 
 tintaScriptContext::tintaScriptContext(void)
-	:mpLua(0) {
-    m_str_file_path;
+    :mpLua(NULL_M) {
 }
 
 tintaScriptContext::~tintaScriptContext(void){
 	if(mpLua){
 		lua_close(mpLua);
-		mpLua = 0;
+        mpLua = NULL_M;
 	}
 }
 
@@ -26,7 +25,7 @@ void tintaScriptContext::createState() {
 	if(mpLua){
 
 		lua_close(mpLua);
-		mpLua = 0;
+        mpLua = NULL_M;
 	}
 
 	mpLua = luaL_newstate(); /* opens Lua */
@@ -40,7 +39,7 @@ void tintaScriptContext::createState() {
 void tintaScriptContext::closeState() {
 	if(mpLua){
 		lua_close(mpLua);
-		mpLua = 0;
+        mpLua = NULL_M;
 	}
 	
 
@@ -100,20 +99,20 @@ bool tintaScriptContext::executeFile( const String &file_path ){
 	if( !mpLua )
 		createState();	
 
-		StringBasic buff;
-        
-        
-        bool rez = readUTF8Text(file_path, buff);
-		//cout<<buff;
-		if( !rez ) {
-			StringUtil::StrStreamType os;
-			os << _M("File read error for: ");
-			os << file_path;
-			
-			mErrors.push_back(os.str());
-			return false;
-		}
-		
+    StringBasic buff;
+
+
+    bool rez = readUTF8Text(file_path, buff);
+    //cout<<buff;
+    if( !rez ) {
+        StringUtil::StrStreamType os;
+        os << _M("File read error for: ");
+        os << file_path;
+
+        mErrors.push_back(os.str());
+        return false;
+    }
+
 	return executeBuffer( buff.c_str(), buff.length() );	
 }
 
@@ -526,7 +525,7 @@ bool tintaScriptContext::getArrayExp(t_int_array    &int_vec_value, const char *
 		}
 
 		for(size_t count  = 1; count <= array_size; count++){
-			lua_rawgeti(mpLua, 1, count);
+            lua_rawgeti(mpLua, 1, (int)count);
 			int_vec_value.push_back(GET_VAL_INT(mpLua, -1));
 
 		}	

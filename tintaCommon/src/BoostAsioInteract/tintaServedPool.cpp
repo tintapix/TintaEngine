@@ -73,7 +73,7 @@ namespace Tinta {
         if( mhFactory )
 		    mhFactory->removeHandler( id );
 
-		td->second->setHandler( NULL );
+        td->second->setHandler( NULL_M );
 
         //boost::system::error_code ec;
         //td->second->getSocket().shutdown(boost::asio::ip::tcp::socket::shutdown_both, ec);
@@ -128,17 +128,17 @@ namespace Tinta {
     servedPtr_t	 tintaServedPool::getFirstClient() {
 		mpartIter = mparticipants.begin();
 		if( mpartIter == mparticipants.end() )
-			return NULL;
+            return NULL_M;
 		return mpartIter->second;
 	}
 
     servedPtr_t	 tintaServedPool::getNextClient() {
 		if( mpartIter == mparticipants.end() )
-			return NULL;
+            return NULL_M;
 
-		mpartIter == ++mpartIter;
+        mpartIter = ++mpartIter;
 		if( mpartIter == mparticipants.end() )
-			return NULL;
+            return NULL_M;
 
 		return mpartIter->second;
 		
@@ -172,14 +172,14 @@ namespace Tinta {
 
 		clientspset_it td = mparticipants.find(id);
 		if(td == mparticipants.end())		
-			return NULL;
+            return NULL_M;
 		return td->second;
 	}	
 
 	
  
  	m_uint32 tintaServedPool::getSize() const {
- 		return mparticipants.size();
+        return (m_uint32)mparticipants.size();
  	}
 
 	

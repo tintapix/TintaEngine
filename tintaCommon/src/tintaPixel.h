@@ -41,25 +41,25 @@ public:
 
 
     void setVal(m_uint8 channel, T value){
-        assert(channel <= (m_uint32)Tch);
+        assert(channel <= (m_uint8)Tch);
         mChannels[channel] = value;
 
     }
 
     T getVal(m_uint8 channel) const {
-        assert(channel <= (m_uint32)Tch);
+        assert(channel <= (m_uint8)Tch);
         return mChannels[channel];
     }
 
     T *getValPtr(m_uint8 channel){
-        assert(channel <= (m_uint32)Tch);
+        assert(channel <= (m_uint8)Tch);
         return &mChannels[channel];
     }
 
 	
     bool operator == (const tintaPixel& rVal) const {
 
-         for (auto i = 0; i < (m_uint32)Tch; i++){
+         for (auto i = 0; i < Tch; i++){
              if ( !(mChannels[i] == rVal.mChannels[i] ) )
                  return false;
          }
@@ -73,7 +73,7 @@ public:
      tintaPixel& operator = (const tintaPixel& rVal) 	{
 		if( this == &rVal )
 			return *this;
-        for (auto i = 0; i < (m_uint32)Tch; i++){
+        for (auto i = 0; i < Tch; i++){
             mChannels[i] = rVal.mChannels[i];
         }
  		
@@ -81,7 +81,7 @@ public:
  	}
      const tintaPixel&  operator*(float scalar){
 		
-         for (auto i = 0; i < (m_uint32)Tch; i++){
+         for (auto i = 0; i < Tch; i++){
              mChannels[i] = (T)(mChannels[i] * scalar);
          }
 
@@ -89,7 +89,7 @@ public:
 	}
 
      const tintaPixel&  operator+(const tintaPixel& rVal){
-         for (auto i = 0; i < (m_uint32)Tch; i++){
+         for (auto i = 0; i < Tch; i++){
              mChannels[i] += rVal.mChannels[i];
          }
 		return *this;

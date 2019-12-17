@@ -10,16 +10,18 @@ namespace Tinta{
     tintaAsyncTimer::tintaAsyncTimer(const Interval_t &interval,
         const TimeoutFunc &timeout) :
         mInterval(interval),
-        mTimeout(timeout){        
+        mTimeout(timeout),
+        mRunning(false){
     }
 
     tintaAsyncTimer::tintaAsyncTimer(const TimeoutFunc &timeout):
         mInterval( 0 ),
-        mTimeout(timeout){
+        mTimeout(timeout),
+        mRunning(false){
     }
 
     tintaAsyncTimer::~tintaAsyncTimer(){
-        stop();
+        stop();        
     }
 
     void tintaAsyncTimer::start()

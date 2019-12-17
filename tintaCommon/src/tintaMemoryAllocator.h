@@ -102,8 +102,7 @@ namespace Tinta
 
 // to prevent using any other macros instead of M_NEW when deriving, stub was added
 #if DEBUG_MODE
-		void* operator new(size_t size, int stub, const char* file, int line, const char* func){
-			stub = 0;
+		void* operator new(size_t size, int stub, const char* file, int line, const char* func){			
 			return Allocator::allocate_mbytes(size, file, line, func);
 		}
 // #else
@@ -151,8 +150,7 @@ namespace Tinta
 
 		// if there is an EXCEPTION in new
 #if DEBUG_MODE
-		void operator delete( void* ptr, int stub, const char* , int , const char*  ){
-			stub;
+		void operator delete( void* ptr, int stub, const char* , int , const char*  ){			
 			Allocator::deallocate_mbytes(ptr);
 		}
 #endif

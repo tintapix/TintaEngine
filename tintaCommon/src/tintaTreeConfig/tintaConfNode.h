@@ -8,6 +8,7 @@
 #include "tintaPredefine.h"
 #include "tintaBufferIO.h"
 
+
 namespace Tinta {
 
     namespace TreeConfig {   

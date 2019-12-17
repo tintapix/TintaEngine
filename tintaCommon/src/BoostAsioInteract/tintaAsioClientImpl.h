@@ -14,7 +14,6 @@
 #include "tintaObserved.h"
 #include "tintaConnectionEvents.h"
 #include "tintaIHandlerFactory.h"
-//#include "tintaExecutingUnit.h"
 #include "tintaAsioClient.h"
 
 
@@ -57,6 +56,10 @@ namespace Tinta {
 
                
 
+    protected:
+
+        boost::asio::io_service		  &mIoService;
+
     private:
         socket_t					  mSocketHolder;
 
@@ -67,23 +70,21 @@ namespace Tinta {
         m_int8 m_defBuffer[DefBufferSize];
         
 
-    protected:
-
-        boost::asio::io_service		  &mIoService;        
+    protected:        
 
         socket_t					  &mSocket;      
 
-        unsigned long				 		   mid;
+        unsigned long				   mid;
 
         IErrorCallback 				  *mClientsclb;
 
         void handleData(const boost::system::error_code& error, size_t bytes_transferred);
 
-        tintaInteractHandler 			       *mInterHandler;
+        tintaInteractHandler 			*mInterHandler;
 
         tintaInteractFunction			*mFunc;    
 
-        std::atomic<bool> mHandling = false;
+        std::atomic<bool> mHandling;
                
 
         MUTEX_RECURSIVE_T mDataMutex;

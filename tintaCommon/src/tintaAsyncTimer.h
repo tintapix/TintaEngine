@@ -45,7 +45,7 @@ namespace Tinta{
         THREAD_TYPE      mTimerThread;
         Interval_t  mInterval;
 
-        std::atomic_bool        mRunning = false;
+        std::atomic_bool        mRunning;
         TimeoutFunc mTimeout;
     };
 

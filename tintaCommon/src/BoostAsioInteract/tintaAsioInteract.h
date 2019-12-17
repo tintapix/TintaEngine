@@ -118,29 +118,27 @@ namespace Tinta {
 
         virtual void  handleSend(const boost::system::error_code& error, size_t bytes_transferred, size_t sendId);
 
-
+        short               mPort;
 		StringBasic         mIp;
-		short                    mPort;		
+
 
 		tintaServedPool         *mServedPool;
-		const tintaBufferIO      *mDataBuff;
+
 
 		boost::asio::ip::tcp::endpoint mEndpoint;
-		boost::asio::io_service		   mIoService; 
-		//boost::asio::deadline_timer	   mTimer;
-
-		socket_t                    mSocket;
+        boost::asio::io_service		   mIoService;
 		bool	                    mIsServer;
 		String                      mProcName;
 		bool                        mStarted;
+        socket_t                    mSocket;
+        const tintaBufferIO        *mDataBuff;
 		bool                        mSendOperation;	
-		size_t                      mIdSending;	
-		m_uint32                       mTimeTrySend;
+		size_t                      mIdSending;			
 		tintaObserved<tintaISendEvents>  mObserved;	
         tintaInteractFunction			*mFunc;
         // max packets in queue to send
-        int mMaxInQueue;       
-
+        int mMaxInQueue;
+        m_uint32                       mTimeTrySend;
         boost::asio::deadline_timer	   mTimerTrySend;
 
         MUTEX_RECURSIVE_T mInteractMutex;

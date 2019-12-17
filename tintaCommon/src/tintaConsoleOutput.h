@@ -27,7 +27,9 @@ namespace Tinta
 
         virtual void clear() = 0;
 
-        virtual void setTitle( const String &title  ){ }
+        virtual void setTitle( const String &title  ) = 0;
+
+        virtual ~tintaConsoleOutput( ) = 0;
 	};
 
     const String helpCommand = _M("Type the command and press Enter  \n \

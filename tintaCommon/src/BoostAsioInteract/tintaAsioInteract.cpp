@@ -37,7 +37,7 @@ namespace Tinta {
 	tintaAsioInteract::tintaAsioInteract( const char *ip, short port, bool isServ, const String &procName, m_uint32 timeTryConnect, int maxInQueue ):
 		 mPort( port )
 		,mIp(ip)
-		,mEndpoint( boost::asio::ip::address::from_string( ip ), mPort )		
+        ,mEndpoint( boost::asio::ip::address::from_string( ip ), (unsigned short)mPort )
 		,mIsServer( isServ )
 		,mProcName( procName )
 		,mStarted(false) 

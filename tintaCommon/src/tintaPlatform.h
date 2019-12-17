@@ -153,7 +153,7 @@ namespace Tinta {
     #define DEBUG_MODE 0
 #endif
 
-#   ifdef DEBUG || (RELEASE_TEST)
+#if defined(DEBUG) || defined(RELEASE_TEST)
 #ifndef DEBUG_MODE
 #       define DEBUG_MODE 1
 #endif
