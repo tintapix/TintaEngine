@@ -103,6 +103,8 @@ namespace Tinta
 		// from tintaConsoleOutput
 		virtual void printMsg( const Tinta::String &msg , msgLevel stat);
 
+        virtual void setTitle(const String &title) {};
+
         virtual void clear();
 
         static const char_m * const strZeroIp; // = _M("0.0.0.0");
