@@ -59,8 +59,8 @@ namespace Tinta
 
         tintaGuiManager *gui = NULL_M;
 
-        if( mpRenderer )            
-            gui = mpRenderer->getFrontManager();
+        if( m_pRenderer )            
+            gui = m_pRenderer->getFrontManager();
 
         CoreAssert(gui, "gui");
 
@@ -87,7 +87,7 @@ namespace Tinta
                 case ActionUpdate:                
 
                     gui->delFromLayer( mLayer, strKey );
-                    mpRenderer->releaseTexture( strKey );
+                    m_pRenderer->releaseTexture( strKey );
 
                 case ActionAdd:
 
@@ -95,7 +95,7 @@ namespace Tinta
 
                         if ( i->mImg ) {
 
-                            tintaTexture * tex = mpRenderer->addTexture( i->mImg, strKey );
+                            tintaTexture * tex = m_pRenderer->addTexture( i->mImg, strKey );
 
                             const tintaTexture *oldFront = mLayer->getFrontTexture();
 
@@ -121,7 +121,7 @@ namespace Tinta
                     if ( key != ZERO_ID ) {
                  
                         gui->delFromLayer( mLayer, strKey );
-                        mpRenderer->releaseTexture( strKey );
+                        m_pRenderer->releaseTexture( strKey );
                     }
                     else {
                         gui->deleteImageLayer(mLayer, true);
@@ -216,8 +216,8 @@ namespace Tinta
                     m_uint8* data = mImg->data();
                     for ( int i = 0; i < 100; i++ )
                         data[i] = 100;
-                    mpRenderer->releaseTexture(mTexture);
-                    mTexture = mpRenderer->addTexture(mImg, "image_name");
+                    m_pRenderer->releaseTexture(mTexture);
+                    mTexture = m_pRenderer->addTexture(mImg, "image_name");
                 }*/
 
                 break;
@@ -271,8 +271,8 @@ namespace Tinta
               
         
         tintaGuiManager *gui = NULL_M;
-        if( mpRenderer )
-            gui = mpRenderer->getFrontManager();
+        if( m_pRenderer )
+            gui = m_pRenderer->getFrontManager();
 
         CoreAssert(gui, "gui");
 
@@ -296,7 +296,7 @@ namespace Tinta
             updateGLData();
 
        
-        mpRenderer->clearBuffers(false);
+        m_pRenderer->clearBuffers(false);
         
 
         {
@@ -305,10 +305,10 @@ namespace Tinta
 
             if ( mImages.size() > 0 )
 
-                mpRenderer->drawImageLayer( mLayer, &mPos, mParams );
+                m_pRenderer->drawImageLayer( mLayer, &mPos, mParams );
         }
                
-        mpRenderer->displayBackBuffer();  
+        m_pRenderer->displayBackBuffer();  
 
     }
     String tintaImgWindow::toStringKey(m_uint32 key) {
