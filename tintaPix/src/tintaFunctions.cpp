@@ -6713,7 +6713,8 @@ namespace  Tinta {
             return 0;
 		}
 		int execute(SCRIPT_STATE *L){			
-			
+
+#ifdef USING_GPUCL
 			String progName = GET_VAL_STRING_EX(L, 1);
 			tintaIClBase* prog = Tinta::tintaTexSpringMain::getPtr()->getGPUProgram(
 				progName);
@@ -6737,16 +6738,16 @@ namespace  Tinta {
 			m_uint32 paramRead = GET_VAL_UINT(L, 5);
 
 			if ( height > 0 ){ // two dimensions
-                m_uint32 globalsize[2] = { std::max(width, 1U), std::max(height, 1U) };
+                size_t globalsize[2] = { (size_t)std::max(width, 1U), (size_t)std::max(height, 1U) };
 
-                m_uint32 readpos[1] = { paramRead };
+                size_t readpos[1] = { paramRead };
 
-                m_uint32 groupSize[2] = { 0, 0 };
+                size_t groupSize[2] = { 0, 0 };
 
                 if ( IS_VAL_INTEGER(L, 6) && IS_VAL_INTEGER(L, 7) ) {
 
-                    groupSize[0] = GET_VAL_UINT(L, 6);
-                    groupSize[1] = GET_VAL_UINT(L, 7);
+                    groupSize[0] = (size_t)GET_VAL_UINT(L, 6);
+                    groupSize[1] = (size_t)GET_VAL_UINT(L, 7);
                 }
 
 				//int maxLen = 0;
@@ -6764,17 +6765,17 @@ namespace  Tinta {
 				}
 			}
             else if (depth > 0) { // three dimensions
-                m_uint32 globalsize[3] = { std::max(width, 1U), std::max(height, 1U),std::max(depth, 1U) };
+                size_t globalsize[3] = { (size_t)std::max(width, 1U), (size_t)std::max(height, 1U),(size_t)std::max(depth, 1U) };
 
-                m_uint32 readpos[1] = { paramRead };
+                size_t readpos[1] = { paramRead };
 
-                m_uint32 groupSize[3] = { 0, 0, 0 };
+                size_t groupSize[3] = { 0, 0, 0 };
 
                 if (IS_VAL_INTEGER(L, 6) && IS_VAL_INTEGER(L, 7) && IS_VAL_INTEGER(L, 8)) {
 
-                    groupSize[0] = GET_VAL_UINT(L, 6);
-                    groupSize[1] = GET_VAL_UINT(L, 7);
-                    groupSize[2] = GET_VAL_UINT(L, 8);
+                    groupSize[0] = (size_t)GET_VAL_UINT(L, 6);
+                    groupSize[1] = (size_t)GET_VAL_UINT(L, 7);
+                    groupSize[2] = (size_t)GET_VAL_UINT(L, 8);
                 }
 
                 //int maxLen = 0;
@@ -6816,7 +6817,7 @@ namespace  Tinta {
 
 				}
 			}          
-
+#endif
 			return 0;
 		}
 

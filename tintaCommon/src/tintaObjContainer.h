@@ -7,6 +7,7 @@
 #define _TINTA_OBJ_CONTAINER_H_
 
 #include "tintaObjCreator.h"
+#include <tintaPredefine.h>
 
 namespace Tinta {
 	    

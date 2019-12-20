@@ -21,6 +21,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
+INCLUDEPATH += src\
+               ../\
+               src/zlib\
+
 SOURCES +=  src/tintaArrayBox.cpp\
             src/tintaAsyncTimer.cpp\
             src/tintaBoxContainer.cpp\
@@ -63,8 +67,123 @@ SOURCES +=  src/tintaArrayBox.cpp\
             src/BoostAsioInteract/tintaServedPool.cpp\
             src/ImageCodecs/tintaJpgImgCodec.cpp\
             src/ImageCodecs/tintaPngImgCodec.cpp\
+    src/libjpeg/jcapimin.c \
+    src/libjpeg/jcapistd.c \
+    src/libjpeg/jccoefct.c \
+    src/libjpeg/jccolor.c \
+    src/libjpeg/jcdctmgr.c \
+    src/libjpeg/jchuff.c \
+    src/libjpeg/jcinit.c \
+    src/libjpeg/jcmainct.c \
+    src/libjpeg/jcmarker.c \
+    src/libjpeg/jcmaster.c \
+    src/libjpeg/jcomapi.c \
+    src/libjpeg/jcparam.c \
+    src/libjpeg/jcphuff.c \
+    src/libjpeg/jcprepct.c \
+    src/libjpeg/jcsample.c \
+    src/libjpeg/jctrans.c \
+    src/libjpeg/jdapimin.c \
+    src/libjpeg/jdapistd.c \
+    src/libjpeg/jdatadst.c \
+    src/libjpeg/jdatasrc.c \
+    src/libjpeg/jdcoefct.c \
+    src/libjpeg/jdcolor.c \
+    src/libjpeg/jddctmgr.c \
+    src/libjpeg/jdhuff.c \
+    src/libjpeg/jdinput.c \
+    src/libjpeg/jdmainct.c \
+    src/libjpeg/jdmarker.c \
+    src/libjpeg/jdmaster.c \
+    src/libjpeg/jdmerge.c \
+    src/libjpeg/jdphuff.c \
+    src/libjpeg/jdpostct.c \
+    src/libjpeg/jdsample.c \
+    src/libjpeg/jdtrans.c \
+    src/libjpeg/jerror.c \
+    src/libjpeg/jfdctflt.c \
+    src/libjpeg/jfdctfst.c \
+    src/libjpeg/jfdctint.c \
+    src/libjpeg/jidctflt.c \
+    src/libjpeg/jidctfst.c \
+    src/libjpeg/jidctint.c \
+    src/libjpeg/jidctred.c \
+    src/libjpeg/jmemansi.c \
+    src/libjpeg/jmemmgr.c \
+    src/libjpeg/jmemname.c \
+    src/libjpeg/jmemnobs.c \
+    src/libjpeg/jquant1.c \
+    src/libjpeg/jquant2.c \
+    src/libjpeg/jutils.c \
+    src/libpng/example.c \
+    src/libpng/png.c \
+    src/libpng/pngerror.c \
+    src/libpng/pngget.c \
+    src/libpng/pngmem.c \
+    src/libpng/pngpread.c \
+    src/libpng/pngread.c \
+    src/libpng/pngrio.c \
+    src/libpng/pngrtran.c \
+    src/libpng/pngrutil.c \
+    src/libpng/pngset.c \
+    src/libpng/pngtest.c \
+    src/libpng/pngtrans.c \
+    src/libpng/pngwio.c \
+    src/libpng/pngwrite.c \
+    src/libpng/pngwtran.c \
+    src/libpng/pngwutil.c \
+    src/lua/lapi.c \
+    src/lua/lauxlib.c \
+    src/lua/lbaselib.c \
+    src/lua/lbitlib.c \
+    src/lua/lcode.c \
+    src/lua/lcorolib.c \
+    src/lua/lctype.c \
+    src/lua/ldblib.c \
+    src/lua/ldebug.c \
+    src/lua/ldo.c \
+    src/lua/ldump.c \
+    src/lua/lfunc.c \
+    src/lua/lgc.c \
+    src/lua/linit.c \
+    src/lua/liolib.c \
+    src/lua/llex.c \
+    src/lua/lmathlib.c \
+    src/lua/lmem.c \
+    src/lua/loadlib.c \
+    src/lua/lobject.c \
+    src/lua/lopcodes.c \
+    src/lua/loslib.c \
+    src/lua/lparser.c \
+    src/lua/lstate.c \
+    src/lua/lstring.c \
+    src/lua/lstrlib.c \
+    src/lua/ltable.c \
+    src/lua/ltablib.c \
+    src/lua/ltm.c \
+    src/lua/lua.c \
+    src/lua/luac.c \
+    src/lua/lundump.c \
+    src/lua/lutf8lib.c \
+    src/lua/lvm.c \
+    src/lua/lzio.c \
+    src/zlib/adler32.c \
+    src/zlib/compress.c \
+    src/zlib/crc32.c \
+    src/zlib/deflate.c \
+    src/zlib/gzclose.c \
+    src/zlib/gzlib.c \
+    src/zlib/gzread.c \
+    src/zlib/gzwrite.c \
+    src/zlib/infback.c \
+    src/zlib/inffast.c \
+    src/zlib/inflate.c \
+    src/zlib/inftrees.c \
+    src/zlib/trees.c \
+    src/zlib/uncompr.c \
+    src/zlib/zutil.c \
+    src/tintaHermSpline.cpp
 
-INCLUDEPATH += src
 HEADERS +=  src/tintaArray2d.h\
             src/tintaArrayBox.h\
             src/tintaArrayBoxFactory.h\
@@ -149,6 +268,70 @@ HEADERS +=  src/tintaArray2d.h\
             src/Math/tintaVector2.h\
             src/Math/tintaVector3.h\
             src/Math/tintaVector4.h\
+    src/libjpeg/cderror.h \
+    src/libjpeg/cdjpeg.h \
+    src/libjpeg/jchuff.h \
+    src/libjpeg/jconfig.h \
+    src/libjpeg/jdct.h \
+    src/libjpeg/jdhuff.h \
+    src/libjpeg/jerror.h \
+    src/libjpeg/jinclude.h \
+    src/libjpeg/jmemsys.h \
+    src/libjpeg/jmorecfg.h \
+    src/libjpeg/jpegint.h \
+    src/libjpeg/jpeglib.h \
+    src/libjpeg/jversion.h \
+    src/libjpeg/transupp.h \
+    src/libpng/CHANGES \
+    src/libpng/libpng.3 \
+    src/libpng/libpngpf.3 \
+    src/libpng/png.h \
+    src/libpng/pngconf.h \
+    src/libpng/pngdebug.h \
+    src/libpng/pnginfo.h \
+    src/libpng/pnglibconf.h \
+    src/libpng/pngpriv.h \
+    src/libpng/pngstruct.h \
+    src/lua/lapi.h \
+    src/lua/lauxlib.h \
+    src/lua/lcode.h \
+    src/lua/lctype.h \
+    src/lua/ldebug.h \
+    src/lua/ldo.h \
+    src/lua/lfunc.h \
+    src/lua/lgc.h \
+    src/lua/llex.h \
+    src/lua/llimits.h \
+    src/lua/lmem.h \
+    src/lua/lobject.h \
+    src/lua/lopcodes.h \
+    src/lua/lparser.h \
+    src/lua/lprefix.h \
+    src/lua/lstate.h \
+    src/lua/lstring.h \
+    src/lua/ltable.h \
+    src/lua/ltm.h \
+    src/lua/lua.h \
+    src/lua/lua.hpp \
+    src/lua/luaconf.h \
+    src/lua/lualib.h \
+    src/lua/lundump.h \
+    src/lua/lvm.h \
+    src/lua/lzio.h \
+    src/zlib/crc32.h \
+    src/zlib/deflate.h \
+    src/zlib/gzguts.h \
+    src/zlib/inffast.h \
+    src/zlib/inffixed.h \
+    src/zlib/inflate.h \
+    src/zlib/inftrees.h \
+    src/zlib/trees.h \
+    src/zlib/zconf.h \
+    src/zlib/zconf.h.cmakein \
+    src/zlib/zconf.h.in \
+    src/zlib/zlib.h \
+    src/zlib/zutil.h \
+    src/tintaHermSpline.h
 
 
 
@@ -158,3 +341,37 @@ unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+DISTFILES += \
+    src/libpng/libpng-1.4.0-manual.pdf \
+    src/libpng/libpng-config.in \
+    src/libpng/pngbar.jpg \
+    src/libpng/pngbar.png \
+    src/libpng/pngnow.png \
+    src/libpng/pngtest.png \
+    src/libpng/ANNOUNCE \
+    src/libpng/configure \
+    src/libpng/libpng-manual.txt \
+    src/libpng/libpng.pc.in \
+    src/libpng/LICENSE \
+    src/libpng/png.5 \
+    src/libpng/TODO \
+    src/libpng/CMakeLists.txt \
+    src/libpng/INSTALL \
+    src/libpng/README \
+    src/lua/Makefile \
+    src/zlib/zlib.3.pdf \
+    src/zlib/zlib2ansi \
+    src/zlib/configure \
+    src/zlib/treebuild.xml \
+    src/zlib/FAQ \
+    src/zlib/INDEX \
+    src/zlib/zlib.3 \
+    src/zlib/zlib.map \
+    src/zlib/zlib.pc.cmakein \
+    src/zlib/zlib.pc.in \
+    src/zlib/ChangeLog \
+    src/zlib/CMakeLists.txt \
+    src/zlib/Makefile \
+    src/zlib/Makefile.in \
+    src/zlib/README

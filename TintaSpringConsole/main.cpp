@@ -18,8 +18,9 @@
 #include <signal.h>
 #include <tintaSignalHandler.h>
 //#include <tintaPixVer.h>
+#if CORE_PLATFORM  == CORE_PLATFORM_WIN32
 #include "tintaImgWindow.h"
-
+#endif
 
 #ifdef USING_GPUCL 
 
@@ -32,7 +33,7 @@
 #define WINVER 0x0501
 
 #if CORE_ARCH_TYPE == CORE_ARCHITECTURE_64
-#pragma comment(lib, "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v6.0\\lib\\x64\\OpenCL.lib")
+//#pragma comment(lib, "C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v6.0\\lib\\x64\\OpenCL.lib")
 #endif
 #if CORE_ARCH_TYPE == CORE_ARCHITECTURE_32
 //ragma	comment(lib, "C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v3.2\lib\Win32\OpenCL.lib")
@@ -191,7 +192,7 @@ int main( int argc, char *argv[] )
 		
 	
 	console->setServMode( isServer );
-
+#if CORE_PLATFORM  == CORE_PLATFORM_WIN32
     if ( isPathValid(tintaImgWindow::mConfigName) ) {
 
         mImageWindow = M_NEW tintaImgWindow();
@@ -206,6 +207,7 @@ int main( int argc, char *argv[] )
 
         });
     }
+#endif
 
     bool inited = console->initialize(strTexSpringConfigFileW, &cmdOut, mImageWindow );
         
