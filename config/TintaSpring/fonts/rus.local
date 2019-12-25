@@ -93,4 +93,4 @@ data { { "а", 37,143, 70,199,0 },
 	   */
 	   
 	  },
-path = "fonts\rus_local.png"
+path = "fonts/rus_local.png"
