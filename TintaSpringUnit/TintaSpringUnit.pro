@@ -19,7 +19,7 @@ INCLUDEPATH += ../\
                ../tintaPix/src\
 
 SOURCES += \
-    main.cpp
+        main.cpp
 
 debug {
     LIBS += -L"../../tintaPix/Debug" -ltintaPix\
@@ -29,7 +29,6 @@ debug {
             -L"../../tintaCommon/Debug" -ltintaCommon\
 
 }
-
 release {
     LIBS += -L"../../tintaPix/Release" -ltintaPix\
             -lboost_chrono\
@@ -38,11 +37,7 @@ release {
             -L"../../tintaCommon/Release" -ltintaCommon\
 }
 
-CONFIG += ordered
-
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
-
-HEADERS +=
