@@ -5,12 +5,13 @@
 #ifndef _TINTA_GEOM_SET_
 #define _TINTA_GEOM_SET_
 
-#include <tintaPredefine.h>
-#include <tintaObjCreator.h>
-#include <tintaObjContainer.h>
-#include <tintaSingleton.h>
+#include "tintaPredefine.h"
 #include "tintaCompGeom.h"
+#include "tintaObjCreator.h"
 #include "tintaGeomFactory.h"
+
+#include "tintaObjContainer.h"
+#include "tintaSingleton.h"
 
 namespace Tinta {
 
@@ -28,9 +29,9 @@ namespace Tinta {
 			// replacing property 
 			bool  setPropVal( unsigned objectId, const tintaCompGeomProp &proper ){				
 
-                auto iter_find = std::find_if(tintaObjContainer< TObj, TFactory >::mList.begin(),
+                t_obj_iter iter_find = std::find_if(tintaObjContainer< TObj, TFactory >::mList.begin(),
                                                                 tintaObjContainer< TObj, TFactory >::mList.end(),
-                    [objectId](const auto &v){return v.mKey == objectId; });
+                    [objectId](const ObjPair &v){return v.mKey == objectId; });
 
                 if (iter_find != tintaObjContainer< TObj, TFactory >::mList.end()) {
 					return iter_find->mpobj->setPropVal( proper );				 
@@ -43,9 +44,9 @@ namespace Tinta {
 
 				 //t_obj_it iter_find = tintaObjContainer< TObj, TFactory >::m_map.find( objectId );
 
-                 auto iter_find = std::find_if(tintaObjContainer< TObj, TFactory >::mList.begin(),
+                 t_obj_iter iter_find = std::find_if(tintaObjContainer< TObj, TFactory >::mList.begin(),
                                                                     tintaObjContainer< TObj, TFactory >::mList.end(),
-                     [objectId](const auto &v){return v.mKey == objectId; });
+                     [objectId](const ObjPair &v){return v.mKey == objectId; });
 
                  if (iter_find != tintaObjContainer< TObj, TFactory >::mList.end()) {
 					return iter_find->mpobj;				 
@@ -56,9 +57,9 @@ namespace Tinta {
 			bool		  addPropVal( unsigned objectId, const tintaCompGeomProp &proper ){
 				//t_obj_it iter_find = tintaObjContainer< TObj, TFactory >::m_map.find( objectId );
 
-                auto iter_find = std::find_if(tintaObjContainer< TObj, TFactory >::mList.begin(),
+                t_obj_iter iter_find = std::find_if(tintaObjContainer< TObj, TFactory >::mList.begin(), 
                                                                 tintaObjContainer< TObj, TFactory >::mList.end(),
-                    [objectId](const auto &v){return v.mKey == objectId; });
+                    [objectId](const ObjPair &v){return v.mKey == objectId; });
 
                 if (iter_find != tintaObjContainer< TObj, TFactory >::mList.end()) {
 					return iter_find->mpobj->addPropVal( proper );				 

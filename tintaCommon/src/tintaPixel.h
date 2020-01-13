@@ -98,6 +98,11 @@ public:
     
 protected:
     T mChannels[Tch];
+public:
+    static const m_uint8 channel_r = 0;
+    static const m_uint8 channel_g = 1;
+    static const m_uint8 channel_b = 2;
+    static const m_uint8 channel_a = 3;
 
     
 
@@ -106,6 +111,7 @@ protected:
     typedef tintaPixel<m_uint8, ImgChannels_4> tintaPixel24b;
     // with luminance
     typedef tintaPixel<m_uint8, ImgChannels_5> tintaPixel32b;
+
 }
 
 #endif

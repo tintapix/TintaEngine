@@ -41,13 +41,11 @@ namespace Tinta {
                 size_t count = s.second.mImage.getSize();
 
                 for (size_t i = 0; i < count; i++) {
-                    //pixelp_t color_origin = s.second.mImage.getPixelPtrFast(i);
+                    color_type color_origin = s.second.mImage.getPixel(i);
+                    mColor.setVal( color_type::channel_a, color_origin.getVal( color_type::channel_a ) );
 
                     s.second.mImage.setPixel(i, mColor);
-                    /*color_origin->setVal(0, mColor.getVal(0));
-                    color_origin->setVal(1, mColor.getVal(1));
-                    color_origin->setVal(2, mColor.getVal(2));
-                    */
+                    
                 }
             }
         }
