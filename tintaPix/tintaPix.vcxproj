@@ -287,7 +287,6 @@
     <ClInclude Include="src\tintaGeomSet.h" />
     <ClInclude Include="src\tintaGeomFactory.h" />
     <ClInclude Include="src\tintaConfigurator.h" />
-    <ClInclude Include="src\tintaFactoryObj.h" />
     <ClInclude Include="src\tintaGeomCatRom.h" />
     <ClInclude Include="src\tintaIImgWindow.h" />
     <ClInclude Include="src\tintaInteractPool.h" />

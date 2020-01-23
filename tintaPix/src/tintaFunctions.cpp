@@ -6443,7 +6443,10 @@ namespace  Tinta {
                 }
 
                
-                if ( ! Tinta::tintaTexSpringMain::getPtr()->registerCl( program, kernel ) ) {
+                try {
+                    Tinta::tintaTexSpringMain::getPtr()->registerCl(program, kernel);
+                }
+                catch( const std::exception &e ){
                     TROW_ERR_FUNC( L, _M("Error while register gpu program ") );
                 }
                
@@ -6617,15 +6620,17 @@ namespace  Tinta {
 			}
 
 			void * ptrData = box->GetMemPtr();
-			if ( !ptrData || !prog->setDataIn(
-				ptrData, GpuArg_t::enArray, box->GetDataSize() , memMask ))  {
-				StringStream msg;
-				msg << _M("Wrong box data or value: ") << box;
-                TROW_ERR_FUNC(L, msg.str());
-				
-			}
 
-			return 0;
+            try {
+                if(ptrData)
+                    prog->setDataIn(ptrData, GpuArg_t::enArray, box->GetDataSize(), memMask);
+
+            }
+            catch (const std::exception &e) {
+                StringStream msg;
+                msg << _M("Wrong box data or value: ") << box;
+                TROW_ERR_FUNC(L, msg.str());
+            }			
 		}
 
 
@@ -6659,23 +6664,21 @@ namespace  Tinta {
             auto v1 = pImage->getMemSize();
             auto v2 = sizeof(tintaPixel24b);
 
-            if ( !ptrData || !prog->setDataIn(
-                ptrData, GpuArg_t::enArray, pImage->getMemSize(), memMask) ) {
-                StringStream msg;
-                msg << _M("Wrong box data or value: ") << imgid;
-                TROW_ERR_FUNC( L, msg.str() );
-
+            try {
+                if ( ptrData )
+                    prog->setDataIn(ptrData, GpuArg_t::enArray, pImage->getMemSize(), memMask);  
             }
-
-            return 0;
+            catch (const std::exception &e) {
+                StringStream msg;
+                msg << _M("Wrong image data or value: ") << imgid;
+                TROW_ERR_FUNC(L, msg.str());
+            }
+           
         }
 
 
 				
-		int setvalue(SCRIPT_STATE *L) {
-			
-
-          
+		int setvalue(SCRIPT_STATE *L) {         
 
 			String progName = GET_VAL_STRING_EX(L, 1);
 			tintaIClBase* prog = Tinta::tintaTexSpringMain::getPtr()->getGPUProgram(
@@ -6691,23 +6694,28 @@ namespace  Tinta {
 			
 			if ( IS_VAL_INTEGER(L, 2) ){
 				int   iVal  = GET_VAL_INT(L, 2);
-				if (!prog->setDataIn(
-					(void*)&iVal, GpuArg_t::enValue, sizeof(iVal), enRead))  {
-					StringStream msg;
-					msg << _M("Wrong value: ") << iVal;
+
+                try {
+                    prog->setDataIn((void*)&iVal, GpuArg_t::enValue, sizeof(iVal), enRead);
+                }
+                catch (const std::exception &e) {
+                    StringStream msg;
+                    msg << _M("Wrong value: ") << iVal;
                     TROW_ERR_FUNC(L, msg.str());
-					
-				}
+                }
 			}
 			else if (IS_VAL_REAL(L, 2) ){
+
 				float fVal = GET_VAL_FLOAT(L, 2);
-				if (!prog->setDataIn(
-					(void*)&fVal, GpuArg_t::enValue, sizeof(fVal), enRead))  {
-					StringStream msg;
-					msg << _M("Wrong value: ") << fVal;
-                    TROW_ERR_FUNC(L, msg.str());
-					
-				}
+
+                try {
+                        prog->setDataIn((void*)&fVal, GpuArg_t::enValue, sizeof(fVal), enRead);
+                }
+                catch(const std::exception &e){                    
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << fVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                }
 			}
 		
             return 0;
