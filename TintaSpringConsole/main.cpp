@@ -192,7 +192,10 @@ int main( int argc, char *argv[] )
 		
 	
 	console->setServMode( isServer );
-#if CORE_PLATFORM  == CORE_PLATFORM_WIN32
+#if CORE_PLATFORM  == CORE_PLATFORM_WIN32 
+
+#ifdef USE_GL_WINDOW
+
     if ( isPathValid(tintaImgWindow::mConfigName) ) {
 
         mImageWindow = M_NEW tintaImgWindow();
@@ -207,6 +210,8 @@ int main( int argc, char *argv[] )
 
         });
     }
+#endif
+
 #endif
 
     bool inited = console->initialize(strTexSpringConfigFileW, &cmdOut, mImageWindow );

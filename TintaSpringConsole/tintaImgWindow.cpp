@@ -1,5 +1,8 @@
 #include "tintaImgWindow.h"
 #include <tintaPredefine.h>
+
+#ifdef USE_GL_WINDOW
+
 #include <tintaImage.h>
 #include <tintaTexSpringMain.h>
 
@@ -542,3 +545,4 @@ namespace Tinta
     }
 
 }
+#endif

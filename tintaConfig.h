@@ -13,6 +13,10 @@
 
 #define TINTA_PIX_COPYRIGNT "Tintapix(c) 2019"
 
+#define TINTA_NO_INTERACT
+
+//#define USE_GL_WINDOW
+
 
 /*
 if the message has priority > LOG_LEVEL it will be logged

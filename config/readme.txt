@@ -1,0 +1,1 @@
+﻿Copy copy the contents of the directory TintaSpring to the directory with TintaSpringConsole.exe

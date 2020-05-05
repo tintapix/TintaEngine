@@ -7,6 +7,9 @@ tintapix@gmail.com  */
 
 #include <tintaIImgWindow.h>
 #include <tintaMemoryAllocator.h>
+
+#ifdef USE_GL_WINDOW
+
 #include <GL/tintaGLApp.h>
 #include <GL/tintaGLRenderer.h>
 #include <tintaControls.h>
@@ -143,5 +146,7 @@ namespace Tinta
 
     };
 }
+
+#endif
 
 #endif
