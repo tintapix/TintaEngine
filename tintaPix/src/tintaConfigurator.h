@@ -49,22 +49,26 @@ namespace Tinta
 		tintaConfigurator(void);
 		virtual ~tintaConfigurator(void);
 		
-		bool parserConfig(const String &name);
+		bool parserConfig( const String &name );
 		
 		/*
 			Returns user defined gpu script (parameter GPUPrograms )
 		*/
-		const GPUProgramDescrip *getGpuScripts(m_uint32 &count) const;
+		const GPUProgramDescrip *getGpuScripts( m_uint32 &count ) const;
 
 		String getAppName() const;	
 
-		bool   getLocalEnabled()const;
+		bool   getLocalEnabled() const;
 
-		bool   getGpuEnabled()const;
+		bool   getGpuEnabled() const;
 
-		float  getUnitPrior()const;
+        int   getGpuPlatform() const;
+
+        int   getGpuDevice() const;
+
+		float  getUnitPrior() const;
         
-		//int getTimeReconnect()const;
+        String  getStartScript() const;
 
 		m_uint32 getTimeReconnect()const;
 
@@ -109,9 +113,10 @@ namespace Tinta
 
 		Tinta::t_string_array mScriptsPaths;
 		Tinta::t_string_array mCLObjectsPaths;
-		// with global values. Fills after value was requested
-		
+
+		// with global values. Fills after value was requested		
 		gpu_programs_t mClObjects;
+
 		String mIpAdress;
 
 		int	 mPort;	
@@ -119,6 +124,10 @@ namespace Tinta
 		bool mLocalEnabled;
 
 		bool mGpuEnabled;		
+
+        int mGpuPlatform;
+
+        int mGpuDevice;
 
 		String mAppName;
 
@@ -128,14 +137,20 @@ namespace Tinta
 
 		String mConfigPath;
 
+        // file or buffer executing after start
+        String mStartScript;
+
         static const char * const strTexSpringConfigFile; // = "config.lua";
         static const char * const strSectionScriptFolders;// = "Scripts_Folders";
         static const char * const strSectionGPUFolders;// = "GPUPrograms_Folders";
 		static const StringBasic strGPUScripts;// = "GPUPrograms.path";
         static const char * const strSectionIpAdress;// = "Ip_Adress";
+        static const char * const strStartScript;// = "Start_script";
         static const char * const strSectionPort;// = "Port";
         static const char * const strLocalEnabled;// d = "Local_Enabled";
         static const char * const strGpuEnabled;// = "Gpu_Enabled";
+        static const char * const strGpuPlatform; //"Gpu_Platform"
+        static const char * const strGpuDevice; //"Gpu_Device"
         static const char * const strLogName;// = "Log_Name";
         static const char * const strAppName;// = "App_Name";
         static const char * const strUnitPrior;// = "Unit_Priority";

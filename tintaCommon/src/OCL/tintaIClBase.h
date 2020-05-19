@@ -93,6 +93,20 @@ namespace Tinta
 			Returns kernel name for gpu program
 		*/
 		virtual StringBasic getKernelName() const = 0;
+
+        /*
+            preferred platform
+        */
+        virtual void setPlatform( m_uint32 platform ) = 0;
+
+        /*
+            preferred device
+        */
+        virtual void setDevice( m_uint32 device ) = 0;       
+        /*
+            creates program
+        */
+        virtual bool create() = 0;
 	};
 }
 

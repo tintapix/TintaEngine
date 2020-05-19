@@ -30,6 +30,7 @@ namespace  Tinta {
             { UTIL_cpucores, Tinta::tintaUtilFunc::cpucores },
             { UTIL_msg, Tinta::tintaUtilFunc::msg },
             { UTIL_msgf, Tinta::tintaUtilFunc::msgf },
+            { UTIL_timestamp, Tinta::tintaUtilFunc::timestamp },
             { UTIL_bytetofloat, Tinta::tintaUtilFunc::bytetofloat },
             { UTIL_floattobyte, Tinta::tintaUtilFunc::floattobyte },
             { UTIL_linterp, Tinta::tintaUtilFunc::linterp },
@@ -218,6 +219,20 @@ namespace  Tinta {
             if ( Tinta::tintaLogger::getPtr() )
                 Tinta::tintaLogger::getPtr()->logMsg(toWideChar(logname.str()), msg_info, false);
 
+            return 0;
+
+        }
+
+
+        int timestamp(SCRIPT_STATE *L) {
+
+            StringStreamBasic logname;
+
+            if ( IS_VAL_BOOL(L, 1) ) {
+                
+                if (Tinta::tintaLogger::getPtr())
+                    Tinta::tintaLogger::getPtr()->showTime(GET_VAL_BOOL(L, 1));
+            }
             return 0;
 
         }

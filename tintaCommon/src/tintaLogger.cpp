@@ -46,6 +46,10 @@ namespace Tinta
         return mLogName;
     }
 
+    void    tintaLogger::showTime( bool bShowTime ) {
+        mTime = bShowTime;
+    }
+
 	void tintaLogger::logMsg( const String& from, const String& message, msgLevel lml, bool toConsole ) {
 
         TINTA_LOCK_RECUR_MUTEX_AUTO;

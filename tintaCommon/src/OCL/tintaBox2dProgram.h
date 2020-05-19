@@ -29,7 +29,8 @@ namespace Tinta
 		virtual bool execute(const size_t *globalsize, m_uint32 dimensions, const size_t *readidc,
 			m_uint32 readquant, const size_t *workitems = NULL);
 
-		Box2dProgram(const String &uniqName, const String &pathToFile, const StringBasic &kernelName);
+		Box2dProgram(const String &uniqName, const String &pathToFile, const StringBasic &kernelName
+                                                                ,m_uint32 platform = 0, m_uint32 device = 0);
 		virtual ~Box2dProgram();	
 	};
 

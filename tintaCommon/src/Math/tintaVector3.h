@@ -374,6 +374,7 @@ namespace Tinta
 	typedef tintaVector3<float> tintaVector3f;
     typedef tintaVector3<int> tintaVector3i;
     typedef std::vector<tintaVector3f> VecVector3f_t;
+    typedef std::list<tintaVector3f> ListVector3f_t;
 }
 
 #endif

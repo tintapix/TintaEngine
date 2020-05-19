@@ -56,6 +56,15 @@ namespace Tinta {
 
 
         /*
+        @name util.timestamp
+        @description Log time stamps in log messages
+        @param Bool true - show time stamps in log
+        */
+
+#define UTIL_timestamp "timestamp"
+
+
+        /*
         @name util.bytetofloat
         @description	converts byte value to the float
         @param byte value

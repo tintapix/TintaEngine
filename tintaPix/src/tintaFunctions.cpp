@@ -6295,7 +6295,7 @@ namespace  Tinta {
 
 	namespace tintaOCLFunctions {
 		/*
-		Returns GPU description string
+		    Returns GPU description string
 		*/
 		int platdescrip(SCRIPT_STATE *L){
 			if (Tinta::tintaTexSpringMain::getPtr()->isAborted()){ TROW_ERR_FUNC(L, "Command to abort......");	 }
@@ -6308,6 +6308,10 @@ namespace  Tinta {
 			tintaGPUExt *ext = tintaGPUExt::getPtr();
 
 			String rezult = ext->getPlatformInfo(data);
+            String err = ext->getError();
+            if ( err.length() > 0 ) {                
+                TROW_ERR_FUNC(L, err );
+            }
 
 			PUSH_STRING_ARG(L, rezult.c_str()); //	
 
@@ -6316,7 +6320,7 @@ namespace  Tinta {
 
 		/*
 		Returns GPU devices description string
-		param device id
+		param platform id
 		param GPUDevAll = 60		// all data
 		*/
 		int devdescrip(SCRIPT_STATE *L){
@@ -6327,18 +6331,21 @@ namespace  Tinta {
 
 			m_uint32 platId = GET_VAL_UINT(L, 1);
 
-			m_uint32 v = GET_VAL_UINT(L, 2);
-			if (v > tintaGPUExt::GPUDevAll){
-				StringStreamBasic msg;
-				msg << "Gpu device property have to be in rage [" << tintaGPUExt::GPUDevType << " , " << tintaGPUExt::GPUDevAll << " ]";
-				TROW_ERR_BADARGFUNC(L, 1, msg.str());
-				
-			}
-
 			tintaGPUExt *ext = tintaGPUExt::getPtr();
 
-			tintaGPUExt::GPUDevInform prop = static_cast<tintaGPUExt::GPUDevInform>(v);
-			String rezult = ext->getDeviceInfo(platId, prop);
+            String rezult;
+            if ( IS_VAL_INTEGER(L, 2 ) ) {
+
+                m_uint32 deviceId = GET_VAL_UINT(L, 2);
+                rezult  = ext->getDeviceInfo(platId, &deviceId);
+            }
+            else
+                rezult = ext->getDeviceInfo(platId, NULL_M );
+
+            String err = ext->getError();
+            if (err.length() > 0) {
+                TROW_ERR_FUNC(L, err);
+            }
 
 			PUSH_STRING_ARG(L, rezult.c_str()); //	
 
@@ -6358,11 +6365,17 @@ namespace  Tinta {
 
 			m_uint32 rezult = ext->getPlatformsIDs();
 
+            String err = ext->getError();
+            if (err.length() > 0) {
+                TROW_ERR_FUNC(L, err);
+            }
+
 			PUSH_UINT_ARG(L, rezult); //	
 
 			return 1;
 		}
 
+        
 		/*
 		Returns true if GPU functions enabled
 		*/
@@ -6630,7 +6643,9 @@ namespace  Tinta {
                 StringStream msg;
                 msg << _M("Wrong box data or value: ") << box;
                 TROW_ERR_FUNC(L, msg.str());
-            }			
+            }	
+
+            return 0;
 		}
 
 
@@ -6673,6 +6688,8 @@ namespace  Tinta {
                 msg << _M("Wrong image data or value: ") << imgid;
                 TROW_ERR_FUNC(L, msg.str());
             }
+
+            return 0;
            
         }
 

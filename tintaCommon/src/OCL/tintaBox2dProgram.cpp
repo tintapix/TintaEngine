@@ -34,10 +34,11 @@ namespace Tinta
 		}
 		return true;
 	}
-	Box2dProgram::Box2dProgram(const String &uniqName, const String &pathToFile, const StringBasic &kernelName)
+	Box2dProgram::Box2dProgram(const String &uniqName, const String &pathToFile, const StringBasic &kernelName
+                                                                    ,m_uint32 platform, m_uint32 device)
 		:tintaClBaseImpl(uniqName
 		, pathToFile
-		, kernelName)
+		, kernelName, platform, device)
 	{
 
 		//setOutArgsQuantity();

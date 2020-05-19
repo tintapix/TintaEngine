@@ -194,19 +194,18 @@ m_ulong32 tintaGPUExt::getPlatInfoCLField( GPUPlatInform field )const {
 m_ulong32 tintaGPUExt::getPlatformsIDs( )const {
 
 	m_ulong32 rez = 0;
+    mLastError = _M("");
 
 #ifdef USING_GPUCL
 		
 	cl_uint num_platforms(0);
 	cl_int err;
 	
-
-
 	/* Find number of platforms */
 	err = clGetPlatformIDs(0, NULL, &num_platforms);		
-	if(err < 0) {		
-		//perror("Couldn't find any platforms.");			
-		//exit(1);		
+
+	if( err < 0 ) {				
+        mLastError = _M("Couldn't find any platforms.");
 		return rez;
 	}				
 	rez = (m_ulong32)num_platforms;
@@ -215,6 +214,8 @@ m_ulong32 tintaGPUExt::getPlatformsIDs( )const {
 
 	return rez;
 }
+
+
 
 m_ulong32 tintaGPUExt::getDeviceInfoCLField( GPUDevInform field )const {
 
@@ -430,6 +431,8 @@ m_ulong32 tintaGPUExt::getDeviceInfoCLField( GPUDevInform field )const {
 String tintaGPUExt::getPlatformInfo( GPUPlatInform data ){
 
 String rez;
+mLastError = _M("");
+
 #ifdef USING_GPUCL
 
 	
@@ -444,7 +447,7 @@ String rez;
 	/* Find number of platforms */
 	err = clGetPlatformIDs(1, NULL, &num_platforms);		
 	if(err < 0) {		
-		//perror("Couldn't find any platforms.");			
+        mLastError = _M("Couldn't find any platforms.");
 		//exit(1);		
 		return rez;
 	}									
@@ -521,9 +524,14 @@ String rez;
 
 }
 
-String tintaGPUExt::getDeviceInfo( m_uint32 platformId, GPUDevInform data ) {
+String tintaGPUExt::getError() {
+    return mLastError;
+}
+
+String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId ) {
 
 	String rez;
+    mLastError = _M("");
 #ifdef USING_GPUCL
 
 
@@ -541,10 +549,13 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, GPUDevInform data ) {
 	
 
 	/* Find number of platforms */
-	err = clGetPlatformIDs(1, NULL, &num_platforms);		
-	if(err < 0 || platformId >= num_platforms ) {		
-		//perror("Couldn't find any platforms.");			
-		//exit(1);		
+	err = clGetPlatformIDs(1, NULL, &num_platforms);	
+
+	if( err < 0 || platformId >= num_platforms ) {		
+        StringStreamBasic msg;
+        msg << _M("Wrong platform id: ") << platformId;
+        mLastError = msg.str();
+
 		return rez;
 	}									
 
@@ -559,8 +570,12 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, GPUDevInform data ) {
 	/* Find number of platforms */
 	err = clGetDeviceIDs( platforms[platformId], CL_DEVICE_TYPE_GPU,  NULL, NULL, &num_devices);		
 	if(err < 0) {		
-		//perror("Couldn't find any platforms.");			
-		//exit(1);	
+		
+        StringStreamBasic msg;
+       
+        msg << _M("Couldn't find any devices on platform: ") << platformId;
+        mLastError = msg.str();
+
 		free( platforms );
 		return rez;
 	}									
@@ -570,7 +585,19 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, GPUDevInform data ) {
 		malloc( sizeof(cl_device_id) * num_devices );		
 	clGetDeviceIDs(  platforms[platformId], CL_DEVICE_TYPE_GPU, num_devices, devices, NULL);		
 
+   
+    if ( deviceId && *(deviceId) >= num_devices) {
 
+        StringStreamBasic msg;
+
+        msg << _M("Wrong device id: ") << *deviceId;
+        mLastError = msg.str();
+
+        free(devices);
+        free(platforms);
+
+        return rez;
+    }
 
 						
 	size_t ext_size;   
@@ -578,111 +605,13 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, GPUDevInform data ) {
 
 	//String rezExt;//( ext_data );
 	StringStream strData;
+
 	/* Find extensions of all platforms */
-	for( i=0; i<num_devices; i++ ) {		
+    m_uint32 devStart = deviceId ? *(deviceId) : 0;
 
+	for( i = 0; i < num_devices; i++ ) {	
 
-		strData<< tintaGPUExt::str_gpu_device << _M("_") << i + 1 <<_M("\n");
-
-		if( data < GPUDevAll ){
-			
-			field = getDeviceInfoCLField( data );
-
-			GPUExtData::enType type = getDevDataType( data );
-
-			if( type == GPUExtData::enExText ){		
-
-				/* Find size of extension data */
-				err = clGetDeviceInfo( devices[i] ,field, 0, NULL, &ext_size );		
-
-				if( err < 0 ) {			
-					break;
-				}		
-				//ext_data = (char*)malloc(ext_size);				
-                UNIQPTRALLOC(char, ext_data, ALLOC_T(char, ext_size));
-				clGetDeviceInfo( devices[i] , field, ext_size, ext_data.get(), NULL );	
-				strData << prepareDeviceTag(data) << ext_data.get();
-                //strData << _M("\n");
-								
-			}			
-			else if( type == GPUExtData::enExSizeT || type == GPUExtData::enExBool 
-									|| type == GPUExtData::enExULong || type == GPUExtData::enExUInt){
-				size_t extData;
-				/* Find size of extension data */
-				err = clGetDeviceInfo( devices[i] ,field, 0, NULL, &ext_size );		
-
-				if( err < 0 ) {			
-					break;
-				}		
-
-				clGetDeviceInfo( devices[i] , field, sizeof(extData), &extData, NULL );	
-				strData<<prepareDeviceTag( data )<< extData;
-                //strData << _M("\n");
-			}
-			else if(  type == GPUExtData::enExUInt){
-				unsigned int  extData;
-				/* Find size of extension data */
-				err = clGetDeviceInfo( devices[i] ,field, 0, NULL, &ext_size );		
-
-				if( err < 0 ) {			
-					break;
-				}		
-
-				clGetDeviceInfo( devices[i] , field, sizeof(extData), &extData, NULL );	
-				strData<<prepareDeviceTag( data )<< extData;
-                //strData << _M("\n");
-			}
-			else if( type ==  GPUExtData::enExOther ){
-
-				if( data == GPUDevMaxWorkItemSizes ){
-
-					size_t dims;
-					/* Find size of extension data */
-					err = clGetDeviceInfo( devices[i] ,CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, 0, NULL, &dims );		
-
-					if( err < 0 ) {			
-						break;
-					}		
-
-					clGetDeviceInfo( devices[i] , CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, sizeof(dims), &dims, NULL );	
-					size_t *extData = new size_t[dims];
-
-					/* Find size of extension data */
-					err = clGetDeviceInfo( devices[i] ,field, sizeof(size_t) * dims, extData, NULL );		
-
-					if( err < 0 ) {	
-						delete[] extData;
-						break;
-					}							
-					strData<<prepareDeviceTag( data )<< _M(": ");
-					for(size_t d = 0; d < dims; d++){
-						strData<<extData[d]<< _M(" "); //<<extData[1]<<_M(" ")<<extData[2];
-					}
-					
-
-					delete[] extData;
-				}
-				else if( data == GPUDevType ){
-					cl_device_type extData;
-					/* Find size of extension data */
-					err = clGetDeviceInfo( devices[i] ,field, 0, NULL, &ext_size );		
-
-					if( err < 0 ) {			
-						break;
-					}		
-
-					clGetDeviceInfo( devices[i] , field, sizeof(extData), &extData, NULL );	
-					strData<<prepareDeviceTag( data )<< extData;
-                   
-
-				}
-
-                
-			}
-            strData << _M("\n");
-			
-		}		
-		else {
+		strData<< tintaGPUExt::str_gpu_device << _M("_") << i <<_M("\n");
 
 			for( m_uint32 k = 0; k < GPUDevAll; k++ ){
 				
@@ -721,7 +650,7 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, GPUDevInform data ) {
 				}
 				else if( type ==  GPUExtData::enExOther){
 
-					if( data == GPUDevMaxWorkItemSizes ){
+					if(_data == GPUDevMaxWorkItemSizes ){
 
 						size_t dims;
 						/* Find size of extension data */
@@ -767,8 +696,11 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, GPUDevInform data ) {
 
                    
 				}
-                strData << _M("\n");
-			}
+            strData << _M("\n");
+			
+
+            if ( deviceId )
+                break;
 
 		}
 	}

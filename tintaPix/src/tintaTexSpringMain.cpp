@@ -224,21 +224,21 @@ void tintaTexSpringMain::deleteGPU( const String &program ){
 void tintaTexSpringMain::initGPU() {
 #ifdef USING_GPUCL
 
-	//if (mConfig->isG)
+    
+
+	
 	if ( gpuEnabled() ){
 
 		if ( mGPUObjs )
 			deleteGPU();
 
 		mGPUObjs = NEW_T(tintaClObjectContainer)();
-		{
+		{ 
 			m_ulong32 p = gpuExt->getPlatformsIDs();
 			StringUtil::StrStreamType t;
-
-			t << "GPU enabled on : ";
-			for (m_ulong32 i = 0; i < p; i++){
-				t << gpuExt->getDeviceInfo(i, tintaGPUExt::GPUDevName);
-			}
+            if( p > 0 )
+			    t << "OCL GPU enabled";
+			
 			Tinta::tintaLogger::getPtr()->logMsg(t.str());
 		}
 
@@ -250,7 +250,7 @@ void tintaTexSpringMain::initGPU() {
 		for (m_uint32 i = 0; i < q; i++){
 
 			String fullPath;
-			if (mConfig->getGpuScriptPath(fullPath, cl[i].mFile)){
+			if ( mConfig->getGpuScriptPath(fullPath, cl[i].mFile ) ){
 
 				tintaIClBase *obj = M_NEW Box2dProgram(cl[i].mName,
 					fullPath, cl[i].mKernel);
@@ -268,6 +268,11 @@ void tintaTexSpringMain::initGPU() {
 bool tintaTexSpringMain::initialize(const String &configName, tintaConsoleOutput * out, tintaIImgWindow * window){
 	
     Tinta::tintaLogger::getPtr()->addConsole(out);
+
+
+    createFunctions();
+    reinitContext(mScriptContext);
+
 	// ------- initializing configurator 
 	mConfig->parserConfig(configName);// nsNameStrings::strTexSpringConfigFileW);
 
@@ -340,8 +345,7 @@ bool tintaTexSpringMain::initialize(const String &configName, tintaConsoleOutput
         mInteractPool->addInteract(mInteract->getInteractFunc());
     }
 #endif   
-    createFunctions();
-    reinitContext(mScriptContext);    
+       
 
 	//mCompObjects
 	// registering factories
@@ -407,6 +411,12 @@ bool tintaTexSpringMain::initialize(const String &configName, tintaConsoleOutput
 
 
     mImageWindow = window;
+
+
+    String onStart = mConfig->getStartScript();
+
+    if (onStart.length() > 0)
+        executeCommand( onStart.c_str(), tintaExecutingTask::enLocalTask );
 
 	return true;
 }
@@ -1144,9 +1154,13 @@ bool tintaTexSpringMain::registerCl(const String &program, const String &kernel)
             Tinta::tintaTexSpringMain::getPtr()->deleteGPU(fullPath);
         }        
 
-        try {
+        m_uint32 platform = mConfig->getGpuPlatform() > -1 ? (m_uint32)mConfig->getGpuPlatform() : 0;
+        m_uint32 device = mConfig->getGpuDevice() > -1 ? (m_uint32)mConfig->getGpuDevice() : 0;
+        tintaIClBase *obj = M_NEW Box2dProgram(fullPath, fullPath, kernel, platform, device);
 
-            tintaIClBase *obj = M_NEW Box2dProgram(fullPath, fullPath, kernel );
+        try {   
+
+            obj->create();
 
             mGPUObjs->registerObject(obj);
             mGPUPrograms.push_back(obj);
@@ -1155,8 +1169,11 @@ bool tintaTexSpringMain::registerCl(const String &program, const String &kernel)
         }
         catch ( const Tinta::tintaException &e ) {
             if( Tinta::tintaLogger::getPtr() )
-                Tinta::tintaLogger::getPtr()->logMsg( e.getDescr() );          
+                Tinta::tintaLogger::getPtr()->logMsg( e.getDescr() );  
+            M_DELETE obj;
         }
+       
+
 #endif
     }
     return false;

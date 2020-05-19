@@ -56,6 +56,15 @@ namespace Tinta {
 
 
         /*
+        @name util.timestamp
+        @description ¬ыводить врем€ в сообщени€х
+        @param Bool true - будет выводить врем€
+        */
+
+#define UTIL_timestamp "timestamp"
+
+
+        /*
         @name util.bytetofloat
         @description	converts byte value to the float
         @param byte value

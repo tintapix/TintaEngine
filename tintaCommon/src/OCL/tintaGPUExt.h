@@ -137,14 +137,16 @@ namespace Tinta {
 
 		String getPlatformInfo( GPUPlatInform data );
 
-		String getDeviceInfo( m_uint32 platformId, GPUDevInform data );
+		String getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId = NULL_M );
 
-		m_ulong32 getPlatformsIDs( )const;
+		m_ulong32 getPlatformsIDs( )const;       
 
 		/*
             returns data type for the device property
         */
 		GPUExtData::enType	  getDevDataType( GPUDevInform data )const;
+
+        String getError();
 
 	private:
 		/*
@@ -156,6 +158,8 @@ namespace Tinta {
             containing text information for devices 		
         */
 		std::vector<GPUExtData> mDevInfoText;
+
+        mutable String mLastError;
 
 		String	  preparePlatTag( GPUPlatInform data )const;
 

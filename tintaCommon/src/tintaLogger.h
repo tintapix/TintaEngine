@@ -53,6 +53,8 @@ namespace Tinta {
 
 		void    addConsole( Tinta::tintaConsoleOutput *console );
 
+        void    showTime(bool bShowTime);
+
         void clearQueue();
 		
 		 

@@ -51,6 +51,13 @@
             @param Bool,String,Number parameters comma separated e.g.( util.msgf("test",100,true) )
             */
             _CoreExport int msgf(SCRIPT_STATE *L);
+
+            /*
+            @name util.timestamp
+            @description Log time stamps in log messages	
+            @param Bool true - show time stamps in log
+            */
+            _CoreExport int timestamp(SCRIPT_STATE *L);
 		
 
 

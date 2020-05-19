@@ -31,9 +31,9 @@ namespace Tinta
 {
 public:
 	
-	tintaClBaseImpl( const String &name, const String &fileName, const StringBasic &kernelName  );
+	tintaClBaseImpl( const String &name, const String &fileName, const StringBasic &kernelName, m_uint32 platform = 0, m_uint32 device = 0);
 
-	tintaClBaseImpl( const String &name, const char *src, const StringBasic &kernelName  );
+	tintaClBaseImpl( const String &name, const char *src, const StringBasic &kernelName, m_uint32 platform = 0, m_uint32 device = 0);
     	
 	
 	virtual ~tintaClBaseImpl();		
@@ -70,6 +70,17 @@ public:
     */
 	virtual bool isInit()const;
 
+
+    /*
+    preferred platform
+    */
+    virtual void setPlatform( m_uint32 platform );
+
+    /*
+    preferred device
+    */
+    virtual void setDevice( m_uint32 device );
+
     /*
         Clears input and output data
     */
@@ -83,10 +94,10 @@ public:
 	virtual String getProgramName() const;
 
 	virtual StringBasic getKernelName() const;
-private:
-	bool initialize(  const String &scriptPath, const StringBasic &kernelName );
 
-	bool initialize(  const char *src, const StringBasic &kernelName );
+    bool create();
+
+
 protected:
 
 	
@@ -104,14 +115,14 @@ protected:
 
     StringBasic  mKernelName;
 
-    String		     mScriptPath;
+    StringBasic  mSrc;    
 
     /*
         name from config
     */
     String              mName;
 
-    String              mFileName;
+    String              mScriptPath;
 
 	typedef std::vector<String> t_cl_error_container;
 
@@ -134,6 +145,14 @@ protected:
 	m_uint32 xGlobSize = 0;
 
 	m_uint32 yGlobSize = 0;
+
+    cl_platform_id *mPlatforms;
+
+    m_uint32        mPlatform;
+
+    cl_device_id   *mDevices;
+
+    m_uint32        mDevice;
 private:
 	tintaClBaseImpl();
 

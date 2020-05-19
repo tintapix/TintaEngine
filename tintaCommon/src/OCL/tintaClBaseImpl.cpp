@@ -17,34 +17,46 @@ tintaClBaseImpl::tintaClBaseImpl()
 ,mKernel(0)
 ,mProgram(0)
 ,mQueue(0)
+,mPlatforms(NULL_M)
+,mPlatform(0)
+,mDevice(0)
 {
 
 }
 
-tintaClBaseImpl::tintaClBaseImpl(const String &name, const String &fileName, const StringBasic &kernelName )
+tintaClBaseImpl::tintaClBaseImpl(const String &name, const String &scriptPath,
+                                const StringBasic &kernelName, m_uint32 platform, m_uint32 device)
 :mInited(false)
 ,mContext(0)
 ,mKernel(0)
 ,mProgram(0)
 ,mQueue(0)
 ,mName( name )
-,mFileName( fileName )
-,mKernelName( kernelName ){
-	bool rez = initialize(fileName, kernelName);
-	assert(rez);
+,mScriptPath(scriptPath)
+,mKernelName( kernelName )
+,mPlatforms(NULL_M)
+,mPlatform(platform)
+,mDevice(device) {       
+    readUTF8Text(mScriptPath, mSrc);    
 }
 
 
-tintaClBaseImpl::tintaClBaseImpl( const String &name, const char *src, const StringBasic &kernelName  )
+tintaClBaseImpl::tintaClBaseImpl( const String &name, const char *src,
+                            const StringBasic &kernelName, m_uint32 platform, m_uint32 device)
 :mInited(false)
 ,mContext(0)
 ,mKernel(0)
 ,mProgram(0)
 ,mQueue(0)
 ,mName( name )
-,mKernelName( kernelName ){
-	bool rez = initialize(src, kernelName);
-	assert(rez);
+,mKernelName( kernelName )
+,mPlatforms(NULL_M)
+,mPlatform(platform)
+,mDevice(device) {
+
+    if ( src )
+        mSrc = src;
+
 }
 
 tintaClBaseImpl::~tintaClBaseImpl(){
@@ -59,6 +71,9 @@ tintaClBaseImpl::~tintaClBaseImpl(){
 			clReleaseCommandQueue(mQueue);
 	if(mContext)
 		clReleaseContext(mContext);	
+
+    if ( mPlatforms )
+            free(mPlatforms);
 }
 
 bool tintaClBaseImpl::isInit()const{
@@ -66,7 +81,7 @@ bool tintaClBaseImpl::isInit()const{
 }
 
 String tintaClBaseImpl::getScriptFileName() const {
-	return mFileName;
+	return mScriptPath;
 }
 
 String tintaClBaseImpl::getProgramName() const {
@@ -76,104 +91,121 @@ StringBasic tintaClBaseImpl::getKernelName() const {
 	return mKernelName;
 
 }
-
-bool tintaClBaseImpl::initialize(const char *src, const StringBasic &kernelName ) {
-
-	mInited = false;
-	
-	assert( src );	
-	assert( kernelName != "" );
-
-	
-	if( mKernelName == "" ) // name may be selected in config file after object creation
-		mKernelName = kernelName;
-
-	mErrTxt = "CL kernel initialization error. Kernel file: ";
-    mErrTxt.append( mScriptPath );
-	mErrTxt.append(" Kernel: ");
-	mErrTxt.append(mKernelName);
+bool tintaClBaseImpl::create() {
 
 
-	cl_int status;
-
-	// Discovery platform
-	cl_platform_id platforms[2];
-	cl_platform_id platform;
-	status = clGetPlatformIDs(2, platforms, NULL);
-
-	//error.append("Error: clGetPlatformIDs");
-	riseEXCEPTION(status, "Error: clGetPlatformIDs");
+    mErrTxt = "CL kernel initialization error. Kernel file: ";
+    mErrTxt.append(mScriptPath);
+    mErrTxt.append(" Kernel: ");
+    mErrTxt.append(mKernelName);
 
 
-	platform = platforms[PLATFORM_TO_USE];
+    cl_int status;
 
-	// Discover device 
-	cl_device_id device = 0;
-	clGetDeviceIDs(platform, TINTA_CL_DEVICE_TYPE, 1, &device, NULL);	
-	if(!device)
-		status = -33; // not supported device
+    // Discovery platform
+    //cl_platform_id platforms[2];
+    cl_platform_id platform;
 
-	//error.append(" Error: clGetDeviceIDs");
-	riseEXCEPTION(status, " Error: clGetDeviceIDs");
+    cl_uint num_platforms;
+
+    /* Find number of platforms */
+    status = clGetPlatformIDs(1, NULL, &num_platforms);
+
+    riseEXCEPTION(status, "Error: clGetPlatformIDs");
+    if (mPlatform >= num_platforms) {
+        riseEXCEPTION(-1, "Error: wrong platform number");
+    }
+
+    mPlatforms = (cl_platform_id*)
+        malloc(sizeof(cl_platform_id) * num_platforms);
+
+    status = clGetPlatformIDs(num_platforms, mPlatforms, NULL);
+
+    riseEXCEPTION(status, "Error: clGetPlatformIDs");
 
 
-	// Create context
-	cl_context_properties props[3] = {CL_CONTEXT_PLATFORM,
-		(cl_context_properties)(platform), 0};
-	//cl_context context;
-	mContext = clCreateContext(props, 1, &device, NULL, NULL, &status);
-	//error.append(" Error: clCreateContext");
-	riseEXCEPTION( status, " Error: clCreateContext" );		
+    platform = mPlatforms[mPlatform];
 
-	assert(mContext);
+    // Discover device 
+    cl_uint num_devices;
+    clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, NULL, NULL, &num_devices);
+    riseEXCEPTION(status, " Error: clGetDeviceIDs");
+    if (mDevice >= num_devices) {
+        riseEXCEPTION(-1, "Error: wrong device number");
+    }
+    /* Access all installed platforms */
+    mDevices = (cl_device_id*)
+        malloc(sizeof(cl_device_id) * num_devices);
 
-	// Create command queue	
-	mQueue = clCreateCommandQueue(mContext, device, 0, &status);
+    clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, num_devices, mDevices, NULL);
 
-	//error.append(" Error: clCreateCommandQueue");
-	riseEXCEPTION(status,  " Error: clCreateCommandQueue" );
 
-	// Create a program object with source and build it
-	
-	mProgram = clCreateProgramWithSource(mContext, 1, &src, NULL, NULL);
+    //cl_device_id device = 0;
+    //clGetDeviceIDs(platform, TINTA_CL_DEVICE_TYPE, 1, &device, NULL);	
+    //if(!device)
+    //	status = -33; // not supported device
 
-	//error.append(" Error: clCreateProgramWithSource");
-	riseEXCEPTION(status, " Error: clCreateProgramWithSource" );
+    //error.append(" Error: clGetDeviceIDs");
+    riseEXCEPTION(status, " Error: clGetDeviceIDs");
 
-	status = clBuildProgram(mProgram, 1, &device, NULL, NULL, NULL);
-	StringStreamBasic msg;
-	msg << "Error: clBuildProgram";	
-	
-	if( status == CL_BUILD_PROGRAM_FAILURE ){
-		// Determine the size of the log
-		size_t log_size;
-		clGetProgramBuildInfo( mProgram, device, CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size );
 
-		// Allocate memory for the log
+    // Create context
+    cl_context_properties props[3] = { CL_CONTEXT_PLATFORM,
+        (cl_context_properties)(platform), 0 };
+
+    //cl_context context;
+    mContext = clCreateContext(props, 1, &mDevices[mDevice], NULL, NULL, &status);
+
+    //error.append(" Error: clCreateContext");
+    riseEXCEPTION(status, " Error: clCreateContext");
+
+    assert(mContext);
+
+    // Create command queue	
+    mQueue = clCreateCommandQueue(mContext, mDevices[mDevice], 0, &status);
+
+    //error.append(" Error: clCreateCommandQueue");
+    riseEXCEPTION(status, " Error: clCreateCommandQueue");
+
+    // Create a program object with source and build it
+    const char* src = mSrc.c_str();
+    mProgram = clCreateProgramWithSource(mContext, 1, &src, NULL, &status);
+
+    //error.append(" Error: clCreateProgramWithSource");
+    riseEXCEPTION(status, " Error: clCreateProgramWithSource");
+
+    status = clBuildProgram(mProgram, 1, &mDevices[mDevice], NULL, NULL, NULL);
+    StringStreamBasic msg;
+    msg << "Error: clBuildProgram";
+
+    if (status == CL_BUILD_PROGRAM_FAILURE) {
+        // Determine the size of the log
+        size_t log_size;
+        clGetProgramBuildInfo(mProgram, mDevices[mDevice], CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
+
+        // Allocate memory for the log
         //assert_ uniqptr
         UNIQPTRALLOC(char, log, ALLOC_T(char, log_size));
-		//char *log = new char [log_size];
+        //char *log = new char [log_size];
 
-		// Get the log
-		clGetProgramBuildInfo( mProgram, device, CL_PROGRAM_BUILD_LOG, log_size, log.get(), NULL );
-		msg<<log.get();
-		
-	}
-	riseEXCEPTION(status, msg.str());	
+        // Get the log
+        clGetProgramBuildInfo(mProgram, mDevices[mDevice], CL_PROGRAM_BUILD_LOG, log_size, log.get(), NULL);
+        msg << log.get();
 
-	// Create the kernel object	
-	mKernel = clCreateKernel(mProgram, mKernelName.c_str(), &status);
+    }
+    riseEXCEPTION(status, msg.str());
 
-	//error.append(" Error: clCreateKernel");
-	riseEXCEPTION(status, " Error: clCreateKernel" );		
+    // Create the kernel object	
+    mKernel = clCreateKernel(mProgram, mKernelName.c_str(), &status);
 
-	mInited = true;
+    //error.append(" Error: clCreateKernel");
+    riseEXCEPTION(status, " Error: clCreateKernel");
 
-	return mInited;
+    mInited = true;
 
-
-
+    return mInited;
 }
+
 GpuArg_t tintaClBaseImpl::getDataIn( m_uint32 pos ) const {
 
 	if( pos < mArgsIn.size()  ){
@@ -267,17 +299,21 @@ void tintaClBaseImpl::clearData( ){
 } 
 
 
-
-bool tintaClBaseImpl::initialize(const String &scriptPath, const StringBasic &kernelName){
-
-	StringBasic mKernelSrc ;
-	mScriptPath = scriptPath;
-
-	if( readUTF8Text( scriptPath, mKernelSrc) ) {
-		return initialize(mKernelSrc.c_str(), kernelName );
-	}
-	return false;
+/*
+    preferred platform
+*/
+void tintaClBaseImpl::setPlatform( m_uint32 platform ) {
+    mPlatform = platform;
 }
+
+/*
+    preferred device
+*/
+void tintaClBaseImpl::setDevice( m_uint32 device ) {
+    mDevice = device;
+}
+
+
 
 const String *tintaClBaseImpl::getErrors(unsigned &errors_count) const{
 	errors_count = mErrors.size();
@@ -295,7 +331,8 @@ void tintaClBaseImpl::clearErrors(){
 //bool tintaClBaseImpl::initData() = 0;
 
 void tintaClBaseImpl::riseEXCEPTION(cl_int status, const StringBasic &err_message){
-	if( status != CL_SUCCESS && err_message != "" ){
+	if( status != CL_SUCCESS && err_message.length() > 0 ){      
+
 		StringStreamBasic msg;
 		msg << mErrTxt;	
 		msg << " Status: "<<status<<" ";	

@@ -15,9 +15,12 @@ const char * const tintaConfigurator::strSectionScriptFolders = "Scripts_Folders
 const char * const tintaConfigurator::strSectionGPUFolders = "GPUPrograms_Folders";
 const StringBasic tintaConfigurator::strGPUScripts = "GPUPrograms.path";
 const char * const tintaConfigurator::strSectionIpAdress = "Ip_Adress";
+const char * const tintaConfigurator::strStartScript = "Start_script";
 const char * const tintaConfigurator::strSectionPort = "Port";
 const char * const tintaConfigurator::strLocalEnabled = "Local_Enabled";
 const char * const tintaConfigurator::strGpuEnabled = "Gpu_Enabled";
+const char * const tintaConfigurator::strGpuPlatform = "Gpu_Platform";
+const char * const tintaConfigurator::strGpuDevice = "Gpu_Device";
 const char * const tintaConfigurator::strLogName = "Log_Name";
 const char * const tintaConfigurator::strAppName = "App_Name";
 const char * const tintaConfigurator::strUnitPrior = "Unit_Priority";
@@ -29,6 +32,8 @@ const char * const tintaConfigurator::strReConnectTime = "Unit_Reconnect_Time";
 tintaConfigurator::tintaConfigurator(void)
 	: mLocalEnabled(true)
 	, mGpuEnabled(true)	
+    , mGpuPlatform(-1)
+    , mGpuDevice(-1)
 	, mAppName( _M("Main") )
 	, mUnitPrior(0.f)	
 	, mTimeReconnect(0)
@@ -82,7 +87,7 @@ void tintaConfigurator::fillArrayData( const Tinta::t_string_array &srcData,
 	   }
 
 }
-bool tintaConfigurator::parserConfig(const String &name )
+bool tintaConfigurator::parserConfig( const String &name )
 {
 	String config_path = Tinta::getRootPath();
 	const String root_path = config_path; //Tinta::getRootPath();
@@ -142,10 +147,16 @@ bool tintaConfigurator::parserConfig(const String &name )
 	mScriptConfig.getGlobVar(mPort, tintaConfigurator::strSectionPort);
 
 	mScriptConfig.getGlobVar(mLocalEnabled, tintaConfigurator::strLocalEnabled);
-
+    
 	mScriptConfig.getGlobVar(mGpuEnabled, tintaConfigurator::strGpuEnabled);
+
+    mScriptConfig.getGlobVar(mGpuPlatform, tintaConfigurator::strGpuPlatform);
+
+    mScriptConfig.getGlobVar(mGpuDevice, tintaConfigurator::strGpuDevice);
 	
 	mScriptConfig.getGlobVar(mAppName, tintaConfigurator::strAppName);
+
+    mScriptConfig.getGlobVar(mStartScript, tintaConfigurator::strStartScript);
 
 	double val = 0.;
 	mScriptConfig.getGlobVar(val, tintaConfigurator::strUnitPrior);
@@ -162,6 +173,10 @@ float tintaConfigurator::getUnitPrior()const{
 	return mUnitPrior;
 }
 
+
+String  tintaConfigurator::getStartScript() const {
+    return mStartScript;
+}
 
 void tintaConfigurator::getAllScriptsPaths(Tinta::t_string_array &paths ) const {
 
@@ -249,6 +264,14 @@ bool tintaConfigurator::getLocalEnabled()const{
 
 bool tintaConfigurator::getGpuEnabled()const{
 	return mGpuEnabled;
+}
+
+int   tintaConfigurator::getGpuPlatform() const {
+    return mGpuPlatform;
+}
+
+int   tintaConfigurator::getGpuDevice() const {
+    return mGpuDevice;
 }
 
 
