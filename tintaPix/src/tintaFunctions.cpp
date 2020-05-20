@@ -6257,6 +6257,7 @@ namespace  Tinta {
 			 { "platdescrip", Tinta::tintaOCLFunctions::platdescrip },
 			 { "devdescrip", Tinta::tintaOCLFunctions::devdescrip },
 			 { "platforms", Tinta::tintaOCLFunctions::platforms },
+             { "programdescrip", Tinta::tintaOCLFunctions::programdescrip },             
 			 { "gpuenabled", Tinta::tintaOCLFunctions::enabled },
 			 { "clear", Tinta::tintaOCLFunctions::clear },
              { "create", Tinta::tintaOCLFunctions::create },
@@ -6301,13 +6302,11 @@ namespace  Tinta {
 			if (Tinta::tintaTexSpringMain::getPtr()->isAborted()){ TROW_ERR_FUNC(L, "Command to abort......");	 }
 
             if ( !Tinta::tintaTexSpringMain::getPtr()->gpuEnabled())
-                return 0;
-
-			tintaGPUExt::GPUPlatInform data = static_cast<tintaGPUExt::GPUPlatInform>(GET_VAL_UINT(L, 1));
+                return 0;			
 
 			tintaGPUExt *ext = tintaGPUExt::getPtr();
 
-			String rezult = ext->getPlatformInfo(data);
+			String rezult = ext->getPlatformInfo();
             String err = ext->getError();
             if ( err.length() > 0 ) {                
                 TROW_ERR_FUNC(L, err );
@@ -6318,11 +6317,7 @@ namespace  Tinta {
 			return 1;
 		}
 
-		/*
-		Returns GPU devices description string
-		param platform id
-		param GPUDevAll = 60		// all data
-		*/
+
 		int devdescrip(SCRIPT_STATE *L){
 			if (Tinta::tintaTexSpringMain::getPtr()->isAborted()){ TROW_ERR_FUNC(L, "Command to abort......");}
 
@@ -6351,6 +6346,50 @@ namespace  Tinta {
 
 			return 1;
 		}
+
+
+        int programdescrip(SCRIPT_STATE *L) {
+            if (Tinta::tintaTexSpringMain::getPtr()->isAborted()) { TROW_ERR_FUNC(L, "Command to abort......"); }
+
+            if (!Tinta::tintaTexSpringMain::getPtr()->gpuEnabled())
+                return 0;
+
+            m_uint32 platId = GET_VAL_UINT(L, 1);
+
+            tintaGPUExt *ext = tintaGPUExt::getPtr();
+
+            String rezult;
+
+            String program = GET_VAL_STRING(L, 2);
+            
+            tintaIClBase* clProg = Tinta::tintaTexSpringMain::getPtr()->getGPUProgram(program);
+            if (!clProg) {
+                StringStream msg;
+                msg << _M("Wrong program name: ") << program;
+                TROW_ERR_FUNC(L, msg.str());
+            }
+            void *kernel = clProg->getKernel();
+            if (!kernel) {
+                StringStream msg;
+                msg << _M("Kernel not created");
+                TROW_ERR_FUNC(L, msg.str());
+            }
+
+            if( kernel )
+                rezult = ext->getDeviceInfo( platId, NULL_M, kernel);
+
+            String err = ext->getError();
+            if ( err.length() > 0 ) {
+                TROW_ERR_FUNC(L, err);
+            }
+
+            PUSH_STRING_ARG(L, rezult.c_str()); //	
+
+            return 1;
+        }
+
+
+       
 
 		/*
 			Returns GPU platforms quantity

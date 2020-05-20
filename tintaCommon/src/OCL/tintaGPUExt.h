@@ -28,7 +28,8 @@ namespace Tinta {
 				enExInt,
 				enExUInt,
 				enExULong,
-				enExSizeT,
+				enExSizeT,                
+                enExSizeT3, // array
 				enExOther				
 			};
 
@@ -125,7 +126,14 @@ namespace Tinta {
 		GPUDevNativeVecWidthDouble= 57,// 				#define CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE        0x103B
 		GPUDevNativeVecWidthHalf= 58,// 				#define CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF          0x103C
 		GPUDevCLVersion= 59,	// 				#define CL_DEVICE_OPENCL_C_VERSION                  0x103D
-		GPUDevAll = 60		// all data
+        // work group info
+        GPUDevWorkGroupSize = 60,//                 #define CL_KERNEL_WORK_GROUP_SIZE                   0x11B0
+        GPUDevWorkCompileGroupSize = 61,//          #define CL_KERNEL_COMPILE_WORK_GROUP_SIZE           0x11B1
+        GPUDevWorkLocalMemSize = 62,//              #define CL_KERNEL_LOCAL_MEM_SIZE                    0x11B2
+        GPUDevWorkPreferedWorkGroupSize = 63,//     #define CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE 0x11B3
+        GPUDevWorkPrivateMemSize = 64,//            #define CL_KERNEL_PRIVATE_MEM_SIZE                  0x11B4
+        
+		GPUDevAll = 65		// all data
 		};
         		
 		static tintaGPUExt* getPtr( void )	{
@@ -135,9 +143,9 @@ namespace Tinta {
 		tintaGPUExt(void);
 		virtual ~tintaGPUExt(void);
 
-		String getPlatformInfo( GPUPlatInform data );
+		String getPlatformInfo( );
 
-		String getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId = NULL_M );
+		String getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId = NULL_M, void* kernel = NULL_M );
 
 		m_ulong32 getPlatformsIDs( )const;       
 
@@ -238,6 +246,12 @@ namespace Tinta {
         static const char_m *str_gpu_device_native_vector_width_double;// = _M("Device native vector width double: ");	// 				#define CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE        0x103B
         static const char_m *str_gpu_device_native_vector_width_half;// = _M("Device native vector width half: ");	// 				#define CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF          0x103C
         static const char_m *str_gpu_device_opencl_version;// = _M("Device opencl version: ");		// 				#define CL_DEVICE_OPENCL_C_VERSION                  0x103D
+
+        static const char_m *str_gpu_device_work_group_size;    // #define CL_KERNEL_WORK_GROUP_SIZE                   0x11B0
+        static const char_m *str_gpu_device_compile_work_group_size;         //#define CL_KERNEL_COMPILE_WORK_GROUP_SIZE           0x11B1
+        static const char_m *str_gpu_device_local_mem_size;     //#define CL_KERNEL_LOCAL_MEM_SIZE                    0x11B2
+        static const char_m *str_gpu_device_prefered_work_group_size;    // #define CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE 0x11B3
+        static const char_m *str_gpu_device_private_mem_size;    //#define CL_KERNEL_PRIVATE_MEM_SIZE                  0x11B4
 
         static const char_m *str_gpu_plat_text;// = _M("Platform");
         static const char_m *str_gpu_device;// = _M("GPU device");

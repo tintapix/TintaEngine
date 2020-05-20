@@ -74,7 +74,9 @@ namespace Tinta
 
         void dumpErr();
 	
-		void getAllScriptsPaths(Tinta::t_string_array &paths) const;
+        const t_string_array &getAllScriptsPaths() const;
+
+        const t_string_array &getCommands() const;
 
 		/*
 		returns first script appropriated path
@@ -114,6 +116,8 @@ namespace Tinta
 		Tinta::t_string_array mScriptsPaths;
 		Tinta::t_string_array mCLObjectsPaths;
 
+        Tinta::t_string_array mCommands;
+
 		// with global values. Fills after value was requested		
 		gpu_programs_t mClObjects;
 
@@ -142,6 +146,7 @@ namespace Tinta
 
         static const char * const strTexSpringConfigFile; // = "config.lua";
         static const char * const strSectionScriptFolders;// = "Scripts_Folders";
+        static const char * const strSectionCommands; //= "Commands";
         static const char * const strSectionGPUFolders;// = "GPUPrograms_Folders";
 		static const StringBasic strGPUScripts;// = "GPUPrograms.path";
         static const char * const strSectionIpAdress;// = "Ip_Adress";

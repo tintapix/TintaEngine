@@ -12,6 +12,7 @@ using namespace Tinta;
 
 const char * const tintaConfigurator::strTexSpringConfigFile = "config.lua";
 const char * const tintaConfigurator::strSectionScriptFolders = "Scripts_Folders";
+const char * const tintaConfigurator::strSectionCommands = "Commands";
 const char * const tintaConfigurator::strSectionGPUFolders = "GPUPrograms_Folders";
 const StringBasic tintaConfigurator::strGPUScripts = "GPUPrograms.path";
 const char * const tintaConfigurator::strSectionIpAdress = "Ip_Adress";
@@ -127,11 +128,14 @@ bool tintaConfigurator::parserConfig( const String &name )
     // clear errors for not required configurations 
     mScriptConfig.resetErrors();
 
-	Tinta::t_string_array scrips_folders;
-	mScriptConfig.getArray(scrips_folders, tintaConfigurator::strSectionScriptFolders );
+	Tinta::t_string_array arr;
+	mScriptConfig.getArray(arr, tintaConfigurator::strSectionScriptFolders );
 
 	
-	fillArrayData( scrips_folders, mScriptsPaths, root_path );
+	fillArrayData(arr, mScriptsPaths, root_path );
+
+    
+    mScriptConfig.getArray(mCommands, tintaConfigurator::strSectionCommands);
 
 	// parsing cl kernels paths
 	Tinta::t_string_array clkernels_folders;
@@ -178,11 +182,12 @@ String  tintaConfigurator::getStartScript() const {
     return mStartScript;
 }
 
-void tintaConfigurator::getAllScriptsPaths(Tinta::t_string_array &paths ) const {
+const t_string_array &tintaConfigurator::getAllScriptsPaths() const {
+    return mScriptsPaths;
+}
 
-	paths.resize( mScriptsPaths.size() );
-	std::copy(mScriptsPaths.begin(), mScriptsPaths.end(), paths.begin() );
-
+const t_string_array &tintaConfigurator::getCommands() const {
+    return mCommands;
 }
 
 m_uint32 tintaConfigurator::getTimeReconnect()const {

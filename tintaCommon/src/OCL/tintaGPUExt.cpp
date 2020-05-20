@@ -76,6 +76,11 @@ namespace Tinta {
     const char_m *tintaGPUExt::str_gpu_device_native_vector_width_double = _M("Device native vector width double: ");	// 				#define CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE        0x103B
     const char_m *tintaGPUExt::str_gpu_device_native_vector_width_half = _M("Device native vector width half: ");	// 				#define CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF          0x103C
     const char_m *tintaGPUExt::str_gpu_device_opencl_version = _M("Device opencl version: ");		// 				#define CL_DEVICE_OPENCL_C_VERSION                  0x103D
+    const char_m *tintaGPUExt::str_gpu_device_work_group_size = _M("Device work group size: ");    // #define CL_KERNEL_WORK_GROUP_SIZE                   0x11B0
+    const char_m *tintaGPUExt::str_gpu_device_compile_work_group_size = _M("Device compile work group size: ");         //#define CL_KERNEL_COMPILE_WORK_GROUP_SIZE           0x11B1
+    const char_m *tintaGPUExt::str_gpu_device_local_mem_size = _M("Device local mem size: ");     //#define CL_KERNEL_LOCAL_MEM_SIZE                    0x11B2
+    const char_m *tintaGPUExt::str_gpu_device_prefered_work_group_size = _M("Device prefered work group size: ");    // #define CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE 0x11B3
+    const char_m *tintaGPUExt::str_gpu_device_private_mem_size = _M("Device private mem size: ");    //#define CL_KERNEL_PRIVATE_MEM_SIZE                  0x11B4
 
     const char_m *tintaGPUExt::str_gpu_plat_text = _M("Platform");
     const char_m *tintaGPUExt::str_gpu_device = _M("GPU device");
@@ -150,6 +155,12 @@ tintaGPUExt::tintaGPUExt(void)
 	mDevInfoText[GPUDevNativeVecWidthDouble]  = GPUExtData(tintaGPUExt::str_gpu_device_native_vector_width_double,GPUExtData::enExSizeT);//("Device native vector width double: ");	// 				#define CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE        0x103B
 	mDevInfoText[GPUDevNativeVecWidthHalf]  = GPUExtData(tintaGPUExt::str_gpu_device_native_vector_width_half,GPUExtData::enExSizeT);//("Device native vector width half: ");	// 				#define CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF          0x103C
 	mDevInfoText[GPUDevCLVersion]  = GPUExtData(tintaGPUExt::str_gpu_device_opencl_version,GPUExtData::enExText);//("Device opencl version: ");		// 				#define CL_DEVICE_OPENCL_C_VERSION                  0x103D
+
+    mDevInfoText[GPUDevWorkGroupSize] = GPUExtData(tintaGPUExt::str_gpu_device_work_group_size, GPUExtData::enExSizeT);
+    mDevInfoText[GPUDevWorkCompileGroupSize] = GPUExtData(tintaGPUExt::str_gpu_device_compile_work_group_size, GPUExtData::enExSizeT3);
+    mDevInfoText[GPUDevWorkLocalMemSize] = GPUExtData(tintaGPUExt::str_gpu_device_local_mem_size, GPUExtData::enExULong);
+    mDevInfoText[GPUDevWorkPreferedWorkGroupSize] = GPUExtData(tintaGPUExt::str_gpu_device_prefered_work_group_size, GPUExtData::enExSizeT);
+    mDevInfoText[GPUDevWorkPrivateMemSize] = GPUExtData(tintaGPUExt::str_gpu_device_private_mem_size, GPUExtData::enExULong);
 
 }
 
@@ -415,6 +426,21 @@ m_ulong32 tintaGPUExt::getDeviceInfoCLField( GPUDevInform field )const {
 		case GPUDevCLVersion:
 			dataGet = CL_DEVICE_OPENCL_C_VERSION;  
 			break;
+        case GPUDevWorkGroupSize:
+            dataGet = CL_KERNEL_WORK_GROUP_SIZE;
+            break;
+        case GPUDevWorkCompileGroupSize:
+            dataGet = CL_KERNEL_COMPILE_WORK_GROUP_SIZE;
+            break;
+        case GPUDevWorkLocalMemSize:
+            dataGet = CL_KERNEL_LOCAL_MEM_SIZE;
+            break;
+        case GPUDevWorkPreferedWorkGroupSize:
+            dataGet = CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE;
+            break;
+        case GPUDevWorkPrivateMemSize:
+            dataGet = CL_KERNEL_PRIVATE_MEM_SIZE;
+            break;
 
 		default:
 			// dataGet = 0x0000; //all
@@ -428,7 +454,7 @@ m_ulong32 tintaGPUExt::getDeviceInfoCLField( GPUDevInform field )const {
 
 }
 
-String tintaGPUExt::getPlatformInfo( GPUPlatInform data ){
+String tintaGPUExt::getPlatformInfo(  ){
 
 String rez;
 mLastError = _M("");
@@ -467,12 +493,14 @@ mLastError = _M("");
 	StringStream strData;
 	/* Find extensions of all platforms */
 	for( i=0; i<num_platforms; i++ ) {		
+		
+		strData<< tintaGPUExt::str_gpu_plat_text << _M("_") << i + 1 <<_M("\n");	
+		
 
-		
-		strData<< tintaGPUExt::str_gpu_plat_text << _M("_") << i + 1 <<_M("\n");
-		
-		if( data < GPUPlatAll ){
-			field = getPlatInfoCLField(data);
+		for( m_uint32 k = 0; k < GPUDevAll; k++ ){
+				
+			tintaGPUExt::GPUPlatInform _data =  (tintaGPUExt::GPUPlatInform)k;
+			field = getPlatInfoCLField( _data );
 			/* Find size of extension data */
 			err = clGetPlatformInfo( platforms[i],field, 0, NULL, &ext_size );		
 			if( err < 0 ) {			
@@ -480,31 +508,14 @@ mLastError = _M("");
 			}		
 			//ext_data = (char*)malloc(ext_size);				
             UNIQPTRALLOC(char, ext_data, ALLOC_T(char, ext_size));
-			clGetPlatformInfo( platforms[i], field, ext_size, ext_data.get(), NULL );	
-			strData << preparePlatTag(data) << ext_data.get();
-			//free(ext_data);
-		}
-		else {
-
-			for( m_uint32 k = 0; k < GPUDevAll; k++ ){
+			clGetPlatformInfo( platforms[i], field, ext_size, ext_data.get(), NULL );
 				
-				tintaGPUExt::GPUPlatInform _data =  (tintaGPUExt::GPUPlatInform)k;
-				field = getPlatInfoCLField( _data );
-				/* Find size of extension data */
-				err = clGetPlatformInfo( platforms[i],field, 0, NULL, &ext_size );		
-				if( err < 0 ) {			
-					break;
-				}		
-				//ext_data = (char*)malloc(ext_size);				
-                UNIQPTRALLOC(char, ext_data, ALLOC_T(char, ext_size));
-				clGetPlatformInfo( platforms[i], field, ext_size, ext_data.get(), NULL );
-				
-				strData << preparePlatTag(_data) << ext_data.get();
-				strData<<_M("\n");			
-
-			}
+			strData << preparePlatTag(_data) << ext_data.get();
+			strData<<_M("\n");			
 
 		}
+
+		
 	}
 	
 	rez =  strData.str();
@@ -528,7 +539,7 @@ String tintaGPUExt::getError() {
     return mLastError;
 }
 
-String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId ) {
+String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void* kernel ) {
 
 	String rez;
     mLastError = _M("");
@@ -608,12 +619,21 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId ) {
 
 	/* Find extensions of all platforms */
     m_uint32 devStart = deviceId ? *(deviceId) : 0;
+    cl_kernel kernelCl = (cl_kernel)kernel;
 
 	for( i = 0; i < num_devices; i++ ) {	
 
 		strData<< tintaGPUExt::str_gpu_device << _M("_") << i <<_M("\n");
 
-			for( m_uint32 k = 0; k < GPUDevAll; k++ ){
+            m_uint32 begin = 0;
+            m_uint32 end = GPUDevAll;
+
+            if (kernel)
+                begin = (m_uint32)GPUDevWorkGroupSize;
+            else 
+                end = (m_uint32)GPUDevWorkGroupSize;
+
+			for( m_uint32 k = begin; k < end; k++ ){
 				
 				tintaGPUExt::GPUDevInform _data =  (tintaGPUExt::GPUDevInform)k;
 				field = getDeviceInfoCLField( _data );
@@ -635,19 +655,56 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId ) {
 					//delete[] ext_data;
 
 				}			
-				else if( type == GPUExtData::enExSizeT || type == GPUExtData::enExBool || type == GPUExtData::enExULong || type == GPUExtData::enExUInt){
-					size_t extData;
+				else if( type == GPUExtData::enExSizeT || type == GPUExtData::enExBool || type == GPUExtData::enExUInt){
+					
+                    size_t extData = 0;
+                    
 					/* Find size of extension data */
-					err = clGetDeviceInfo( devices[i] ,field, 0, NULL, &ext_size );		
+                    if( _data < GPUDevWorkGroupSize )
+					    err = clGetDeviceInfo( devices[i] ,field, 0, NULL, &ext_size );		
+                    else if( kernelCl )
+                        err = clGetKernelWorkGroupInfo(kernelCl,devices[i], field, 0, NULL, &ext_size);
 
 					if( err < 0 ) {			
 						break;
 					}		
-
-					clGetDeviceInfo( devices[i] , field, sizeof(extData), &extData, NULL );	
+                    err = -1;
+                    if ( _data < GPUDevWorkGroupSize )
+					    clGetDeviceInfo( devices[i] , field, sizeof(extData), &extData, NULL );
+                    else if (kernelCl)
+                        clGetKernelWorkGroupInfo(kernelCl, devices[i], field, sizeof(extData), &extData, NULL);
+                    
+                   
 					strData<<prepareDeviceTag( _data )<< extData;
+
                     //strData << _M("\n");
 				}
+                else if (type ==  GPUExtData::enExULong)
+                {
+                    m_uint64 extData;                    
+                    err = clGetKernelWorkGroupInfo(kernelCl, devices[i], field, 0, NULL, &ext_size);
+
+                    if (err < 0) {
+                        break;
+                    }
+
+                    clGetKernelWorkGroupInfo(kernelCl, devices[i], field, ext_size, &extData, NULL);
+                    strData << prepareDeviceTag(_data) << extData;
+                }
+                else if (type == GPUExtData::enExSizeT3 ) {
+
+                    size_t extData[3];                   
+                  
+                    err = clGetKernelWorkGroupInfo(kernelCl, devices[i], field, 0, NULL, &ext_size);
+
+                    if (err < 0) {
+                        break;
+                    }                      
+                    
+                    clGetKernelWorkGroupInfo(kernelCl, devices[i], field, ext_size, &extData, NULL);
+                    strData << prepareDeviceTag(_data) << extData[0] << _M(" ") << extData[1] << _M(" ") << extData[2];
+                    
+                }                
 				else if( type ==  GPUExtData::enExOther){
 
 					if(_data == GPUDevMaxWorkItemSizes ){

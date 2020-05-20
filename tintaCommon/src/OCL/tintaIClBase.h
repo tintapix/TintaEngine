@@ -107,6 +107,9 @@ namespace Tinta
             creates program
         */
         virtual bool create() = 0;
+
+
+        virtual void* getKernel() = 0;
 	};
 }
 

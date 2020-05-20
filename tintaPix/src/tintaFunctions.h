@@ -1511,12 +1511,21 @@
 
 		/*
         @name ocl.devdescrip
-		@description Returns GPU description util.msg(ocl.devdescrip(0,60)) of all installed devices on the platform
+		@description Returns GPU description util.msg(ocl.devdescrip(0)) of all installed devices on the platform
         @param platform id
         @param device id or NILL
 		@return GPU devices description string
 		*/
 		_CoreExport int devdescrip(SCRIPT_STATE *L);
+
+        /*
+        @name ocl.programdescrip
+        @description Returns GPU description util.msg(ocl.programdescrip(0,"program_name")) of all installed devices on the platform
+        @param platform id
+        @param Program name
+        @return Program description string
+        */
+        _CoreExport int programdescrip(SCRIPT_STATE *L);
 
 		/*
         @name ocl.platforms

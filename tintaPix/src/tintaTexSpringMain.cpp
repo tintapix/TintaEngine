@@ -536,8 +536,9 @@ tintaIClBase* tintaTexSpringMain::getGPUProgram( const String &uniqName ){
 		return NULL;
 
 	return( mGPUObjs->findObject( uniqName ) );
-#endif
+#else
 	return NULL_M;
+#endif
 }
 
 tintaThreadPool* tintaTexSpringMain::getThreadPool(){

@@ -13,10 +13,10 @@ namespace Tinta {
 
 tintaClBaseImpl::tintaClBaseImpl()
 :mInited(false)
-,mContext(0)
-,mKernel(0)
-,mProgram(0)
-,mQueue(0)
+,mContext(NULL_M)
+,mKernel(NULL_M)
+,mProgram(NULL_M)
+,mQueue(NULL_M)
 ,mPlatforms(NULL_M)
 ,mPlatform(0)
 ,mDevice(0)
@@ -27,10 +27,10 @@ tintaClBaseImpl::tintaClBaseImpl()
 tintaClBaseImpl::tintaClBaseImpl(const String &name, const String &scriptPath,
                                 const StringBasic &kernelName, m_uint32 platform, m_uint32 device)
 :mInited(false)
-,mContext(0)
-,mKernel(0)
-,mProgram(0)
-,mQueue(0)
+,mContext(NULL_M)
+,mKernel(NULL_M)
+,mProgram(NULL_M)
+,mQueue(NULL_M)
 ,mName( name )
 ,mScriptPath(scriptPath)
 ,mKernelName( kernelName )
@@ -44,10 +44,10 @@ tintaClBaseImpl::tintaClBaseImpl(const String &name, const String &scriptPath,
 tintaClBaseImpl::tintaClBaseImpl( const String &name, const char *src,
                             const StringBasic &kernelName, m_uint32 platform, m_uint32 device)
 :mInited(false)
-,mContext(0)
-,mKernel(0)
-,mProgram(0)
-,mQueue(0)
+,mContext(NULL_M)
+,mKernel(NULL_M)
+,mProgram(NULL_M)
+,mQueue(NULL_M)
 ,mName( name )
 ,mKernelName( kernelName )
 ,mPlatforms(NULL_M)
@@ -204,6 +204,10 @@ bool tintaClBaseImpl::create() {
     mInited = true;
 
     return mInited;
+}
+
+void* tintaClBaseImpl::getKernel() {
+    return (void*)mKernel;
 }
 
 GpuArg_t tintaClBaseImpl::getDataIn( m_uint32 pos ) const {

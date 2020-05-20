@@ -97,6 +97,8 @@ public:
 
     bool create();
 
+    virtual void* getKernel();
+
 
 protected:
 
