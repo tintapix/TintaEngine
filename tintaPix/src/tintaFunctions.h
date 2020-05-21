@@ -922,8 +922,7 @@
          /*	
              @name c_readfile
              @description Reads text from file in to the vector (type "strs_vector")
-             @param path
-             @param string, type 'utf8', 'ascii'
+             @param path             
              @param boolean if true - reads all lines in one string with spaces instead of wordwrap( vector size == 1), false - default
              @return id of the vector type 'strs_vector'
          */
@@ -934,8 +933,7 @@
 
 		 /*	@name c_writetofileex
 			@description Writes text from String vector 'strs_box' into the file
-			@param path
-			@param string, type 'utf8', 'ascii'
+			@param path			
 			@param id of the vector type 'strs_vector'
 		*/
 		 _CoreExport int c_writetofile(SCRIPT_STATE *L);	 
@@ -1580,7 +1578,8 @@
 			@name ocl.setvalue
 			@description Assigns value argument in to the gpu program
 			@param Program name
-			@param Value (int8,int16,int32,int64,float,double)				
+			@param Value (bool,int8,uint8,int16,uint16,int32,uint32,int64,uint64,float)				
+            @param String nil(int32 or float) or "bool","int8","uint8","int16","uint16","int32","uint32","int64","uint64","float"
 		*/
 		_CoreExport int setvalue (SCRIPT_STATE *L);				
 

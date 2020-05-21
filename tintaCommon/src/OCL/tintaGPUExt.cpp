@@ -130,7 +130,7 @@ tintaGPUExt::tintaGPUExt(void)
 	mDevInfoText[GPUDevMaxConstBuffSize]  = GPUExtData(tintaGPUExt::str_gpu_device_max_constant_buffer_size,GPUExtData::enExSizeT);//("Device max constant buffer size: ");	// 				#define CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE          0x1020
 	mDevInfoText[GPUDevMaxConstBuffArgs]  = GPUExtData(tintaGPUExt::str_gpu_device_max_constant_args,GPUExtData::enExSizeT);//("Device max constant args: ");	// 				#define CL_DEVICE_MAX_CONSTANT_ARGS                 0x1021
 	mDevInfoText[GPUDevLocalMemType]  = GPUExtData(tintaGPUExt::str_gpu_device_local_memtype,GPUExtData::enExSizeT);//("Device local memtype: ");	// 				#define CL_DEVICE_LOCAL_MEM_TYPE                    0x1022
-	mDevInfoText[GPUDevLocalMemSize]  = GPUExtData(tintaGPUExt::str_gpu_device_mem_size,GPUExtData::enExULong);//("Device mem size: ");	// 				#define CL_DEVICE_LOCAL_MEM_SIZE                    0x1023
+	mDevInfoText[GPUDevLocalMemSize]  = GPUExtData(tintaGPUExt::str_gpu_device_mem_size,GPUExtData::enExSizeT);//("Device mem size: ");	// 				#define CL_DEVICE_LOCAL_MEM_SIZE                    0x1023
 	mDevInfoText[GPUDevErrorCorrectionSupport]  = GPUExtData(tintaGPUExt::str_gpu_device_error_correction_support,GPUExtData::enExSizeT);//("Device_error correction support: ");	// 				#define CL_DEVICE_ERROR_CORRECTION_SUPPORT          0x1024
 	mDevInfoText[GPUDevProfilingTimerResolution]  = GPUExtData(tintaGPUExt::str_gpu_device_profiling_times_resolution,GPUExtData::enExSizeT);//("Device profiling times resolution: ");	// 				#define CL_DEVICE_PROFILING_TIMER_RESOLUTION        0x1025
 	mDevInfoText[GPUDevEndianLittle]  = GPUExtData(tintaGPUExt::str_gpu_device_endian_little,GPUExtData::enExSizeT);//("Device endian little: ");	// 				#define CL_DEVICE_ENDIAN_LITTLE                     0x1026
@@ -479,13 +479,12 @@ mLastError = _M("");
 	}									
 
 	/* Access all installed platforms */
-	platforms = (cl_platform_id*) 					
-		malloc(sizeof(cl_platform_id) * num_platforms);		
+	//platforms = (cl_platform_id*) malloc(sizeof(cl_platform_id) * num_platforms);		
+
+    platforms = ALLOC_T(cl_platform_id, num_platforms);
+
 	clGetPlatformIDs(num_platforms, platforms, NULL);		
-
-
-	
-						
+					
 	size_t ext_size;   
 	m_uint32 field = 0x0000;
 
@@ -522,7 +521,7 @@ mLastError = _M("");
 	//StringUtil::replace_all( rez, tintaGPUExt::str_space_tag, tintaGPUExt::str_new_line );
 	
 	
-	free(platforms);
+	FREE_T(platforms);
 	
 
 	
@@ -555,8 +554,8 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
 
 
 	/* Host data structures */
-	cl_platform_id *platforms;
-	cl_uint num_platforms;
+	//cl_platform_id *platforms;
+	cl_uint num_platforms = 0;
 	
 
 	/* Find number of platforms */
@@ -571,15 +570,18 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
 	}									
 
 	/* Access all installed platforms */
-	platforms = (cl_platform_id*) 					
-		malloc(sizeof(cl_platform_id) * num_platforms);		
+	//platforms = (cl_platform_id*)	malloc(sizeof(cl_platform_id) * num_platforms);		
+    cl_platform_id *platforms = ALLOC_T(cl_platform_id, num_platforms);
+    
+    //UNIQPTRARRAY( cl_platform_id, platforms, arr, num_platforms);
+
 	clGetPlatformIDs(num_platforms, platforms, NULL);	
 
 
 	
 
 	/* Find number of platforms */
-	err = clGetDeviceIDs( platforms[platformId], CL_DEVICE_TYPE_GPU,  NULL, NULL, &num_devices);		
+	err = clGetDeviceIDs( platforms[platformId], CL_DEVICE_TYPE_GPU,  NULL, NULL, &num_devices);
 	if(err < 0) {		
 		
         StringStreamBasic msg;
@@ -587,14 +589,16 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
         msg << _M("Couldn't find any devices on platform: ") << platformId;
         mLastError = msg.str();
 
-		free( platforms );
+		FREE_T(platforms);
+
 		return rez;
 	}									
 
 	/* Access all installed platforms */
-	devices = ( cl_device_id* ) 					
-		malloc( sizeof(cl_device_id) * num_devices );		
-	clGetDeviceIDs(  platforms[platformId], CL_DEVICE_TYPE_GPU, num_devices, devices, NULL);		
+	//devices = ( cl_device_id* ) malloc( sizeof(cl_device_id) * num_devices );		
+    devices = ALLOC_T( cl_device_id, num_devices );
+
+	clGetDeviceIDs(  platforms[platformId], CL_DEVICE_TYPE_GPU, num_devices, devices, NULL);
 
    
     if ( deviceId && *(deviceId) >= num_devices) {
@@ -604,8 +608,8 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
         msg << _M("Wrong device id: ") << *deviceId;
         mLastError = msg.str();
 
-        free(devices);
-        free(platforms);
+        FREE_T(devices);
+        FREE_T(platforms);
 
         return rez;
     }
@@ -665,7 +669,8 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
                     else if( kernelCl )
                         err = clGetKernelWorkGroupInfo(kernelCl,devices[i], field, 0, NULL, &ext_size);
 
-					if( err < 0 ) {			
+					if( err < 0 ) {	
+                        assert(false);
 						break;
 					}		
                     err = -1;
@@ -685,6 +690,7 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
                     err = clGetKernelWorkGroupInfo(kernelCl, devices[i], field, 0, NULL, &ext_size);
 
                     if (err < 0) {
+                        assert(false);
                         break;
                     }
 
@@ -698,6 +704,7 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
                     err = clGetKernelWorkGroupInfo(kernelCl, devices[i], field, 0, NULL, &ext_size);
 
                     if (err < 0) {
+                        assert(false);
                         break;
                     }                      
                     
@@ -713,7 +720,8 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
 						/* Find size of extension data */
 						err = clGetDeviceInfo( devices[i] ,CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, 0, NULL, &dims );		
 
-						if( err < 0 ) {			
+						if( err < 0 || dims == 0) {
+                            assert(false);
 							break;
 						}		
 
@@ -726,6 +734,7 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
 
 						if( err < 0 ) {	
 							delete[] extData;
+                            assert(false);
 							break;
 						}		
 
@@ -742,7 +751,8 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
 						/* Find size of extension data */
 						err = clGetDeviceInfo( devices[i] ,field, 0, NULL, &ext_size );		
 
-						if( err < 0 ) {			
+						if( err < 0 ) {		
+                            assert(false);
 							break;
 						}		
 
@@ -765,8 +775,8 @@ String tintaGPUExt::getDeviceInfo( m_uint32 platformId, m_uint32 *deviceId, void
 	rez = strData.str();
 	//StringUtil::replace_all( rez, tintaGPUExt::str_space_tag, _M("\n") );
 
-	free( devices );
-	free( platforms );
+    FREE_T( devices );
+    FREE_T(platforms);
 
 
 	

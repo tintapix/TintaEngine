@@ -18,6 +18,7 @@ tintaClBaseImpl::tintaClBaseImpl()
 ,mProgram(NULL_M)
 ,mQueue(NULL_M)
 ,mPlatforms(NULL_M)
+,mDevices(NULL_M)
 ,mPlatform(0)
 ,mDevice(0)
 {
@@ -35,6 +36,7 @@ tintaClBaseImpl::tintaClBaseImpl(const String &name, const String &scriptPath,
 ,mScriptPath(scriptPath)
 ,mKernelName( kernelName )
 ,mPlatforms(NULL_M)
+, mDevices(NULL_M)
 ,mPlatform(platform)
 ,mDevice(device) {       
     readUTF8Text(mScriptPath, mSrc);    
@@ -51,6 +53,7 @@ tintaClBaseImpl::tintaClBaseImpl( const String &name, const char *src,
 ,mName( name )
 ,mKernelName( kernelName )
 ,mPlatforms(NULL_M)
+,mDevices(NULL_M)
 ,mPlatform(platform)
 ,mDevice(device) {
 
@@ -73,7 +76,11 @@ tintaClBaseImpl::~tintaClBaseImpl(){
 		clReleaseContext(mContext);	
 
     if ( mPlatforms )
-            free(mPlatforms);
+        FREE_T(mPlatforms);
+
+    if ( mDevices )
+        FREE_T(mDevices);
+    
 }
 
 bool tintaClBaseImpl::isInit()const{
@@ -116,8 +123,8 @@ bool tintaClBaseImpl::create() {
         riseEXCEPTION(-1, "Error: wrong platform number");
     }
 
-    mPlatforms = (cl_platform_id*)
-        malloc(sizeof(cl_platform_id) * num_platforms);
+    //mPlatforms = (cl_platform_id*)        malloc(sizeof(cl_platform_id) * num_platforms);
+    mPlatforms = ALLOC_T( cl_platform_id, num_platforms );
 
     status = clGetPlatformIDs(num_platforms, mPlatforms, NULL);
 
@@ -134,8 +141,9 @@ bool tintaClBaseImpl::create() {
         riseEXCEPTION(-1, "Error: wrong device number");
     }
     /* Access all installed platforms */
-    mDevices = (cl_device_id*)
-        malloc(sizeof(cl_device_id) * num_devices);
+    //mDevices = (cl_device_id*) malloc(sizeof(cl_device_id) * num_devices);
+
+    mDevices = ALLOC_T(cl_device_id, num_devices);
 
     clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, num_devices, mDevices, NULL);
 

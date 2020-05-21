@@ -4852,14 +4852,11 @@ namespace  Tinta {
              bool rez = false;
              String realPath = toWideChar( path );
              StringUtil::toLower( type );
-             if ( type.compare("utf8") == 0 )
-                 rez = readUTF8Text(realPath, get);
-             else if (type.compare("ascii") == 0)
-                 rez = readUTF8Text(realPath, get);
-             else {
-                 TROW_ERR_FUNC_CLEAR(L, "Supprots only 'utf8' with BOM and 'ascii' formats");
-                 return 0;
-             }
+            
+            
+            
+            rez = readUTF8Text(realPath, get);
+            
 
              if ( !rez ){
                  TROW_ERR_FUNC_CLEAR(L, "Read file error.");
@@ -6101,7 +6098,7 @@ namespace  Tinta {
                      
 
                      if (d != rend){
-                         tintaBoxContainer* boxes = tintaBoxContainer::getPtr();
+                         //tintaBoxContainer* boxes = tintaBoxContainer::getPtr();
                          m_uint32 idRez = boxes->addObj(tintaStringValVector::str_strs_vector);
 
                          if (idRez == ZERO_ID) {
@@ -6715,8 +6712,8 @@ namespace  Tinta {
 
             void * ptrData = pImage->getMemPtrEx();
             
-            auto v1 = pImage->getMemSize();
-            auto v2 = sizeof(tintaPixel24b);
+            //auto v1 = pImage->getMemSize();
+            //auto v2 = sizeof(tintaPixel24b);
 
             try {
                 if ( ptrData )
@@ -6748,31 +6745,167 @@ namespace  Tinta {
 			}
 						
 			
-			if ( IS_VAL_INTEGER(L, 2) ){
-				int   iVal  = GET_VAL_INT(L, 2);
+            if ( IS_VAL_STRING(L, 3) ) {
 
-                try {
-                    prog->setDataIn((void*)&iVal, GpuArg_t::enValue, sizeof(iVal), enRead);
+                String type = GET_VAL_STRING(L, 3);
+                if ( type == "int8" ) {
+
+                    m_int8  chVal = (m_int8)GET_VAL_INT(L, 2);
+                    try {
+                        prog->setDataIn((void*)&chVal, GpuArg_t::enValue, sizeof(chVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << chVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
                 }
-                catch (const std::exception &e) {
-                    StringStream msg;
-                    msg << _M("Wrong value: ") << iVal;
-                    TROW_ERR_FUNC(L, msg.str());
+                else if ( type == "uint8" ) {
+
+                    m_uint8  btVal = (m_uint8)GET_VAL_UINT(L, 2);
+
+                    try {
+                        prog->setDataIn((void*)&btVal, GpuArg_t::enValue, sizeof(btVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << btVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
                 }
-			}
-			else if (IS_VAL_REAL(L, 2) ){
+                else if (type == "bool") {
 
-				float fVal = GET_VAL_FLOAT(L, 2);
+                    bool  bVal = GET_VAL_BOOL(L, 2);
 
-                try {
+                    try {
+                        prog->setDataIn((void*)&bVal, GpuArg_t::enValue, sizeof(bVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << bVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
+                }
+                else if (type == "uint16") {
+
+                    m_uint16 ushVal = (m_uint16)GET_VAL_UINT(L, 2);
+
+                    try {
+                        prog->setDataIn((void*)&ushVal, GpuArg_t::enValue, sizeof(ushVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << ushVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
+                }
+                else if (type == "int16") {
+
+                    m_int16 shVal = (m_int16)GET_VAL_INT(L, 2);
+
+                    try {
+                        prog->setDataIn((void*)&shVal, GpuArg_t::enValue, sizeof(shVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << shVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
+                }
+                else if (type == "uint32") {
+
+                    unsigned int uiVal = GET_VAL_UINT(L, 2);
+
+                    try {
+                        prog->setDataIn((void*)&uiVal, GpuArg_t::enValue, sizeof(uiVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << uiVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
+                }
+                else if (type == "int32") {
+
+                    int iVal = GET_VAL_INT(L, 2);
+
+                    try {
+                        prog->setDataIn((void*)&iVal, GpuArg_t::enValue, sizeof(iVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << iVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
+                }
+                else if (type == "int64") {
+
+                    m_int64 iVal = (m_int64)GET_VAL_INT(L, 2);
+
+                    try {
+                        prog->setDataIn((void*)&iVal, GpuArg_t::enValue, sizeof(iVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << iVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
+                }
+                else if (type == "uint64") {
+
+                    m_uint64 iVal = (m_uint64)GET_VAL_UINT(L, 2);
+
+                    try {
+                        prog->setDataIn((void*)&iVal, GpuArg_t::enValue, sizeof(iVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << iVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
+                }
+                else if (type == "float") {
+
+                    float fVal = GET_VAL_FLOAT(L, 2);
+
+                    try {
                         prog->setDataIn((void*)&fVal, GpuArg_t::enValue, sizeof(fVal), enRead);
-                }
-                catch(const std::exception &e){                    
+                    }
+                    catch (const std::exception &e) {
                         StringStream msg;
                         msg << _M("Wrong value: ") << fVal;
                         TROW_ERR_FUNC(L, msg.str());
+                    }
+                }                      
+
+            }
+            else {
+                if (IS_VAL_INTEGER(L, 2)) {
+                    int   iVal = GET_VAL_INT(L, 2);
+
+                    try {
+                        prog->setDataIn((void*)&iVal, GpuArg_t::enValue, sizeof(iVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << iVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
                 }
-			}
+                else if ( IS_VAL_REAL(L, 2) ) {
+
+                    float fVal = GET_VAL_FLOAT(L, 2);
+
+                    try {
+                        prog->setDataIn((void*)&fVal, GpuArg_t::enValue, sizeof(fVal), enRead);
+                    }
+                    catch (const std::exception &e) {
+                        StringStream msg;
+                        msg << _M("Wrong value: ") << fVal;
+                        TROW_ERR_FUNC(L, msg.str());
+                    }
+                }
+            }
 		
             return 0;
 		}
