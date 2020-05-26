@@ -289,13 +289,83 @@
             @param string data string
             */
             _CoreExport int writetofile(SCRIPT_STATE *L);
+
+
+
+
+            /*
+            @name util.getval
+            @description Returns value from tree config file
+            @param String  - path
+            @param String  - request
+            @param String  - type return("double","string","bool")
+            @return Real,String,bool
+            */
+           // _CoreExport int readimage(SCRIPT_STATE *L);
                       
 
 
-            _CoreExport void registerUtilLua(SCRIPT_STATE *L);
+            _CoreExport void registerUtilLua(SCRIPT_STATE *L); 
 
-						
-	}			
+
+        /*
+            @name image.create
+            @description Creates image
+            @param UInt  - width
+            @param UInt  - height
+            @param UInt  - channels(1..6)            
+        */
+        _CoreExport int create(SCRIPT_STATE *L);
+
+        /*
+            @name image.remove
+            @description Deletes all image data and frees mamory           
+        */
+        _CoreExport int remove(SCRIPT_STATE *L);
+
+        /*
+            @name image.read
+            @description Reads image from the file: jpg(jpeg) or png
+            @description String - absolute or relative path to the file            
+        */
+        _CoreExport int read(SCRIPT_STATE *L);
+
+        /*
+            @name image.save
+            @description Saves image th the file: jpg(jpeg) or png
+            @description String - absolute path to save the file                        
+        */
+        _CoreExport int save(SCRIPT_STATE *L);
+
+        /*
+            @name image.set
+            @description Sets value the channel
+            @description UInt  -  position x(0,width-1)
+            @description UInt  -  position y(0,height-1)            
+            @description Byte value
+            @description UInt  -  channel(1..6)
+        */
+        _CoreExport int set(SCRIPT_STATE *L);
+
+        /*
+            @name image.fill
+            @description Fills image with values
+            @description Byte value
+            @description UInt  -  channel(1..6)
+        */
+        _CoreExport int fill(SCRIPT_STATE *L);
+
+        /*
+            @name image.get
+            @description Gets value the channel
+            @description UInt  -  position x(0,width-1)
+            @description UInt  -  position y(0,height-1)            
+            @description UInt  -  channel(1..6)
+        */
+        _CoreExport int get(SCRIPT_STATE *L);
+
+        _CoreExport void registerImageLua(SCRIPT_STATE *L);
+    }
 			
 }
 

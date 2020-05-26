@@ -6,10 +6,12 @@
 #include "Math/tintaMatrix44.h"
 #include "tintaLogger.h"
 #include "tintaException.h"
+
 #include <iostream>
 
 namespace Tinta {
 
+  
 
 
 	tintaVector4f	colorBlack	= tintaVector4f( 0.00f, 0.00f, 0.00f, 1.00f );

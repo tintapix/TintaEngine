@@ -297,6 +297,70 @@ namespace Tinta {
 #define UTIL_writetofile "writetofile"  
 
 
+
+        /*
+            @name image.create
+            @description Creates image
+            @param UInt  - width
+            @param UInt  - height
+            @param UInt  - channels(1..6)
+        */
+#define IMAGE_create "create"
+
+
+
+        /*
+            @name image.remove
+            @description Deletes all image data and frees mamory
+        */
+#define IMAGE_remove "remove"
+
+
+        /*
+            @name image.read
+            @description Reads image from the file: jpg(jpeg) or png
+            @description String - absolute path to the file           
+        */
+#define IMAGE_read "read"
+
+
+
+        /*
+            @name image.save
+            @description Saves image th the file: jpg(jpeg) or png
+            @description String - absolute path to save the file
+            @description String Format: "jpg","png"
+        */
+#define IMAGE_save "save"
+
+
+        /*
+            @name image.set
+            @description Sets value the channel
+            @description UInt  -  position x(0,width-1)
+            @description UInt  -  position y(0,height-1)
+            @description Byte value
+            @description UInt  -  channel(1..6)
+        */
+#define IMAGE_set "set"
+
+
+        /*
+            @name image.fill
+            @description Fills image with values
+            @description Byte value
+            @description UInt  -  channel(1..6)
+        */
+#define IMAGE_fill "fill"
+
+        /*
+            @name image.get
+            @description Gets value the channel
+            @description UInt  -  position x(0,width-1)
+            @description UInt  -  position y(0,height-1)
+            @description UInt  -  channel(1..6)
+        */
+#define IMAGE_get "get"
     }
 }
 #endif

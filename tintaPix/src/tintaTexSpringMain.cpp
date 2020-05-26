@@ -1189,6 +1189,7 @@ void tintaTexSpringMain::reinitContext( Tinta::tintaScriptContext *scriptContext
 	mScriptContext->createState();
 
     tintaUtilFunc::registerUtilLua(mScriptContext->getState_ex());
+    tintaUtilFunc::registerImageLua(mScriptContext->getState_ex());
 
 	Tinta::tintaScriptFunctions::registerGpuLua(mScriptContext->getState_ex());
 	

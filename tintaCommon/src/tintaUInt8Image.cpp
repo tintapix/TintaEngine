@@ -20,7 +20,7 @@ namespace Tinta
     tintaUInt8Image::tintaUInt8Image(m_uint32 w, m_uint32 h, ImgChannels ch)
         :mChannels(ch) {       
 
-        createImage(w, h );
+        createImage(w, h, mChannels );
     }
 
     tintaUInt8Image::tintaUInt8Image(tintaUInt8Image&& rVal)  {
@@ -96,10 +96,6 @@ namespace Tinta
     bool tintaUInt8Image::validPos(m_uint32 index) const {
         return index <  getSize();
     }
-
-  
-
-
 
     m_uint32 tintaUInt8Image::getImageBufferSize() const {
         return mData.size() * mChannels;
@@ -184,7 +180,7 @@ namespace Tinta
             int attribs[5];
             imgFile->getAttribs(attribs);
 
-            if ( createImage(imgFile->getWidth(), imgFile->getHeight(), imgFile->getChannels() )) {
+            if ( createImage(imgFile->getWidth(), imgFile->getHeight(), imgFile->getChannels() ) ) {
 
                 m_uint32 wg = mImgWidth;
                 m_uint32 hg = mImgHeight;
@@ -306,7 +302,7 @@ namespace Tinta
     }
 
 
-    void tintaUInt8Image::fillAlpha(m_uint8 trans_factor) {
+    void tintaUInt8Image::fillAlpha( m_uint8 trans_factor) {
 
         size_t count = getSize();
         for (size_t i = 0; i < count; i++) {
@@ -374,17 +370,32 @@ namespace Tinta
 
 
 
-    void tintaUInt8Image::fillImage(const color_type &new_value){
+    void tintaUInt8Image::fillImage(const color_type &new_value, int ch ){
         
         size_t count = getSize();
-
-        for ( size_t i = 0; i < count; i++ ){
-            setChannel(i, 0,new_value.getVal(0)); 
-            setChannel(i, 1,new_value.getVal(1));
-            setChannel(i, 2,new_value.getVal(2));
+        if ( ch ==  -1 ) {
+            for ( size_t i = 0; i < count; i++  ) {
+                setChannel(i, 0, new_value.getVal(0));
+                setChannel(i, 1, new_value.getVal(1));
+                setChannel(i, 2, new_value.getVal(2));
+            }
+        }
+        else {
+            for ( size_t i = 0; i < count; i ++ ) {
+                setChannel( i, ch, new_value.getVal((m_uint8)ch));
+            }
         }
 
     }
+
+    void tintaUInt8Image::fillImage( m_uint8 value, int ch ) {
+        size_t count = getSize();
+        for (size_t i = 0; i < count; i ++ ) {
+            setChannel(i, ch, value );
+        }
+    }
+
+
     int tintaUInt8Image::getWidth() const
     {
         return (int)mImgWidth;
@@ -422,7 +433,16 @@ namespace Tinta
 
     m_uint8		tintaUInt8Image::getChannel( m_uint32 linear_index, int ch ) const {
         color_type pixel = getPixel(linear_index);
-        return pixel.getVal(3);
+        return pixel.getVal( (m_uint8)ch );
+    }
+
+    m_uint8 tintaUInt8Image::getChannel(const coord2dI_t& coord, int ch) const {
+        int index = toIndex(coord);
+
+        if (!validPos(index) || mChannels <= ch)
+            return 0;
+
+        return getChannel( index, ch );
     }
 
     size_t tintaUInt8Image::GetBufferSize() const {

@@ -7,8 +7,10 @@
 #include "tintaPredefine.h"
 #include "tintaLogger.h"
 #include "tintaTreeConfig/tintaTreeConfig.h"
-
-#include <tintaArray2d.h>
+#include "tintaArray2d.h"
+#include "tintaUInt8Image.h"
+#include <ImageCodecs/tintaPngImgCodec.h>
+#include <ImageCodecs/tintaJpgImgCodec.h>
 
 #if TINTA_LOCAL  ==  TINTA_RU
     #include "tintaUtilLocalRu.h"
@@ -18,6 +20,24 @@
 
 
 namespace  Tinta {
+
+
+    struct CommonState {
+    public:
+        tintaUInt8Image *mImg;
+
+        CommonState() : mImg(NULL_M) {}
+
+        ~CommonState() {
+
+            if (mImg)
+                M_DELETE mImg;
+        }
+
+    };
+
+    CommonState state;
+
 
     namespace tintaUtilFunc {
 
@@ -117,6 +137,7 @@ namespace  Tinta {
                     msg << _M(", only \"double\",\"string\",\"bool\" permitted.");
                     if( Tinta::tintaLogger::getPtr() )
                         Tinta::tintaLogger::getPtr()->logMsg(msg.str(), msg_error);
+                    TROW_ERR_FUNC(L, msg.str().c_str());
 
                     
                 }
@@ -654,6 +675,7 @@ namespace  Tinta {
             catch (...){
                 if (Tinta::tintaLogger::getPtr())
                     Tinta::tintaLogger::getPtr()->logMsg(_M("Regex error!"));
+                TROW_ERR_FUNC(L, _M("Regex error!") );
             }
 //#endif
             return 0;
@@ -675,7 +697,200 @@ namespace  Tinta {
 
 
 
-	}
+
+        static const luaL_Reg image[] = {
+            { IMAGE_create, Tinta::tintaUtilFunc::create },
+            { IMAGE_remove, Tinta::tintaUtilFunc::remove },
+            { IMAGE_read, Tinta::tintaUtilFunc::read },
+            { IMAGE_save, Tinta::tintaUtilFunc::save },
+            { IMAGE_set, Tinta::tintaUtilFunc::set },
+            { IMAGE_fill, Tinta::tintaUtilFunc::fill },
+            { IMAGE_get, Tinta::tintaUtilFunc::get },            
+            { NULL, NULL } };
 
 
+        int luaopen_image(lua_State *L) {
+            luaL_newlib(L, image);
+            return 1;
+        }
+        static const luaL_Reg loadedImagelibs[] = {
+            { "_G", luaopen_base },
+            { "image", luaopen_image },
+            { NULL, NULL } };
+
+        int create(SCRIPT_STATE *L) {
+
+            
+            if ( GET_QUANTITY(L) != 3 ) 
+                TROW_ERR_FUNC(L, _M("Wrong arguments quantity!"));
+            
+            
+            m_uint32 w = GET_VAL_UINT(L, 1);
+            m_uint32 h = GET_VAL_UINT(L, 2);
+
+            if( w == 0 || h == 0 )
+                TROW_ERR_FUNC(L, _M("Width and height must be grater than 0"));
+
+            m_uint32 ch = GET_VAL_UINT(L, 3);
+
+            if ( ch > (m_uint32)Tinta::ImgChannels_max )
+                TROW_ERR_FUNC(L, _M("Width and height must be grater than 0"));
+
+            state.mImg = M_NEW tintaUInt8Image( w,h,(Tinta::ImgChannels) GET_VAL_UINT(L, 3 )  );                       
+
+            return 0;
+        }
+
+   
+        int remove( SCRIPT_STATE *L ) {
+
+            if ( state.mImg ) {
+                M_DELETE  state.mImg;
+                state.mImg = NULL_M;
+            }
+            return 0;
+        }
+
+    
+        int read( SCRIPT_STATE *L ) {
+
+            
+            if ( GET_QUANTITY(L) != 1 ) 
+                TROW_ERR_FUNC(L, _M("Wrong arguments quantity!"));
+
+            String path = GET_VAL_STRING( L, 1 );
+            Tinta::tintaIImgCodec* codec = NULL_M;
+
+
+            if ( !Tinta::isPathValid( path ) ) {
+
+                StringStreamBasic values;
+                values << _M("Wrong path to file: ") << path;
+                TROW_ERR_FUNC(L, values.str().c_str());
+            }
+
+            String ex = StringUtil::getFileExt( path );
+            
+            if ( ex == _M("png") )
+                codec = M_NEW tintaPngImgCodec();
+            else if (ex == _M("jpeg") || ex == _M("jpg"))
+                codec = M_NEW tintaJpgImgCodec();
+            else 
+                TROW_ERR_FUNC(L, _M("File extension must be jpg, jpeg or png"));
+            
+
+            UNIQPTRVIRT( Tinta::tintaIImgCodec, mImgFilePtr, codec );           
+           
+            if ( !state.mImg )
+                state.mImg = M_NEW tintaUInt8Image();
+
+            if( !state.mImg->readFromFile( codec, path ) )
+                TROW_ERR_FUNC( L, _M( "Image could not be read" ) );
+
+            return 0;
+        }
+
+    
+        int save( SCRIPT_STATE *L ) {
+
+            if ( GET_QUANTITY(L) != 1 )
+                TROW_ERR_FUNC( L, _M( "Wrong arguments quantity!" ) );
+
+
+            if ( !state.mImg )
+                TROW_ERR_FUNC( L, _M("Image has not been yet created") );
+
+            Tinta::tintaIImgCodec* codec = NULL_M;
+            String path = GET_VAL_STRING(L, 1);
+
+            String ex = StringUtil::getFileExt( path );
+
+            if ( ex == _M("png") )
+                codec = M_NEW tintaPngImgCodec();
+            else if ( ex == _M("jpeg") || ex == _M("jpg") )
+                codec = M_NEW tintaJpgImgCodec();
+            else
+                TROW_ERR_FUNC(L, _M("File extension must be jpg, jpeg or png"));
+
+            if ( !state.mImg->saveToFile( codec, path ) )
+                TROW_ERR_FUNC(L, _M("Image could not be saved"));
+
+            return 0;
+        }
+
+    
+        int set(SCRIPT_STATE *L) {
+
+            if (!state.mImg)
+                TROW_ERR_FUNC(L, _M("Image has not been yet created"));
+
+
+            if ( GET_QUANTITY(L) != 4 )
+                TROW_ERR_FUNC(L, _M("Wrong arguments quantity!"));
+
+            m_uint32 ch = GET_VAL_UINT(L, 3);
+
+            if (ch >= (m_uint32)state.mImg->channels())
+                TROW_ERR_FUNC(L, _M("Wrong channel"));
+
+            m_uint8 v = GET_VAL_UBYTE(L, 4);
+
+            if( !state.mImg->setChannel( Tinta::coord2dI_t( GET_VAL_UINT(L, 1), GET_VAL_UINT(L, 2)), ch , v ))
+                TROW_ERR_FUNC(L, _M("Wrong x or y position"));
+
+            return 0;
+        }
+
+    
+        int fill(SCRIPT_STATE *L) {
+
+            if( !state.mImg )
+                TROW_ERR_FUNC(L, _M("Image has not been yet created"));
+
+            m_uint32 ch = GET_VAL_UINT(L, 2);
+
+            if ( ch >= (m_uint32)state.mImg->channels())
+                TROW_ERR_FUNC(L, _M("Wrong channel"));            
+            m_uint8 v = GET_VAL_UBYTE(L, 1);
+            state.mImg->fillImage( v , ch);
+            return 0;
+        }
+
+    
+        int get(SCRIPT_STATE *L) {
+
+            if ( !state.mImg )
+                TROW_ERR_FUNC(L, _M("Image has not been yet created"));
+
+
+            if (GET_QUANTITY(L) != 3)
+                TROW_ERR_FUNC(L, _M("Wrong arguments quantity!"));
+
+            m_uint32 ch = GET_VAL_UINT(L, 3);
+
+            if (ch >= (m_uint32)state.mImg->channels() )
+                TROW_ERR_FUNC(L, _M("Wrong channel"));
+
+            const coord2dI_t pos = Tinta::coord2dI_t(GET_VAL_UINT(L, 1), GET_VAL_UINT(L, 2));          
+
+            if ( !state.mImg->validPos(pos) )
+                TROW_ERR_FUNC(L, _M("Wrong x or y position"));
+
+            m_uint8 v = state.mImg->getChannel( pos, ch );
+
+            return 0;
+        }
+
+        void registerImageLua(SCRIPT_STATE *L) {
+            
+            const luaL_Reg *lib;
+            /* "require" functions from 'loadedlibs' and set results to global table */
+            for (lib = loadedImagelibs; lib->func; lib++) {
+                luaL_requiref(L, lib->name, lib->func, 1);
+                lua_pop(L, 1);  /* remove lib */
+            }
+        
+        }
+
+    }
 }
