@@ -73,6 +73,8 @@ virtual bool		setChannel(m_uint32 linear_index, int ch, m_uint8 value);
 
 virtual m_uint8	getChannel(m_uint32 linear_index, int ch) const;
 
+virtual m_uint8	getChannel(const coord2dI_t& coord, int ch) const;
+
 virtual bool		setPixelAlpha(const coord2dI_t& coord, m_float32 in_value);
 
 virtual bool		setPixelAlpha(m_uint32 index, m_float32 in_value);
@@ -98,7 +100,9 @@ virtual	bool	   createImage(m_uint32 width, m_uint32 height, ImgChannels ch = Im
 // returns width X height
 virtual m_uint32   getImageSize( ) const ;
 
-virtual	void	   fillImage(const color_type &new_value);
+virtual	void	   fillImage(const color_type &new_value, int ch = -1 );
+
+virtual	void	   fillImage(m_uint8 value, int ch );
 
 virtual		bool   saveToFile(Tinta::tintaIImgCodec* imgFile, const String &file);
 
