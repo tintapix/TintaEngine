@@ -735,8 +735,8 @@ namespace  Tinta {
 
             if ( ch > (m_uint32)Tinta::ImgChannels_max )
                 TROW_ERR_FUNC(L, _M("Width and height must be grater than 0"));
-
-            state.mImg = M_NEW tintaUInt8Image( w,h,(Tinta::ImgChannels) GET_VAL_UINT(L, 3 )  );                       
+            
+            state.mImg = M_NEW tintaUInt8Image( w,h,(Tinta::ImgChannels) ch  );                       
 
             return 0;
         }
@@ -878,7 +878,9 @@ namespace  Tinta {
 
             m_uint8 v = state.mImg->getChannel( pos, ch );
 
-            return 0;
+            PUSH_UINT_ARG(L, v);
+
+            return 1;
         }
 
         void registerImageLua(SCRIPT_STATE *L) {

@@ -19,7 +19,7 @@ namespace Tinta {
  typedef       color_type* pixelp_t;
  typedef       const color_type* pixelcp_t;
  typedef const color_type* pixelcp_t;
- typedef tintaArray2d<m_uint8, sizetype_t> tintaArray2dImage_t;
+ //typedef tintaArray2d<m_uint8, sizetype_t> tintaArray2dImage_t;
 
 class _CoreExport tintaUInt8Image 
 	: public AllocatedObjectImage	
