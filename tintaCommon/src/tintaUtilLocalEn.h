@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -17,7 +17,17 @@ namespace Tinta {
     */
     namespace tintaUtilFunc {
 
+      
 
+
+        /*
+        @name util.error
+        @description	Реализует функцию assert в lua. util.error( param , "Ошибочный параметр функции" )
+        @param Булевая если true то ничего непроисходит, если false, прекратит выполнение скрипта и выведет сообщение
+        @param Строка с сообщением - не обязательный параметр
+        */
+#define UTIL_error "error"
+                 
 
         /*
         @name util.getval
@@ -29,6 +39,14 @@ namespace Tinta {
         */
         
 #define UTIL_getval "getval"
+
+        /*
+        @name util.system
+        @description Execute api system function system("command_text")
+        @param String  - command
+        @return Integer - result
+        */
+#define UTIL_system "system"
 
         /*
         @name util.cpucores
@@ -156,6 +174,21 @@ namespace Tinta {
         */
 #define UTIL_getfile "getfile"           
 
+        /*
+        @name util.fopened
+        @description	Returns opened file in the another process flag
+        @param String path to the file
+        @return - Boolean true, if file is opened in the another process
+        */
+#define UTIL_fopened "fopened" 
+
+        /*	@name util.writetofile
+        @description Writes text into the file
+        @param path
+        @param string data string
+        */
+#define UTIL_writetofile "writetofile" 
+
 
         /*
         @name util.getdirectory
@@ -281,7 +314,78 @@ namespace Tinta {
         */
 #define UTIL_regexmatch "regexmatch"              
 
+        /*
+        @name image.create
+        @description Creates image
+        @param UInt  - width
+        @param UInt  - height
+        @param UInt  - channels(1..6)
+        @return UInt  - image id
+        */
+#define IMAGE_create "create"
 
+
+
+        /*
+        @name image.remove
+        @description Deletes all image data and frees mamory
+        @param UInt  - image id
+        */
+#define IMAGE_remove "remove"
+
+
+        /*
+        @name image.read
+        @description Reads image from the file: jpg(jpeg) or png
+        @param String - absolute path to the file
+        @return UInt  - image id
+        @return UInt  - image width
+        @return UInt  - image height
+        */
+#define IMAGE_read "read"
+
+
+
+        /*
+        @name image.save
+        @description Saves image th the file: jpg(jpeg) or png
+        @return UInt  - image id
+        @param String - absolute path to save the file
+        */
+#define IMAGE_save "save"
+
+
+        /*
+        @name image.set
+        @description Sets value the channel
+        @param UInt  - image id
+        @param UInt  -  position x(0,width-1)
+        @param UInt  -  position y(0,height-1)
+        @param Byte value
+        @param UInt  -  channel(1..6)
+        */
+#define IMAGE_set "set"
+
+
+        /*
+        @name image.fill
+        @description Fills image with values
+        @param Byte value
+        @param UInt  - image id
+        @param UInt  -  channel(1..6)
+        */
+#define IMAGE_fill "fill"
+
+        /*
+        @name image.get
+        @description Gets value the channel
+        @param UInt  - image id
+        @param UInt  -  position x(0,width-1)
+        @param UInt  -  position y(0,height-1)
+        @param UInt  -  channel(1..6)
+        @return Byte value
+        */
+#define IMAGE_get "get"
 
         
     }

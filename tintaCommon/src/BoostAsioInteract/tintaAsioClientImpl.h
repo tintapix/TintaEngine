@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -34,9 +34,9 @@ namespace Tinta {
         
         virtual ~tintaAsioClientImpl();
 
-        virtual unsigned long  getId() const;
+        virtual m_ulong32  getId() const;
 
-        virtual void setId(unsigned long val);
+        virtual void setId(m_ulong32 val);
 
         virtual void release();
 
@@ -74,7 +74,7 @@ namespace Tinta {
 
         socket_t					  &mSocket;      
 
-        unsigned long				   mid;
+        m_ulong32                      mid;
 
         IErrorCallback 				  *mClientsclb;
 

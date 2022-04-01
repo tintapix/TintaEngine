@@ -1,9 +1,10 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
 #include "tintaScriptContext.h"
 #include "tintaCommon.h"
+#include "tintaException.h"
 #include "Math/tintaCommonMath.h"
 
 namespace Tinta
@@ -23,14 +24,13 @@ tintaScriptContext::~tintaScriptContext(void){
 
 void tintaScriptContext::createState() {
 	if(mpLua){
-
 		lua_close(mpLua);
         mpLua = NULL_M;
 	}
 
 	mpLua = luaL_newstate(); /* opens Lua */
 	luaL_openlibs(mpLua); /* opens the standard libraries */
-    assert(mpLua);
+    CoreAssert(mpLua, "mpLua==NULL");
     if(!mpLua)
         return;
   
@@ -52,7 +52,7 @@ void tintaScriptContext::setState(lua_State* new_state){
 const lua_State *tintaScriptContext::getState()const{
 	return mpLua;
 }
-lua_State *tintaScriptContext::getState_ex(){
+lua_State *tintaScriptContext::getStateEx(){
 	return mpLua;
 }
 const String *tintaScriptContext::getErrors( size_t &error_count )const {
@@ -65,20 +65,17 @@ const String *tintaScriptContext::getErrors( size_t &error_count )const {
 }
 bool tintaScriptContext::executeBuffer( const char* buffer , size_t len){
 	
-	if( !buffer || len ==0 ){
-		
+	if( !buffer || len ==0 ){		
 		return true; // do nothing
 	}
 
-	if(!mpLua)
-		createState();	
-	
-	//char error_buf[256];
-	int error;	
-	//String script(buffer);
-	error = luaL_loadbuffer(mpLua, buffer, len, "line");// ||	
+	if( !mpLua )
+		createState();		
+
+    int error = luaL_loadbuffer(mpLua, buffer, len, "line");// ||	
 	if( !error )
 		error = lua_pcall(mpLua, 0, LUA_MULTRET, 0);
+
 	if ( error ) {
 
 		StringBasic error_buf = lua_tostring( mpLua, -1 ); //sprintf_s(error_buf, "%s", lua_tostring(mpLua, -1));
@@ -94,22 +91,20 @@ bool tintaScriptContext::executeFile( const String &file_path ){
 	if( !isFile( file_path ) )
 		return false;
 
-	//assert(false);
-	
 	if( !mpLua )
 		createState();	
 
     StringBasic buff;
-
-
+    
     bool rez = readUTF8Text(file_path, buff);
-    //cout<<buff;
+   
     if( !rez ) {
         StringUtil::StrStreamType os;
         os << _M("File read error for: ");
         os << file_path;
 
         mErrors.push_back(os.str());
+   
         return false;
     }
 
@@ -125,9 +120,8 @@ bool tintaScriptContext::getGlobVar(int &i_value, const char* var_name, const St
 		setFile( file_path) ;
 	
 	lua_getglobal(mpLua, var_name);	
-	if (!IS_VAL_INTEGER(mpLua, -1)){
-	
-		//sprintf(error_buf, "%s should be a integer\n", var_name);
+	if ( !IS_VAL_INTEGER(mpLua, -1) ){	
+		
 		StringUtil::StrStreamType os;
 		os << var_name;
 		os << _M(" should be a integer\n") ;
@@ -171,11 +165,10 @@ bool tintaScriptContext::getGlobVar(bool &b_value,const char* var_name, const St
 	    setFile( file_path);
 
 	lua_getglobal(mpLua, var_name);	
-	if (!IS_VAL_BOOL(mpLua, -1)){
-
-		//sprintf(error_buf, "%s should be a boolean\n", var_name);
-		//mErrors.push_back(String(error_buf));
+	if ( !IS_VAL_BOOL(mpLua, -1) ){
+		
 		StringUtil::StrStreamType os;
+
 		os << var_name;
 		os << _M(" should be a boolean\n") ;
 
@@ -195,15 +188,14 @@ bool tintaScriptContext::getGlobVar(double &d_value,const char* var_name, const 
 		setFile(file_path);
 
 	lua_getglobal(mpLua, var_name);	
-	if (!IS_VAL_REAL(mpLua, -1)){
+	if ( !IS_VAL_REAL(mpLua, -1) ){
 
 		StringUtil::StrStreamType os;
 		os << var_name;
 		os << _M(" should be a double\n") ;
 
 		mErrors.push_back( os.str() );
-// 		sprintf(error_buf, "%s should be a double\n", var_name);
-// 		mErrors.push_back(String(error_buf));
+
 		return false;
 	}
 	d_value = GET_VAL_DOUBLE(mpLua, -1);
@@ -428,8 +420,17 @@ void tintaScriptContext::setFile(const String &str_file_path){
 
 	if( str_file_path.length() !=0 ){			
 			//error = luaL_loadfile( mpLua, m_str_file_path.c_str() );
-			bool rez = executeFile( str_file_path );
-			assert( rez );			
+
+        if( !executeFile( str_file_path ) ){
+            if( mErrors.size() > 0 ){
+                StringUtil::StrStreamType os;
+                os << mErrors.at(0);
+                CoreAssert( false, os.str().c_str() );
+            }
+            else {
+                CoreAssert( false,"executeFile( str_file_path ) == false" );
+            }
+        }
 	}
 }
 
@@ -781,7 +782,7 @@ bool tintaScriptContext::testTable(lua_State *p_lua_state, const char *table_nam
 	if( !testTable( state, table_name ) )
 		return false;
 	int array_size = lua_rawlen(state, 1); /* get size of table */
- 	assert(index_value <= array_size && index_value > 0);
+    CoreAssert(index_value <= array_size && index_value > 0, "index_value > array_size || index_value <= 0");
  	if(index_value > array_size || index_value < 1){
 //  		sprintf(error_buf, "%d - wrong index value \n", index_value);
 //  		mErrors.push_back(String(error_buf));		
@@ -894,7 +895,7 @@ bool tintaScriptContext::callFunc (const char *func, const char *sig, ...) {
 				//error(L, "invalid option (%c)", *(sig - 1));
 // 				sprintf(error_buf, "invalid option (%c)", *(sig - 1));
 // 				mErrors.push_back(string(error_buf));
-				assert(false);
+                CoreAssert(false,"default case");
 				return false;
 		}
 	}
@@ -918,9 +919,7 @@ bool tintaScriptContext::callFunc (const char *func, const char *sig, ...) {
 		return false;
 	}
 	nres = -nres; /* stack index of first result */
-	//int rezult = 0;
-	//int iRezult=0;
-	//int dRezult=0;
+	
 	while (*sig) { /* repeat for each result */
 		switch (*sig++) {
 		case 'd': /* double result */

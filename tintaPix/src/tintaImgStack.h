@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -23,8 +23,7 @@ namespace Tinta
 
 
 	//typedef TBaseScriptFunc<tintaUInt8Image> t_base_script_image;
-	struct _CoreExport tintaImgStack:
-		public Singleton<tintaImgStack>,
+	struct _CoreExport tintaImgStack:		
         public tintaINamed,
         public tintaISerialisableSet,
 		public AllocatedObjectCanvas
@@ -38,10 +37,6 @@ namespace Tinta
 		//typedef  std::map< THREAD_CURRENT_ID_TYPE, tintaImageContainer > t_map_image_containers;
 		
         MUTEX_RECURSIVE(mMutexImg)
-
-        static tintaImgStack* getPtr(void)	{			
-			return mPtr;
-		}
         
         virtual ~tintaImgStack();
 
@@ -66,7 +61,7 @@ namespace Tinta
 
 		virtual tintaUInt8Image		 *getImgSelEx() = 0;
 
-		virtual size_t			      getImgQuantity()const = 0;
+		virtual size_t			      size()const = 0;
 
 		/// adds new image into the set 
 		virtual m_uint32			   addImg( const StringBasic &type ) = 0;	

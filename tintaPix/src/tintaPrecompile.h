@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -9,7 +9,6 @@
 
 #include "tintaCoord2.h"
 #include "tintaArrayBox.h"
-#include "tintaPrimitives.h"
 #include "tintaConfigurator.h"
 #include "tintaScriptFunc.h"
 #include "tintaPixel.h"

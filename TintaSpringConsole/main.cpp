@@ -8,11 +8,12 @@
 //#include <propkeydef.h>
 #include <tintaTexSpringMain.h>
 #include <iostream>
+#include <cctype>
 #if CORE_PLATFORM  == CORE_PLATFORM_WIN32
 #include <conio.h>
 #endif
 
-
+#include <OCL/tintaGPUExt.h>
 #include <tintaUInt8Image.h>
 #include <tintaTreeConfig/tintaTreeConfig.h>
 #include <signal.h>
@@ -46,6 +47,8 @@ using namespace Tinta;
 using namespace std;
 
 static const char_m *strTexSpringConfigFileW  = _M("config.lua");
+
+#define BUFF_SIZE 1024
 
 //#define TEST_
 #ifdef TEST_
@@ -142,37 +145,60 @@ public:
     }
 };
 
+struct Command {
+    int mUnit;
+    String mCommand;
+};
 
+Command parseCommand(const String &buffer) {
+    
+    
+   Command rez;
 
+   rez.mUnit = 0;
+   rez.mCommand = buffer;
 
+   if ( buffer.size() != 0 ) {
+       
+       
+       int it = 0;
+       String unitStr;
+       char ch;
+       while ( it < buffer.size()  ) {           
+           
+           ch = buffer.at( it );
+
+           if ( std::isdigit(static_cast<unsigned char>(ch) ) ) {           
+               unitStr.push_back(ch);
+               it++;
+           }
+           else
+               break;
+          
+       }
+
+       if ( unitStr.size() > 0 ) {
+           rez.mUnit = std::stoi(unitStr);
+           rez.mCommand = buffer.substr(it);
+       }
+   }
+   return rez;
+}
 
 //typedef 
 
 
 
+#include <Math/tintaCatRomSpline.h>    
+
 int main( int argc, char *argv[] )
-{   
-       
-   
+{      
+
     setlocale(LC_CTYPE, "");
 
     THREAD_TYPE                  mRenderWindow;
 
-    tintaIImgWindow              *mImageWindow = nullptr;
 
-
-#if CORE_PLATFORM  == CORE_PLATFORM_WIN32
-    locale loc("rus_rus.866");
-    system("color 0A");
-    CONSOLE_FONT_INFOEX info = { 0 };
-    info.cbSize = sizeof(info);
-
-    info.dwFontSize.Y = 18; // leave X as zero
-    info.FontWeight = FW_NORMAL;
-    wcscpy(info.FaceName, L"Lucida Console");
-    SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);    
-
-#endif //CORE_PLATFORM  == CORE_PLATFORM_WIN32
     stream_out << _M("Tinta pix library version ")<<
     #include "tintapixver";
         ;
@@ -180,42 +206,44 @@ int main( int argc, char *argv[] )
 
     //stream_out << _M("Tinta pix library version ")<< v <<  _M("\n");
 
- 	StringBasic    buffer;	
-	tintaTexSpringMain *console ( NULL );
-	molyConsoleCmd     cmdOut;
-    
+ 	StringBasic         buffer;	
+	
+	molyConsoleCmd      cmdOut;
+    Tinta::tintaLogger   *log = M_NEW Tinta::tintaLogger();
+    tintaScriptContext* context = NEW_T(tintaScriptContext)();
+    tintaGPUExt* gpuExt = NEW_T(tintaGPUExt)();
+
     tintaSignalHandler signalHandler;
     signalHandler.setupExitSignalHandler();
 
-	console = NEW_T( tintaTexSpringMain )( );
-	bool isServer = true;
-		
+    tintaTexSpringMain *console = NEW_T( tintaTexSpringMain )( );
+	bool isServer = true;		
 	
 	console->setServMode( isServer );
-#if CORE_PLATFORM  == CORE_PLATFORM_WIN32 
 
-#ifdef USE_GL_WINDOW
-
-    if ( isPathValid(tintaImgWindow::mConfigName) ) {
-
-        mImageWindow = M_NEW tintaImgWindow();
-
-        //mImageWindow->create();
-        mRenderWindow = THREAD_TYPE([=]()
-        {
-            //THREAD_SLEEP(mInterval);
-            while (!appClosing) {
-                mImageWindow->create();
-            }
-
-        });
-    }
-#endif
-
-#endif
-
-    bool inited = console->initialize(strTexSpringConfigFileW, &cmdOut, mImageWindow );
+    bool inited = console->initialize(strTexSpringConfigFileW, &cmdOut, context);
         
+#if CORE_PLATFORM  == CORE_PLATFORM_WIN32
+    //locale loc("rus_rus.866");
+    //system("color 0A");
+    CONSOLE_FONT_INFOEX info = { 0 };
+    info.cbSize = sizeof(info);
+
+    const tintaConfigurator * config = Tinta::tintaConfigurator::getPtr();
+    if (config) {
+
+        info.dwFontSize.Y = (short)config->getFontSize(); // leave X as zero
+        info.FontWeight = FW_NORMAL;
+
+        String name = config->getFontName();
+        std::wstring wName(name.begin(), name.end());
+        if( name.size() > 0  )
+            wcscpy( info.FaceName, wName.c_str() );// L"Lucida Console");
+
+        SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
+    }
+
+#endif //CORE_PLATFORM  == CORE_PLATFORM_WIN32
 
 #if 0
     //Get a console handle
@@ -248,50 +276,43 @@ int main( int argc, char *argv[] )
 
             while ( !signalHandler.gotExitSignal() ){                   
 
-                size_t unitId{ 0 };
-                stream_in >> unitId >> command;
+                //size_t unitId{ 0 };
+                
+                char buff[BUFF_SIZE];
+                stream_in.getline(buff, BUFF_SIZE);
+                
+                command = buff;
 
-                if ( command.length() == 0 ){                        
-                    stream_in.clear();
-                    stream_in >> command;
-                }
+                Command c = parseCommand(command);
 
-                if ( command == _M("help") ){                                      
+                if (c.mCommand == _M("help") ){
                     stream_out << _M("(") << THREAD_CURRENT_ID << _M(")") << _M("\n") << helpCommand << _M("\n"); //<<_M("\r")<< flush;                 
                 }                
                 else {
 
                     
-                    if ( StringUtil::getFileExt(command) == "lua") {
+                    if ( StringUtil::getFileExt(c.mCommand) == "lua") {
                         StringStream full;
-                        full << "c_f(\"" << command << "\")";
-                        command = full.str();
+                        full << "main.f(\"" << c.mCommand << "\")";
+                        c.mCommand = full.str();
                     }
 
-                    tintaTexSpringMain::getPtr()->executeCommand(unitId, command, tintaExecutingTask::enLocalTask);
-                    tintaTexSpringMain::getPtr()->addCommand(command);
+                    tintaTexSpringMain::getPtr()->executeCommand(c.mUnit, c.mCommand, tintaExecutingTask::enLocalTask);
+                    tintaTexSpringMain::getPtr()->addCommand(c.mCommand);
                 }
-                command = String();
+                c = Command();
             }            
 		} 		
 	}
 
 	cmdOut.remove();
 
-    
+    DELETE_T(console, tintaTexSpringMain);
+    M_DELETE log;    
+    DELETE_T( gpuExt, tintaGPUExt );
+    DELETE_T( context, tintaScriptContext );
+	
 
-    //mImageWindow->create();
-   // if( mRenderWindow.joinable() )
-        
-        
-
-    console->setWindow(nullptr);
-
-    M_DELETE mImageWindow;
-
-    mImageWindow = nullptr;
-
-	DELETE_T( console,tintaTexSpringMain );
 
 	return 0;
 

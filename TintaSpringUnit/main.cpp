@@ -1,10 +1,9 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
 #include <tintaTexSpringMain.h>
 #include <iostream>
-
 
 #include <tintaUInt8Image.h>
 #include <tintaSignalHandler.h>
@@ -101,7 +100,7 @@ public:
     virtual void onUnitPriorChanged(tintaExecutingUnit::UnitId id, float prior) {}
 private:
     void updateTitle(tintaExecutingUnit::UnitId id) {
-        const tintaExecutingUnit *unit = tintaUnitsSet::getPtr()->getUnit(id);
+        const tintaExecutingUnit *unit = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->getUnit(id);
         if (unit) {
             StringStream msg;
             String unitState;
@@ -135,7 +134,7 @@ int main( int argc, char *argv[] ){
     locale loc("rus_rus.866");
 #endif
 
-    stream_out << _M("Tinta pix library version ") <<
+    stream_out << _M("Tintapix library version ") <<
     #include "tintapixver";
         ;
     stream_out << "\n";
@@ -159,6 +158,9 @@ int main( int argc, char *argv[] ){
 	molyConsoleCmd cmdOut;
     bool isServer(false);
 	console = NEW_T( tintaTexSpringMain )( isServer);	
+    Tinta::tintaLogger   *log = M_NEW Tinta::tintaLogger();
+    tintaScriptContext* context = NEW_T(tintaScriptContext)();
+    
 
     static std::atomic<bool> bExitSignal(false);
     struct SigHandler{
@@ -173,11 +175,10 @@ int main( int argc, char *argv[] ){
     tintaSignalHandler signalHandler;
     signalHandler.setupSignalHandlers((int)SIGINT, SigHandler::exitSignalHandler);
 
-	String command;   
-	
+	String command;       
+
 	console->setServMode( isServer );
-    bool inited = console->initialize(configName, &cmdOut);
-	
+    bool inited = console->initialize(configName, &cmdOut, context);	
     
     if ( inited ){
 
@@ -189,7 +190,9 @@ int main( int argc, char *argv[] ){
 
 	stream_out << _M("\n") << _M("Exiting...") << _M("\n");
 	cmdOut.remove();
-	DELETE_T( console,tintaTexSpringMain );
+    DELETE_T(context, tintaScriptContext);
+    M_DELETE log;    
+    DELETE_T( console,tintaTexSpringMain );
 
 	return 1;
 }

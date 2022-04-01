@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -51,10 +51,8 @@ namespace Tinta
 	void tintaChildProc::initialise( const InteractData &req, bool bServer, const String &procName ) {
 
 		mbServer = bServer;
-		if ( !mbServer ){
-		
-            if ( Tinta::tintaUnitsSet::getPtr() )
-                Tinta::tintaUnitsSet::getPtr()->addListener(this);
+		if ( !mbServer ){          
+           Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->addListener(this);
 		}
 
 		
@@ -188,9 +186,9 @@ namespace Tinta
 
            
             // send state
-            const tintaExecutingUnit *unit = tintaUnitsSet::getPtr()->getNextUnit(NULL_M);
+            const tintaExecutingUnit *unit = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->getNextUnit(NULL_M);
            // m_ulong32 idUnit = unit ? unit->getId().mid : 0;
-            for (; unit; unit = tintaUnitsSet::getPtr()->getNextUnit(&id)) {
+            for (; unit; unit = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->getNextUnit(&id)) {
 
                 //idUnit = unit->getId().mid;
 

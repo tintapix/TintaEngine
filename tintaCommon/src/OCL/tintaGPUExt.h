@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -6,6 +6,7 @@
 #define _TINTA_GPU_EXT_H_
 
 #include <tintaSingleton.h>
+#include "tintaException.h"
 #include "tintaPredefine.h"
 #include "tintaCLConfig.h"
 #include "tintaMemoryAllocator.h"
@@ -137,6 +138,7 @@ namespace Tinta {
 		};
         		
 		static tintaGPUExt* getPtr( void )	{
+            CoreAssert(mPtr, "tintaGPUExt mPtr");
 			return mPtr;
 		}
 

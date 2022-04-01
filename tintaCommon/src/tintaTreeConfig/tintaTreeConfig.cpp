@@ -1,9 +1,10 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
 #include "tintaTreeConfig.h"
 #include "tintaCommon.h"
+#include "tintaException.h"
 
 
 namespace Tinta {
@@ -138,7 +139,7 @@ namespace Tinta {
 	    tintaConfNode * parent = NULL;
 	    // same level
 	    if( beforeLevel == token.mlevel ){
-		    assert( token.mlevel >= 0 );
+            CoreAssert( token.mlevel >= 0 , " token.mlevel < 0");
 		    parent = curParentNode;
 		    tintaConfNode * newNode = NEW_T( tintaConfNode )( parent, token  );
 
@@ -151,7 +152,9 @@ namespace Tinta {
 	    }
 	    else if( beforeLevel > token.mlevel ){ // new node on lower level
 		    //assert( token.mlevel - 1  >= 0 );
-		    assert(curParentNode);
+
+            CoreAssert(curParentNode, "curParentNode");
+
 		    int downto = beforeLevel - token.mlevel; 
 
 		    tintaConfNode * downNode = curParentNode;
@@ -179,7 +182,7 @@ namespace Tinta {
 		    }
 	    }
 	    else { // beforeLevel < token.mlevel: new node on upper level situation "{ {"
-		    assert( token.mlevel + 1  >= 0 );
+            CoreAssert( token.mlevel + 1  >= 0 , "token.mlevel + 1  < 0");
 		    int upto = token.mlevel - beforeLevel; 
 		
 		    tintaConfNode * lastNode = curParentNode;
@@ -188,7 +191,7 @@ namespace Tinta {
 			    lastNode = lastNode->getChild( chlds - 1 ); // searching node
 			    upto--;
 		    }		 
-		    assert( lastNode );
+            CoreAssert( lastNode, "lastNode == NULL" );
 		    if( lastNode && lastNode->getType() == tintaConfNode::enNode ){ // last node must be not leaf with value
 			    parent = lastNode; 
 			    tintaConfNode * newNode = NEW_T( tintaConfNode )( parent, token );

@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -370,10 +370,6 @@ namespace Tinta {
 #endif
 
         }
-//#else
-//        basic = boost::locale::conv::utf_to_utf<char>(inStr.c_str(), inStr.c_str() + inStr.length());
-//#endif
-
         return basic;
     }
     
@@ -381,8 +377,7 @@ namespace Tinta {
         
         
         tintaWString rez;
-        // CHAR_DO
-//#if CORE_PLATFORM == CORE_PLATFORM_WIN32
+        
         std::wstring_convert< std::codecvt_utf8_utf16<wchar_t >> convertor;
         try {
             rez = convertor.from_bytes(inStr.c_str());
@@ -392,9 +387,7 @@ namespace Tinta {
             std::cout << "Convert in UTF16 error for string :"<< inStr;
 #endif
         }
-//#else
- //       rez = boost::locale::conv::utf_to_utf<wchar_t>(inStr.c_str(), inStr.c_str() + inStr.length());
-//#endif
+
         return rez;
     }
   
@@ -583,101 +576,48 @@ bool  isPathValid(const String &path){
 bool readUTF8Text( const String &path, StringBasic &text ) {
 
 
-/*#if CORE_PLATFORM == CORE_PLATFORM_WIN32
-    std::wifstream fs8;
-    fs8.open(path.c_str());
-    tintaWString line;
-#else*/
     std::ifstream fs8;
-    fs8.open(path.c_str());
-    String line;
-//#endif
+    fs8.open( path.c_str() );
 
-    if (!fs8.is_open()) {
+    String line;
+
+    if ( !fs8.is_open() ) {
         return false;
     }
     StringStream data;
 
-    if (isUTF8WithBOM(path))
+    if ( isUTF8WithBOM(path) )
         fs8.seekg(UTF8BOM.length());
 
 
-    while (getline(fs8, line)) {
-
-/*#if CORE_PLATFORM == CORE_PLATFORM_WIN32
-        //data text.push_back( StringUtil::createUTF8String(line) );
-        data << StringUtil::createUTF8String(line);
-#else*/
+    while ( getline( fs8, line ) ) {
         data << line;
-//#endif
         data << "\n";
-
     }
-    //data.seekp(2, std::ios_base::end);
+ 
     text = data.str();
 
     return true;
 }
 
-/*bool  readUTF8Text( const String &path, StringVector &text ){
-
-	
-
-
-#if CORE_PLATFORM == CORE_PLATFORM_WIN32
-    std::wifstream fs8;
-    fs8.open(path.c_str());
-    tintaWString line;
-#else
-    std::ifstream fs8;
-    fs8.open(path.c_str());
-    String line;
-#endif
-
-    if (!fs8.is_open()) {
-        return false;
-    }
-    unsigned line_count = 1;
-    //StringBasic line;
-
-    StringStream data;
-
-    if (isUTF8WithBOM(path))
-        fs8.seekg(UTF8BOM.length());
-
-    while ( getline(fs8, line) ) {
-
-#if CORE_PLATFORM == CORE_PLATFORM_WIN32
-        text.push_back(StringUtil::createUTF8String(line));
-#else
-        text.push_back(line);
-#endif
-        line_count++;
-    }
-
-    return true;
-
-}*/
-
 bool  readUTF8Text(const String &path, StringVector &text) {
     
     std::ifstream fs8;
-    fs8.open(path.c_str());
+    fs8.open( path.c_str() );
     String line;
 
 
-    if (!fs8.is_open()) {
+    if ( !fs8.is_open() ) {
         return false;
     }
     unsigned line_count = 1;
-    //StringBasic line;
-
+   
     StringStream data;
 
-    if (isUTF8WithBOM(path))
-        fs8.seekg(UTF8BOM.length());
+    if ( isUTF8WithBOM( path ) )
+        fs8.seekg( UTF8BOM.length() );
 
-    while (getline(fs8, line)) {
+    while ( getline( fs8, line ) ) {
 
 
         text.push_back(line);
@@ -692,35 +632,23 @@ bool  readUTF8Text(const String &path, StringVector &text) {
 
 
 bool writeUTF8toFile(const String &path, const StringVector &data, bool end ){
-
-    bool noFile = !isPathValid(path);
-
-    //char fill = ' ';
-//#if CORE_PLATFORM == CORE_PLATFORM_WIN32
+        
     std::ofstream dest;
-   // dest << UTF8BOM;
-    
-//#else
-  //  std::ofstream dest;
-//#endif
+
     setlocale(LC_ALL, "utf-8");
 
-    if (noFile)
-        dest.open(path.c_str(), std::ios::out);
+    if ( !isPathValid( path ) )
+        dest.open( path.c_str(), std::ios::out );
     else {
-        if (end)
+        if ( end )
             dest.open(path.c_str(), std::ios::out | std::ios::in | std::ios::app | std::ios::binary );
         else
             dest.open(path.c_str(), std::ios::out | std::ios::in | std::ofstream::trunc);
     }
 
     for (size_t i = 0; i < data.size(); i++) {
-//#if CORE_PLATFORM == CORE_PLATFORM_WIN32
-       // tintaWString v = StringUtil::createUTF16String(data[i]);
+
         dest << data[i] << std::endl;
-//#else
-  //      dest << data[i] << std::endl;
-//#endif
         dest.flush();
     }
    
@@ -731,17 +659,12 @@ bool writeUTF8toFile(const String &path, const StringVector &data, bool end ){
 
 bool writeUTF8toFile( const String &path, const StringSet &data, bool end ){
 
-    bool noFile = !isPathValid(path);
-
-    //char fill = ' ';
-//#if CORE_PLATFORM == CORE_PLATFORM_WIN32
-//    std::wofstream dest;
-//#else
+    bool noFile = !isPathValid( path );
     std::ofstream dest;
-//#endif
-    setlocale(LC_ALL, "utf-8");
 
-    if (noFile)
+    setlocale( LC_ALL, "utf-8" );
+
+    if ( noFile )
         dest.open(path.c_str(), std::ios::out);
     else {
         if (end)
@@ -752,11 +675,8 @@ bool writeUTF8toFile( const String &path, const StringSet &data, bool end ){
 
     StringSet::const_iterator i = data.begin();
     for (; i != data.end(); i++) {
-//#if CORE_PLATFORM == CORE_PLATFORM_WIN32
-  //      dest << StringUtil::createUTF16String(*i) << std::endl;
-//#else
+
         dest << *i << std::endl;
-//#endif
         dest.flush();
     }
 
@@ -1144,7 +1064,8 @@ bool createProcess(const String &path_to_process, char_m *params) {
 
 
 
-    #	if 	CORE_PLATFORM == CORE_PLATFORM_WIN32
+#if CORE_PLATFORM == CORE_PLATFORM_WIN32
+
         String req(path_);
         req.append(_M("*"));
 
@@ -1236,13 +1157,10 @@ bool createProcess(const String &path_to_process, char_m *params) {
 
     #endif
 
-            return rez;
+         return rez;
+   } 
 
-
-
-    } 
-
-    StringVector  getDirs(const String &path, const getDirProp &prop, int *quantity ) {
+StringVector  getDirs(const String &path, const getDirProp &prop, int *quantity ) {
 
 
         String path_(path);
@@ -1253,7 +1171,7 @@ bool createProcess(const String &path_to_process, char_m *params) {
             rez.reserve(10);
 
 
-        #	if 	CORE_PLATFORM == CORE_PLATFORM_WIN32
+#if	CORE_PLATFORM == CORE_PLATFORM_WIN32
             String req(path_);
             req.append(_M("*"));
             WIN32_FIND_DATA FindFileData;
@@ -1262,7 +1180,6 @@ bool createProcess(const String &path_to_process, char_m *params) {
             int pos { 0 };
 
             if ( hf != INVALID_HANDLE_VALUE ){
-
                     do
                     {
                         String r( FindFileData.cFileName );
@@ -1399,19 +1316,18 @@ bool createProcess(const String &path_to_process, char_m *params) {
      
    
 
-    bool createFolder(const String &path){
+    bool createFolder( const String &path ){
 
         //return boost::filesystem::create_directory(path);
         String pathDir(path);
         bool rez = true;
 
-
-        if (StringUtil::haveFileExtension(pathDir)){
+        if ( StringUtil::haveFileExtension( pathDir ) ){
             StringUtil::delLastLeaf(pathDir, _M("\\"), _M("/"));
         }
 
         // already exists or Windows drive
-        if (isPathValid(pathDir))
+        if ( isPathValid( pathDir ) )
             return rez;
 
         StringVector leaves;

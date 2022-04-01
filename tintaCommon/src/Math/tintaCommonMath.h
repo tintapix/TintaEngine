@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -316,9 +316,11 @@ namespace TintaMath {
 
 	class tintaRandomV2 {
 	public:
-		tintaRandomV2( int seed = 0 );
+		
+        tintaRandomV2( int seed = 0);
 
-		void				setRandSeed( int seed );
+        void	setRandSeed(int seed);
+
 		int					getRandSeed( void ) const;
 
         /*
@@ -361,47 +363,9 @@ namespace TintaMath {
 	private:
 		int					mSeed;
 	};
+    
 
-	FORCEINL tintaRandomV2::tintaRandomV2( int seed ) {
-        this->mSeed = seed;
-	}
-
-	FORCEINL void tintaRandomV2::setRandSeed( int seed ) {
-        this->mSeed = seed;
-	}
-
-	FORCEINL int tintaRandomV2::getRandSeed( void ) const {
-        return mSeed;
-	}
-
-	FORCEINL int tintaRandomV2::randomInt( void ) {
-		
-        return(((mSeed = mSeed * 214013L + 2531011L) >> 16) & 0x7fff);
-	}
-
-	FORCEINL int tintaRandomV2::randomInt( int max ) {
-		if ( max == 0 ) {
-			return 0;			
-		}
-		return randomInt() % (max + 1);
-	}
-
-	FORCEINL int tintaRandomV2::randomInt( int min,  int max ) {
-
-		if ( max == 0 ||  (max - min) <= 0) {
-				return max;			
-		}
-
-		return  randomInt( max - min ) + min;
-	}
-
-	FORCEINL float tintaRandomV2::randomFloat( void ) {
-		return ( randomInt() / ( float )( tintaRandomV2::MAX_RAND + 1 ) );
-	}
-
-	FORCEINL float tintaRandomV2::randomFloatNeg( void ) {
-		return ( 2.0f * ( randomFloat() - 0.5f ) );
-	}
+	
 
     /*
 	    The Interpolation function returns a value between a and b based on the value x. 

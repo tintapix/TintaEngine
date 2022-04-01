@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -41,12 +41,12 @@ public:
 	const String *getErrors(unsigned &errors_count) const;	
 
     /*
-        Have to be called manually
+        Must be called manually
     */
 	void		  clearErrors();
 	
     /*
-        Returns the input data value by index
+        Return the input data value by index
     */
 	virtual GpuArg_t getDataIn( m_uint32 pos ) const ;
 
@@ -55,15 +55,6 @@ public:
 	*/
 	virtual bool setDataIn(void *argumentData, GpuArg::enGpuArgType type, m_uint32 dataSize, m_uint32 memMask = 0x00);
 
-    /*
-        Returns the output data value by index
-    */
-	//virtual GpuArg_t getDataOut( m_uint32 pos ) const;
-	
-	/*
-		If data have to be reassigned, call clearData first and reassign all data again
-	*/
-	//virtual bool setDataOut(const GpuArg_t &arg );
 
     /*
         Initialisation flag

@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -85,7 +85,7 @@ namespace Tinta
 
 	size_t tintaExecutingTask::packData( m_int8 *data, size_t offset ) const {
 		
-        assert(data);
+        CoreAssert(data,"data == NULL");
 		// preparing string
         //size_t vvv = mCommand.length() * sizeof(char_m) + 1;
         //int iCurOffset = WriteToBuffer<m_uint32>(data, 0, mCommand.length() * sizeof(char_m) + sizeof(char_m));
@@ -99,7 +99,7 @@ namespace Tinta
 	}
 
 	size_t tintaExecutingTask::unpackData( const m_int8 *data, size_t offset ){		
-        assert(data);
+        CoreAssert(data, "data == NULL");
 		// preparing string
 		//m_uint32  iLength = 0;		
         size_t iCurOffset = tintaIOUtil::UnpackString(data, mCommand, offset);

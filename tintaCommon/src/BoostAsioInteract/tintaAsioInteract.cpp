@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -394,7 +394,7 @@ void tintaAsioInteractServer::onError(const boost::system::error_code, clientsKe
 
 
 void tintaAsioInteractServer::addConnectListener(tintaConnectionEvents *pl){
-	assert(pl);	
+    CoreAssert(pl, "pl == NULL");
 	mServedPool->addCallback( pl );
 }
 

@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -15,18 +15,15 @@ namespace Tinta {
 
 
 tintaInteractUnit::tintaInteractUnit(void)
-:mPInteract(NULL){
-	if (Tinta::tintaUnitsSet::getPtr())
-		Tinta::tintaUnitsSet::getPtr()->addUnit(this);
-
-	
+:mPInteract(NULL){	
+	Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->addUnit(this);	
 }
 
 
 tintaInteractUnit::tintaInteractUnit( tintaAsioClient * pInteract)
 :mPInteract(pInteract){
-	if (Tinta::tintaUnitsSet::getPtr())
-		Tinta::tintaUnitsSet::getPtr()->addUnit(this);
+	
+	Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->addUnit(this);
 
 	CoreAssert(mPInteract->getHandler(), "mPInteract->getHandler()" );
 	if( mPInteract->getHandler() )
@@ -49,9 +46,8 @@ void tintaInteractUnit::addtInteractClient( tintaAsioClient *add ) {
 }
 
 tintaInteractUnit::~tintaInteractUnit(void)
-{
-	if (Tinta::tintaUnitsSet::getPtr())
-		Tinta::tintaUnitsSet::getPtr()->removeUnit(mId);
+{	
+	Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->removeUnit(mId);
 }
 
 void tintaInteractUnit::setState( UnitState state ){
@@ -100,12 +96,6 @@ bool tintaInteractUnit::execute( const tintaExecutingTask &task ){
 	if( !mPInteract )
 		return false;
 
-#if DEBUG_MODE
-    if (task.getCommand().length() == 544)
-    {
-        int t = 10;
-    }
-#endif
 
 	mTask = task;
 	size_t size = mTask.GetBufferSize();
@@ -122,7 +112,7 @@ bool tintaInteractUnit::execute( const tintaExecutingTask &task ){
 	
     auto s = mTask.packData(dataBuff->GetBufferEx(), 0);
 
-    assert( s == size );
+    CoreAssert( s == size, "s != size" );
 	
     tintaBufferIOUnqPtr buffPacket = tintaInteractHandlerImpl::allocatePacketDataPtr( tintaInteractHandlerImpl::enTaskToexecute, dataBuff.get() );
 

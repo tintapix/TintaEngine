@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -7,6 +7,7 @@
 
 #include "tintaPredefine.h"
 #include "tintaCoord2.h"
+#include "tintaException.h"
 #include "tintaISerialisable.h"
 
 namespace Tinta {
@@ -158,7 +159,7 @@ namespace Tinta {
 		}
 
 		virtual size_t packData( m_int8 *data, size_t offset ) const {
-            assert(data);
+            CoreAssert(data,"data==NULL");
 			//	return offset;
 
 			// preparing string
@@ -171,7 +172,7 @@ namespace Tinta {
 		}
 
 		virtual size_t unpackData( const m_int8 *data, size_t offset ){
-            assert(data);
+            CoreAssert(data,"data==NULL");
 			int iCurOffset = offset;
 			iCurOffset = ReadFromBuffer< T >( data, iCurOffset, mXMin );
 			iCurOffset = ReadFromBuffer< T >( data, iCurOffset, mYMin );

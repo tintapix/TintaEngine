@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -439,9 +439,4 @@ namespace Tinta
 
     }
 
-	template<> tintaUnitsSet* Singleton<tintaUnitsSet>::mPtr = 0;
-
-    tintaUnitsSet* tintaUnitsSet::getPtr(void)	{
-		return mPtr;
-	}	
 }

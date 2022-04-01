@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -45,8 +45,7 @@ namespace Tinta
 		Container and manager for executing units
 	*/	
 	class _CoreExport tintaUnitsSet
-		: public Singleton<tintaUnitsSet>,
-		  public tintaExecutingUnitCallback		  
+		: public tintaExecutingUnitCallback		  
 	{
 
 	public:	
@@ -126,11 +125,6 @@ namespace Tinta
         virtual const tintaExecutingUnit *getNextUnit(const m_ulong32 *id = NULL)const;
 
         virtual tintaExecutingUnit *getNextUnit(const m_ulong32 *id = NULL);
-
-       // virtual const tintaExecutingUnit *getNextUnit(const unsigned long *id = NULL);
-
-		static tintaUnitsSet* getPtr(void);
-
 
 	protected:
 

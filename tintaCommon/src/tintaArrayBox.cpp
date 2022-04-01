@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -151,7 +151,7 @@ namespace Tinta {
 
     size_t tintaFloatValBox::GetBufferSize() const{
        // return mBox.
-        return getBufferSizeArray2d(mBox);
+        return getBufferSize(mBox);
     }
 
     size_t tintaFloatValBox::GetDataSize() const {
@@ -242,7 +242,7 @@ namespace Tinta {
 
      size_t tintaIntValBox::GetBufferSize() const{
          // return mBox.
-         return getBufferSizeArray2d(mBox);
+         return getBufferSize(mBox);
      }
 
 	 void* tintaIntValBox::GetMemPtr() {
@@ -337,7 +337,7 @@ namespace Tinta {
 
     size_t tintaInt16ValBox::GetBufferSize() const{
         // return mBox.
-        return getBufferSizeArray2d(mBox);
+        return getBufferSize(mBox);
     }
 
     size_t tintaInt16ValBox::GetDataSize() const {
@@ -440,7 +440,7 @@ namespace Tinta {
 
     size_t tintaInt16ValVector::GetBufferSize() const{
         // return mBox.
-        return getBufferSizeArray2d(mBox);
+        return getBufferSize(mBox);
     }
 
     size_t tintaInt16ValVector::GetDataSize() const {
@@ -552,7 +552,7 @@ namespace Tinta {
 
     size_t tintaFloatValVector::GetBufferSize() const{
         // return mBox.
-        return getBufferSizeArray2d(mBox);
+        return getBufferSize(mBox);
     }
 
     size_t tintaFloatValVector::GetDataSize() const {
@@ -637,7 +637,7 @@ namespace Tinta {
 
     size_t tintaIntValVector::GetBufferSize() const{
         // return mBox.
-        return getBufferSizeArray2d(mBox);
+        return getBufferSize(mBox);
     }
 
     size_t tintaIntValVector::GetDataSize() const {
@@ -738,7 +738,7 @@ namespace Tinta {
 
     size_t tintaUInt8ValVector::GetBufferSize() const {
         // return mBox.
-        return getBufferSizeArray2d(mBox);
+        return getBufferSize(mBox);
     }
 
     size_t tintaUInt8ValVector::GetDataSize() const {
@@ -859,8 +859,15 @@ namespace Tinta {
     }
 
     size_t tintaStringValVector::GetDataSize() const {
-        return mBox.getDataSize();
 
+        size_t elements = mBox.getSize();
+        size_t size = 0;
+        for (size_t i = 0; i < elements; i++)
+            size += mBox.getVal(i, 0).size();
+
+        size *= elements;
+        
+        return size;
     }
 
 	void* tintaStringValVector::GetMemPtr() {
@@ -959,10 +966,10 @@ namespace Tinta {
 
     size_t tintaVec3fValVector::GetBufferSize() const {
         // return mBox.
-        return getBufferSizeArray2d(mBox);
+        return getBufferSize(mBox);
     }
     size_t tintaVec3fValVector::GetDataSize() const {
-        return mBox.getDataSize();
+        return mBox.getSize() * sizeof(float) * 3;
 
     }
 

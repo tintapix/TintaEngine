@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -17,8 +17,7 @@
 namespace Tinta { 	
 
 	class tintaInteractUnitsSet:
-		public tintaConnectionEvents,
-		public Singleton<tintaInteractUnitsSet> 
+		public tintaConnectionEvents		
 	{
 
 	public:
@@ -36,12 +35,6 @@ namespace Tinta {
 
 		virtual const tintaInteractUnit* findUnit( m_ulong32 id )const;
 		
-		//virtual bool updateUnitState( m_ulong32 id );	
-
-        static tintaInteractUnitsSet* getPtr(void);
-			
-		
-
 	protected:
 		// pair - clients id, from connections pool/Executing Unit
 		typedef std::map< m_ulong32, tintaInteractUnit* > interactunits_t;

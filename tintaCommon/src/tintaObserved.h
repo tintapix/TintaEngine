@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -7,6 +7,7 @@
 
 #include "tintaPredefine.h"
 #include "tintaThread.h"
+#include "tintaException.h"
 
 
 namespace Tinta {
@@ -49,7 +50,8 @@ public:
 		}	
 	public:
 		size_t addCallback( T * v){
-			assert(v);
+			
+            CoreAssert(v, "v==NULL");
 
 			m_vecCallbacks.push_back( v );		
 
@@ -59,7 +61,7 @@ public:
 		T* removeCallback( T * v ) {
 
 			callbacks_iter_t itFind = std::find(m_vecCallbacks.begin(), m_vecCallbacks.end(), v );
-			assert(itFind != m_vecCallbacks.end());
+            CoreAssert(itFind != m_vecCallbacks.end(), "itFind == m_vecCallbacks.end()");
 
 			T * ret = NULL;
 

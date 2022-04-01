@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -108,9 +108,9 @@ public:
 
 };
 
-    typedef tintaPixel<m_uint8, ImgChannels_4> tintaPixel24b;
+    typedef tintaPixel<m_uint8, ImgChannels_4> tintaPixel32b;
     // with luminance
-    typedef tintaPixel<m_uint8, ImgChannels_5> tintaPixel32b;
+    typedef tintaPixel<m_uint8, ImgChannels_5> tintaPixel40b;
 
 }
 

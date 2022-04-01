@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -58,9 +58,5 @@ namespace Tinta {
         return 0;
 
     }
-
-
-	// for export
-	template<> Tinta::tintaBoxContainer* Tinta::Singleton<tintaBoxContainer>::mPtr = 0;
-
+    
 }

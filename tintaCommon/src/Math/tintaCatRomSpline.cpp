@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -43,10 +43,15 @@ float tintaCatRomSpline::getValue(float x, int nknots, const float *knot)
 	int nspans = nknots - 3;
 
     /* factors of the cubic*/
-	float cO, cl, c2, c3; 
-    if (nspans < 1){
+	float cO, cl, c2, c3;
+
+    if ( nspans < 1 ){
 		return 0.f;
 	}
+
+    if ( TintaMath::isZero( 1.f - x ) )
+        return knot[nknots - 1];
+
 
 	/* Find the appropriate 4-point span of the spline. */
 	x = clamp(x, 0, 1) * nspans;

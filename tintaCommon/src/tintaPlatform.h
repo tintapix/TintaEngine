@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -185,5 +185,25 @@ namespace Tinta {
 
 
 }
+
+
+
+// base data types
+typedef long long int m_int64;
+typedef unsigned long long int m_uint64;
+typedef int m_int32;
+typedef short m_int16;
+typedef char m_int8;
+typedef unsigned int m_uint32;
+#if  CORE_ARCH_TYPE  == CORE_ARCHITECTURE_64
+    typedef unsigned int m_ulong32;
+#else
+    typedef unsigned long m_ulong32;
+#endif
+
+typedef unsigned char m_uint8;
+typedef unsigned short m_uint16;
+typedef float m_float32;
+typedef double m_float64;
 
 #endif

@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -49,17 +49,7 @@ tintaImgCanvas::~tintaImgCanvas( void ){
 bool tintaImgCanvas::selectImage(m_uint32 index)
 {
     TINTA_LOCK_RECUR_MUTEX( mMutexImg );
-
-	// if template image was not removed
-    tintaIImgWindow* winp = Tinta::tintaTexSpringMain::getPtr()->getWindow();
-    const tintaUInt8Image* img = getImage( index );
-
-    if ( !img )
-        return false;
-
-    //if ( img && winp )
-       // winp->showImage( index );
-
+    
 	return mImages->selectObj( index );
 }
 
@@ -80,78 +70,69 @@ const tintaUInt8Image* tintaImgCanvas::getImgSel() const {
 tintaUInt8Image* tintaImgCanvas::getImgSelEx(){	
 	return mImages->getObjEx( mImages->getIndexSel() );
 }
-size_t	tintaImgCanvas::getImgQuantity()const {
-		return mImages->getSize();
+size_t	tintaImgCanvas::size()const {
+	return mImages->getSize();
+}
+
+const tintaUInt8Image *tintaImgCanvas::getNextImg(m_uint32 &index) const {
+    return mImages->getNextObj(index);
+}
+
+const tintaUInt8Image *tintaImgCanvas::getFirstImg(m_uint32 &index) const {
+    return mImages->getFirstObj(index);
 }
 
 
-void tintaImgCanvas::delImg( unsigned index ){
+void tintaImgCanvas::delImg( m_uint32 index ){
     TINTA_LOCK_RECUR_MUTEX(mMutexImg);
  	mImages->delObj( index );
 
-    
-    tintaIImgWindow* winp = Tinta::tintaTexSpringMain::getPtr()->getWindow();
-
-    if ( winp )
-        winp->deleteData( index );
+    auto posIt = std::find_if(mPositions.begin(), mPositions.end(), [&](const Position_t &v) { return v.index == index;  });
+    if (posIt != mPositions.end())
+        mPositions.erase(posIt);
       
 
     //if (winp)
        // winp->showImage( getIndexImgSel() );
 }
 
+tintaVector2f  tintaImgCanvas::getPosition( m_uint32 &index ) const {
+    auto posIt = std::find_if(mPositions.begin(), mPositions.end(), [&](const Position_t &v) { return v.index == index;  });
+    if (posIt != mPositions.end()) {
+        return posIt->position;
+    }
+    return{ 0.f, 0.f };
+}
+
+void  tintaImgCanvas::setPosition( m_uint32 &index, const tintaVector2f &pos ) {
+
+    auto posIt = std::find_if(mPositions.begin(), mPositions.end(), [&](const Position_t &v) { return v.index == index;  });
+    if (posIt != mPositions.end()) {
+        posIt->position = pos;
+    }
+}
+
 void tintaImgCanvas::delAllImg() {	
     TINTA_LOCK_RECUR_MUTEX(mMutexImg);
 	mImages->clear();
-
-    tintaIImgWindow* winp = Tinta::tintaTexSpringMain::getPtr()->getWindow();
-    if ( winp )
-        winp->deleteData( ZERO_ID );
+    mPositions.clear();   
 }
 
 m_uint32 tintaImgCanvas::getIndexImgSel() const {	
 	return mImages->getIndexSel();
 }
 
-
-
-
 m_uint32 tintaImgCanvas::addImg( const StringBasic &type ) {
     TINTA_LOCK_RECUR_MUTEX(mMutexImg);
-	return mImages->addObj( type );	
+	m_uint32 index = mImages->addObj( type );	
+    mPositions.push_back( { index , {0.f, 0.f} });
+
+    return index;
 }
 
 
 const tintaImgCanvas::tintaPixImageContainer* tintaImgCanvas::getContainer()const {
 	return mImages;
 }
-
-// Tinta::tintaScriptContext* tintaImgCanvas::getContext() {
-// 	
-// 	return m_context;
-// }	
-
-// tintaScriptTaskExecutor* tintaImgCanvas::getTaskExecutor(){
-// 	return m_queue_task_executor;
-// }
-// void tintaImgCanvas::delImg_container(THREAD_CURRENT_ID_TYPE thread_id) {
-// 
-// 
-// // 	t_map_image_containers::iterator it_find = Images_ts.find( THREAD_CURRENT_ID );
-// // 	//	no images no problem
-// // 	if(it_find != Images_ts.end()){
-// // 		it_find->second.delAllImg();
-// // 		Images_ts.erase(it_find);		
-// // 	}
-// }
-
-// tintaIClBase* tintaImgCanvas::getClObj( const char *kernel_name ){
-// #ifdef USING_GPUCL
-// 	return m_cl_obj_container.find_object(kernel_name);
-// #endif// 	return 0;
-// 	
-// }
-
-
 
 }

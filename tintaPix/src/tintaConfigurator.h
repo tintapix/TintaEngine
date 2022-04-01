@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -84,6 +84,10 @@ namespace Tinta
 		*/
 		bool getScriptPath(String &path, const String &script) const;
 
+        String getFontName() const;
+
+        int getFontSize() const;
+
 		/*
 			Trying to find path by filename in GPU folders (parameter GPUPrograms_Folders)
 		*/
@@ -144,13 +148,19 @@ namespace Tinta
         // file or buffer executing after start
         String mStartScript;
 
+        String mFontName;
+
+        int mFontSize;
+
         static const char * const strTexSpringConfigFile; // = "config.lua";
         static const char * const strSectionScriptFolders;// = "Scripts_Folders";
         static const char * const strSectionCommands; //= "Commands";
         static const char * const strSectionGPUFolders;// = "GPUPrograms_Folders";
-		static const StringBasic strGPUScripts;// = "GPUPrograms.path";
+        static const char * strGPUScripts;// = "GPUPrograms.path";
         static const char * const strSectionIpAdress;// = "Ip_Adress";
         static const char * const strStartScript;// = "Start_script";
+        static const char * const strConsoleFontName;// = "Console_FontName";
+        static const char * const strConsoleFontSize;// = "Console_FontSize";
         static const char * const strSectionPort;// = "Port";
         static const char * const strLocalEnabled;// d = "Local_Enabled";
         static const char * const strGpuEnabled;// = "Gpu_Enabled";

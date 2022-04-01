@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -167,7 +167,7 @@ bool tintaClBaseImpl::create() {
     //error.append(" Error: clCreateContext");
     riseEXCEPTION(status, " Error: clCreateContext");
 
-    assert(mContext);
+    CoreAssert(mContext, "mContext == NULL");
 
     // Create command queue	
     mQueue = clCreateCommandQueue(mContext, mDevices[mDevice], 0, &status);

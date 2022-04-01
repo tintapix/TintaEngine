@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -11,9 +11,7 @@
 
 namespace Tinta {
 
-/*
-	Implements map with float values
-*/
+
 	class _CoreExport tintaArrayBox:
 		public AllocatedObjectBoxContainer,
         public tintaINamed,

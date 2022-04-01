@@ -1,10 +1,11 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
 
 #include "tintaJpgImgCodec.h"
 #include "../tintaCommon.h"
+#include "../tintaException.h"
 
 
 
@@ -171,7 +172,7 @@ m_uint8 tintaJpgImgCodec::getChannels( ImageBits channelByte ) {
     else if(mChanneltype == en24bits)
         return 3;
 
-    assert(false);
+    CoreAssert(false, "Wrong channelByte");
     return 0;
 }
 

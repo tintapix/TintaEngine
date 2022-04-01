@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov 
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov 
 tintapix.com
 tintapix@gmail.com  */
 
@@ -55,9 +55,9 @@ namespace Tinta
 
         void posImage( const Graphica::tintaImage * img );
 
-        virtual void setData( m_uint32 key, m_uint32 index , const tintaPixel24b *color );
+        virtual void setData( m_uint32 key, m_uint32 index , const tintaPixel32b *color );
 
-        virtual void setData( m_uint32 key, m_uint32 x, m_uint32 y, const tintaPixel24b *color );
+        virtual void setData( m_uint32 key, m_uint32 x, m_uint32 y, const tintaPixel32b *color );
 
         virtual void setData(m_uint32 key, const tintaUInt8Image * data);
 

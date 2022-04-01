@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -37,9 +37,7 @@ namespace Tinta
 
 		gpuObjContainer_t mGpuObjects;
 
-		gpuProgIt_t mIterPos;
-
-		tintaIClBase* mCached = NULL_M;
+		gpuProgIt_t mIterPos;		
 
 	};
 

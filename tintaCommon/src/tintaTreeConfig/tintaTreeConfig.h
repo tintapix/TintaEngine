@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -10,6 +10,7 @@
 #include "tintaStdHeaders.h"
 #include "tintaOSHeaders.h"
 #include "tintaConfNode.h"
+#include "tintaException.h"
 
 
 
@@ -423,7 +424,7 @@ namespace TreeConfig {
                 msg << "Root node was not found";
             }
             else{
-                assert((indexreq - 1) < requests.size());
+                CoreAssert((indexreq - 1) < requests.size(),"(indexreq - 1) >= requests.size()");
                 msg << "Wrong request part: ";
                 if (requests[indexreq - 1].first > enNoIndex)
                     msg << requests[indexreq - 1].first;
@@ -462,7 +463,9 @@ namespace TreeConfig {
                     rezval.reserve(chq);
                     for (size_t k = 0; k < chq; k++){
                         tintaConfNode *chn = rezNode->getChild(k);
-                        assert(chn);
+
+                        CoreAssert(chn,"chn == NULL");
+
                         if ( chn ){
 
                             T v = T();
@@ -486,7 +489,8 @@ namespace TreeConfig {
                 msg << "Root node was not found";
             else {
 
-                assert((indexreq - 1) < requests.size());
+                //assert((indexreq - 1) < requests.size());
+                CoreAssert((indexreq - 1) < requests.size(), "(indexreq - 1) >= requests.size()");
 
                 if (bAll) // .* wrong request
                     msg << "Wrong request '.*' after: ";

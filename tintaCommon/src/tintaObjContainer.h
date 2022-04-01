@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -29,7 +29,7 @@ namespace Tinta {
             {}
 
             TObj		   *mpobj = NULL_M;
-            StringBasic mname;
+            StringBasic     mname;
             m_uint32        mKey = ZERO_ID;
 
         } ObjPair_t;
@@ -48,7 +48,7 @@ namespace Tinta {
         mutable m_uint32      mSelected;
 
         //to cache last search
-        mutable TObj	*mCachedval;
+        mutable TObj	*mSelectedVal;
 
         tintaObjCreator< TFactory, TObj > mCreator;
 
@@ -61,7 +61,7 @@ namespace Tinta {
         tintaObjContainer() :
               mIndex(ZERO_ID)
             , mSelected(ZERO_ID)
-            , mCachedval(NULL_M)
+            , mSelectedVal(NULL_M)
             , mCIter(mList.begin())
         {}
         
@@ -79,7 +79,7 @@ namespace Tinta {
                 if (mIndex == ZERO_ID) // next round after max_uint32
                     incrIndex();
                 mList.push_back(cont_val_t(ObjPair(obj, objName, mIndex)));
-                mCachedval = obj;
+                mSelectedVal = obj;
                 mSelected = mIndex;
                 updateIter();
                 return mIndex;
@@ -107,7 +107,7 @@ namespace Tinta {
             mList.clear();
             mSelected = ZERO_ID;
             mIndex = ZERO_ID;
-            mCachedval = NULL_M;
+            mSelectedVal = NULL_M;
             updateIter();
 
         }
@@ -131,7 +131,7 @@ namespace Tinta {
 
             if ( objectId != ZERO_ID && iter_find != mList.end() ) {
                 mSelected = objectId;
-                mCachedval = iter_find->mpobj;
+                mSelectedVal = iter_find->mpobj;
                 
                 return true;
             }           
@@ -156,7 +156,7 @@ namespace Tinta {
 
             if (mSelected == index){
                 mSelected = ZERO_ID;
-                mCachedval = NULL_M;
+                mSelectedVal = NULL_M;
             }
             updateIter();
 
@@ -196,16 +196,16 @@ namespace Tinta {
 
         TObj* getObjEx() {
             TINTA_LOCK_RECUR_MUTEX_AUTO;
-            if (mCachedval)
-                return mCachedval;
+            if (mSelectedVal)
+                return mSelectedVal;
             return NULL_M;
         }
             
 
         const TObj* getObj() const { 
             TINTA_LOCK_RECUR_MUTEX_AUTO;
-            if (mCachedval)
-                return mCachedval;
+            if (mSelectedVal)
+                return mSelectedVal;
             return NULL_M;
         }
               
@@ -214,17 +214,17 @@ namespace Tinta {
             TINTA_LOCK_RECUR_MUTEX_AUTO;
 
 
-                if (objectId == mSelected && mCachedval)
-                    return mCachedval;
+                if ( objectId == mSelected && mSelectedVal )
+                    return mSelectedVal;
 
             t_obj_citer iter_find = std::find_if(mList.cbegin(), mList.cend(),
                 [objectId](const ObjPair &v){ return v.mKey == objectId; });
             if (iter_find == mList.end())
                 return NULL_M;
-            mSelected = objectId;
-            mCachedval = iter_find->mpobj;
+            
+            //mSelectedVal = iter_find->mpobj;
 
-            return mCachedval;
+            return  iter_find->mpobj;
         }
 
         // selecting only via explicit id
@@ -233,17 +233,15 @@ namespace Tinta {
             TINTA_LOCK_RECUR_MUTEX_AUTO;
                     
 
-            if (objectId == mSelected && mCachedval)
-                return mCachedval;
+            if (objectId == mSelected && mSelectedVal )
+                return mSelectedVal;
 
             t_obj_iter iter_find = std::find_if(mList.begin(), mList.end(),
                 [objectId](const ObjPair &v){ return v.mKey == objectId; });
             if (iter_find == mList.end())
                 return NULL_M;
-            mSelected = objectId;
-            mCachedval = iter_find->mpobj;
             
-            return mCachedval;
+            return  iter_find->mpobj;
         }
 
         // selecting only via explicit id
@@ -252,7 +250,7 @@ namespace Tinta {
                 t_obj_citer iter_find = std::find_if(mList.begin(), mList.end(),
                 [objectId](const ObjPair &v){ return v.mKey == objectId; });
             if (iter_find == mList.end())
-                return "";
+                return StringBasic();
 
             return iter_find->mname;
         }
@@ -260,7 +258,7 @@ namespace Tinta {
         // selects object by id value
         void	 discardSel() {
             mSelected = ZERO_ID;
-            mCachedval = NULL_M;
+            mSelectedVal = NULL_M;
         }
 
         unsigned getIndexSel() const {

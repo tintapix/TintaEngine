@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -67,7 +67,7 @@ namespace Tinta {
 
         //String descr(  this->getDescr() );
         if (tintaLogger::getPtr())
-            tintaLogger::getPtr()->logMsg(mDescription, msg_critical, true);
+            tintaLogger::getPtr()->logMsg( getDescr() , msg_critical, true);
         else {
             StringStream name;
             name << getRootPath() << _M("/") << getProcessId() << _M("_exception.log");
@@ -78,7 +78,7 @@ namespace Tinta {
             stream_fout f( name.str().c_str() );
 
 #endif
-            f << mDescription << std::endl;
+            f << getDescr() << std::endl;
             // Flush stcmdream to ensure it is written (in case of a crash, we need log to be up to date)
             f.flush();
             f.close();

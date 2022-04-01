@@ -1,9 +1,10 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
 
 #include "tintaBufferIO.h"
+#include "tintaException.h"
 
 
 
@@ -71,13 +72,14 @@ namespace Tinta {
 	}
 
     m_int8* tintaBufferIO::GetBufferEx(){
-		assert( mBuffer );			
+        CoreAssert( mBuffer,"mBuffer==NULL" );
+
 
 		return mBuffer;
 	}
 
     bool tintaBufferIO::SetData(const m_int8* pData, size_t iSize){
-		assert( pData );		
+        CoreAssert( pData, "pData==NULL" );
 
 		if( mSize < iSize )
 			return false;

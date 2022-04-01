@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -271,6 +271,7 @@ namespace Tinta
     typedef tintaVector2<double> tintaVector2d;
     typedef tintaVector2<int> tintaVector2i;
     typedef std::vector<tintaVector2f> VecVector2f_t;
+    typedef std::list<tintaVector2f> ListVector2f_t;
 }
 
 

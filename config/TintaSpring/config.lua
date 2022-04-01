@@ -1,4 +1,4 @@
-﻿require "paths"
+﻿--require "paths"
 
 -- configuration file may be executed on lua for correct
 -- Available folders with scripts(including CL scripts and binaries) absolute paths may exist "c:\\scripts" or simple path - !! \\ must be removed by /
@@ -24,8 +24,13 @@ GPUPrograms = {
 	
 }
 
+Commands = {}
 
-Start_script = "util.timestamp(false)"
+Console_FontSize = 18
+
+--Console_FontName = "Verdana"
+
+Start_script = "util.timestamp(false) util.system(\"color a\")"
 
 -- for server
 --Ip_Adress = "172.21.3.215"

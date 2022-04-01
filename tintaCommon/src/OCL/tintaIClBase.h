@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -46,7 +46,7 @@ namespace Tinta
 			dimensions = dims            
 			workitems = items in group size_t [dims] = {dim1_items, dim2_items};
 		*/
-		virtual bool execute(const size_t *globalsize, m_uint32 dimensions, const size_t *readidc, m_uint32 readquant, const size_t *workitems = NULL) = 0;
+        virtual bool execute(const m_uint32 *globalsize, m_uint32 dimensions, const m_uint32 *readidc, m_uint32 readquant, const size_t *workitems = NULL) = 0;
 
 		/*
 			Assigning input values for program			

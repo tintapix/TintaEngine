@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -24,16 +24,27 @@ namespace  Tinta {
 
     struct CommonState {
     public:
-        tintaUInt8Image *mImg;
+        std::map<m_uint32, tintaUInt8Image *> mImg;
 
-        CommonState() : mImg(NULL_M) {}
+        CommonState() : mid(0){
+            mIt = mImg.end();
+        }
 
         ~CommonState() {
 
-            if (mImg)
-                M_DELETE mImg;
+           for( auto i : mImg )
+                M_DELETE i.second;
+           mImg.clear();
         }
 
+        m_uint32 createId() {
+            return ++mid;
+        }
+        std::map<m_uint32, tintaUInt8Image *>::iterator mIt;
+
+    private:        
+        m_uint32 mid;
+        
     };
 
     CommonState state;
@@ -46,6 +57,7 @@ namespace  Tinta {
             util. namespace functions
         */
         static const luaL_Reg util[] = {          
+            { UTIL_system, Tinta::tintaUtilFunc::system },
             { UTIL_getval, Tinta::tintaUtilFunc::getval },
             { UTIL_cpucores, Tinta::tintaUtilFunc::cpucores },
             { UTIL_msg, Tinta::tintaUtilFunc::msg },
@@ -58,6 +70,7 @@ namespace  Tinta {
             { UTIL_cubeinterp, Tinta::tintaUtilFunc::cubeinterp },
             { UTIL_smoothstep, Tinta::tintaUtilFunc::smoothstep },
             { UTIL_sleep, Tinta::tintaUtilFunc::sleep },
+            { UTIL_fopened, Tinta::tintaUtilFunc::fopened },
             { UTIL_countfiles, Tinta::tintaUtilFunc::countfiles },
             { UTIL_getfile, Tinta::tintaUtilFunc::getfile },
             { UTIL_getdirectory, Tinta::tintaUtilFunc::getdirectory },
@@ -85,6 +98,17 @@ namespace  Tinta {
             { "util", luaopen_util },
             { NULL, NULL } };
 
+        
+        int system(SCRIPT_STATE *L) {
+
+            String command = GET_VAL_STRING(L, 1);
+
+            int rez = ::system( command.c_str() );
+
+            PUSH_INT_ARG(L, rez);
+
+            return 1;
+        }
 
         int getval(SCRIPT_STATE *L) {
 
@@ -371,6 +395,47 @@ namespace  Tinta {
         }
 
 
+        int fopened(SCRIPT_STATE *L) {
+
+            bool opened = false;
+
+            String path = GET_VAL_STRING(L, 1);
+
+#if CORE_PLATFORM == CORE_PLATFORM_WIN32
+            if ( path.length() == 0 ) {
+                TROW_ERR_FUNC(L, _M("Wrong file path"));
+            }
+            else {
+                HANDLE fh;
+                fh = CreateFile(path.c_str(), GENERIC_READ, 0 /* no sharing! exclusive */, NULL, OPEN_EXISTING, 0, NULL);
+                opened = !((fh != NULL) && (fh != INVALID_HANDLE_VALUE));
+
+                if( fh != NULL )
+                    CloseHandle(fh);
+
+               /* auto f = _fsopen(path.c_str(), _M("w"),_SH_DENYRD);
+                if ( f == NULL_M ) {
+                    opened = true;
+                }
+                else
+                    fclose( f );
+                    */
+             }
+#else
+            struct stat statbuf;
+            if( stat(path.c_str(), &statbuf) == 0 ){
+                if( S_ISDIR(statbuf.st_mode) || S_ISREG(statbuf.st_mode) ) {
+                    return false;
+                }
+
+            }
+            return true;
+#endif
+            PUSH_BOOL_ARG(L, opened);
+            return 1;
+        }
+
+
         /*
             Returns files quantity by the condition
             param - absolute or relative path to directory
@@ -378,12 +443,10 @@ namespace  Tinta {
             return quantity
         */
         int countfiles(SCRIPT_STATE *L){
-
-
-
+            
             String ext = IS_VAL_STRING(L, 2) ? toWideChar(GET_VAL_STRING(L, 2)) : _M("");
 
-            if (ext == _M("*"))
+            if ( ext == _M( "*" ) )
                 ext = String();
 
             StringUtil::toLower(ext);
@@ -715,7 +778,7 @@ namespace  Tinta {
         }
         static const luaL_Reg loadedImagelibs[] = {
             { "_G", luaopen_base },
-            { "image", luaopen_image },
+            { "imageutil", luaopen_image },
             { NULL, NULL } };
 
         int create(SCRIPT_STATE *L) {
@@ -736,18 +799,39 @@ namespace  Tinta {
             if ( ch > (m_uint32)Tinta::ImgChannels_max )
                 TROW_ERR_FUNC(L, _M("Width and height must be grater than 0"));
             
-            state.mImg = M_NEW tintaUInt8Image( w,h,(Tinta::ImgChannels) ch  );                       
+            tintaUInt8Image * img = M_NEW tintaUInt8Image( w,h,(Tinta::ImgChannels) ch  );
 
-            return 0;
+            m_uint32 id = state.createId();
+            state.mImg.emplace(std::map<m_uint32, tintaUInt8Image *>::value_type(id, img));
+            PUSH_UINT_ARG(L, id);
+
+            return 1;
         }
 
    
         int remove( SCRIPT_STATE *L ) {
+            int q = GET_QUANTITY(L);
+            if (q != 1 && q != 0 )
+                TROW_ERR_FUNC(L, _M("Wrong arguments quantity!"));
 
-            if ( state.mImg ) {
-                M_DELETE  state.mImg;
-                state.mImg = NULL_M;
+            if (q == 1) {
+                auto i = GET_VAL_UINT(L, 1);
+
+                auto it = state.mImg.find(i);
+
+                if (it != state.mImg.end()) {
+                    M_DELETE  it->second;
+                    state.mImg.erase(it);
+                }
             }
+            else {
+                for (auto i : state.mImg)
+                    M_DELETE i.second;
+                state.mImg.clear();
+            }
+
+            state.mIt = state.mImg.end();
+
             return 0;
         }
 
@@ -781,27 +865,43 @@ namespace  Tinta {
 
             UNIQPTRVIRT( Tinta::tintaIImgCodec, mImgFilePtr, codec );           
            
-            if ( !state.mImg )
-                state.mImg = M_NEW tintaUInt8Image();
+            //if ( !state.mImg )
+            //    state.mImg = M_NEW tintaUInt8Image();
 
-            if( !state.mImg->readFromFile( codec, path ) )
-                TROW_ERR_FUNC( L, _M( "Image could not be read" ) );
+            tintaUInt8Image* img = M_NEW tintaUInt8Image();
+            
 
-            return 0;
+            if ( !img->readFromFile( codec, path ) ) {
+                M_DELETE img;
+                TROW_ERR_FUNC(L, _M("Image could not be read"));
+            }
+
+            m_uint32 id = state.createId();
+            state.mImg.emplace( std::map<m_uint32, tintaUInt8Image *>::value_type( id, img ) );
+
+            PUSH_UINT_ARG( L, id );
+            PUSH_UINT_ARG( L, img->getWidth() );
+            PUSH_UINT_ARG( L, img->getHeight() );
+
+            return 3;
         }
 
     
         int save( SCRIPT_STATE *L ) {
 
-            if ( GET_QUANTITY(L) != 1 )
+            if ( GET_QUANTITY(L) != 2 )
                 TROW_ERR_FUNC( L, _M( "Wrong arguments quantity!" ) );
 
+            auto i = GET_VAL_UINT(L, 1);
 
-            if ( !state.mImg )
-                TROW_ERR_FUNC( L, _M("Image has not been yet created") );
+            auto it = state.mImg.find(i);
+
+            if ( it == state.mImg.end() )                 
+                    TROW_ERR_FUNC(L, _M("Wrong image id"));             
+            
 
             Tinta::tintaIImgCodec* codec = NULL_M;
-            String path = GET_VAL_STRING(L, 1);
+            String path = GET_VAL_STRING( L, 2 );
 
             String ex = StringUtil::getFileExt( path );
 
@@ -812,7 +912,7 @@ namespace  Tinta {
             else
                 TROW_ERR_FUNC(L, _M("File extension must be jpg, jpeg or png"));
 
-            if ( !state.mImg->saveToFile( codec, path ) )
+            if ( !it->second->saveToFile( codec, path ) )
                 TROW_ERR_FUNC(L, _M("Image could not be saved"));
 
             return 0;
@@ -821,21 +921,34 @@ namespace  Tinta {
     
         int set(SCRIPT_STATE *L) {
 
-            if (!state.mImg)
-                TROW_ERR_FUNC(L, _M("Image has not been yet created"));
 
-
-            if ( GET_QUANTITY(L) != 4 )
+            if (GET_QUANTITY(L) != 5)
                 TROW_ERR_FUNC(L, _M("Wrong arguments quantity!"));
 
-            m_uint32 ch = GET_VAL_UINT(L, 3);
+            auto i = GET_VAL_UINT(L, 1);
+            auto it = state.mImg.end();
+            if (state.mIt != state.mImg.end()
+                && state.mIt->first == i)
+                it = state.mIt;
+            else
+                it = state.mImg.find(i);
 
-            if (ch >= (m_uint32)state.mImg->channels())
+            
+
+            if ( it == state.mImg.end() )
+                TROW_ERR_FUNC(L, _M("Wrong image id"));
+
+            state.mIt = it;
+                       
+
+            m_uint32 ch = GET_VAL_UINT(L, 4);
+
+            if (ch >= (m_uint32)it->second->channels())
                 TROW_ERR_FUNC(L, _M("Wrong channel"));
 
-            m_uint8 v = GET_VAL_UBYTE(L, 4);
+            m_uint8 v = GET_VAL_UBYTE(L, 5);
 
-            if( !state.mImg->setChannel( Tinta::coord2dI_t( GET_VAL_UINT(L, 1), GET_VAL_UINT(L, 2)), ch , v ))
+            if( !it->second->setChannel( Tinta::coord2dI_t( GET_VAL_UINT(L, 2), GET_VAL_UINT(L, 3)), ch , v ))
                 TROW_ERR_FUNC(L, _M("Wrong x or y position"));
 
             return 0;
@@ -844,39 +957,51 @@ namespace  Tinta {
     
         int fill(SCRIPT_STATE *L) {
 
-            if( !state.mImg )
-                TROW_ERR_FUNC(L, _M("Image has not been yet created"));
+            auto i = GET_VAL_UINT(L, 1);           
+            auto it = state.mImg.find(i);
 
-            m_uint32 ch = GET_VAL_UINT(L, 2);
+            if (it == state.mImg.end())
+                TROW_ERR_FUNC(L, _M("Wrong image id"));
 
-            if ( ch >= (m_uint32)state.mImg->channels())
+            m_uint32 ch = GET_VAL_UINT(L, 3);
+
+            if ( ch >= (m_uint32)it->second->channels())
                 TROW_ERR_FUNC(L, _M("Wrong channel"));            
-            m_uint8 v = GET_VAL_UBYTE(L, 1);
-            state.mImg->fillImage( v , ch);
+            m_uint8 v = GET_VAL_UBYTE(L, 2);
+            it->second->setChannel( ch, v );
             return 0;
         }
 
     
         int get(SCRIPT_STATE *L) {
 
-            if ( !state.mImg )
-                TROW_ERR_FUNC(L, _M("Image has not been yet created"));
 
-
-            if (GET_QUANTITY(L) != 3)
+            if (GET_QUANTITY(L) != 4)
                 TROW_ERR_FUNC(L, _M("Wrong arguments quantity!"));
 
-            m_uint32 ch = GET_VAL_UINT(L, 3);
+            auto i = GET_VAL_UINT(L, 1);
+            auto it = state.mImg.end();
+            if (state.mIt != state.mImg.end()
+                && state.mIt->first == i)
+                it = state.mIt;
+            else
+                it = state.mImg.find(i);
 
-            if (ch >= (m_uint32)state.mImg->channels() )
+            if (it == state.mImg.end())
+                TROW_ERR_FUNC(L, _M("Wrong image id"));
+           
+
+            m_uint32 ch = GET_VAL_UINT(L, 4);
+
+            if (ch >= (m_uint32)it->second->channels() )
                 TROW_ERR_FUNC(L, _M("Wrong channel"));
 
-            const coord2dI_t pos = Tinta::coord2dI_t(GET_VAL_UINT(L, 1), GET_VAL_UINT(L, 2));          
+            const coord2dI_t pos = Tinta::coord2dI_t(GET_VAL_UINT(L, 2), GET_VAL_UINT(L, 3));          
 
-            if ( !state.mImg->validPos(pos) )
+            if ( !it->second->validPos(pos) )
                 TROW_ERR_FUNC(L, _M("Wrong x or y position"));
 
-            m_uint8 v = state.mImg->getChannel( pos, ch );
+            m_uint8 v = it->second->getChannel( pos, ch );
 
             PUSH_UINT_ARG(L, v);
 

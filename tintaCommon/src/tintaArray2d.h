@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -102,7 +102,7 @@ namespace Tinta {
         */
         void scaleBox(int newW, int newH) {
 
-            assert(newW > 0 && newH > 0);
+            CoreAssert(newW > 0 && newH > 0,"newW <= 0 || newH <= 0");
   			
  			tintaArray2d<T, TExtrem > old( *this );		
 
@@ -478,7 +478,7 @@ namespace Tinta {
 	};
 
     template < class T, class TExtrem >
-    size_t getBufferSizeArray2d(const tintaArray2d< T, TExtrem > &array2d){
+    size_t getBufferSize(const tintaArray2d< T, TExtrem > &array2d){
         // extreme + elements + data
         return array2d.getExtrem().GetBufferSize() + sizeof(size_t) + array2d.getDataSize();
     }

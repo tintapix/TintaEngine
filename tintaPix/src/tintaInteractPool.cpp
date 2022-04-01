@@ -2,6 +2,10 @@
 // tintapalma.com
 // tintapalma@gmail.com
 
+#include <tintaConfig.h>
+
+#ifndef TINTA_NO_INTERACT
+
 #include "tintaPrecompile.h"
 #include "tintaInteractPool.h"
 
@@ -47,3 +51,4 @@ void tintaInteractPool::addInteract( tintaInteractFunction *func  )
 
 
 }
+#endif

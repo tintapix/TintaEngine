@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -63,7 +63,7 @@ namespace Tinta {
         tintaUInt8Image mImage;
     };
 
-    const tintaFont::tintaSymbol* tintaFont::getSymbolData( const String &symbol ) {
+    const tintaFont::tintaSymbol* tintaFont::getSymbolData( const String &symbol ) const {
 
         auto rez = mSymbols.find(symbol);
         if ( rez == mSymbols.end() ) {
@@ -189,6 +189,11 @@ namespace Tinta {
             StringStream dataSymbol;
             dataSymbol << "data.[" << i << "].[0]";
             localFile.getValue(dataSymbol.str(), symbol.mSymbol);
+            auto  quote = symbol.mSymbol.find('"');
+            if ( quote != std::string::npos ) {
+                symbol.mSymbol.replace(symbol.mSymbol.begin(), symbol.mSymbol.end(), _M("\""));
+            }
+
             dataSymbol.str("");
 
             dataSymbol << "data.[" << i << "].[1]";
@@ -231,7 +236,7 @@ namespace Tinta {
             }
 
             symbol.mImage.createImage(rightDownX + 1 - leftUpX, rightDownY + 1 - leftUpY);
-            symbol.mImage.fillAlpha(0);
+            symbol.mImage.setChannel(color_type::channel_a, 0 );
            
             int xLoc = 0;
             int yLoc = 0;

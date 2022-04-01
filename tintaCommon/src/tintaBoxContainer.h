@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -17,18 +17,12 @@ namespace Tinta {
 
 	// to create singleton
 	struct _CoreExport tintaBoxContainer 
-		: public tintaObjContainer < tintaArrayBox, tintaArrayBoxObjFactory >,
-		  public Singleton< tintaBoxContainer >,
+		: public tintaObjContainer < tintaArrayBox, tintaArrayBoxObjFactory >,		  
           public tintaISerialisableSet,
           public tintaINamed {
 
 			tintaBoxContainer();
 			virtual ~tintaBoxContainer();
-
-            
-            static tintaBoxContainer* getPtr(void)	{
-				return mPtr;
-			}
 
             virtual const StringBasic& getName() const;
 

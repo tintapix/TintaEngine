@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -58,7 +58,7 @@ namespace Tinta
 #define PUSH_BOOL_ARG(L, VALUE) lua_pushboolean(L, VALUE) 
 #define GET_QUANTITY(L) lua_gettop(L)
 
-#define TROW_ERR_FUNC(L, TEXT) luaL_error((L), (Tinta::String(TEXT)).c_str()) 	
+#define TROW_ERR_FUNC(L, TEXT) (luaL_error((L), (TEXT))) 	
 
 
     #if CORE_PLATFORM  == CORE_PLATFORM_WIN32   
@@ -70,7 +70,7 @@ namespace Tinta
 
 
 
-#define TROW_ERR_BADARGFUNC(L, ARG, TEXT) luaL_argerror((L), (ARG), (TEXT).c_str()); 	
+#define TROW_ERR_BADARGFUNC(L, ARG, TEXT) luaL_argerror((L), (ARG), (TEXT)); 	
 
 
 #define SCRIPT_STATE lua_State
@@ -98,14 +98,14 @@ public:
 	 virtual ~tintaScriptContext(void);
   
 	void createState( );
-	//void createState_threaded(const char* file_path = 0);
+	
 	void			 closeState();
 
 	void			 setState(lua_State* new_state);
 
 	const lua_State* getState()const;
 
-	lua_State*		 getState_ex();
+	lua_State*		 getStateEx();
 
 	const String*	 getErrors( size_t &error_count ) const ;
 

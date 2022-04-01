@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -48,7 +48,7 @@ namespace Tinta {
             mFunc = NULL_M;
         }       
         mInterHandler = NULL_M;
-        std::cout << "~tintaAsioClientImpl id: " << mid << "\n";
+        //std::cout << "~tintaAsioClientImpl id: " << mid << "\n";
     }
 
     tintaInteractFunction *tintaAsioClientImpl::getFunc() {
@@ -58,18 +58,12 @@ namespace Tinta {
     void tintaAsioClientImpl::Release() {
 
         mSocket.close();
-        mClientsclb = NULL_M;   
-        //while (mHandling) {
-        //}
+        mClientsclb = NULL_M;           
     }     
     
 
     void tintaAsioClientImpl::handleData( const boost::system::error_code& error, size_t bytes_transferred ){    
-       // TINTA_LOCK_RECUR_MUTEX(mDataMutex);
-       // mHandling.store(true);
-       
-       // AtomicKeeper<bool> ak( mHandling, false );
-
+    
         if ( !mSocket.is_open() )
             return;
     
@@ -157,11 +151,11 @@ namespace Tinta {
         mInterHandler = handler;
     }
 
-    unsigned long  tintaAsioClientImpl::getId() const {
+    m_ulong32  tintaAsioClientImpl::getId() const {
         return mid;
     }
 
-    void tintaAsioClientImpl::setId(unsigned long val) {
+    void tintaAsioClientImpl::setId(m_ulong32 val) {
         mid = val;
     }
 

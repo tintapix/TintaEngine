@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -17,7 +17,6 @@
 #include "tintaScriptTaskExecutor.h"
 #include "tintaChildProc.h"
 #include <tintaScriptFunc.h>
-#include "tintaGeomSet.h"
 #include <tintaBoxContainer.h>
 #include "tintaRandGen.h"
 #include <OCL/tintaIClBase.h>
@@ -26,6 +25,7 @@
 #include "tintaInteractUnitsSet.h"
 #include "tintaIImgWindow.h"
 #include "tintaConfigurator.h"
+#include <tintaMemoryAllocator.h>
 
 
 #ifdef _WIN32
@@ -38,13 +38,10 @@ static volatile  sig_atomic_t appClosing = 0;
 _CoreExport void signalHandler(int);
 
 
-namespace nsNameStrings {
-    
-}
-
 namespace Tinta {
 
 typedef std::deque< String > t_string_queue;	
+typedef std::shared_ptr<tintaScriptContext> context_shared_t;
 
 class ConsoleEditBase{
 
@@ -133,6 +130,8 @@ public:
 	virtual ~tintaTexSpringMain(void);
     
 	static tintaTexSpringMain* getPtr( void )	{
+
+        CoreAssert(mPtr, "mPtr == NULL");
 		return mPtr;
 	}   
 
@@ -147,17 +146,13 @@ public:
     virtual void executeCommand(size_t unitId, const String &command = _M(""), tintaExecutingTask::TaskType type = tintaExecutingTask::enCommonTask);
 
 	virtual Tinta::tintaScriptContext *getContext();
-
-	virtual UNIQPTRDEF_T(Tinta::tintaScriptContext) createContext();
-
+	
 	// --- from molyCPrintConsole	---
-    virtual bool initialize(const String &configName, tintaConsoleOutput * out, tintaIImgWindow * window = nullptr );
+    virtual bool initialize(const String &configName, tintaConsoleOutput * out, tintaScriptContext* context);
 
 	virtual void clearConsole();
 
 	virtual void exit();
-	
-	virtual void setExecutor(Tinta::tintaScriptContext *lua_wrapper);	
     
 	bool isAborted() const ;
 
@@ -182,11 +177,9 @@ public:
 	virtual TintaMath::tintaRandomV2*			getRandGen();
 
 	// for clients
-	virtual float					getUnitPrior();
-    
-    virtual tintaIImgWindow*		getWindow();
+	virtual float					getUnitPrior();    
 
-    virtual void	setWindow(tintaIImgWindow* winp);
+    //virtual void	setWindow(tintaIImgWindow* winp);
 
     virtual m_uint32 addFont( const String &name, float scaleX = 0, float scaleY = 0, const color_type &color = { 0,0,0,0 } );
 
@@ -227,26 +220,29 @@ public:
     void deleteGPU( const String &program = _M("") );
 
     // process name const prefix
-	static const String str_process_name_prefix;// = _M("Proc");
-   
+	static const String str_process_name_prefix;   
 
-    bool registerCl(const String &program, const String &kernel);
+    bool registerCl( const String &program, const String &kernel );
+#ifndef TINTA_NO_INTERACT
+    Tinta::tintaInteractUnitsSet* getUnitSet( );
+#endif
 
+    tintaImgStack *getImageStack();
+
+    tintaTaskQueue *getTaskQueue();
+
+    tintaUnitsSet  *getUnitsSet();
+
+    tintaBoxContainer *getBoxContainer();
 protected:
-	
-	
 
     virtual void trySendSysCommand(const String &command, size_t unitId, void(*sysComFunc)() );
 
 	void createFunctions();
 
-	void registerFunctions(Tinta::tintaScriptContext *context);
-    	
-	
+	//void registerFunctions(Tinta::tintaScriptContext *context);	
 
-    void timerExecute();	
-
-	typedef std::vector< tintaGeomFactory* > compObjfactories_t;
+    void timerExecute();
 	
 	typedef std::vector< tintaArrayBoxObjFactory* > compValBoxFactories_t;
 
@@ -254,9 +250,7 @@ protected:
 
     typedef std::map<StringBasic, tintaISerialisableSet*>  containersMap_t;
 
-	tintaConfigurator				*mConfig;
-
-	compObjfactories_t				 mCompObjFactVec;	
+	tintaConfigurator				*mConfig;	
 
 	compValBoxFactories_t			 mValBoxFacVec;
 
@@ -264,11 +258,14 @@ protected:
 
     tintaFontContainer				 mFonts;
 
-	Tinta::tintaLogger				 *mLog;	
+	//Tinta::tintaLogger				 *mLog;	
 
 	tintaImgStack			         *mImages;	
 
-	Tinta::tintaScriptContext		 *mScriptContext;
+	Tinta::tintaScriptContext		 *mScriptContext;    
+  
+
+    //SHAREDPTRDEF mScriptContext; // (tintaScriptContext, mScriptContext, NULL);
 
 	// default work queue receiving tasks to execute, main mechanism of multi threading
     tintaThreadPool					 *mThreadPool;
@@ -283,20 +280,12 @@ protected:
 	tintaRandGen					 *mRanGen;
 
 	size_t					 mCmdBufSize;
-	// console part 
+
 	
-    
-
-	//ConsoleParams			 m_params;
-
-	pDescripVec_t			 mFuncDescrib;
-
-	tintaGeomSet             mCompObjects;	
 
 	tintaBoxContainer	     mBoxObjects;
 
     containersMap_t          mContainers;
-
 		
 	// for USING_GPUCL 
 	tintaClObjectContainer   *mGPUObjs;	
@@ -314,7 +303,7 @@ protected:
 	
 	TintaMath::tintaRandomV2				 mRandGen;	
 
-	tintaGPUExt					*gpuExt;
+	//tintaGPUExt					*gpuExt;
 
 	tintaUnitsSet			    *mWorkUnitsSet;
 
@@ -331,9 +320,7 @@ protected:
 
     tintaAsyncTimer              mTimerExecute;
 
-    String                       mTimerCommand;   
-
-    tintaIImgWindow              *mImageWindow = nullptr;  
+    String                       mTimerCommand;       
 };
 
 }

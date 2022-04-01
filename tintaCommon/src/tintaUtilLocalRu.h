@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -18,6 +18,13 @@ namespace Tinta {
     namespace tintaUtilFunc {
 
 
+        /*
+        @name util.system
+        @description Execute api system function system("command_text")
+        @param String  - command
+        @return Integer - result
+        */
+#define UTIL_system "system"
 
         /*
         @name util.getval
@@ -131,7 +138,16 @@ namespace Tinta {
         @description	Send to sleep executing thread
         @param UInt - time ms
         */
-#define UTIL_sleep "sleep"          
+#define UTIL_sleep "sleep"
+
+
+        /*
+        @name util.fopened
+        @description	Returns opened file in the another process flag
+        @param String path to the file
+        @return - Boolean true, if file is opened in the another process
+        */
+#define UTIL_fopened "fopened" 
 
 
 
@@ -304,6 +320,7 @@ namespace Tinta {
             @param UInt  - width
             @param UInt  - height
             @param UInt  - channels(1..6)
+            @return UInt  - image id
         */
 #define IMAGE_create "create"
 
@@ -312,6 +329,7 @@ namespace Tinta {
         /*
             @name image.remove
             @description Deletes all image data and frees mamory
+            @param UInt  - image id
         */
 #define IMAGE_remove "remove"
 
@@ -319,7 +337,10 @@ namespace Tinta {
         /*
             @name image.read
             @description Reads image from the file: jpg(jpeg) or png
-            @description String - absolute path to the file           
+            @param String - absolute path to the file  
+            @return UInt  - image id
+            @return UInt  - image width
+            @return UInt  - image height
         */
 #define IMAGE_read "read"
 
@@ -328,8 +349,8 @@ namespace Tinta {
         /*
             @name image.save
             @description Saves image th the file: jpg(jpeg) or png
-            @description String - absolute path to save the file
-            @description String Format: "jpg","png"
+            @return UInt  - image id
+            @param String - absolute path to save the file                        
         */
 #define IMAGE_save "save"
 
@@ -337,10 +358,11 @@ namespace Tinta {
         /*
             @name image.set
             @description Sets value the channel
-            @description UInt  -  position x(0,width-1)
-            @description UInt  -  position y(0,height-1)
-            @description Byte value
-            @description UInt  -  channel(1..6)
+            @param UInt  - image id
+            @param UInt  -  position x(0,width-1)
+            @param UInt  -  position y(0,height-1)
+            @param Byte value
+            @param UInt  -  channel(1..6)
         */
 #define IMAGE_set "set"
 
@@ -348,17 +370,20 @@ namespace Tinta {
         /*
             @name image.fill
             @description Fills image with values
-            @description Byte value
-            @description UInt  -  channel(1..6)
+            @param Byte value
+            @param UInt  - image id
+            @param UInt  -  channel(1..6)
         */
 #define IMAGE_fill "fill"
 
         /*
             @name image.get
             @description Gets value the channel
-            @description UInt  -  position x(0,width-1)
-            @description UInt  -  position y(0,height-1)
-            @description UInt  -  channel(1..6)
+            @param UInt  - image id
+            @param UInt  -  position x(0,width-1)
+            @param UInt  -  position y(0,height-1)
+            @param UInt  -  channel(1..6)
+            @return Byte value
         */
 #define IMAGE_get "get"
     }

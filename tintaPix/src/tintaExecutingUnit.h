@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -67,10 +67,8 @@ namespace Tinta
 
 		enum UnitType {
 			enNoType = 0,
-			enLocalUnit = 1,	// Local unit
-			//enLocalUnit = 2,    // Local unit on client
+			enLocalUnit = 1,	// Local unit			
 			enInteractUnit = 3, // Interact unit on server
-
 		};
 
 		tintaExecutingUnit( const UnitId &id );

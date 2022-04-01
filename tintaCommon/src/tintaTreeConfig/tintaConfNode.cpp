@@ -1,8 +1,9 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
 #include "tintaConfNode.h"
+#include "tintaException.h"
 
 
 namespace Tinta {
@@ -120,7 +121,7 @@ namespace Tinta {
                             && mNodesIndices[index]->getType() == type ){
 				buffData = mNodesIndices[index]->getBufferData();
 				datalen = mNodesIndices[index]->getBufferDataLen();
-				assert(buffData);
+                CoreAssert(buffData, "buffData");
 			}
 			else {
 				
@@ -129,7 +130,7 @@ namespace Tinta {
 
 					buffData = node->getBufferData();
 					datalen = mNodesIndices[index]->getBufferDataLen();
-					assert(buffData);
+                    CoreAssert(buffData, "buffData");
 				}
 			}
 			return buffData;

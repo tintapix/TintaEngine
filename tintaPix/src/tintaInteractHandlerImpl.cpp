@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -277,14 +277,14 @@ namespace Tinta {
 	
         //tintaTexSpringMain::getPtr()->executeCommand( parsedTask.getCommand(), 1 );
         
-		if( Tinta::tintaTaskQueue::getPtr() ){
-			m_ulong32 id = 0;
-            // ignoring parsedTask.getType()
-            // old version Tinta::tintaTaskQueue::getPtr()->pushTask( parsedTask.getCommand(),parsedTask.getType(), id, 0 );  
-           // stream_out << _M(" Received task to execute ") << parsedTask.getCommand();
+		
+		m_ulong32 id = 0;
+        // ignoring parsedTask.getType()
+        // old version Tinta::tintaTaskQueue::getPtr()->pushTask( parsedTask.getCommand(),parsedTask.getType(), id, 0 );  
+        // stream_out << _M(" Received task to execute ") << parsedTask.getCommand();
 
-            Tinta::tintaTaskQueue::getPtr()->pushTask( parsedTask.getCommand(), tintaExecutingTask::enCommonTask, id, 0 );            
-		}		
+        Tinta::tintaTexSpringMain::getPtr()->getTaskQueue()->pushTask( parsedTask.getCommand(), tintaExecutingTask::enCommonTask, id, 0 );
+				
 		
 		return true;
 
@@ -306,17 +306,13 @@ namespace Tinta {
 		offset  = ReadFromBuffer<m_ulong32>( buff, offset, id );	
 		int state = 0;
 		offset  = ReadFromBuffer<int>( buff, offset, state );
-
-		if( !Tinta::tintaUnitsSet::getPtr() )
-			return false;
 		
-
         //StringUtil::StrStreamType t;
         //t << _M("state received(1-ready 2-busy 3-reserved) ") << state << _M("\n");
         //Tinta::tintaLogger::getPtr()->logMsg(t.str());
 
 
-		//const tintaExecutingUnit *unit =  Tinta::tintaUnitsSet::getPtr()->getUnit( tintaExecutingUnit::UnitId(id, _M("")) );
+		//const tintaExecutingUnit *unit =  Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->getUnit( tintaExecutingUnit::UnitId(id, _M("")) );
 		if( state < (int)tintaExecutingUnit::enNoState || state > (int)tintaExecutingUnit::enMaxState ) {
 			return false;
 		}
@@ -409,7 +405,7 @@ namespace Tinta {
         m_uint32  addedImg = tintaImgStack::getPtr()->addImg(tintaUInt8ImageSeamless::str_image_seamless); //image_width, image_height);					
 
 		molyParallelSave *saver = Tinta::tintaTexSpringMain::getPtr()->getImageSaver();
-		assert( saver );
+        CoreAssert(saver, "saver == NULL");
 		tintaUInt8Image *pImage = tintaImgStack::getPtr()->getImageEx( addedImg );
 		if( pImage ){
 			offset =  (int) pImage->unpackData( buff, ( size_t ) offset );
@@ -480,11 +476,11 @@ namespace Tinta {
 		if( !mInvoker && mbServer )
 			return false;
 
-		const tintaExecutingUnit *unit = tintaUnitsSet::getPtr()->getNextUnit( NULL_M );
+		const tintaExecutingUnit *unit = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->getNextUnit( NULL_M );
 
 		m_ulong32 id = unit ? unit->getId().mid : 0;
 
-		for( ;unit; unit = tintaUnitsSet::getPtr()->getNextUnit( &id ) ){
+		for( ;unit; unit = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->getNextUnit( &id ) ){
 							  //state( unit );
             if (unit->getType() == tintaExecutingUnit::enLocalUnit){
 				tintaExecutingUnit::UnitState state = unit->getState();
@@ -502,9 +498,9 @@ namespace Tinta {
         if (!mInvoker && mbServer)
             return false;
 
-        tintaExecutingUnit *unit = tintaUnitsSet::getPtr()->getNextUnit(NULL_M);
+        tintaExecutingUnit *unit = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->getNextUnit(NULL_M);
         m_ulong32 id = unit ? unit->getId().mid : 0;
-        for ( ; unit != NULL; unit = tintaUnitsSet::getPtr()->getNextUnit(&id) ){
+        for ( ; unit != NULL; unit = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->getNextUnit(&id) ){
 
             unit->setAbort();
 

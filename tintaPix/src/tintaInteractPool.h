@@ -2,6 +2,8 @@
 // tintapalma.com
 // tintapalma@gmail.com
 
+#ifndef TINTA_NO_INTERACT
+
 #ifndef _TINTA_INTERACT_POOL_H_
 #define _TINTA_INTERACT_POOL_H_
 
@@ -29,5 +31,7 @@ private:
 
 }
 
+
+#endif
 
 #endif

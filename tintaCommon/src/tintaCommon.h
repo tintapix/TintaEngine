@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -55,7 +55,7 @@ namespace Tinta
 			mOnlynames(onlynames)
 			, mPos(pos){}
 
-		// not full path in rezult
+		// not full path in result
 		bool mOnlynames;
 		// index in list -1 - no position
 		int mPos;

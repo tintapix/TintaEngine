@@ -18,7 +18,7 @@
 *   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov
 tintapix.com
 tintapix@gmail.com  */
 
@@ -56,7 +56,7 @@ namespace  Tinta {
 inline	void ToUnsignedChar(signed char * inData, unsigned char * outData, unsigned quantity){
 
 	for(unsigned count = 0; count < quantity; count++) {		
-		outData[count] = inData[count] > 0 ? 128 + inData[count] :  abs(inData[count]);
+		outData[count] = inData[count] > 0 ? 128 + inData[count] :  (unsigned char)abs(inData[count]);
 	}
 }
 

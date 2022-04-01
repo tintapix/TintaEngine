@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -12,8 +12,7 @@
 
 namespace Tinta
 {
-	class _CoreExport tintaTaskQueue : 
-	public Singleton<tintaTaskQueue>,
+	class _CoreExport tintaTaskQueue : 	
 	public tintaUnitsEvents {
 
 	public:
@@ -64,8 +63,6 @@ namespace Tinta
 		//--
 		// id - task id
         virtual const tintaExecutingTask *getNextById(const m_ulong32 *taskId = NULL);
-
-        static tintaTaskQueue* getPtr(void);
 
 	private:
 

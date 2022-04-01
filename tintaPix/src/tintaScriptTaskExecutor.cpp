@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -17,15 +17,15 @@ namespace Tinta
     tintaScriptTaskExecutor::tintaScriptTaskExecutor(Tinta::tintaScriptContext *context, tintaThreadPool* pool)
         : mPool(NULL){
 
-		 assert(context);
-         assert(pool);
+            CoreAssert(context, "context == NULL");
+            CoreAssert(pool, "pool == NULL");
 		 mExecutor = context; 
 
          mPool = pool;
          m_channel = mPool->getChannel(tintaThreadPool::taskChannel);
          mPool->addRequestHandler(m_channel, this);
-		if( Tinta::tintaUnitsSet::getPtr() )
-            Tinta::tintaUnitsSet::getPtr()->addUnit(this);
+		
+        Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->addUnit(this);
 		setState( tintaExecutingUnit::enReady );
 	}
 
@@ -92,7 +92,8 @@ namespace Tinta
 
 	bool tintaScriptTaskExecutor::addTaskExecutingRequest( const TaskExecutingRequest* req ){			
 
-		assert(req);
+        CoreAssert(req, "req == NULL");
+
 		if(!req)
 			return false;
 
@@ -128,10 +129,10 @@ namespace Tinta
         }
 
        //StringBasic buffexec = str_to_execute;
-		//bool rezult = mContext->executeFile( str_to_execute );
-		bool rezult = mExecutor->executeBuffer(str_to_execute.c_str(), str_to_execute.length() );
+		//bool result = mContext->executeFile( str_to_execute );
+		bool result = mExecutor->executeBuffer(str_to_execute.c_str(), str_to_execute.length() );
 
-		if( !rezult ){
+		if( !result ){
 			// adding errors
 			size_t error_count(0);
 			const String *errors  = mExecutor->getErrors( error_count );

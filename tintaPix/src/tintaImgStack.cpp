@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -7,9 +7,7 @@
 
 // for export
 
-namespace Tinta {
-    template<> Tinta::tintaImgStack* Tinta::Singleton<Tinta::tintaImgStack>::mPtr = 0;
-
+namespace Tinta {    
 
     const StringBasic tintaImgStack::strCanvasContainerName = "images";
 

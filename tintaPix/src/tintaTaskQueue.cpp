@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -17,19 +17,19 @@ namespace Tinta
 		:mIdGen( 0 )
 		,mIsServer(true){		
 		
-		Tinta::tintaUnitsSet::getPtr()->addListener(this);
+		Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->addListener(this);
 	}
 
 	tintaTaskQueue::tintaTaskQueue(bool isServer)
 		:mIdGen(0)
 		, mIsServer(isServer){	
 		
-        Tinta::tintaUnitsSet::getPtr()->addListener(this);
+        Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->addListener(this);
 	}
 
 	tintaTaskQueue::~tintaTaskQueue( void ){		
-        if ( Tinta::tintaUnitsSet::getPtr() )
-            Tinta::tintaUnitsSet::getPtr()->removeListener(this);
+        
+        Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->removeListener(this);
 		while ( !mTasks.empty() )
 		{
 			DELETE_T ( mTasks.front() , tintaExecutingTask );
@@ -95,9 +95,9 @@ namespace Tinta
         const tintaExecutingUnit * rez(NULL_M);
 
         if (task->getType() == tintaExecutingTask::enLocalTask) // parallel task added in to the queue
-            rez = tintaUnitsSet::getPtr()->reservUnit(task, tintaExecutingUnit::enLocalUnit);
+            rez = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->reservUnit(task, tintaExecutingUnit::enLocalUnit);
         else if (task->getType() == tintaExecutingTask::enDownTask) { // subtask for clients units
-            rez = tintaUnitsSet::getPtr()->reservUnit(task, tintaExecutingUnit::enInteractUnit);
+            rez = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->reservUnit(task, tintaExecutingUnit::enInteractUnit);
         }
         else if ( task->getType() == tintaExecutingTask::enUpperTask ) { 
 #ifndef TINTA_NO_INTERACT
@@ -109,7 +109,8 @@ namespace Tinta
 
             dataBuff->AllocateBuffer(size);           
                         
-            assert(task->packData(dataBuff->GetBufferEx(), 0) == size);
+            //assert(task->packData(dataBuff->GetBufferEx(), 0) == size);
+            CoreAssert(task->packData(dataBuff->GetBufferEx(), 0) == size, "task->packData(dataBuff->GetBufferEx(), 0) != size");
 
             tintaBufferIOUnqPtr buffPacket = tintaInteractHandlerImpl::allocatePacketDataPtr( tintaInteractHandlerImpl::enTaskToexecute, dataBuff.get() );
 
@@ -124,12 +125,12 @@ namespace Tinta
             }
             eraseTaskById( task->getId() );
 #else
-            rez = tintaUnitsSet::getPtr()->reservUnit(task, tintaExecutingUnit::enLocalUnit);
+            rez = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->reservUnit(task, tintaExecutingUnit::enLocalUnit);
 #endif
 
         }
         else
-            rez = tintaUnitsSet::getPtr()->reservUnit(task, tintaExecutingUnit::enNoType ,ownerId );
+            rez = Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->reservUnit(task, tintaExecutingUnit::enNoType ,ownerId );
         
 
         return rez != NULL_M;
@@ -149,7 +150,7 @@ namespace Tinta
 #endif
         ///if( task->getOwner() == 0 )
 		 //   task->setOwner( id.mid );		
-        return  Tinta::tintaUnitsSet::getPtr() ? Tinta::tintaUnitsSet::getPtr()->executeTask( *task, id ) != NULL_M : NULL_M;
+        return  Tinta::tintaTexSpringMain::getPtr()->getUnitsSet()->executeTask( *task, id ) != NULL_M;
 	}
 
     const tintaExecutingTask *tintaTaskQueue::getNextById(const m_ulong32 *taskId){
@@ -185,8 +186,8 @@ namespace Tinta
             StringStream msg;
 
             msg << THREAD_CURRENT_ID << _M(" ###### tintaTaskQueue onUnitStateChanged ") << _M(" ") << state;
-            if (Tinta::tintaLogger::getPtr())
-                Tinta::tintaLogger::getPtr()->logMsg(msg.str());
+           // if (Tinta::tintaLogger::getPtr())
+            //    Tinta::tintaLogger::getPtr()->logMsg(msg.str());
         }         
 #endif       
        // TINTA_LOCK_RECUR_MUTEX( mStateMutex );        
@@ -285,10 +286,5 @@ namespace Tinta
     void tintaTaskQueue::onUnitPriorChanged(tintaExecutingUnit::UnitId id, float prior){
 
     }
-
-	template<> tintaTaskQueue* Singleton<tintaTaskQueue>::mPtr = 0;
-
-    tintaTaskQueue* tintaTaskQueue::getPtr(void)	{
-		return mPtr;
-	}	
+		
 }

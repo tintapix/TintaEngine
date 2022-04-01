@@ -465,7 +465,7 @@ namespace Tinta
         return false;
     }
 
-    void tintaImgWindow::setData(m_uint32 key, m_uint32 index, const tintaPixel24b *color) {
+    void tintaImgWindow::setData(m_uint32 key, m_uint32 index, const tintaPixel32b *color) {
                
             TINTA_LOCK_MUTEX(mDataMutex);
 
@@ -524,7 +524,7 @@ namespace Tinta
 
            
 
-    void tintaImgWindow::setData( m_uint32 key, m_uint32 x, m_uint32 y , const tintaPixel24b *color ) {
+    void tintaImgWindow::setData( m_uint32 key, m_uint32 x, m_uint32 y , const tintaPixel32b *color ) {
 
         auto image = findImage(key);
 

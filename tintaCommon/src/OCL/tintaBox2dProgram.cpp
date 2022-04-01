@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -14,9 +14,7 @@ namespace Tinta
 	bool Box2dProgram::execute(const m_uint32 *globalsize, m_uint32 dimensions, const size_t *readidc,
 		m_uint32 readquant, const m_uint32 *workitems) {
 
-        
-       // size_t offset[1] = { 4 };
-
+      
 		cl_int status = clEnqueueNDRangeKernel(mQueue, mKernel, dimensions, NULL, globalsize, workitems, 0,
 			NULL, NULL);
 		riseEXCEPTION(status, " Error: clEnqueueNDRange");
@@ -41,7 +39,7 @@ namespace Tinta
 		, kernelName, platform, device)
 	{
 
-		//setOutArgsQuantity();
+		
 	}
 	Box2dProgram::~Box2dProgram()	{
 

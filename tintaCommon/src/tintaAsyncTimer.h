@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -16,7 +16,7 @@ namespace Tinta{
         cout << "Hello!" << endl;
         };
         Example:
-            tintaAsyncTimer mExecuteTimer( 1000, std::bind(&className::timaerFunction, this) );
+            tintaAsyncTimer mExecuteTimer( 1000, std::bind(&className::timerFunction, this) );
     */
     class _CoreExport tintaAsyncTimer
     {

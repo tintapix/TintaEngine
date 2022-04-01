@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -93,14 +93,6 @@ const tintaInteractUnit* tintaInteractUnitsSet::findUnit( m_ulong32 id )const {
 		return ifind->second;	
 	}
 	return NULL;
-}
-
-
-
-template<> tintaInteractUnitsSet* Singleton<tintaInteractUnitsSet>::mPtr = 0;
-
-tintaInteractUnitsSet* tintaInteractUnitsSet::getPtr(void)	{
-	return mPtr;
 }
 
 }

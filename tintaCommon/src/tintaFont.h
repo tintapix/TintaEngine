@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -23,8 +23,6 @@ namespace Tinta {
 
         virtual ~tintaFont(){}
 
-        //tintaFont(const String &name, int sizeX, int sizeY, const color_type &color = {0,0,0,0} );
-
         virtual void setSize(float scaleX, float scaleY);
 
         virtual void setColor(const color_type &color);
@@ -36,30 +34,23 @@ namespace Tinta {
 
         struct tintaSymbol {
 
-            String mSymbol;
+            String mSymbol;            
 
-            /*int leftUpX = 0;
-            int leftUpY = 0;
-            int rightDownX = 0;
-            int rightDownY = 0;*/
-            int vertOffset = 0;        
-            
+            int vertOffset = 0;                    
+
             tintaUInt8Image mImage;          
         };
 
 
-        const tintaSymbol* getSymbolData( const String &symbol );
+        const tintaSymbol* getSymbolData( const String &symbol ) const;
 
         bool create( const String &name = _M(""), float scaleX = 1.f, float scaleY = 1.f);
 
 
-        String getName() const;
+        String getName() const;       
 
-       
-
-    private:
-        
-        String mName;// = "fonts/rus.local";
+    private:        
+        String mName; 
 
         float mScaleX = 1.f;
         float mScaleY = 1.f;

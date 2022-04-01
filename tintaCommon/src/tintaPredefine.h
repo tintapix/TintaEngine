@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -66,6 +66,7 @@ namespace Tinta {
 	class tintaIImgCodec;		
 	class tintaClObjectContainer;
 	class tintaGPUExt;    
+    
 	
     enum {
         // common ID value for containers

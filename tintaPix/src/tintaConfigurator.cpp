@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov  
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov  
     tintapix.com
     tintapix@gmail.com  */
 
@@ -14,9 +14,12 @@ const char * const tintaConfigurator::strTexSpringConfigFile = "config.lua";
 const char * const tintaConfigurator::strSectionScriptFolders = "Scripts_Folders";
 const char * const tintaConfigurator::strSectionCommands = "Commands";
 const char * const tintaConfigurator::strSectionGPUFolders = "GPUPrograms_Folders";
-const StringBasic tintaConfigurator::strGPUScripts = "GPUPrograms.path";
+const char * tintaConfigurator::strGPUScripts = "GPUPrograms.path";
 const char * const tintaConfigurator::strSectionIpAdress = "Ip_Adress";
 const char * const tintaConfigurator::strStartScript = "Start_script";
+
+const char * const tintaConfigurator::strConsoleFontName = "Console_FontName";
+const char * const tintaConfigurator::strConsoleFontSize = "Console_FontSize";
 const char * const tintaConfigurator::strSectionPort = "Port";
 const char * const tintaConfigurator::strLocalEnabled = "Local_Enabled";
 const char * const tintaConfigurator::strGpuEnabled = "Gpu_Enabled";
@@ -39,6 +42,8 @@ tintaConfigurator::tintaConfigurator(void)
 	, mUnitPrior(0.f)	
 	, mTimeReconnect(0)
 	, mGlobalValsKey("GlobalVals")
+    , mFontName(_M("Lucida Console"))
+    , mFontSize( 12 )
 {
 	
 	
@@ -94,10 +99,10 @@ bool tintaConfigurator::parserConfig( const String &name )
 	const String root_path = config_path; //Tinta::getRootPath();
     Tinta::StringUtil::addLeaf(config_path, name);
 
-
 	mConfigPath = config_path;
+
     validatePath(mConfigPath);
-	mScriptConfig.setFile(mConfigPath.c_str());
+    mScriptConfig.setFile(mConfigPath.c_str());
 
 	dumpErr();
 
@@ -162,6 +167,15 @@ bool tintaConfigurator::parserConfig( const String &name )
 
     mScriptConfig.getGlobVar(mStartScript, tintaConfigurator::strStartScript);
 
+
+#if CORE_PLATFORM  == CORE_PLATFORM_WIN32
+    mScriptConfig.getGlobVar(mFontName, tintaConfigurator::strConsoleFontName);
+
+    mScriptConfig.getGlobVar(mFontSize, tintaConfigurator::strConsoleFontSize);
+      
+#endif
+    
+
 	double val = 0.;
 	mScriptConfig.getGlobVar(val, tintaConfigurator::strUnitPrior);
     mUnitPrior = TintaMath::min(std::abs((float)val), 1.f);
@@ -208,6 +222,14 @@ m_int32 tintaConfigurator::getResetDuration() const {
 
 String tintaConfigurator::getIpAdress( ) const {
 	return mIpAdress;
+}
+
+String tintaConfigurator::getFontName() const {
+    return mFontName;
+}
+
+int tintaConfigurator::getFontSize() const {
+    return mFontSize;
 }
 
 bool tintaConfigurator::getScriptPath(String &path,const String &script) const {

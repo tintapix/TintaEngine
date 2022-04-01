@@ -1,4 +1,4 @@
-/*  Copyright (C) 2011 - 2019 Mikhail Evdokimov 
+/*  Copyright (C) 2011 - 2020 Mikhail Evdokimov 
 tintapix.com
 tintapix@gmail.com  */
 
@@ -30,11 +30,11 @@ namespace Tinta
 
         virtual void showImage(m_uint32 key) = 0;
 
-        virtual void setData( m_uint32 key, m_uint32 index,  const tintaPixel24b *color ) = 0;
+        virtual void setData( m_uint32 key, m_uint32 index,  const tintaPixel32b *color ) = 0;
 
         virtual void setData(m_uint32 key, const tintaUInt8Image * data) = 0;
 
-        virtual void setData( m_uint32 key, m_uint32 x, m_uint32 y, const tintaPixel24b *color) = 0;
+        virtual void setData( m_uint32 key, m_uint32 x, m_uint32 y, const tintaPixel32b *color) = 0;
 
         virtual bool keyState( int key , bool &bValid ) const  = 0;
 
