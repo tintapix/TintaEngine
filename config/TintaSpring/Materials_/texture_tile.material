@@ -1,0 +1,13 @@
+v_shader
+{	
+	file {"v_texture_tile.glsl"},		
+	auto#cam {"cameraView"},
+	//auto#timer {"timeElapsed"},
+	//manual#float#period { 100.0 }	
+},
+f_shader
+{	
+	file {"f_texture_tile.glsl"},	
+	manual#float#tiles { 100.0 },
+	manual#texture#textureSun {"aid.png"},	
+},

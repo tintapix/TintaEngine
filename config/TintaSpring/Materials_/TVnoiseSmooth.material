@@ -1,0 +1,14 @@
+v_shader
+{	
+	file {"v_TVnoiseSmooth.glsl"},
+	auto#cam{"cameraView"}	
+	
+},
+f_shader
+{	
+	file {"f_TVnoiseSmooth.glsl"},	
+	manual#texture#textureSun {"sky.png"},	
+	//auto#randValue{"randReal"},
+	auto#timeElapsed {"timeElapsed"},			
+	
+}

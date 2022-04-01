@@ -1,0 +1,12 @@
+v_shader
+{	
+	file {"v_image2.glsl"},		
+	auto#cam {"cameraView"},
+	//auto#timer {"timeElapsed"},
+	//manual#float#period { 100.0 }	
+},
+f_shader
+{	
+	file {"f_image2.glsl"},		
+	manual#texture#image {"tosmooth.png"},	
+},

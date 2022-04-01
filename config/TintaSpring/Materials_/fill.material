@@ -1,0 +1,12 @@
+v_shader
+{	
+	file {"v_fill.glsl"},
+	auto#fMat4#cam{"cameraView"},	
+	
+},
+f_shader
+{	
+	file {"f_fill.glsl"},
+	manual#fVec4#color{ 0.3, 0.7, 0.7, 0.0 },		
+	
+}

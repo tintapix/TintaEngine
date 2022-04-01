@@ -1,0 +1,13 @@
+v_shader
+{	
+	file {"v_TVnoise.glsl"},
+	auto#cam{"cameraView"}	
+	
+},
+f_shader
+{	
+	file {"f_TVnoise.glsl"},	
+	manual#texture#textureSun {"aid.png"},	
+	//auto#rand{"randReal"}	
+	
+}

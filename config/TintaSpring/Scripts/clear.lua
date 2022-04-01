@@ -1,1 +1,1 @@
-﻿c_delallimg()c_windelhandlers()
+﻿image.eraseallimg()c_windelhandlers()

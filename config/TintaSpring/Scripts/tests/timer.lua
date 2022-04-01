@@ -1,1 +1,1 @@
-﻿c_start( "c_fl(\"x.lua\")", 500 )
+﻿c_start( "main.fl(\"x.lua\")", 500 )

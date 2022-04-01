@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="DemoApp.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="molyMeshParser.cpp" />
+    <ClCompile Include="molyApp.cpp" />
+    <ClCompile Include="molyAttributes.cpp" />
+    <ClCompile Include="molyBoundingVolume.cpp" />
+    <ClCompile Include="molyBoxBV.cpp" />
+    <ClCompile Include="molyCamera.cpp" />
+    <ClCompile Include="molyCharContainer.cpp" />
+    <ClCompile Include="molyCuller.cpp" />
+    <ClCompile Include="molyFrameBuffer.cpp" />
+    <ClCompile Include="molyGeometry.cpp" />
+    <ClCompile Include="molyGLApp.cpp" />
+    <ClCompile Include="molyGLRenderer.cpp" />
+    <ClCompile Include="molyGLSLProgram.cpp" />
+    <ClCompile Include="molyGLSLShader.cpp" />
+    <ClCompile Include="molyGLVideoCap.cpp" />
+    <ClCompile Include="molyGraphicaPrecompile.cpp" />
+    <ClCompile Include="molyGraphicConfig.cpp" />
+    <ClCompile Include="molyImage.cpp" />
+    <ClCompile Include="molyImageReader.cpp" />
+    <ClCompile Include="molyIndexBuffer.cpp" />
+    <ClCompile Include="molyMaterial.cpp" />
+    <ClCompile Include="molyMaterialParser.cpp" />
+    <ClCompile Include="molyNode.cpp" />
+    <ClCompile Include="molyPlane.cpp" />
+    <ClCompile Include="molyResource.cpp" />
+    <ClCompile Include="molyRGBAColor.cpp" />
+    <ClCompile Include="molyRoot.cpp" />
+    <ClCompile Include="molySamplerInformation.cpp" />
+    <ClCompile Include="molySceneManager.cpp" />
+    <ClCompile Include="molyTexture.cpp" />
+    <ClCompile Include="molyTriangles.cpp" />
+    <ClCompile Include="molyTriMesh.cpp" />
+    <ClCompile Include="molyUserConstant.cpp" />
+    <ClCompile Include="molyVertexBuffer.cpp" />
+    <ClCompile Include="molyVisibleSet.cpp" />
+    <ClCompile Include="molyWgt.cpp" />
+    <ClCompile Include="molyWgtImage.cpp" />
+    <ClCompile Include="molyWgtLayer.cpp" />
+    <ClCompile Include="molyWgtText.cpp" />
+    <ClCompile Include="molyWgtTextBox.cpp" />
+    <ClCompile Include="molyWinApp.cpp" />
+    <ClCompile Include="molyWinGLRenderer.cpp" />
+    <ClCompile Include="glew\source\visualinfo.c">
+      <Filter>glew\src</Filter>
+    </ClCompile>
+    <ClCompile Include="glew\source\glewinfo.c">
+      <Filter>glew\src</Filter>
+    </ClCompile>
+    <ClCompile Include="glew\source\glew.c">
+      <Filter>glew\src</Filter>
+    </ClCompile>
+    <ClCompile Include="molyAction.cpp" />
+    <ClCompile Include="molyDrawable.cpp" />
+    <ClCompile Include="molySpatial.cpp" />
+    <ClCompile Include="molySphereBV.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DemoApp.h" />
+    <ClInclude Include="molyMeshParser.h" />
+    <ClInclude Include="molyApp.h" />
+    <ClInclude Include="molyAttributes.h" />
+    <ClInclude Include="molyBoundingVolume.h" />
+    <ClInclude Include="molyBoxBV.h" />
+    <ClInclude Include="molyCamera.h" />
+    <ClInclude Include="molyCameraFactory.h" />
+    <ClInclude Include="molyCharContainer.h" />
+    <ClInclude Include="molyCuller.h" />
+    <ClInclude Include="molyFrameBuffer.h" />
+    <ClInclude Include="molyGeometry.h" />
+    <ClInclude Include="molyGLApp.h" />
+    <ClInclude Include="molyGLPredefine.h" />
+    <ClInclude Include="molyGLRenderer.h" />
+    <ClInclude Include="molyGLSLProgram.h" />
+    <ClInclude Include="molyGLSLShader.h" />
+    <ClInclude Include="molyGLVideoCap.h" />
+    <ClInclude Include="molyGraphicaPrecompile.h" />
+    <ClInclude Include="molyGraphicaPredefine.h" />
+    <ClInclude Include="molyGraphicConfig.h" />
+    <ClInclude Include="molyImage.h" />
+    <ClInclude Include="molyImageReader.h" />
+    <ClInclude Include="molyIndexBuffer.h" />
+    <ClInclude Include="molyITimerCallback.h" />
+    <ClInclude Include="molyIVideoCap.h" />
+    <ClInclude Include="molyIVisible.h" />
+    <ClInclude Include="molyIWinContext.h" />
+    <ClInclude Include="molyMaterial.h" />
+    <ClInclude Include="molyMaterialParser.h" />
+    <ClInclude Include="molyNode.h" />
+    <ClInclude Include="molyPlane.h" />
+    <ClInclude Include="molyResource.h" />
+    <ClInclude Include="molyResources.h" />
+    <ClInclude Include="molyRGBAColor.h" />
+    <ClInclude Include="molyRoot.h" />
+    <ClInclude Include="molySamplerInformation.h" />
+    <ClInclude Include="molySceneManager.h" />
+    <ClInclude Include="molySphereBV.h" />
+    <ClInclude Include="molyTexture.h" />
+    <ClInclude Include="molyTriangle2.h" />
+    <ClInclude Include="molyTriangle3.h" />
+    <ClInclude Include="molyTriangles.h" />
+    <ClInclude Include="molyTriMesh.h" />
+    <ClInclude Include="molyUserConstant.h" />
+    <ClInclude Include="molyVertexBuffer.h" />
+    <ClInclude Include="molyVisibleSet.h" />
+    <ClInclude Include="molyWgt.h" />
+    <ClInclude Include="molyWgtFactory.h" />
+    <ClInclude Include="molyWgtImage.h" />
+    <ClInclude Include="molyWgtLayer.h" />
+    <ClInclude Include="molyWgtText.h" />
+    <ClInclude Include="molyWgtTextBox.h" />
+    <ClInclude Include="molyWinApp.h" />
+    <ClInclude Include="molyWinGLRenderer.h" />
+    <ClInclude Include="glew\include\GL\wglew.h">
+      <Filter>glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\GL\glew.h">
+      <Filter>glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\GL\glxew.h">
+      <Filter>glew\include</Filter>
+    </ClInclude>
+    <ClInclude Include="molyAction.h" />
+    <ClInclude Include="molyDrawable.h" />
+    <ClInclude Include="molySpatial.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="glew">
+      <UniqueIdentifier>{e6bee389-9cc3-463c-bc88-44ce56ecc2f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glew\src">
+      <UniqueIdentifier>{27eef710-b843-4ba2-806b-f7646bcfec08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glew\include">
+      <UniqueIdentifier>{4c9065fe-a46b-46f4-b87c-b2f55633eecf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

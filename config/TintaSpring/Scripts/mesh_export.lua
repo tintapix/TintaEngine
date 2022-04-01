@@ -9,7 +9,7 @@ local fileOut = "D:/mya/meshes/pyramid.mmesh"
 
 local textBox = s_getStringArrayId( fileIn, "utf8", false )
 
-local q = c_boxelements(textBox)
+local q = box.elements(textBox)
 local vertexpart = false
 local indexpart = false
 local sRez = ""
@@ -17,7 +17,7 @@ local sRez = ""
 for k = 0, q - 1 do
 
 
-	local valLine = c_getvalboxs(textBox,k)
+	local valLine = box.getvals(textBox,k)
 	
 	local regexVertNodematch = "(.*)(MESH_VERTEX_LIST)(.*)"
 	local regexIndexNodematch = "(.*)(MESH_FACE_LIST)(.*)"
@@ -25,13 +25,13 @@ for k = 0, q - 1 do
 	local regexIndexmatch = "(.*)(MESH_FACE)(.*)"
 	
 		
-	if c_regexmatch( regexVertNodematch, valLine,  0 ) == 1 then
+	if main.regexmatch( regexVertNodematch, valLine,  0 ) == 1 then
 		k = k + 1
 		vertexpart = true
 		sRez = string.format('%s%s',sRez, "vertices 	\n") 
 	end
 	
-	if c_regexmatch( regexIndexNodematch, valLine,  0 ) == 1 then
+	if main.regexmatch( regexIndexNodematch, valLine,  0 ) == 1 then
 		k = k + 1
 		indexpart = true
 		sRez = string.format('%s%s',sRez, "\nindices {	\n") 
@@ -40,26 +40,26 @@ for k = 0, q - 1 do
 	
 	if vertexpart == true then
 		
-		local match = c_regexmatch(regexVertmatch, valLine,  0)
+		local match = main.regexmatch(regexVertmatch, valLine,  0)
 		
 		
 		if match == 1 then
 			sRez = string.format('%s%s',sRez, "{") 
 			local regex = "[-+]?([0-9]*\\.[0-9]+|[0-9]+)"
-			local iRez = c_regextoken( regex, valLine, "0", 0	)
+			local iRez = main.regextoken( regex, valLine, "0", 0	)
 			
 			if iRez ~=  nil then
-				local q1 = c_boxelements(iRez)
+				local q1 = box.elements(iRez)
 				
 				for k1 = 1, q1 - 1 do				
-					sRez = string.format('%s%s',sRez, c_getvalboxs( iRez, k1 ))
+					sRez = string.format('%s%s',sRez, box.getvals( iRez, k1 ))
 					if k1 ~= q1-1 then
 						sRez = string.format('%s%s',sRez, ",")
 					end
 				end
 				sRez = string.format('%s%s', sRez, "},\n")
 				--util.msg( sRez)
-				c_delbox( iRez )
+				image.erase( iRez )
 			end
 		else
 			vertexpart = false
@@ -70,27 +70,27 @@ for k = 0, q - 1 do
 	
 	if indexpart == true then
 		
-		local match = c_regexmatch(regexIndexmatch, valLine,  0)
+		local match = main.regexmatch(regexIndexmatch, valLine,  0)
 		
 		
 		if match == 1 then
 						
 			local regex = "\\d+"
-			local iRez = c_regextoken( regex, valLine, "0", 0	)
+			local iRez = main.regextoken( regex, valLine, "0", 0	)
 			
 			if iRez ~=  nil then
-				local q1 = c_boxelements(iRez)
+				local q1 = box.elements(iRez)
 				
 				for k1 = 1, q1 - 1 do				
 					
 					if k1 == 1 or  k1 == 2 or k1 == 3 then -- taking only A B C indices 
-						sRez = string.format('%s%s%s',sRez, c_getvalboxs( iRez, k1 ) , ",\n")											
+						sRez = string.format('%s%s%s',sRez, box.getvals( iRez, k1 ) , ",\n")											
 						
 					end
 				end
 				--sRez = string.format('%s%s', sRez, ",")
 				
-				c_delbox( iRez )
+				image.erase( iRez )
 			end
 		else
 			indexpart = false
@@ -101,14 +101,14 @@ for k = 0, q - 1 do
 	
 end
 --util.util.msgf( sRez)
-local idBoxOut = c_createbox("strs_vector")
-c_pushbackboxs( idBoxOut, sRez )
---val = c_getvalboxs( idBox, 0 )
+local idBoxOut = box.create("strs_vector")
+box.pushbacks( idBoxOut, sRez )
+--val = box.getvals( idBox, 0 )
 c_writetofile(fileOut, "ascii", idBoxOut )
 
 
-c_delbox( textBox )
-c_delbox( idBoxOut )
+image.erase( textBox )
+image.erase( idBoxOut )
 
 local s = string.format('%s%s%s', "Export ", fileIn, "finished." )	
 util.msg( s )

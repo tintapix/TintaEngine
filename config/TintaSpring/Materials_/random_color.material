@@ -1,0 +1,12 @@
+v_shader
+{	
+	file {"v_random_color.glsl"},
+	auto#cam{"cameraView"}	
+	
+},
+f_shader
+{	
+	file {"f_random_color.glsl"},	
+	manual#texture#textureSun {"Sand-Texture.jpg"},	
+	//manual#int#seed { 8941345522 } ,	
+}

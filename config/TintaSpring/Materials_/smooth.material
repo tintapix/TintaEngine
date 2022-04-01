@@ -1,0 +1,10 @@
+v_shader
+{	
+	file {"v_smooth.glsl"},		
+	auto#cam {"cameraView"},	
+},
+f_shader
+{	
+	file {"f_smooth.glsl"},		
+	manual#texture#image {"candle.png"},			
+},

@@ -1,0 +1,13 @@
+v_shader
+{	
+	file {"v_image_polar.glsl"},		
+	auto#cam {"cameraView"},
+	//auto#timer {"timeElapsed"},
+	//manual#float#period { 100.0 }	
+},
+f_shader
+{	
+	file {"f_image_polar.glsl"},		
+	manual#float#factor { 0.0 },
+	manual#texture#image {"3132729095_20201217132430370_17088.png"},	
+},

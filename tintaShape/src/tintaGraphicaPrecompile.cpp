@@ -1,0 +1,2 @@
+#include "tintaGraphicaPrecompile.h"
+

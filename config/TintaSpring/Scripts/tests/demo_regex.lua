@@ -10,21 +10,21 @@ local token = "<div>(.+?)</div>"
 
 local text = s_getStringArrayId( filePath, "utf8", true )
 
---local valLine = c_getvalboxs( text, 0 )
+--local valLine = box.getvals( text, 0 )
 --local match = regexmatch(token, valLine,  0)
 
-local iRez = c_regextokenex( token, text, 0, "1", 0 )
+local iRez = main.regextokenex( token, text, 0, "1", 0 )
 if iRez ~=  nil then
-	local r = c_boxelements(iRez)
+	local r = box.elements(iRez)
 	util.msg("matches:", r)
 	for i = 0, r - 1 do				
-		util.msg( c_getvalboxs( iRez, i ) )		
+		util.msg( box.getvals( iRez, i ) )		
 	end	
 	
 	--c_writetofile( filePathOut, "utf8", iRez )
-	c_delbox( iRez )
+	image.erase( iRez )
 end
 
 
 
-c_delbox( text )
+image.erase( text )

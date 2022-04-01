@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{880e3973-b391-4ba4-8191-ea30abbc5119}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glew">
+      <UniqueIdentifier>{8ce1dc85-392b-4945-b3d8-d63ffe92adc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glew\include">
+      <UniqueIdentifier>{453b00aa-d185-4371-aa81-c5d2927aa9a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glew\source">
+      <UniqueIdentifier>{bd019399-6b49-47cd-9efa-1c45b13adfce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\glew\include\GL">
+      <UniqueIdentifier>{a66f5d0e-f464-4ed9-94ae-57f1cb440996}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GL">
+      <UniqueIdentifier>{04792352-4037-4a5a-801c-d8a3c6a6cc6d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\GL\tintaGLApp.cpp">
+      <Filter>src\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GL\tintaGLSLProgram.cpp">
+      <Filter>src\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GL\tintaGLSLShader.cpp">
+      <Filter>src\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GL\tintaGLVideoCap.cpp">
+      <Filter>src\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GL\tintaWinGLRenderer.cpp">
+      <Filter>src\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaAction.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaAttributes.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaBoundingVolume.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaBoxBV.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaCamera.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaCuller.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaDrawable.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaFrameBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaGeometry.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaGraphicaPrecompile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaGraphicConfig.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaImage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaIndexBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaMaterial.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaMaterialParser.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaMeshParser.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaPlane.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaRoot.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaSceneManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaSphereBV.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaTexture.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaTriangles.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaTriMesh.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaVertexBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaVisibleSet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaWinApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaSpatial.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glew\source\glew.c">
+      <Filter>src\glew\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glew\source\glewinfo.c">
+      <Filter>src\glew\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\glew\source\visualinfo.c">
+      <Filter>src\glew\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaCommands.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaBillboard.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaRGBAColor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GL\tintaGLRenderer.cpp">
+      <Filter>src\GL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaGuiManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tintaSamplerBuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\glew\include\GL\glew.h">
+      <Filter>src\glew\include\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glew\include\GL\glxew.h">
+      <Filter>src\glew\include\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glew\include\GL\wglew.h">
+      <Filter>src\glew\include\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GL\tintaGLApp.h">
+      <Filter>src\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GL\tintaGLPredefine.h">
+      <Filter>src\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GL\tintaGLSLProgram.h">
+      <Filter>src\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GL\tintaGLSLShader.h">
+      <Filter>src\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GL\tintaGLVideoCap.h">
+      <Filter>src\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GL\tintaWinGLRenderer.h">
+      <Filter>src\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaAction.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaAttributes.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaBoundingVolume.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaBoxBV.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaCamera.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaCameraFactory.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaCuller.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaDrawable.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaFrameBuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGeometry.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGraphicaPrecompile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGraphicaPredefine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGraphicConfig.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaImage.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaIndexBuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaITimerCallback.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaVisibleObject.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaMaterial.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaIWinContext.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaMaterialParser.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaMeshParser.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaPlane.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaResource.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaResContainer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaRoot.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaSceneManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaSpatial.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaSphereBV.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaTexture.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaTriangles.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaTriMesh.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaVertexBuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaVisibleSet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaWinApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaIVideoCap.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\glew\include\GL\eglew.h">
+      <Filter>src\glew\include\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaShapeLocalEn.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaShapeLocalRu.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaCommands.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaBillboard.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaRGBAColor.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GL\tintaGLRenderer.h">
+      <Filter>src\GL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaGuiManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tintaSamplerBuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

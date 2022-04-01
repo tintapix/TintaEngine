@@ -20,7 +20,7 @@ function makeRecord( secondsRec , rate )
 	elseif rate == 32 then
 		frameTime = frameTime32
 	else
-		c_assert( false , "Wrong frame rate" )	
+		main.lassert( false , "Wrong frame rate" )	
 	end
 
 	local 	timeRecord = secondsRec * 1000
@@ -35,8 +35,8 @@ function makeRecord( secondsRec , rate )
 	local PathInMap = "C:/foto/indicator2.png"
 	local ext = "jpg"
 	
-	--local picImg = c_readimg( PathIn,  s_getex( PathIn ) )	
-	--local mapImg = c_readimg( PathInMap,  s_getex( PathInMap ) )
+	--local picImg = image.read( PathIn,  s_getex( PathIn ) )	
+	--local mapImg = image.read( PathInMap,  s_getex( PathInMap ) )
 	
 	local rVal, gVal,bVal = util.unpackcolor( 0xff0000 )
 	local channel = 4
@@ -47,15 +47,15 @@ function makeRecord( secondsRec , rate )
 		
 		--s_interpToColorChannelMap( PathInMap, PathIn, PathOut, rVal, gVal,bVal, channel, f/( frames - 1 ) )		
 		local script = string.format( " require \"Scripts/lib/l_util\" s_interpToColorChannelMap( \"%s\", \"%s\", \"%s\", %d,%d,%d, %d, %f ) ", PathInMap, PathIn, PathOut, rVal, gVal,bVal,channel, f/( frames - 1 ))		
-		c_ed( script )
+		main.ed( script )
 		--s_interpToColorChannel( picImg, PathOut, rVal,gVal,bVal, channel, f/( frames - 1 ) )	
 		util.msg("rendered frame: ", f )
 	end
 	
 	
-	--c_delimg( picImg )
+	--image.erase( picImg )
 	
-	--c_delimg( mapImg )
+	--image.erase( mapImg )
 end
 
 makeRecord( 60, 32 )

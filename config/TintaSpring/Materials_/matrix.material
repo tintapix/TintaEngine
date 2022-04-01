@@ -1,0 +1,12 @@
+v_shader
+{	
+	file {"v_matrix.glsl"},
+	auto#cam{"cameraView"}	
+	
+},
+f_shader
+{	
+	file {"f_matrix.glsl"},		
+	auto#rand{"randReal"}	
+	
+}

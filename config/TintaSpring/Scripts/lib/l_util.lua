@@ -3,10 +3,79 @@ require "Scripts/lib/utf8data"
 require "paths"
 
 
+--s_arrlength(T)
+--s_exportpixels( PathIn, PathOut )
+--spairs(t, order)
+--s_round(num, idp)
+--s_findValue( arrIn , VIn)
+--s_isnumber(v)
+--s_isstring(v)
+--s_findNearest( arr , val )
+--s_max3( val1, val2, val3 )
+--s_getex( path )
+--s_delex( path )
+--s_getbrightness( fR , fG, gB )
+--s_getpallete( name )
+--s_getRandomcolor( arr )
+--s_get_base_out_path()
+--clamp
+--CatRomSpline
+--s_randColorNear_3( base, minDev, maxDev )
+--s_randChannelNear( base, minDev, maxDev )	
+--s_posByDirection4(curxIn, curyIn, dirIn, stepIn, wIn, hIn )
+--s_posByDirection8(curxIn, curyIn, dirIn, stepIn, wIn, hIn )
+--s_dist2( x1, y1, x2, y2 )
+--s_dist3( x1, y1, z1, x2, y2, z2 )
+--s_findColorNearest( arr , val )
+--s_randItem( inArr, inArrSize )
+--s_genRandTable(in_min_val, in_max_val, in_count )
+--s_genColorsRandTable( minVal, maxVal, in_count )
+--s_printTimePoint( begTime, pointNum )
+--s_drawlogo( srcImgIg )
+--s_resaveImage( pathIn , pathOut, extIn, exOut )
+--s_fileOperParallel( _pathIn, pathOut, extOut, strRequest, sameName  )
+--s_exchangeChannels( pathIn, pathOut, param )
+--s_numsorted( PathIn, ext, fullPath  )
+--s_randpixels( pathIn, pathDestIn , rDivMinIn, rDivMaxIn, gDivMinIn, gDivMaxIn, bDivMinIn, bDivMaxIn )
+--s_corktexture( width, height, pathDestIn, points, maxStep, offsetXIn, offsetYIn )
+--s_randpixelsFromArray(wIn, hIn, pathdestIn , arrayIn )
+--s_randpixelsFromArrayMask(wIn, hIn, pathdestIn, maskPathIn, factorIn, invertIn, arrayIn )
+--s_maskchannel( pathIn, pathOut , rIn,gIn,bIn, channel, factor, invert, bAlphaTestIn )
+--s_fillmask( pathIn, pathOut , rIn,gIn,bIn )
+--s_getDiscreteColorByFactor( colors, arrsizeIn, factor  )
+--s_buildColorArray( nodeColors, sizeColors )
+--s_changecolor( pathIn,pathOut,rIn,gIn,bIn, r2In,g2In,b2In )
+--s_channelToAlpha( pathIn, pathOut, channelIn, invert, minVal, maxVal )
+--s_grayscale( pathIn, pathOut )
+--s_interpToColor( pathIn,pathOut,rIn,gIn,bIn, factor )
+--s_interpToColorChannel( pathIn,pathOut, rIn,gIn,bIn, channelIn, addFactor, invert )
+--s_interpToImageChannel( pathIn,pathOut,pathInterp, channelIn, addFactor, invert )
+--s_interpToImageColor( pathIn, pathInterp, pathOut, rIn, gIn, bIn, equal )
+--s_interpToColorsChannel( pathIn,pathOut, rIn,gIn,bIn, rIn2,gIn2,bIn2, channelIn, addFactor, invert )
+--s_interpToColorChannelMap( pathIn,pathInMap,pathOut, rIn,gIn,bIn, channelIn, intensity, invert )
+--s_shuffleArr( arr )
+--s_getStringArrayId( pathIn, code, bInOneLine )	
+--s_maskImage( pathBrushIn, pathOutIn,  pathToCutIn, xPosIn, yPosIn, bRandIn )
+--s_unmaskImage( pathBrushIn, pathOutIn, pathToCutIn,  xPosIn, yPosIn, bRandIn )
+--s_multiplyChannel( imgPathIn, imgRezPathIn, channelIn, factorIn, bIncrIn )
+--s_multiplyChannelImg(imgPath1In, imgPathIn2, imgRezPathIn, channelIn, factorIn,  bIncrIn )
+--s_resizeImage(imgSrcIn, imgPathRezIn, xSizeIn, ySizeIn)
+--s_interpToArrColorsDiscreteChannel( pathIn, pathOut , colorsIn, factorIn, invertIn, channel )	
+--s_interpToArrColorsAlpha( pathIn, pathOut, colorsIn,  factorIn, invertIn)	
+--s_clearImage( imgPathIn, imgRezPathIn, pixAroundIn, rIn, gIn, bIn, factorMaxIn )
+--s_discretecolor( PathIn, PathOut, arrayOutSize, palleteName, shuffle, invert, channel, savePallete )
+--c_resizepallete( pallete, sizePallete, pathOut )
+--s_poster( pathIn, pathOut, palletePath , outline , palleteSize)
+--s_priorcolor ( PathIn, PathOut, around, factor, passes )
+--s_priorcolor2 ( PathIn, PathOut, around, factor, passes )
+--s_boxFromAlpha( imgPath )
+--clearAnimation( shotsDir, fileEx, outDir )
+--s_boxFromImgRed( imgPath, posWidth, posHeight )
+
 
 kpi = 3.1415926535897932384626433832795
-
 kpi2 = 6.283185307179586476925286766559
+maxColorDist = 441.6729
 
 --[[
 	Returns array length - use #T instead
@@ -19,10 +88,10 @@ end
 
 function s_exportpixels( PathIn, PathOut )
 
-	local imgId = c_readimg( PathIn, s_getex(PathIn) )		
+	local imgId = image.read( PathIn, s_getex(PathIn) )		
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 	
 	
 	local file = io.open(PathOut, "w")
@@ -30,7 +99,7 @@ function s_exportpixels( PathIn, PathOut )
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 				
-				local r,g,b,a = c_getpixelf( w_, h_) 																		
+				local r,g,b,a = image.getpixelf( w_, h_) 																		
 				
 				if a > 0 then			
 					local data = string.format( "%d,%d,%d,%f,%f,%f", w_, h_, 0, r,g,b )	
@@ -42,7 +111,7 @@ function s_exportpixels( PathIn, PathOut )
 			end		
 	end
 	file:close()
-	c_delimg(imgId)
+	image.erase(imgId)
 end
 
 function spairs(t, order)
@@ -157,20 +226,53 @@ function s_getpallete( name )
 	local ext = s_getex(pallPath)
 	
 	--util.msg(pallPath, " ", ext)
-	local pImg = c_readimg( pallPath, ext )
+	local pImg = image.read( pallPath, ext )
 	
-	local w = c_getwidth()
+	local w = image.width()
 	
-	c_assert( w > 0, "Wrong pallete image size name:", name, " path: ", pallPath )
+	main.lassert( w > 0, "Wrong pallete image size name:", name, " path: ", pallPath )
 	local arrRet = {}
 	local wEnd = w - 1
 	for w_ = 0, wEnd do	
-		local r,g,b,a = c_getpixelb( w_, 0 )
-		
-		arrRet[w_ + 1] = util.packcolor( r, g, b )
+	
+		local r,g,b,a = image.getpixelb( w_, 0 )		
+		arrRet[w_ + 1] = util.packcolor3( r, g, b )
+		--util.msg("get ", r," ",g, " ",b)
 	end
 	
-	c_delimg( pImg )
+	image.erase( pImg )
+	
+	return arrRet;
+end
+
+function s_getpalletea( name )	
+	
+	util.msg(name)
+	local pallPath = string.format("%s/%s", palletes, name )
+	util.msg(pallPath)
+			
+	local ext = s_getex(pallPath)
+	
+	--util.msg(pallPath, " ", ext)
+	local pImg = image.read( pallPath, ext )
+	
+	local w = image.width()
+	
+	main.lassert( w > 0, "Wrong pallete image size name:", name, " path: ", pallPath )
+	local arrRet = {}
+	local wEnd = w - 1
+	for w_ = 0, wEnd do	
+	
+		local r,g,b,a = image.getpixelb( w_, 0 )		
+		arrRet[w_ + 1] = util.packcolor4( r, g, b, a )
+		--util.msg("get ", r," ",g, " ",b, " ", a)
+		
+		
+		--r,g,b,a = util.unpackcolor4( w_, arrRet[1] )	
+		--util.msg("unpack ", r," ",g, " ",b, " ", a)
+	end
+	
+	image.erase( pImg )
 	
 	return arrRet;
 end
@@ -180,7 +282,85 @@ function s_getRandomcolor( arr )
 
 	local len = s_arrlength(arr)
 	
-	return arr[c_randint(1,len)]
+	return arr[main.randint(1,len)]
+end
+
+
+local CROO  = -0.5
+local CR01  = 1.5
+local CR02  = -1.5
+local CR03 = 0.5
+local CR11 = -2.5
+local CR10 = 1.0
+local CR12 = 2.0
+local CR13 = -0.5
+local CR20 = -0.5
+local CR21 = 0.0
+local CR22 = 0.5
+local CR23 = 0.0
+local CR30 = 0.0
+local CR31 = 1.0
+local CR32 = 0.0
+local CR33 = 0.0
+
+function clamp( xC, a, b)
+	
+	--(x < a ? a : (x > b ? b : x));
+	
+	if xC < a then
+		return a
+	end
+	
+	if xC > b then
+		return b
+	end
+	
+	return xC
+	
+end
+
+
+function CatRomSpline(xIn, nknots, knot )
+	
+	local span = 0
+	
+	local nspans = nknots - 3
+
+    --factors of the cubic
+	local cO
+	local cl
+	local c2
+	local c3
+	
+    if nspans < 1 then
+		return 0.0
+	end
+	
+	if xIn == 1.0 then
+		return knot[nknots - 1]
+	end
+
+	-- Find the appropriate 4-point span of the spline.
+	xIn = clamp(xIn, 0, 1) * nspans;
+	
+	span = math.floor(xIn)
+	
+	if  span > nknots - 3 or span == nknots - 3  then
+		span = nknots - 3
+	end
+
+	xIn = xIn - span
+	
+	--knot = knot + span
+	util.msg(span)
+	-- Evaluate factors at x using Horner’s method
+	c3 = CROO*knot[span + 1] + CR01*knot[span + 2] + CR02*knot[span + 3] + CR03*knot[span + 4]
+	c2 = CR10*knot[span + 1] + CR11*knot[span + 2] + CR12*knot[span + 3] + CR13*knot[span + 4]
+	cl = CR20*knot[span + 1] + CR21*knot[span + 2] + CR22*knot[span + 3] + CR23*knot[span + 4]
+	cO = CR30*knot[span + 1] + CR31*knot[span + 2] + CR32*knot[span + 3] + CR33*knot[span + 4]
+
+	return ( (c3*xIn + c2)*xIn + cl )*xIn + cO
+	
 end
 
 
@@ -201,12 +381,12 @@ end
 function s_randColorNear_3( base, minDev, maxDev )
 
 	
-	c_assert( minDev <=  maxDev , "s_randColorNear: ", "minDev >  maxDev" )		
+	main.lassert( minDev <=  maxDev , "s_randColorNear: ", "minDev >  maxDev" )		
 
 	devs = {}
 	
 	for i = 1, 3 do
-		devval = base + c_randint( minDev, maxDev )
+		devval = base + main.randint( minDev, maxDev )
 		if devval > 255 then
 			devval = 255
 		end
@@ -224,8 +404,8 @@ end
 
 -- returns channel value values based on one value with random deviation
 function s_randChannelNear( base, minDev, maxDev )	
-	c_assert( minDev <=  maxDev, "s_randChannelNear: ", "minDev >  maxDev" )		
-	devval = math.max(0,math.min(base + c_randint( minDev, maxDev ), 255 ))
+	main.lassert( minDev <=  maxDev, "s_randChannelNear: ", "minDev >  maxDev" )		
+	devval = math.max(0,math.min(base + main.randint( minDev, maxDev ), 255 ))
 	
 return devval
 
@@ -244,11 +424,11 @@ function s_posByDirection4(curxIn, curyIn, dirIn, stepIn, wIn, hIn )
 	if dirIn == 1  then
 		curxIn =  math.max(curxIn - stepIn,0)
 	elseif dirIn == 2  then
-		curxIn =  math.min(curxIn + stepIn, wIn)
+		curxIn =  math.min(curxIn + stepIn, wIn - 1)
 	elseif dirIn == 3  then
 		curyIn =  math.max(curyIn - stepIn,0)
 	elseif dirIn == 4  then
-		curyIn = math.min(curyIn + stepIn, hIn)
+		curyIn = math.min(curyIn + stepIn, hIn - 1)
 	end
 
 	return curxIn, curyIn
@@ -294,7 +474,7 @@ end
 --[[ 
 	returns length between two points 
 ]]--
-function s_get_length( x1, y1, x2, y2 )
+function s_dist2( x1, y1, x2, y2 )
 	return math.sqrt(  util.pow( math.abs (x2 - x1) , 2 ) + util.pow( math.abs (y2 - y1), 2 ) )
 end
 
@@ -302,8 +482,8 @@ end
 --[[ 
 	returns length between two points 
 ]]--
-function s_getlenXYZ( x1, y1, z1, x2, y2, z2 )
-	return math.sqrt(  util.c_pow( math.abs (x2 - x1) , 2 ) + util.c_pow( math.abs (y2 - y1), 2 ) + util.c_pow( math.abs (z2 - z1), 2 ) )
+function s_dist3( x1, y1, z1, x2, y2, z2 )
+	return math.sqrt(  util.pow( math.abs (x2 - x1) , 2 ) + util.pow( math.abs (y2 - y1), 2 ) + util.pow( math.abs (z2 - z1), 2 ) )
 end
 
 
@@ -320,9 +500,9 @@ local v = 500 -- just in case > 360
 local rezColor = val
 local pos = nil	 
 	for i = 1, #arr do	
-		local rArr,gArr,bArr = util.unpackcolor( arr[i] )		
-		local r,g,b = util.unpackcolor( val )
-		local l = s_getlenXYZ( rArr,gArr,bArr, r,g,b )		
+		local rArr,gArr,bArr = util.unpackcolor3( arr[i] )		
+		local r,g,b = util.unpackcolor3( val )
+		local l = s_dist3( rArr,gArr,bArr, r,g,b )		
 		if  l < v then
 			v = l
 			pos = i
@@ -337,7 +517,7 @@ end
 	returns random item from array
 ]]--
 function s_randItem( inArr, inArrSize )
-	rand = c_randint(1, inArrSize )
+	rand = main.randint(1, inArrSize )
 return inArr[rand]
 
 end
@@ -361,12 +541,12 @@ end
 function s_genRandTable(in_min_val, in_max_val, in_count )
 
 	
-	c_assert(in_max_val >= in_min_val and in_count >= 1, "s_genRandTable error: in_min_val ",in_min_val, " in_max_val ", in_max_val, " in_count ", in_count )		
+	main.lassert(in_max_val >= in_min_val and in_count >= 1, "s_genRandTable error: in_min_val ",in_min_val, " in_max_val ", in_max_val, " in_count ", in_count )		
 	
 
 	numbers = {}
 	for count = 0, in_count do
-		table.insert(numbers, c_randint(in_min_val, in_max_val))
+		table.insert(numbers, main.randint(in_min_val, in_max_val))
 	end
 
     table.sort(numbers)
@@ -390,13 +570,13 @@ end
 	 end
  ]]--
 function s_genColorsRandTable( minVal, maxVal, in_count )
-	c_assert( minVal >= 0 and maxVal <= 255, "wrong range")
+	main.lassert( minVal >= 0 and maxVal <= 255, "wrong range")
 	numbers = {}
 	for count = 0, in_count do
-		local rRand = c_randint(minVal, maxVal)
-		local gRand = c_randint(minVal, maxVal)
-		local bRand = c_randint(minVal, maxVal)
-		local packed = util.packcolor( rRand, gRand, bRand )
+		local rRand = main.randint(minVal, maxVal)
+		local gRand = main.randint(minVal, maxVal)
+		local bRand = main.randint(minVal, maxVal)
+		local packed = util.packcolor3( rRand, gRand, bRand )
 		table.insert(numbers, packed )
 	end
    
@@ -414,7 +594,7 @@ end
 function s_printTimePoint( begTime, pointNum )
 
 	
-	c_assert( begTime ~= nil, "s_printTimePoint: begTime == nil")
+	main.lassert( begTime ~= nil, "s_printTimePoint: begTime == nil")
 		
 	
 	
@@ -430,65 +610,36 @@ function s_printTimePoint( begTime, pointNum )
 end
 
 
-function s_drawlogo( srcImgIg )
-
-	c_selimg( srcImgIg )
-	local wSrc = c_getwidth() 
-	local hSrc = c_getheight() 
-	
-	local picImageLogo = c_readimg( glob_logo_red_small_path , "png" )
-	c_selimg( picImageLogo )
-	local wLogo = c_getwidth() 
-	local hLogo = c_getheight() 
-	
-	c_resizeimg( srcImgIg, 0,wSrc, 0, hSrc + hLogo )
-	
-	hSrc = hSrc + hLogo 
-	
-	local xOffset = 0
-	local yOffset = 0
-
-	if wSrc > wLogo and hSrc > hLogo then
-		xOffset  = wSrc - wLogo
-		yOffset  = hSrc - hLogo
-	end
-	
-	c_injectimg(picImageLogo, srcImgIg, xOffset,yOffset)
-	
-	c_delimg( picImageLogo )
-		
-	c_selimg( srcImgIg )
-end
 
 function s_resaveImage( pathIn , pathOut, extIn, exOut )
 	
 	local srcPath = pathIn 
-	local picImg = c_readimg(srcPath,  extIn )
+	local picImg = image.read(srcPath,  extIn )
 
-	c_selimg( picImg )
+	image.select( picImg )
 
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 
-	local mainImage = c_createimg( w, h , "basic" )	
-	c_fillimgb(255,255,255)
-	c_selimg( mainImage )		
+	local mainImage = image.create( w, h , "basic" )	
+	image.fillb(255,255,255)
+	image.select( mainImage )		
 
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do					
-				c_selimg( picImg )			
-				local r,g,b,a = c_getpixelf( w_, h_) 
+				image.select( picImg )			
+				local r,g,b,a = image.getpixelf( w_, h_) 
 				
-				c_selimg( mainImage )	
-				c_setalphaf( w_, h_, a )	
-				c_setpixelf(w_, h_, r,g,b, 1 )				
+				image.select( mainImage )	
+				image.setchannelf( w_, h_, 3, a )	
+				image.setpixelf(w_, h_, r,g,b, 1 )				
 			end		
 	end
 
-	c_selimg(mainImage)	
-	c_saveimg(exOut,pathOut)
+	image.select(mainImage)	
+	image.save(exOut,pathOut)
 
-	c_delallimg()
+	image.eraseall()
 	util.msg( "*** resaving finished" )
 
 end
@@ -513,7 +664,7 @@ function s_fileOperParallel( _pathIn, pathOut, extOut, strRequest, sameName  )
 			local fileInFullPath = util.getfile( dirSrc, i ,extIn , false )
 			local fileIn = util.getfile( dirSrc, i ,extIn , true )
 			--util.msg(fileInFullPath)
-			local nameOut = c_uniqid()
+			local nameOut = main.uniqid()
 			
 			if sameName == true then			
 				nameOut = ""
@@ -527,7 +678,7 @@ function s_fileOperParallel( _pathIn, pathOut, extOut, strRequest, sameName  )
 			strRequest = string.gsub( strRequest, "#2", fileOutFullPath )
 			util.msg("s_fileOperParallel: ", strRequest)
 			--c_executeparallel( strRequest, "")				
-			c_ed( strRequest )				
+			main.ed( strRequest )				
 				
 	end
 
@@ -545,24 +696,24 @@ end --main
 ]]--
 function s_exchangeChannels( pathIn, pathOut, param )
 	
-	c_assert( param >=0 and param < 5, "Wrong param value" )	
+	main.lassert( param >=0 and param < 5, "Wrong param value" )	
 	
-	local picImg = c_readimg(  pathIn, s_getex( pathIn ) )
+	local picImg = image.read(  pathIn, s_getex( pathIn ) )
 	
-	local w1 = c_getwidth()
-	local h1 = c_getheight()
+	local w1 = image.width()
+	local h1 = image.height()
 	
-	local mainImage = c_createimg( w1, h1 , "basic" )
+	local mainImage = image.create( w1, h1 , "basic" )
 
-	c_fillalphaf( 0 )
+	image.fillchannelf( 3,0 )
 	
 	for w_ = 0, w1 - 1 do			
 			for h_ = 0, h1 - 1 do	
-				c_selimg( picImg )				
-				local r,g,b,a = c_getpixelf( w_, h_) 				
+				image.select( picImg )				
+				local r,g,b,a = image.getpixelf( w_, h_) 				
 
-				c_selimg( mainImage )
-				c_setalphaf( w_,h_, a )
+				image.select( mainImage )
+				image.setchannelf( w_,h_,3, a )
 				
 				local rNew = r
 				local gNew = g
@@ -589,32 +740,36 @@ function s_exchangeChannels( pathIn, pathOut, param )
 					gNew = b
 					bNew = g				
 				end
-				c_setpixelf( w_,h_, rNew,gNew,bNew, 1 )					
+				image.setpixelf( w_,h_, rNew,gNew,bNew, 1 )					
 			end	
 			
 	end
 
-	c_selimg( mainImage )
-	c_saveimg( s_getex( pathOut ), pathOut )
-	c_delimg( picImg )
-	c_delimg( mainImage )	
+	image.select( mainImage )
+	image.save( s_getex( pathOut ), pathOut )
+	image.erase( picImg )
+	image.erase( mainImage )	
 	util.msg("***Executing s_exchangeChannels() finished.")	
 end
 
 
 
 
-function s_numsorted( PathIn, ext  )
+function s_numsorted( PathIn, ext, fullPath  )
 
 	local filesStr = {}	
 	
 	local files  = util.countfiles( PathIn, ext )
-
+	
+	if fullPath == nil then
+		fullPath = true
+	end
+	
 	if files ~= nil and files > 2 then
 
-		for i = 1, files - 1 do 		
+		for i = 0, files - 1 do 		
 		
-				local fileInFullPath = util.getfile( PathIn, i ,ext , false )				
+				local fileInFullPath = util.getfile( PathIn, i ,ext , fullPath )				
 				local num =  tonumber(string.match( fileInFullPath ,  "%d+" ))
 				
 				filesStr[num] = fileInFullPath				
@@ -622,129 +777,60 @@ function s_numsorted( PathIn, ext  )
 		end					
 		
 	end	
-	for  i, val in ipairs(filesStr) do
+	--[[for  i, val in ipairs(filesStr) do
 		util.msg(val)
-	end
+	end]]--
+	
 	
 	return filesStr
 end
 
 
-function s_randpixels( pathIn, pathDestIn , rDivMinIn, rDivMaxIn, gDivMinIn, gDivMaxIn, bDivMinIn, bDivMaxIn )
 
-	local picImg = 0 
+function s_randcolorpoins( w,h, pathDestIn , backR, backG, backB, r,g,b , count )
 
-	
-	if s_isstring(pathIn) == true  then
-		picImg = c_readimg( pathIn ,s_getex(pathIn) )
-	else
-		picImg = pathIn
-	end
-	
-	
-	local w = c_getwidth()
-	local h = c_getheight()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
+	image.fillb(backR, backG, backB)
+	image.fillchannelf( 3,1 )
 	
-	for w_ = 0, w-1 do	
-			for h_ = 0, h-1 do		
+	for i = 0, count do						
+		image.setpixelb( main.randint( 0, w-1 ), main.randint( 0, h-1 ), r,g,b, 1 )			
 			
-				c_selimg( picImg )										
-				
-				local r,g,b,a = c_getpixelb( w_, h_) 													
-				
-				c_selimg( outImage )
-				
-				local outr = s_randChannelNear(r, rDivMinIn, rDivMaxIn )
-				local outg = s_randChannelNear(g, gDivMinIn, gDivMaxIn )
-				local outb = s_randChannelNear(b, bDivMinIn, bDivMaxIn )
-				
-				c_setpixelb( w_, h_, outr,outg,outb, 1 )				
-									
-				c_setalphaf( w_,h_, util.bytetofloat( a ) )				
-				
-			end		
 	end
 	
-	c_saveimg( s_getex(pathDestIn), pathDestIn )
+	image.save( s_getex(pathDestIn), pathDestIn )
 	
-	if s_isstring(pathIn) == true then
-		c_delimg( picImg )
-	end
+	image.erase( outImage )
 	
-	c_delimg( outImage )
 	util.msg("finished")
 end
 
-function s_corktexture( width, height, pathDestIn, points, maxStep, offsetXIn, offsetYIn )
 
-	local picImg = 0 
-	
-	local offsetX = 0
-	local offsetY = 0
-	
-	if offsetXIn ~= nil then
-		offsetX = offsetXIn
-	end
-	
-	if offsetYIn ~= nil then
-		offsetY = offsetYIn
-	end
-
-	local picImg = c_createimg( width, height , "seamless" )
-	
-	c_fillimgb(255,255,255)
-	c_fillalphaf( 1 )
-	
-	local w = c_getwidth()
-	local h = c_getheight()	
-	
-	for i = 1, points do		
-
-		local xPos = c_randint(offsetX, w - offsetX)
-		local yPos = c_randint(offsetY, h - offsetY)
-		c_setpixelb( xPos,yPos, 0,0,0, 1 )		
-		
-		for r = 1, maxStep do		
-			
-			xPos, yPos = s_posByDirection8( xPos, yPos, c_randint( 1,8 ), 1, w, h )	
-			--xPos, yPos = s_posByDirection4( xPos, yPos, c_randint( 1,4 ), 1, w, h )	
-			
-			c_setpixelb( xPos, yPos, 0,0,0, 1 )											
-		end
-		--c_setalphaf( w_,h_, util.bytetofloat( a ) )				
-	end
-				
-	c_saveimg( s_getex(pathDestIn), pathDestIn )
-	c_delimg( picImg )	
-	
-	util.msg("s_corktexture")
-end
 
 function s_randpixelsFromArray(wIn, hIn, pathdestIn , arrayIn )
 	
 	local arrLen = s_arrlength( arrayIn )
-	local outImage = c_createimg( wIn, hIn , "basic" )	
+	local outImage = image.create( wIn, hIn , "basic" )	
 
-	local w = c_getwidth()
-	local h = c_getheight()	
+	local w = image.width()
+	local h = image.height()	
 	
 	for w_ = 0, w - 1 do	
 			for h_ = 0, h - 1 do				
 				
 				
-				local pos = c_randint( 1, arrLen )	
+				local pos = main.randint( 1, arrLen )	
 				local color = arrayIn[pos]
-				local r,g,b = util.unpackcolor( color )
+				local r,g,b = util.unpackcolor3( color )
 				
-				c_setpixelb( w_, h_, r,g,b, 1 )				
+				image.setpixelb( w_, h_, r,g,b, 1 )				
 									
-				c_setalphaf( w_,h_, 1 )						
+				image.setchannelf( w_,h_,3, 1 )						
 			end		
 	end	
-	c_saveimg( s_getex(pathdestIn), pathdestIn )		
-	c_delimg( outImage )
+	image.save( s_getex(pathdestIn), pathdestIn )		
+	image.erase( outImage )
 	util.msg("s_randpixelsFromArray finished")
 end
 
@@ -752,48 +838,48 @@ end
 function s_randpixelsFromArrayMask(wIn, hIn, pathdestIn, maskPathIn, factorIn, invertIn, arrayIn )
 	
 	local arrLen = s_arrlength( arrayIn )
-	local outImage = c_createimg( wIn, hIn , "basic" )	
-	local w = c_getwidth()
-	local h = c_getheight()		
+	local outImage = image.create( wIn, hIn , "basic" )	
+	local w = image.width()
+	local h = image.height()		
 	
 	local maskImg = s_maskchannel( maskPathIn, nil , 0,0,0, 4, factorIn, invertIn, false )
-	local mw = c_getwidth()
-	local mh = c_getheight()	
+	local mw = image.width()
+	local mh = image.height()	
 	
-	--local maskImg = c_readimg( maskPathIn, s_getex( maskPathIn ) )
-	--local mw = c_getwidth()
-	--local mh = c_getheight()				
+	--local maskImg = image.read( maskPathIn, s_getex( maskPathIn ) )
+	--local mw = image.width()
+	--local mh = image.height()				
 	local factorX = (mw - 1)/(w - 1)
 	local factorY = (mh - 1)/(h - 1)
 	for w_ = 0, w - 1 do	
 			for h_ = 0, h - 1 do		
 							
-				c_selimg( maskImg )		
+				image.select( maskImg )		
 				
-				local r,g,b,a = c_getpixelb( math.floor(w_ * factorX),math.floor(h_ * factorY) )					
+				local r,g,b,a = image.getpixelb( math.floor(w_ * factorX),math.floor(h_ * factorY) )					
 				
-					c_selimg( outImage )
+					image.select( outImage )
 					local maxRand = arrLen
 					if a > 0.0 then					
 						maxRand = math.ceil( maxRand / 3 )
 					end
 					
-					local pos = c_randint( 1, maxRand )
+					local pos = main.randint( 1, maxRand )
 					
 					
 					local color = arrayIn[pos]
-					local r,g,b = util.unpackcolor( color )
+					local r,g,b = util.unpackcolor3( color )
 					
-					c_setpixelb( w_, h_, r,g,b, 1 )				
+					image.setpixelb( w_, h_, r,g,b, 1 )				
 										
-					c_setalphaf( w_,h_, 1 )		
+					image.setchannelf( w_,h_,3, 1 )		
 				
 			end		
 	end	
-	c_selimg( outImage )
-	c_saveimg( s_getex(pathdestIn), pathdestIn )		
-	c_delimg( outImage )
-	c_delimg( maskImg )
+	image.select( outImage )
+	image.save( s_getex(pathdestIn), pathdestIn )		
+	image.erase( outImage )
+	image.erase( maskImg )
 	util.msg("finished")
 end
 
@@ -806,15 +892,15 @@ end
 ]]--
 function s_maskchannel( pathIn, pathOut , rIn,gIn,bIn, channel, factor, invert, bAlphaTestIn )
 		
-	local picImg = c_readimg( pathIn, s_getex(pathIn) )	
+	local picImg = image.read( pathIn, s_getex(pathIn) )	
 	
-	local w = c_getwidth()
+	local w = image.width()
 
-	local h = c_getheight()
+	local h = image.height()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
-	c_fillalphaf( 0 )
+	image.fillchannelf( 3,0 )
 	
 	local alphaFore = 1	
 	local alphaBack = 0
@@ -828,9 +914,9 @@ function s_maskchannel( pathIn, pathOut , rIn,gIn,bIn, channel, factor, invert, 
 	for w_ = 0, w-1 do	
 		for h_ = 0, h-1 do		
 		
-			c_selimg( picImg )										
+			image.select( picImg )										
 			
-			local r,g,b,a = c_getpixelf( w_, h_ ) 
+			local r,g,b,a = image.getpixelf( w_, h_ ) 
 			
 			local f = a -- default
 			if channel ==  0 then
@@ -845,30 +931,30 @@ function s_maskchannel( pathIn, pathOut , rIn,gIn,bIn, channel, factor, invert, 
 				local h,s,l = util.rgbtohsl( r,g,b )	
 				f = l
 			elseif channel ==  5 then					
-				f = c_randfloat()
+				f = main.randfloat()
 			end
 			
 			if bAlphaTestIn == false or a > 0.0 then 							
-				c_selimg( outImage )										
-				c_setpixelb( w_, h_, rIn,gIn,bIn, 1 )					
+				image.select( outImage )										
+				image.setpixelb( w_, h_, rIn,gIn,bIn, 1 )					
 				
 				if f < factor then						
-					c_setalphaf(   w_, h_, alphaFore )				
+					image.setchannelf(   w_, h_,3, alphaFore )				
 				else						
-					c_setalphaf(   w_, h_, alphaBack )				
+					image.setchannelf(   w_, h_,3, alphaBack )				
 				end		
 			end				
 		end		
 	end
 		
-	c_delimg( picImg )
+	image.erase( picImg )
 	
 	util.msg("***s_maskchannel finished")
 	
 	if pathOut ~= nil then
-		c_selimg( outImage )	
-		c_saveimg( s_getex( pathOut ), pathOut )	
-		c_delimg( outImage )
+		image.select( outImage )	
+		image.save( s_getex( pathOut ), pathOut )	
+		image.erase( outImage )
 	else	
 		return outImage;
 	end	
@@ -880,40 +966,40 @@ end
 ]]--
 function s_fillmask( pathIn, pathOut , rIn,gIn,bIn )
 		
-	local picImg = c_readimg( pathIn, s_getex(pathIn) )	
+	local picImg = image.read( pathIn, s_getex(pathIn) )	
 	
-	local w = c_getwidth()
+	local w = image.width()
 
-	local h = c_getheight()
+	local h = image.height()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
-	c_fillalphaf( 0 )	
+	image.fillchannelf( 3,0 )	
 	
 	for w_ = 0, w-1 do	
 		for h_ = 0, h-1 do		
 		
-			c_selimg( picImg )										
+			image.select( picImg )										
 			
-			local r,g,b,a = c_getpixelb( w_, h_ ) 				
+			local r,g,b,a = image.getpixelb( w_, h_ ) 				
 			
 			if a > 0.0 then 							
-				c_selimg( outImage )										
-				c_setalphaf( w_, h_, 1 )
-				c_setpixelb( w_, h_, rIn,gIn,bIn, 1 )						
+				image.select( outImage )										
+				image.setchannelf( w_, h_,3, 1 )
+				image.setpixelb( w_, h_, rIn,gIn,bIn, 1 )						
 					
 			end				
 		end		
 	end
 		
-	c_delimg( picImg )
+	image.erase( picImg )
 	
 	util.msg("***s_fillmask finished")
 	
 	if pathOut ~= nil then
-		c_selimg( outImage )	
-		c_saveimg( s_getex( pathOut ), pathOut )	
-		c_delimg( outImage )
+		image.select( outImage )	
+		image.save( s_getex( pathOut ), pathOut )	
+		image.erase( outImage )
 	else	
 		return outImage;
 	end	
@@ -937,7 +1023,7 @@ function s_getDiscreteColorByFactor( colors, arrsizeIn, factor  )
 
 	local color = 0
 	local size = arrsizeIn --s_arrlength(colors)
-	c_assert( size >= 2 , "s_getDiscreteColorByFactor wrong array size" )		
+	main.lassert( size >= 2 , "s_getDiscreteColorByFactor wrong array size" )		
 
 	if factor == 1  then
 		return size,colors[size]
@@ -958,49 +1044,140 @@ end
 
 
 
-function s_buildColorArray( nodeColors, sizeColors )
+function s_buildColorArrayOld( nodeColors, sizeColors )
 
 
 local rez = {}
 nodes = s_arrlength( nodeColors )
-local catromR = c_creategeom( "geom_catrom" )	
-local catromG = c_creategeom( "geom_catrom" )	
-local catromB = c_creategeom( "geom_catrom" )	
 
---c_addgeomprop1f( catromR, "knotes",  0    )
---c_addgeomprop1f( catromG, "knotes",  0    )
---c_addgeomprop1f( catromB, "knotes",  0    )
-
-for i = 1, nodes do
-	local rVal, gVal,bVal = util.unpackcolor( nodeColors[i] )
-	c_addgeomprop1f( catromR, "knotes",  util.bytetofloat( rVal ) )
-	c_addgeomprop1f( catromG, "knotes",  util.bytetofloat( gVal ) )
-	c_addgeomprop1f( catromB, "knotes",  util.bytetofloat( bVal ) )
-end
---c_addgeomprop1f( catromR, "knotes",  0    )
---c_addgeomprop1f( catromG, "knotes",  0    )
---c_addgeomprop1f( catromB, "knotes",  0    )
-
-	for k = 0, sizeColors - 1 do
-		local rCalc = c_calculate( catromR, k/sizeColors )		
-		local gCalc =  c_calculate( catromG, k/sizeColors )
-		local bCalc =  c_calculate( catromB, k/sizeColors )
-
-		--util.msg(rCalc, " ", gCalc, " ", bCalc )
+	arrR = {}
+	arrG = {}
+	arrB = {}
+	
+	arrR [1] = 0
+	arrG [1] = 0
+	arrB [1] = 0
+	
+	for i = 2, nodes do
+		local rVal, gVal,bVal = util.unpackcolor3( nodeColors[i] )
+		arrR [i] = util.bytetofloat( rVal )
+		arrG [i] = util.bytetofloat( gVal )
+		arrB [i] = util.bytetofloat( bVal )
 		
-		rez[ k + 1 ] = util.packcolor( util.floattobyte(rCalc), util.floattobyte(gCalc), util.floattobyte(bCalc) )
+		--[[c_addgeomprop1f( catromR, "knotes",  util.bytetofloat( rVal ) )
+		c_addgeomprop1f( catromG, "knotes",  util.bytetofloat( gVal ) )
+		c_addgeomprop1f( catromB, "knotes",  util.bytetofloat( bVal ) )
+		]]--
+	end
+	local last = s_arrlength( arrR )
+	arrR [last + 1] = 1.0
+	arrG [last + 1] = 1.0
+	arrB [last + 1] = 1.0
+	last = s_arrlength( arrR )
+	for k = 0, sizeColors - 1 do
+		--[[local rCalc = c_calculate( catromR, k/sizeColors )		
+		local gCalc =  c_calculate( catromG, k/sizeColors )
+		local bCalc =  c_calculate( catromB, k/sizeColors )		
+		]]--
+		
+		local rCalc = CatRomSpline( k/sizeColors, last, arrR )
+		local gCalc = CatRomSpline( k/sizeColors, last, arrG )
+		local bCalc = CatRomSpline( k/sizeColors, last, arrB )
+		
+		rez[ k + 1 ] = util.packcolor3( util.floattobyte(rCalc), util.floattobyte(gCalc), util.floattobyte(bCalc) )
+	end
+
+	return rez
+end
+
+function s_buildColorArray( nodeColors, sizeColors )
+
+	
+	local rez = {}
+	nodes = s_arrlength( nodeColors )
+	
+	if sizeColors == nodes or sizeColors < nodes then	
+		return nodeColors	
+	end
+
+	arrR = {}
+	arrG = {}
+	arrB = {}
+	
+	
+	for i = 1, nodes do
+		local rVal, gVal,bVal = util.unpackcolor3( nodeColors[i] )
+		arrR [i] = rVal 
+		arrG [i] = gVal 
+		arrB [i] = bVal 
+	end
+
+	local step = sizeColors / ( nodes - 1 )
+	
+	for k = 1, sizeColors  do
+		local pos = k - 1
+		local gap = math.floor( pos / step )
+		local factor = (k - math.floor( gap * step))/step
+		--util.msg( i, " ", factor )
+		
+		--[[local rCalc = CatRomSpline( k/sizeColors, last, arrR )
+		local gCalc = CatRomSpline( k/sizeColors, last, arrG )
+		local bCalc = CatRomSpline( k/sizeColors, last, arrB )
+		--]]
+		local r  = util.cosinterp(arrR[gap+1], arrR[gap+2], factor )
+		local g  = util.cosinterp(arrG[gap+1], arrG[gap+2], factor )
+		local b  = util.cosinterp(arrB[gap+1], arrB[gap+2], factor )
+		--util.msg(r, " ",g, " ",b)
+		rez[ k ] = util.packcolor3(  math.floor(r), math.floor(g), math.floor(b) )
 	end
 	
-c_delgeom(catromR)		
-c_delgeom(catromG)		
-c_delgeom(catromB)	
---[[
-for i = 1, sizeColors do
-	util.msg( rez[i] )
+	return rez
 end
-]]--
 
-return rez
+function s_buildColorArrayA( nodeColors, sizeColors )
+
+	
+	local rez = {}
+	nodes = s_arrlength( nodeColors )
+	
+	if sizeColors == nodes or sizeColors < nodes then	
+		return nodeColors	
+	end
+
+	arrR = {}
+	arrG = {}
+	arrB = {}
+	arrA = {}
+	
+	for i = 1, nodes do
+		local rVal, gVal,bVal, aVal = util.unpackcolor4( nodeColors[i] )
+		arrR [i] = rVal 
+		arrG [i] = gVal 
+		arrB [i] = bVal 
+		arrA [i] = aVal 
+	end
+
+	local step = sizeColors / ( nodes - 1 )
+	
+	for k = 1, sizeColors  do
+		local pos = k - 1
+		local gap = math.floor( pos / step )
+		local factor = (k - math.floor( gap * step))/step
+		--util.msg( i, " ", factor )
+		
+		--[[local rCalc = CatRomSpline( k/sizeColors, last, arrR )
+		local gCalc = CatRomSpline( k/sizeColors, last, arrG )
+		local bCalc = CatRomSpline( k/sizeColors, last, arrB )
+		--]]
+		local r  = util.cosinterp(arrR[gap+1], arrR[gap+2], factor )
+		local g  = util.cosinterp(arrG[gap+1], arrG[gap+2], factor )
+		local b  = util.cosinterp(arrB[gap+1], arrB[gap+2], factor )
+		local a  = util.cosinterp(arrA[gap+1], arrA[gap+2], factor )
+		--util.msg(r, " ",g, " ",b)
+		rez[ k ] = util.packcolor4(  math.floor(r), math.floor(g), math.floor(b), math.floor(a) )
+	end
+	
+	return rez
 end
 
 
@@ -1010,33 +1187,33 @@ end
 function s_changecolor( pathIn,pathOut,rIn,gIn,bIn, r2In,g2In,b2In )
 
 	local exImage = s_getex( pathIn )	
-	local picImg = c_readimg( pathIn, exImage )
+	local picImg = image.read( pathIn, exImage )
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )				
-				local r,g,b,a = c_getpixelb( w_, h_ )	
+				image.select( picImg )				
+				local r,g,b,a = image.getpixelb( w_, h_ )	
 				
-				c_selimg( outImage )						
-				c_setalphab( w_,h_, a )
+				image.select( outImage )						
+				image.setchannelb( w_,h_,3, a )
 				if r == rIn and g == gIn and b == bIn then									
-					c_setpixelb( w_,h_, r2In,g2In,b2In, 1 )
+					image.setpixelb( w_,h_, r2In,g2In,b2In, 1 )
 				else
-					c_setpixelb( w_,h_, r,g,b, 1 )
+					image.setpixelb( w_,h_, r,g,b, 1 )
 				end
 			end		
 	end
 	
-	c_saveimg( exImage, pathOut )
-	c_delimg( picImg )
+	image.save( exImage, pathOut )
+	image.erase( picImg )
 	
-	c_delimg( outImage )
+	image.erase( outImage )
 	util.msg("***s_changecolor finished")
 end
 
@@ -1052,10 +1229,10 @@ end
 function s_channelToAlpha( pathIn, pathOut, channelIn, invert, minVal, maxVal )
 
 	local exImage = s_getex( pathIn )	
-	local picImg = c_readimg( pathIn, exImage )
+	local picImg = image.read( pathIn, exImage )
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 
 	local minV = 0
 	local maxV = 1
@@ -1066,15 +1243,15 @@ function s_channelToAlpha( pathIn, pathOut, channelIn, invert, minVal, maxVal )
 		maxV = maxVal
 	end
 	
-	local outImage = c_createimg( w, h , "basic" )	
-	c_fillalphaf( 0 )				
+	local outImage = image.create( w, h , "basic" )	
+	image.fillchannelf( 3,0 )				
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )				
-				local r,g,b,a = c_getpixelf( w_, h_ )	
+				image.select( picImg )				
+				local r,g,b,a = image.getpixelf( w_, h_ )	
 				
-				c_selimg( outImage )
+				image.select( outImage )
 				
 				
 				if channelIn == 0 then
@@ -1106,18 +1283,18 @@ function s_channelToAlpha( pathIn, pathOut, channelIn, invert, minVal, maxVal )
 				end
 				
 				if a > minV and a < maxV then
-					c_setalphaf( w_,h_, a )		
+					image.setchannelf( w_,h_,3, a )		
 				end			
 				
 								
-				c_setpixelf( w_,h_, r,g,b, 1 )
+				image.setpixelf( w_,h_, r,g,b, 1 )
 			end		
 	end
 	
-	c_saveimg( s_getex( pathOut ), pathOut )
-	c_delimg( picImg )
+	image.save( s_getex( pathOut ), pathOut )
+	image.erase( picImg )
 	
-	c_delimg( outImage )
+	image.erase( outImage )
 	util.msg("***s_channelToAlpha finished")
 end
 
@@ -1132,35 +1309,35 @@ end
 function s_grayscale( pathIn, pathOut )
 
 	local exImage = s_getex( pathIn )	
-	local picImg = c_readimg( pathIn, exImage )
+	local picImg = image.read( pathIn, exImage )
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 
 	
-	local outImage = c_createimg( w, h , "basic" )	
-	c_fillalphaf( 0 )				
+	local outImage = image.create( w, h , "basic" )	
+	image.fillchannelf( 3,0 )				
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )
+				image.select( picImg )
 				
-				local r,g,b,a = c_getpixelf( w_, h_ )	
+				local r,g,b,a = image.getpixelf( w_, h_ )	
 				
-				c_selimg( outImage )
+				image.select( outImage )
 				
 				local h,s,l = util.rgbtohsl( r,g,b )		
 				
-				c_setalphaf( w_,h_, a )					
-				c_setpixelf( w_,h_, l,l,l, 1 )
+				image.setchannelf( w_,h_,3, a )					
+				image.setpixelf( w_,h_, l,l,l, 1 )
 			end		
 	end
 	
-	c_saveimg( s_getex( pathOut ), pathOut )
-	c_delimg( picImg )
+	image.save( s_getex( pathOut ), pathOut )
+	image.erase( picImg )
 	
-	c_delimg( outImage )
+	image.erase( outImage )
 	util.msg("***s_grayscale finished")
 end
 
@@ -1170,33 +1347,33 @@ end
 function s_interpToColor( pathIn,pathOut,rIn,gIn,bIn, factor )
 
 	local exImage = s_getex( pathIn )
-	local picImg = c_readimg( pathIn, exImage )
+	local picImg = image.read( pathIn, exImage )
 	
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )				
-				local r,g,b,a = c_getpixelb( w_, h_ )	
+				image.select( picImg )				
+				local r,g,b,a = image.getpixelb( w_, h_ )	
 				
-				c_selimg( outImage )						
-				c_setalphab( w_,h_, a )												
-				c_setpixelb( w_,h_, util.cosinterp(r,rIn,factor),util.cosinterp(g,gIn,factor),util.cosinterp(b,bIn,factor), 1 )			
+				image.select( outImage )						
+				image.setchannelb( w_,h_, 3,a )												
+				image.setpixelb( w_,h_, util.cosinterp(r,rIn,factor),util.cosinterp(g,gIn,factor),util.cosinterp(b,bIn,factor), 1 )			
 				
 			end		
 	end
-	c_delimg( picImg )
+	image.erase( picImg )
 	
 	
 --	util.msg("***s_interpToColor finished")
 	if  s_isstring(pathOut) == true then	
-		c_saveimg( exImage, pathOut )
-		c_delimg( outImage )
+		image.save( exImage, pathOut )
+		image.erase( outImage )
 	else
 		return outImage
 	end
@@ -1217,28 +1394,28 @@ function s_interpToColorChannel( pathIn,pathOut, rIn,gIn,bIn, channelIn, addFact
 	local picImg = nil	
 	
 	if  s_isstring(pathIn) == true then			
-		picImg = c_readimg( pathIn,  s_getex( pathIn ) )
+		picImg = image.read( pathIn,  s_getex( pathIn ) )
 	else
 		picImg = pathIn
 	end
-	c_selimg( picImg )
-	local w = c_getwidth()
-	local h = c_getheight()
+	image.select( picImg )
+	local w = image.width()
+	local h = image.height()
 	
 	local rInterp = util.bytetofloat(rIn)
 	local gInterp = util.bytetofloat(gIn)
 	local bInterp = util.bytetofloat(bIn)
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )				
-				local r,g,b,a = c_getpixelf( w_, h_ )	
+				image.select( picImg )				
+				local r,g,b,a = image.getpixelf( w_, h_ )	
 				
-				c_selimg( outImage )						
-				c_setalphaf( w_,h_, a )		
+				image.select( outImage )						
+				image.setchannelf( w_,h_,3, a )		
 
 				if channelIn ==  0 then
 					if invert == true then
@@ -1273,7 +1450,7 @@ function s_interpToColorChannel( pathIn,pathOut, rIn,gIn,bIn, channelIn, addFact
 					end
 				end		
 				factor = factor * addFactor
-				c_setpixelf( w_,h_, util.cosinterp(r,rInterp,factor),util.cosinterp(g,gInterp,factor),util.cosinterp(b,bInterp,factor), 1 )			
+				image.setpixelf( w_,h_, util.cosinterp(r,rInterp,factor),util.cosinterp(g,gInterp,factor),util.cosinterp(b,bInterp,factor), 1 )			
 				
 			end		
 	end
@@ -1282,13 +1459,13 @@ function s_interpToColorChannel( pathIn,pathOut, rIn,gIn,bIn, channelIn, addFact
 	
 	
 	if  s_isstring(pathIn) == true	then		
-		c_delimg( picImg )			
+		image.erase( picImg )			
 	end
 		
 	if pathOut ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( pathOut ), pathOut )
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( s_getex( pathOut ), pathOut )
+		image.erase( outImage )
 	else
 		return outImage
 	end
@@ -1310,43 +1487,43 @@ function s_interpToImageChannel( pathIn,pathOut,pathInterp, channelIn, addFactor
 	local picImg = nil	
 	
 	if  s_isstring(pathIn) == true then			
-		picImg = c_readimg( pathIn,  s_getex( pathIn ) )
+		picImg = image.read( pathIn,  s_getex( pathIn ) )
 	else
 		picImg = pathIn
 	end
-	c_selimg( picImg )
-	local w = c_getwidth()
-	local h = c_getheight()
+	image.select( picImg )
+	local w = image.width()
+	local h = image.height()
 	
 	local picImgInterp = nil
 	
 	if  s_isstring(pathInterp) == true then			
-		picImgInterp = c_readimg( pathInterp, s_getex( pathInterp ) )	
+		picImgInterp = image.read( pathInterp, s_getex( pathInterp ) )	
 	else
 		picImgInterp = pathInterp
 	end
 	
-	c_selimg( picImgInterp )
+	image.select( picImgInterp )
 	
-	local wInterp = c_getwidth()
-	local hInterp = c_getheight()
+	local wInterp = image.width()
+	local hInterp = image.height()
 	
 	
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )				
-				local r,g,b,a = c_getpixelf( w_, h_ )	
+				image.select( picImg )				
+				local r,g,b,a = image.getpixelf( w_, h_ )	
 							
 				-- take factor values from map
-				c_selimg( picImgInterp )				
-				local ri,gi,bi = c_getpixelf( w_% wInterp, h_% hInterp )			
+				image.select( picImgInterp )				
+				local ri,gi,bi = image.getpixelf( w_% wInterp, h_% hInterp )			
 
-				c_selimg( outImage )						
-				c_setalphaf( w_,h_, a )	
+				image.select( outImage )						
+				image.setchannelf( w_,h_,3, a )	
 				
 				if channelIn ==  0 then
 					if invert == true then
@@ -1381,7 +1558,7 @@ function s_interpToImageChannel( pathIn,pathOut,pathInterp, channelIn, addFactor
 					end
 				end		
 				factor = factor * addFactor
-				c_setpixelf( w_,h_, util.cosinterp(r,ri,factor),util.cosinterp(g,gi,factor),util.cosinterp(b,bi,factor), 1 )			
+				image.setpixelf( w_,h_, util.cosinterp(r,ri,factor),util.cosinterp(g,gi,factor),util.cosinterp(b,bi,factor), 1 )			
 				
 			end		
 	end
@@ -1390,15 +1567,15 @@ function s_interpToImageChannel( pathIn,pathOut,pathInterp, channelIn, addFactor
 	
 	
 	if  s_isstring(pathIn) == true	then		
-		c_delimg( picImg )			
+		image.erase( picImg )			
 	end
 	
-	c_delimg( picImgInterp )
+	image.erase( picImgInterp )
 		
 	if pathOut ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( pathOut ), pathOut )
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( s_getex( pathOut ), pathOut )
+		image.erase( outImage )
 	else
 		return outImage
 	end
@@ -1412,54 +1589,54 @@ end
 function s_interpToImageColor( pathIn, pathInterp, pathOut, rIn, gIn, bIn, equal )
 
 	if  s_isstring(pathIn) == true then			
-		picImg = c_readimg( pathIn,  s_getex( pathIn ) )
+		picImg = image.read( pathIn,  s_getex( pathIn ) )
 	else
 		picImg = pathIn
 	end	
 	
-	c_selimg( picImg )	
+	image.select( picImg )	
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 	
 	local picImgInterp = nil
 	
 	if  s_isstring(pathInterp) == true then			
-		picImgInterp = c_readimg( pathInterp, s_getex( pathInterp ) )	
+		picImgInterp = image.read( pathInterp, s_getex( pathInterp ) )	
 	else
 		picImgInterp = pathInterp
 	end
 	
-	c_selimg( picImgInterp )
+	image.select( picImgInterp )
 	
-	local wInterp = c_getwidth()
-	local hInterp = c_getheight()
+	local wInterp = image.width()
+	local hInterp = image.height()
 	
 	local x = math.min((wInterp - 1)/(w - 1),1)
 	local y = math.min((hInterp - 1)/(h - 1),1)
 	util.msg( x," ",y )
 	
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	if equal == true or equal == nil then
 		for w_ = 0, w-1 do	
 				for h_ = 0, h-1 do		
 				
 					-- take color values
-					c_selimg( picImg )				
-					local rVal,gVal,bVal,aVal = c_getpixelb( w_, h_ )				
+					image.select( picImg )				
+					local rVal,gVal,bVal,aVal = image.getpixelb( w_, h_ )				
 					
 					-- take factor values from map
-					c_selimg( picImgInterp )				
-					local r,g,b,a = c_getpixelb( math.floor(w_ * x), math.floor(h_ * y) )
+					image.select( picImgInterp )				
+					local r,g,b,a = image.getpixelb( math.floor(w_ * x), math.floor(h_ * y) )
 									
-					c_selimg( outImage )				
+					image.select( outImage )				
 						
-					c_setalphab( w_,h_, aVal )		
+					image.setchannelb( w_,h_, 3, aVal )		
 					
 					if rVal == rIn and gVal == gIn and bVal == bIn then
-						c_setpixelb( w_,h_, r,g,b, 1 )			
+						image.setpixelb( w_,h_, r,g,b, 1 )			
 					else
-						c_setpixelb( w_,h_, rVal,gVal,bVal, 1 )			
+						image.setpixelb( w_,h_, rVal,gVal,bVal, 1 )			
 					end
 					
 				end			
@@ -1470,21 +1647,21 @@ function s_interpToImageColor( pathIn, pathInterp, pathOut, rIn, gIn, bIn, equal
 				for h_ = 0, h-1 do		
 				
 					-- take color values
-					c_selimg( picImg )				
-					local rVal,gVal,bVal,aVal = c_getpixelb( w_, h_ )				
+					image.select( picImg )				
+					local rVal,gVal,bVal,aVal = image.getpixelb( w_, h_ )				
 					
 					-- take factor values from map
-					c_selimg( picImgInterp )				
-					local r,g,b,a = c_getpixelb( math.floor(w_ * x), math.floor(h_ * y) )
+					image.select( picImgInterp )				
+					local r,g,b,a = image.getpixelb( math.floor(w_ * x), math.floor(h_ * y) )
 									
-					c_selimg( outImage )				
+					image.select( outImage )				
 						
-					c_setalphaf( w_,h_, aVal )		
+					image.setchannelf( w_,h_,3, aVal )		
 					
 					if rVal ~= rIn and gVal ~= gIn and bVal ~= bIn then
-						c_setpixelb( w_,h_, r,g,b, 1 )			
+						image.setpixelb( w_,h_, r,g,b, 1 )			
 					else
-						c_setpixelb( w_,h_, rVal,gVal,bVal, 1 )			
+						image.setpixelb( w_,h_, rVal,gVal,bVal, 1 )			
 					end
 					
 				end			
@@ -1493,16 +1670,16 @@ function s_interpToImageColor( pathIn, pathInterp, pathOut, rIn, gIn, bIn, equal
 	end
 		
 	if  s_isstring(pathIn) == true	then		
-		c_delimg( picImg )			
+		image.erase( picImg )			
 	end
 	if  s_isstring(pathInterp) == true	then		
-		c_delimg( picImgInterp )			
+		image.erase( picImgInterp )			
 	end	
 	
 	if pathOut ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( pathOut ), pathOut )
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( s_getex( pathOut ), pathOut )
+		image.erase( outImage )
 	else
 		return outImage
 	end
@@ -1528,13 +1705,13 @@ function s_interpToColorsChannel( pathIn,pathOut, rIn,gIn,bIn, rIn2,gIn2,bIn2, c
 	local picImg = nil	
 	
 	if  s_isstring(pathIn) == true then			
-		picImg = c_readimg( pathIn,  s_getex( pathIn ) )
+		picImg = image.read( pathIn,  s_getex( pathIn ) )
 	else
 		picImg = pathIn
 	end
-	c_selimg( picImg )
-	local w = c_getwidth()
-	local h = c_getheight()
+	image.select( picImg )
+	local w = image.width()
+	local h = image.height()
 	
 	local rInterp = util.bytetofloat(rIn)
 	local gInterp = util.bytetofloat(gIn)
@@ -1544,16 +1721,16 @@ function s_interpToColorsChannel( pathIn,pathOut, rIn,gIn,bIn, rIn2,gIn2,bIn2, c
 	local gInterp2 = util.bytetofloat(gIn2)
 	local bInterp2 = util.bytetofloat(bIn2)
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )				
-				local r,g,b,a = c_getpixelf( w_, h_ )	
+				image.select( picImg )				
+				local r,g,b,a = image.getpixelf( w_, h_ )	
 				
-				c_selimg( outImage )						
-				c_setalphaf( w_,h_, a )		
+				image.select( outImage )						
+				image.setchannelf( w_,h_,3, a )		
 
 				if channelIn ==  0 then
 					if invert == true then
@@ -1588,7 +1765,7 @@ function s_interpToColorsChannel( pathIn,pathOut, rIn,gIn,bIn, rIn2,gIn2,bIn2, c
 					end
 				end		
 				factor = factor * addFactor
-				c_setpixelf( w_,h_, util.cosinterp(rInterp,rInterp2,factor),util.cosinterp(gInterp,gInterp2,factor),util.cosinterp(bInterp,bInterp2,factor), 1 )			
+				image.setpixelf( w_,h_, util.cosinterp(rInterp,rInterp2,factor),util.cosinterp(gInterp,gInterp2,factor),util.cosinterp(bInterp,bInterp2,factor), 1 )			
 				
 			end		
 	end
@@ -1597,13 +1774,13 @@ function s_interpToColorsChannel( pathIn,pathOut, rIn,gIn,bIn, rIn2,gIn2,bIn2, c
 	
 	
 	if  s_isstring(pathIn) == true	then		
-		c_delimg( picImg )			
+		image.erase( picImg )			
 	end
 		
 	if pathOut ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( pathOut ), pathOut )
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( s_getex( pathOut ), pathOut )
+		image.erase( outImage )
 	else
 		return outImage
 	end
@@ -1623,28 +1800,28 @@ end
 function s_interpToColorChannelMap( pathIn,pathInMap,pathOut, rIn,gIn,bIn, channelIn, intensity, invert )
 
 	if  s_isstring(pathIn) == true then			
-		picImg = c_readimg( pathIn,  s_getex( pathIn ) )
+		picImg = image.read( pathIn,  s_getex( pathIn ) )
 	else
 		picImg = pathIn
 	end	
 	
-	c_selimg( picImg )	
+	image.select( picImg )	
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 	
 	local picImgMap = nil
 	
 	if  s_isstring(pathInMap) == true then			
-		picImgMap = c_readimg( pathInMap, s_getex( pathInMap ) )	
+		picImgMap = image.read( pathInMap, s_getex( pathInMap ) )	
 	else
 		picImgMap = pathInMap
 	end
 	
-	c_selimg( picImgMap )
+	image.select( picImgMap )
 	
-	local wM = c_getwidth()
-	local hM = c_getheight()
+	local wM = image.width()
+	local hM = image.height()
 	
 	local x = (wM - 1)/(w - 1)
 	local y = (hM - 1)/(h - 1)
@@ -1653,22 +1830,22 @@ function s_interpToColorChannelMap( pathIn,pathInMap,pathOut, rIn,gIn,bIn, chann
 	local gInterp = util.bytetofloat(gIn)
 	local bInterp = util.bytetofloat(bIn)
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
 				-- take color values
-				c_selimg( picImg )				
-				local rVal,gVal,bVal,aVal = c_getpixelf( w_, h_ )				
+				image.select( picImg )				
+				local rVal,gVal,bVal,aVal = image.getpixelf( w_, h_ )				
 				
 				-- take factor values from map
-				c_selimg( picImgMap )				
-				local r,g,b,a = c_getpixelf( math.floor(w_ * x), math.floor(h_ * y) )
+				image.select( picImgMap )				
+				local r,g,b,a = image.getpixelf( math.floor(w_ * x), math.floor(h_ * y) )
 				
-				c_selimg( outImage )				
+				image.select( outImage )				
 					
-				c_setalphaf( w_,h_, aVal )		
+				image.setchannelf( w_,h_,3, aVal )		
 
 				if channelIn ==  0 then
 					if invert == true then
@@ -1704,22 +1881,22 @@ function s_interpToColorChannelMap( pathIn,pathInMap,pathOut, rIn,gIn,bIn, chann
 					end
 				end		
 				factor = factor * intensity
-				c_setpixelf( w_,h_, util.cosinterp(r,rInterp,factor),util.cosinterp(g,gInterp,factor),util.cosinterp(b,bInterp,factor), 1 )			
+				image.setpixelf( w_,h_, util.cosinterp(r,rInterp,factor),util.cosinterp(g,gInterp,factor),util.cosinterp(b,bInterp,factor), 1 )			
 				
 			end		
 	end
 		
 	if  s_isstring(pathIn) == true	then		
-		c_delimg( picImg )			
+		image.erase( picImg )			
 	end
 	if  s_isstring(pathInMap) == true	then		
-		c_delimg( picImgMap )			
+		image.erase( picImgMap )			
 	end	
 	
 	if pathOut ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( pathOut ), pathOut )
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( s_getex( pathOut ), pathOut )
+		image.erase( outImage )
 	else
 		return outImage
 	end
@@ -1735,7 +1912,7 @@ function s_shuffleArr( arr )
 	local size = s_arrlength(arr)
 	--local arrOut = {}
 	for i = 1, size do
-		local posRand = c_randint(1,size)
+		local posRand = main.randint(1,size)
 		local val = arr[posRand]
 		arr[posRand] = arr[i] 
 		arr[i]  = val
@@ -1748,7 +1925,7 @@ end
 	code: utf8, ascii
 ]]--
 function s_getStringArrayId( pathIn, code, bInOneLine )	
-	local idBox = c_readfile(pathIn, code, bInOneLine )
+	local idBox = main.readfile(pathIn, code, bInOneLine )
 	return idBox
 end
 
@@ -1762,72 +1939,72 @@ function s_maskImage( pathBrushIn, pathOutIn,  pathToCutIn, xPosIn, yPosIn, bRan
 	
 	local picBrushImg = nil 	
 	if s_isstring( pathBrushIn ) == true then	
-		picBrushImg = c_readimg( pathBrushIn, s_getex( pathBrushIn ) )	
+		picBrushImg = image.read( pathBrushIn, s_getex( pathBrushIn ) )	
 	else
 		picBrushImg = pathBrushIn
 	end
 	
-	c_selimg( picBrushImg )
+	image.select( picBrushImg )
 	
-	local wB = c_getwidth()
-	local hB = c_getheight()
+	local wB = image.width()
+	local hB = image.height()
 			
 	local cutImg = 0
 	if s_isstring( pathToCutIn ) == true  then	
-		cutImg = c_readimg( pathToCutIn, s_getex(pathToCutIn) )	
+		cutImg = image.read( pathToCutIn, s_getex(pathToCutIn) )	
 	else
 		cutImg = pathToCutIn
 	end
 	
-	c_selimg( cutImg )
+	image.select( cutImg )
 	
-	local wC = c_getwidth()
-	local hC = c_getheight()
+	local wC = image.width()
+	local hC = image.height()
 			
 	local posX = xPosIn
 	local posY = yPosIn
 		
 	if bRandIn == true then
-		posX = c_randint( 0, wC )
-		posY = c_randint( 0, hC )
+		posX = main.randint( 0, wC )
+		posY = main.randint( 0, hC )
 	end
 	
 	local endW = math.min( wC, posX + wB )			
 	local endH = math.min( hC, posY + hB )		
 	
-	local outImage = c_createimg( wC, hC , "basic" )
+	local outImage = image.create( wC, hC , "basic" )
 	
-	c_fillalphaf( 0 )	
+	image.fillchannelf( 3,0 )	
 		
 	for w_ = 0, endW - 1 do		
 			for h_ = 0, endH - 1 do										
-				c_selimg( picBrushImg )
+				image.select( picBrushImg )
 				
-				local r,g,b,a = c_getpixelf( w_, h_ )	
+				local r,g,b,a = image.getpixelf( w_, h_ )	
 				
 				if a > 0.0 then
-					c_selimg( cutImg )					
-					local rC,gC,bC,aC = c_getpixelf( posX + w_, posY + h_ )							
+					image.select( cutImg )					
+					local rC,gC,bC,aC = image.getpixelf( posX + w_, posY + h_ )							
 					
-					c_selimg( outImage )	
-					c_setpixelf( w_,h_, rC,gC,bC, aC )
-					c_setalphaf( w_,h_, aC )																					
+					image.select( outImage )	
+					image.setpixelf( w_,h_, rC,gC,bC, aC )
+					image.setchannelf( w_,h_,3, aC )																					
 				end				
 			end					
 	end	
 	
 	if pathOutIn ~= nil then		
-		c_selimg( outImage )
-		c_saveimg( s_getex( pathOutIn ), pathOutIn )		
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( s_getex( pathOutIn ), pathOutIn )		
+		image.erase( outImage )
 	end
 	
 	if s_isstring( pathBrushIn ) == true then
-		c_delimg( picBrushImg )
+		image.erase( picBrushImg )
 	end
 	
 	if s_isstring( pathToCutIn ) == true  then	
-		c_delimg( cutImg )	
+		image.erase( cutImg )	
 	end
 	
 	util.msg("***s_maskImage finished")
@@ -1852,34 +2029,34 @@ function s_unmaskImage( pathBrushIn, pathOutIn, pathToCutIn,  xPosIn, yPosIn, bR
 		
 	local picBrushImg = 0	
 	if s_isstring(pathBrushIn) == true  then
-		picBrushImg = c_readimg( pathBrushIn, s_getex(pathBrushIn) )
+		picBrushImg = image.read( pathBrushIn, s_getex(pathBrushIn) )
 	else
 		picBrushImg = idBrushIn
 	end
 	
-	local wB = c_getwidth()
-	local hB = c_getheight()
+	local wB = image.width()
+	local hB = image.height()
 	
 	local cutImg = 0 
 	if s_isstring(pathToCutIn) == true  then
-		cutImg = c_readimg( pathToCutIn, s_getex(pathToCutIn) )			
+		cutImg = image.read( pathToCutIn, s_getex(pathToCutIn) )			
 	else
 		cutImg = idToCutIn
 	end
 	
-	local wC = c_getwidth()
-	local hC = c_getheight()
+	local wC = image.width()
+	local hC = image.height()
 		
 	
-	local outImage = c_createimg( wB, hB , "basic" )
-	c_fillalphaf( 0 )	
+	local outImage = image.create( wB, hB , "basic" )
+	image.fillchannelf( 3,0 )	
 	
 	local posX = xPosIn
 	local posY = yPosIn
 		
 	if bRandIn == true then
-		posX = c_randint(0, wC)
-		posY = c_randint(0, hC)
+		posX = main.randint(0, wC)
+		posY = main.randint(0, hC)
 	end
 	
 	local endW = 	math.min(wC,posX + wB)			
@@ -1888,27 +2065,27 @@ function s_unmaskImage( pathBrushIn, pathOutIn, pathToCutIn,  xPosIn, yPosIn, bR
 	for w_ = 0, endW-1 do	
 			for h_ = 0, endH-1 do		
 			
-				c_selimg( picBrushImg )				
-				local r,g,b,a = c_getpixelf( w_, h_ )				
+				image.select( picBrushImg )				
+				local r,g,b,a = image.getpixelf( w_, h_ )				
 	
-				c_selimg( cutImg )						
-				local rC,gC,bC,aC = c_getpixelf( posX, posY )					
-				c_selimg( outImage )	
-				c_setpixelf( w_,h_, rC,gC,bC, math.min(a,aC) )
-				c_setalphaf( w_,h_, math.min(a,aC) )										
+				image.select( cutImg )						
+				local rC,gC,bC,aC = image.getpixelf( posX, posY )					
+				image.select( outImage )	
+				image.setpixelf( w_,h_, rC,gC,bC, math.min(a,aC) )
+				image.setchannelf( w_,h_,3, math.min(a,aC) )										
 							
 			end		
 	end	
 	
 	if pathOutIn ~= nil then
 		local exImage = s_getex( pathOutIn )
-		c_selimg( outImage )
-		c_saveimg( exImage, pathOutIn )		
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( exImage, pathOutIn )		
+		image.erase( outImage )
 	end
 	
-	c_delimg( picBrushImg )	
-	c_delimg( cutImg )		
+	image.erase( picBrushImg )	
+	image.erase( cutImg )		
 	
 	util.msg("***s_unmaskImage finished")
 	
@@ -1930,13 +2107,13 @@ end
 function s_multiplyChannel( imgPathIn, imgRezPathIn, channelIn, factorIn, bIncrIn )
 
 	
-	local imgId = c_readimg( imgPathIn, s_getex(imgPathIn) )	
+	local imgId = image.read( imgPathIn, s_getex(imgPathIn) )	
 	
-	local w = c_getwidth()
-	local h = c_getheight()	
+	local w = image.width()
+	local h = image.height()	
 			
-	local outImage = c_createimg( w, h , "basic" )
-	c_fillalphaf( 1 )	
+	local outImage = image.create( w, h , "basic" )
+	image.fillchannelf( 3,1 )	
 	local bIncr = false
 	if bIncrIn ~= nil then
 		bIncr = bIncrIn
@@ -1946,8 +2123,8 @@ function s_multiplyChannel( imgPathIn, imgRezPathIn, channelIn, factorIn, bIncrI
 	for w_ = 0, w -1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( imgId )				
-				local r,g,b,a = c_getpixelf( w_, h_ )				
+				image.select( imgId )				
+				local r,g,b,a = image.getpixelf( w_, h_ )				
 								
 				local chFactor = 0
 				if channelIn ==  0 then
@@ -1980,20 +2157,20 @@ function s_multiplyChannel( imgPathIn, imgRezPathIn, channelIn, factorIn, bIncrI
 					l = math.min(l * factorIn,1)					
 					r,g,b = util.hsltorgb( h,s, l )					
 				end		
-				c_selimg( outImage )					
+				image.select( outImage )					
 				
-				c_setpixelf( w_,h_, r,g,b, a )													
-				c_setalphaf( w_,h_, a )	
+				image.setpixelf( w_,h_, r,g,b, a )													
+				image.setchannelf( w_,h_,3, a )	
 			end		
 	end	
 	
 	if imgRezPathIn ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( imgRezPathIn ), imgRezPathIn )		
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( s_getex( imgRezPathIn ), imgRezPathIn )		
+		image.erase( outImage )
 	end
 	
-	c_delimg( imgId )		
+	image.erase( imgId )		
 	
 	if imgRezPathIn == nil then
 		return outImage
@@ -2009,22 +2186,22 @@ end
 function s_multiplyChannelImg(imgPath1In, imgPathIn2, imgRezPathIn, channelIn, factorIn,  bIncrIn )
 
 	
-	local imgId1 = c_readimg( imgPath1In, s_getex(imgPath1In) )	
+	local imgId1 = image.read( imgPath1In, s_getex(imgPath1In) )	
 	
 	
-	local w1 = c_getwidth()
-	local h1 = c_getheight()	
+	local w1 = image.width()
+	local h1 = image.height()	
 	
-	local imgId2 = c_readimg( imgPathIn2, s_getex(imgPathIn2) )
+	local imgId2 = image.read( imgPathIn2, s_getex(imgPathIn2) )
 	
-	local w2 = c_getwidth()
-	local h2 = c_getheight()	
+	local w2 = image.width()
+	local h2 = image.height()	
 		
 	local wEnd = w1
 	local hEnd = h1
 	
-	local outImage = c_createimg( wEnd, hEnd , "basic" )
-	c_fillalphaf( 1 )	
+	local outImage = image.create( wEnd, hEnd , "basic" )
+	image.fillchannelf( 3,1 )	
 	
 	local bIncr = false
 	if bIncrIn ~= nil then
@@ -2040,18 +2217,18 @@ function s_multiplyChannelImg(imgPath1In, imgPathIn2, imgRezPathIn, channelIn, f
 	for w_ = 0, wEnd -1 do	
 			for h_ = 0, hEnd-1 do		
 			
-				c_selimg( imgId2 )				
+				image.select( imgId2 )				
 				local posX = w_ * factorX
 				local posY = h_ * factorY
 				
 				--util.msgf(posX, " ",posY)
 				
-				local r2,g2,b2,a2 = c_getpixelf( math.floor(posX) , math.floor(posY) )				
+				local r2,g2,b2,a2 = image.getpixelf( math.floor(posX) , math.floor(posY) )				
 				local h2,s2,l2 = util.rgbtohsl( r2,g2,b2 )	
 				
 				
-				c_selimg( imgId1 )				
-				local r1,g1,b1,a1 = c_getpixelf( w_, h_ )				
+				image.select( imgId1 )				
+				local r1,g1,b1,a1 = image.getpixelf( w_, h_ )				
 								
 				local chFactor = 0
 				if channelIn ==  0 then
@@ -2088,22 +2265,22 @@ function s_multiplyChannelImg(imgPath1In, imgPathIn2, imgRezPathIn, channelIn, f
 					r1,g1,b1 = util.hsltorgb( h,s, l )									
 				end			
 				
-				c_selimg( outImage )	
+				image.select( outImage )	
 				
-				c_setpixelf( w_,h_, r1,g1,b1, 1 )
-				c_setalphaf( w_,h_, a1 )				
+				image.setpixelf( w_,h_, r1,g1,b1, 1 )
+				image.setchannelf( w_,h_,3, a1 )				
 							
 			end		
 	end	
 	
 	if imgRezPathIn ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( imgRezPathIn ), imgRezPathIn )		
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( s_getex( imgRezPathIn ), imgRezPathIn )		
+		image.erase( outImage )
 	end
 	
-	c_delimg( imgId1 )	
-	c_delimg( imgId2 )		
+	image.erase( imgId1 )	
+	image.erase( imgId2 )		
 	
 	if imgRezPathIn == nil then
 		return outImage
@@ -2115,32 +2292,32 @@ end
 
 function s_resizeImage(imgSrcIn, imgPathRezIn, xSizeIn, ySizeIn)
 
-	c_assert( xSizeIn> 0  and ySizeIn > 0 , "wrong result image size" )
+	main.lassert( xSizeIn> 0  and ySizeIn > 0 , "wrong result image size" )
 	local imgId = 0
 	if s_isstring(imgSrcIn) == true  then
-		imgId = c_readimg( imgSrcIn, s_getex(imgSrcIn) )		
+		imgId = image.read( imgSrcIn, s_getex(imgSrcIn) )		
 	else
 		imgId = imgSrcIn
 	end
-	--[[
-	local w = c_getwidth()
-	local h = c_getheight()
+	
+	local w = image.width()
+	local h = image.height()
 	
 		
-	local outImage = c_createimg( xSizeIn, ySizeIn, "basic" )		
+	local outImage = image.create( xSizeIn, ySizeIn, "basic" )		
 	local factorX = ( w - 1 )/( xSizeIn - 1 )
 	local factorY = ( h - 1 )/( ySizeIn - 1 ) 
 	
 	for w_ = 0, xSizeIn - 1 do	
 			for h_ = 0, ySizeIn - 1 do		
 			
-				c_selimg( imgId )	
+				image.select( imgId )	
 				
-				local r,g,b,a = c_getpixelb( math.floor(w_ * factorX), math.floor(h_ * factorY) )												
-				c_selimg( outImage )
+				local r,g,b,a = image.getpixelb( math.floor(w_ * factorX), math.floor(h_ * factorY) )												
+				image.select( outImage )
 				
-				c_setpixelb( w_,h_, r,g,b, 1 )
-				c_setalphab( w_,h_, a )				
+				image.setpixelb( w_,h_, r,g,b, 1 )
+				image.setchannelb( w_,h_, 3, a )				
 							
 			end		
 	end	
@@ -2148,26 +2325,18 @@ function s_resizeImage(imgSrcIn, imgPathRezIn, xSizeIn, ySizeIn)
 	
 	
 	if imgPathRezIn ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( imgPathRezIn ), imgPathRezIn )
-		c_delimg(outImage)
+		image.select( outImage )
+		image.save( s_getex( imgPathRezIn ), imgPathRezIn )
+		image.erase(outImage)
 	else
 		return outImage
 	end
-	]]--
-	local outImage = c_scaleimg(imgId, xSizeIn, ySizeIn , false)
 	
-	if imgPathRezIn ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( imgPathRezIn ), imgPathRezIn )
-		c_delimg(outImage)
-	else
-		return outImage
-	end
+	
 	
 	
 	if s_isstring(imgSrcIn) == true  then
-		c_delimg(imgId)
+		image.erase(imgId)
 	end
 	
 	util.msg("s_resizeImage finished")
@@ -2189,13 +2358,13 @@ function s_interpToArrColorsDiscreteChannel( pathIn, pathOut , colorsIn, factorI
 	
 	local exImageOut = s_getex(pathOut)	
 	
-	local picImg = c_readimg( pathIn, exImage )	
+	local picImg = image.read( pathIn, exImage )	
 	
-	local w = c_getwidth()
+	local w = image.width()
 
-	local h = c_getheight()
+	local h = image.height()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	local alphaFore = 1	
 	local alphaBack = 0
@@ -2205,9 +2374,9 @@ function s_interpToArrColorsDiscreteChannel( pathIn, pathOut , colorsIn, factorI
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )										
+				image.select( picImg )										
 				
-				local r,g,b,a = c_getpixelf( w_, h_ ) 
+				local r,g,b,a = image.getpixelf( w_, h_ ) 
 				
 					
 				local f = 0
@@ -2223,17 +2392,17 @@ function s_interpToArrColorsDiscreteChannel( pathIn, pathOut , colorsIn, factorI
 					local h,s,l = util.rgbtohsl( r,g,b )	
 					f = l
 				elseif channel ==  5 then					
-					f = c_randfloat()				
+					f = main.randfloat()				
 				end
 				
 				if invertIn == true then
 					f = 1 - f
 				end
 								
-				c_selimg( outImage )			
+				image.select( outImage )			
 
 				local pos, color = s_getDiscreteColorByFactor( colorsIn, arrSize, f )				
-				local bR,bG,bB = util.unpackcolor( color )
+				local bR,bG,bB = util.unpackcolor3( color )
 				
 				local rMed = util.bytetofloat( bR )
 				local gMed = util.bytetofloat( bG )
@@ -2243,16 +2412,16 @@ function s_interpToArrColorsDiscreteChannel( pathIn, pathOut , colorsIn, factorI
 				local vg = util.cosinterp( g,gMed, factorIn )
 				local vb = util.cosinterp( b,bMed, factorIn )
 				
-				c_setpixelf( w_, h_, vr,vg,vb, 1 )					
+				image.setpixelf( w_, h_, vr,vg,vb, 1 )					
 									
-				c_setalphaf(   w_, h_, a )								
+				image.setchannelf(   w_, h_,3, a )								
 			end		
 	end
 	
-	c_saveimg( exImageOut, pathOut )
-	c_delimg( picImg )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
 	
-	c_delimg( outImage )
+	image.erase( outImage )
 	
 end
 
@@ -2266,13 +2435,13 @@ function s_interpToArrColorsAlpha( pathIn, pathOut, colorsIn,  factorIn, invertI
 	
 	local exImageOut = s_getex(pathOut)	
 	
-	local picImg = c_readimg( pathIn, exImage )	
+	local picImg = image.read( pathIn, exImage )	
 	
-	local w = c_getwidth()
+	local w = image.width()
 
-	local h = c_getheight()
+	local h = image.height()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	local alphaFore = 1	
 	local alphaBack = 0
@@ -2282,9 +2451,9 @@ function s_interpToArrColorsAlpha( pathIn, pathOut, colorsIn,  factorIn, invertI
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )										
+				image.select( picImg )										
 				
-				local r,g,b,a = c_getpixelf( w_, h_ ) 
+				local r,g,b,a = image.getpixelf( w_, h_ ) 
 				f = a
 				
 				
@@ -2293,10 +2462,10 @@ function s_interpToArrColorsAlpha( pathIn, pathOut, colorsIn,  factorIn, invertI
 					f = 1 - f
 				end
 								
-				c_selimg( outImage )			
+				image.select( outImage )			
 
 				local pos, color = s_getDiscreteColorByFactor( colorsIn,arrSize, f )				
-				local bR,bG,bB = util.unpackcolor( color )
+				local bR,bG,bB = util.unpackcolor3( color )
 				
 				local rMed = util.bytetofloat( bR )
 				local gMed = util.bytetofloat( bG )
@@ -2306,16 +2475,16 @@ function s_interpToArrColorsAlpha( pathIn, pathOut, colorsIn,  factorIn, invertI
 				local vg = util.cosinterp( g,gMed, factorIn )
 				local vb = util.cosinterp( b,bMed, factorIn )
 				
-				c_setpixelf( w_, h_, vr,vg,vb, 1 )					
+				image.setpixelf( w_, h_, vr,vg,vb, 1 )					
 									
-				c_setalphaf(   w_, h_, a )								
+				image.setchannelf(   w_, h_,3, a )								
 			end		
 	end
 	
-	c_saveimg( exImageOut, pathOut )
-	c_delimg( picImg )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
 	
-	c_delimg( outImage )
+	image.erase( outImage )
 	c_printmsg("***s_masklight finished")
 end
 
@@ -2323,13 +2492,13 @@ end
 function s_clearImage( imgPathIn, imgRezPathIn, pixAroundIn, rIn, gIn, bIn, factorMaxIn )
 
 	
-	local imgId = c_readimg( imgPathIn, s_getex(imgPathIn) )	
+	local imgId = image.read( imgPathIn, s_getex(imgPathIn) )	
 	
-	local w = c_getwidth()
-	local h = c_getheight()	
+	local w = image.width()
+	local h = image.height()	
 			
-	local outImage = c_createimg( w, h , "basic" )
-	c_fillalphaf( 1 )	
+	local outImage = image.create( w, h , "basic" )
+	image.fillchannelf( 3,1 )	
 		
 		
 	local pixAround = pixAroundIn * 2 + 1
@@ -2338,9 +2507,9 @@ function s_clearImage( imgPathIn, imgRezPathIn, pixAroundIn, rIn, gIn, bIn, fact
 	for w_ = 0, w -1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( imgId )	
+				image.select( imgId )	
 				
-				local r,g,b,a = c_getpixelb( w_, h_ )									
+				local r,g,b,a = image.getpixelb( w_, h_ )									
 				
 				if r ~= rIn and g ~= gIn and b ~= bIn then 
 				
@@ -2353,7 +2522,7 @@ function s_clearImage( imgPathIn, imgRezPathIn, pixAroundIn, rIn, gIn, bIn, fact
 					
 					for wIn = wBegin, wEnd do	
 						for hIn = hBegin, hEnd do							
-							local rF,gF,bF = c_getpixelb( wIn, hIn )
+							local rF,gF,bF = image.getpixelb( wIn, hIn )
 							
 							if rF == rIn and gF == gIn and bF == bIn then 
 								countFactor = countFactor + 1
@@ -2367,20 +2536,20 @@ function s_clearImage( imgPathIn, imgRezPathIn, pixAroundIn, rIn, gIn, bIn, fact
 					
 				end
 				
-				c_selimg( outImage )					
+				image.select( outImage )					
 				
-				c_setpixelb( w_,h_, r,g,b, 1 )													
-				c_setalphab( w_,h_, a )			
+				image.setpixelb( w_,h_, r,g,b, 1 )													
+				image.setchannelb( w_,h_, 3, a )			
 			end		
 	end	
 	
 	if imgRezPathIn ~= nil then
-		c_selimg( outImage )
-		c_saveimg( s_getex( imgRezPathIn ), imgRezPathIn )		
-		c_delimg( outImage )
+		image.select( outImage )
+		image.save( s_getex( imgRezPathIn ), imgRezPathIn )		
+		image.erase( outImage )
 	end
 	
-	c_delimg( imgId )		
+	image.erase( imgId )		
 	
 	if imgRezPathIn == nil then
 		return outImage
@@ -2416,18 +2585,18 @@ function s_discretecolor( PathIn, PathOut, arrayOutSize, palleteName, shuffle, i
 	
 	if savePallete == true then	
 	
-		local palleteImage = c_createimg( arrayOutSize, 1 , "basic" )			
-		c_fillalphaf( 1 )	
+		local palleteImage = image.create( arrayOutSize, 1 , "basic" )			
+		image.fillchannelf( 3,1 )	
 		 for i = 1, arrayOutSize do
-			local bR,bG,bB = util.unpackcolor( arrColor[i] )
+			local bR,bG,bB = util.unpackcolor3( arrColor[i] )
 			
-			c_setpixelb( i - 1, 0, bR,bG,bB, 1 )	
+			image.setpixelb( i - 1, 0, bR,bG,bB, 1 )	
 		 end
 		 
 		 local pathPallete = s_delex( PathOut )
 		 pathPallete = string.format("%s_pallete.png", pathPallete)
-		 c_saveimg( "png", pathPallete )
-		 c_delimg( palleteImage )
+		 image.save( "png", pathPallete )
+		 image.erase( palleteImage )
 		 
 	end
 	
@@ -2437,6 +2606,7 @@ function s_discretecolor( PathIn, PathOut, arrayOutSize, palleteName, shuffle, i
 		s_shuffleArr(arrColor)
 	end
 
+	
 	arr = s_buildColorArray( arrColor, arrayOutSize )
 
 	util.msg( "Rendering to: ", PathOut )
@@ -2458,7 +2628,7 @@ end
 -- if pathOut == nil returns image id
 function c_resizepallete( pallete, sizePallete, pathOut )
 
-	local PathOut = string.format("%s/%s.%s", pic_dir_filtered, c_uniqid(), "png" )
+	local PathOut = string.format("%s/%s.%s", pic_dir_filtered, main.uniqid(), "png" )
 	local arrayOutSize = sizePallete
 	
 	local arrColor = nil 
@@ -2469,17 +2639,17 @@ function c_resizepallete( pallete, sizePallete, pathOut )
 	end
 	local arrAllColors = s_buildColorArray( arrColor, arrayOutSize )
 
-	local outImage = c_createimg( 1, arrayOutSize , "basic" )	
+	local outImage = image.create( 1, arrayOutSize , "basic" )	
 	
-	c_fillalphaf( 1 )
+	image.fillchannelf( 3,1 )
 	for h_ = 0, arrayOutSize - 1  do	
-		local bR,bG,bB = util.unpackcolor( arrAllColors[h_ + 1] )
+		local bR,bG,bB = util.unpackcolor3( arrAllColors[h_ + 1] )
 		--util.msg( bR, " " , bG, " ", bB )
-		c_setpixelb( 0, h_, bR,bG,bB, 1 )	
+		image.setpixelb( 0, h_, bR,bG,bB, 1 )	
 	end
 	if pathOut ~= nil then
-		c_saveimg( s_getex( PathOut ), PathOut )		
-		c_delimg( outImage )
+		image.save( s_getex( PathOut ), PathOut )		
+		image.erase( outImage )
 	else		
 		return outImage
 	end
@@ -2491,77 +2661,73 @@ function s_poster( pathIn, pathOut, palletePath , outline , palleteSize)
 
 	local pallete = nil
 	
-	local imgIdCalc = c_readimg( pathIn, s_getex(pathIn) )	
+	local imgIdCalc = image.read( pathIn, s_getex(pathIn) )	
 
 	if palletePath == nil then
 		util.msg( "pallete created" )
-		-- good single objects pallete = c_getcolors( 30, 0.4 )	
-		-- good foto bad contrast pallete = c_getcolors( 40, 0.2 )	
-		-- good discrete colors   bear_hysteria pallete = c_getcolors( 10, 0.06 )	
-		--pallete = c_getcolors( 40, 0.2 )	
-		pallete = c_getcolors( palleteSize, 0.2 )	
-	else
-		pallete = c_readimg( palletePath, s_getex(palletePath) )	
+		-- good single objects pallete = image.getcolors( 30, 0.4 )	
+		-- good foto bad contrast pallete = image.getcolors( 40, 0.2 )	
+		-- good discrete colors   bear_hysteria pallete = image.getcolors( 10, 0.06 )	
+		--pallete = image.getcolors( 40, 0.2 )	
+		pallete = image.getcolors( palleteSize, 0.2 )	
+	else		
+		pallete = image.read( palletePath, s_getex(palletePath) )	
 	end
 	
-	c_selimg( imgIdCalc )
-	c_poster( pallete )
+	image.select( imgIdCalc )
+	image.poster( pallete )
 	
 	c_priorcolor( 2, 0, 3  )
 	
-	c_clearimage( 6, 0 )
+	image.clearstains( 6, 0 )
 	
-	c_selimg( pallete )
+	image.select( pallete )
 	
 	-- outline
 	if outline == true then
-		local r,g,b = c_getpixelb(0,0)	
-		c_selimg( imgIdCalc )
+		local r,g,b = image.getpixelb(0,0)	
+		image.select( imgIdCalc )
 		c_priorcolor( 6, 0, 1, 0,115,0   )
 	end
-	c_selimg( imgIdCalc )
+	image.select( imgIdCalc )
 	
 
-	c_saveimg( "png",pathOut )
+	image.save( "png",pathOut )
 
-	--c_saveimg( "png",PathOut )
+	--image.save( "png",PathOut )
 	if palletePath == nil then
-		c_delimg(pallete)
+		image.erase(pallete)
 	end
-	--c_delimg(imgId)
-	c_delimg(imgIdCalc)
+	--image.erase(imgId)
+	image.erase(imgIdCalc)
 end
 
 
 function s_priorcolor ( PathIn, PathOut, around, factor, passes )
 
-	local picImg = c_readimg( PathIn,  s_getex( PathIn ) )
+	local picImg = image.read( PathIn,  s_getex( PathIn ) )
 	
-	c_priorcolor( around, factor, passes  )
+	image.priorcolor( around, factor, passes  )
 	
-	--c_priorcolor( 2, 0, 3  )
-	--c_priorcolor( 6, 0, 1, 0,0,170  )
 	
-
-	--local PathOut = string.format( "%s/%s.%s", pic_dir_filtered, c_uniqid(), "png")
-	c_saveimg( s_getex( PathOut ), PathOut )		
-	c_delimg( picImg )	
+	image.save( s_getex( PathOut ), PathOut )		
+	image.erase( picImg )	
 end
 
 
-function s_priorcolor2 ( PathIn, PathOut, around, factor, passes )
+function s_priorcolor2 ( PathIn, PathOut, around, factor, passes, r,g,b )
 
-	local picImg = c_readimg( PathIn,  s_getex( PathIn ) )
+	local picImg = image.read( PathIn,  s_getex( PathIn ) )
 	
-	c_priorcolor2( around, factor, passes  )
+	--c_priorcolor2( around, factor, passes  )
 	
 	--c_priorcolor( 2, 0, 3  )
-	--c_priorcolor( 6, 0, 1, 0,0,170  )
+	c_priorcolor2( around, factor, passes, r,g,b )
 	
 
-	--local PathOut = string.format( "%s/%s.%s", pic_dir_filtered, c_uniqid(), "png")
-	c_saveimg( s_getex( PathOut ), PathOut )		
-	c_delimg( picImg )	
+	--local PathOut = string.format( "%s/%s.%s", pic_dir_filtered, main.uniqid(), "png")
+	image.save( s_getex( PathOut ), PathOut )		
+	image.erase( picImg )	
 end
 
 
@@ -2575,62 +2741,295 @@ function s_boxFromAlpha( imgPath )
 	local picImg = nil
 	
 	if s_isstring(imgPath) == true  then
-		picImg = c_readimg( imgPath ,s_getex(imgPath) )
+		picImg = image.read( imgPath ,s_getex(imgPath) )
 	else
 		picImg = imgPath
 	end	
 	
-	c_selimg(picImg)
+	image.select(picImg)
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 	
-	--local outImage = c_createimg( w, h , "basic" )	
-	local box = c_createbox("vec3f_vector")
+	--local outImage = image.create( w, h , "basic" )	
+	local boxId = box.create("vec3f_vector")
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				--c_selimg( picImg )				
-				local r,g,b,a = c_getpixelb( w_, h_ )	
+				--image.select( picImg )				
+				local r,g,b,a = image.getpixelb( w_, h_ )	
 				
 				if a > 0 then
-					c_pushbackbox3f( box, math.floor(w_), math.floor(h_), 0.0 )					
+					box.pushback3f( boxId, math.floor(w_), math.floor(h_), 0.0 )					
 				end				
 			end		
 	end
 	
 	if s_isstring(imgPath) == true then
-		c_delimg( picImg )
+		image.erase( picImg )
 	end
 	
 	
 	util.msg("***s_boxFromAlpha finished")
 	
+	return  boxId	
+end
+
+
+--clearAnimation( "c:/foto/test", "png", "c:/foto/out" )
+--[[
+	clears images for gif animation
+]]--
+function clearAnimation( shotsDir, fileEx, outDir )
+
+	local files  = util.countfiles( shotsDir, fileEx )	
+	
+	filesFull = s_numsorted( shotsDir, fileEx, false  )
+	filesNotFull = s_numsorted( shotsDir, fileEx, true  )	
+		
+	main.lassert( s_arrlength(filesFull) > 2, "Files <= 2" )	
+	
+	-- first file is background
+	local fileInFullPath = filesFull[1] --util.getfile( shotsDir, 0 ,fileEx , false )
+	
+	
+	util.msg(fileInFullPath)
+	local fileName = filesNotFull[1] --util.getfile( shotsDir, 0 ,fileEx , true )
+	local before = image.read( fileInFullPath,  fileEx )
+	util.msg(fileInFullPath)
+	image.save( fileEx, string.format( "%s/%s", outDir, fileName )  )
+	
+	
+	for i = 2, files do 
+	
+		fileInFullPath = filesFull[i] --util.getfile( shotsDir, i ,fileEx , false )
+		util.msg(fileInFullPath)
+		fileName = filesNotFull[i] --util.getfile( shotsDir, i ,fileEx , true )
+		
+		local current = image.read(fileInFullPath,  fileEx )		
+		local toSave = image.read(fileInFullPath,  fileEx )
+		
+		
+		
+		local w1 = image.width()
+		local h1 = image.height()		
+		
+		for w_ = 0, w1 - 1 do			
+			for h_ = 0, h1 - 1 do	
+			
+				image.select( before )				
+				local rB,gB,bB = image.getpixelb( w_, h_) 				
+				
+				image.select( current )				
+				local rC,gC,bC = image.getpixelb( w_, h_) 				
+				
+				image.select( toSave )
+				
+				if 	rB ~= rC or gB ~= gC or bB ~= bC then
+					image.setchannelf(w_, h_ ,3, 1.0)
+					image.setpixelb( w_, h_ , rC,gC,bC, 1.0 )									
+				else
+					--util.msg(fileInFullPath, " image.setchannelf(w_, h_ , 0.0) ")
+					image.setchannelf(w_, h_ ,3, 0.0 )					
+					image.setpixelb( w_, h_ , 255,255,255, 1.0 )									
+				end
+			end
+		end
+		
+		image.select( toSave )
+		image.save( fileEx, string.format( "%s/%s", outDir, fileName ) )
+		image.erase( toSave )
+		image.erase( before )
+		before = current	
+
+	end
+	image.erase( before )
+		
+end
+
+
+--[[
+	returns positions box from image with red markers
+]]--
+function s_boxFromImgRed( imgPath, posWidth, posHeight )
+
+	local picImg = nil
+	
+	if s_isstring(imgPath) == true  then
+		picImg = image.read( imgPath ,s_getex(imgPath) )
+	else
+		picImg = imgPath
+	end	
+	
+	image.select(picImg)
+	
+	local w = image.width()
+	local h = image.height()
+	
+	if posWidth == nil then 
+		posWidth = w
+	end
+	
+	if posHeight == nil then 
+		posHeight = h
+	end
+	
+	local boxid = box.create("int32_vector")
+	
+	
+	for h_ = 0, h-1 do	
+				for w_ = 0, w-1 do							
+				
+				local r,g,b,a = image.getpixelb( w_, h_ )					
+				if r == 255 and g == 0 and b == 0  then					
+				
+					box.pushbacki32(boxid, math.floor((w_* posWidth)/w)  )
+					box.pushbacki32(boxid, math.floor((h_* posHeight)/h) )					
+					--util.msg(" ", math.floor((w_* posWidth)/w) , " ", math.floor((h_* posHeight)/h))
+				end				
+			end		
+	end
+	
+	if s_isstring(imgPath) == true then
+		image.erase( picImg )
+	end
+	
+	
+	
+	return  boxid
+end
+
+--[[
+	returns positions box from image with red markers
+]]--
+function s_boxFromImgRedSeamless( imgPath, posWidth, posHeight )
+
+	local picImg = nil
+	
+	if s_isstring(imgPath) == true  then
+		picImg = image.read( imgPath ,s_getex(imgPath) )
+	else
+		picImg = imgPath
+	end	
+	
+	image.select(picImg)
+	
+	local w = image.width()
+	local h = image.height()
+	
+	if posWidth == nil then 
+		posWidth = w
+	end
+	
+	if posHeight == nil then 
+		posHeight = h
+	end
+	
+	local boxId = box.create("int32_vector")
+	
+	
+	for h_ = 0, h-1 do	
+				for w_ = 0, w-1 do							
+				
+				local r,g,b,a = image.getpixelb( w_, h_ )					
+				if r == 255 and g == 0 and b == 0  then					
+				
+					box.pushbacki32(boxId, math.floor((w_* posWidth)/w)  )
+					box.pushbacki32(boxId, math.floor((h_* posHeight)/h) )	
+					-- -x
+					box.pushbacki32(boxId, math.floor((w_* posWidth)/w) - w  )
+					box.pushbacki32(boxId, math.floor((h_* posHeight)/h) )
+					-- +x
+					box.pushbacki32(boxId, math.floor((w_* posWidth)/w) + w  )
+					box.pushbacki32(boxId, math.floor((h_* posHeight)/h) )
+					
+					-- -y
+					box.pushbacki32(boxId, math.floor((w_* posWidth)/w)  )
+					box.pushbacki32(boxId, math.floor((h_* posHeight)/h) - h )
+					-- +y
+					box.pushbacki32(boxId, math.floor((w_* posWidth)/w)  )
+					box.pushbacki32(boxId, math.floor((h_* posHeight)/h)  + h )
+					
+					--util.msg(" ", math.floor((w_* posWidth)/w) , " ", math.floor((h_* posHeight)/h))
+				end				
+			end		
+	end
+	
+	if s_isstring(imgPath) == true then
+		image.erase( picImg )
+	end
+	
+	
+	util.msg("***s_boxFromImgRedSeamless finished")
+	
 	return  box	
 end
 
-function s_numsorted( PathIn, ext  )
+--[[
+	draws the outline on the alpha edge  rO,gO,bO byte 255
+]]--
+function outlineAlphaPixel( imgPath, imgOut, rO,gO,bO,  layers )
 
-	local filesStr = {}	
+
+	local imgId = image.read( imgPath, s_getex(imgPath) )	
 	
-	local files  = util.countfiles( PathIn, ext )
-
-	if files ~= nil and files > 2 then
-
-		for i = 1, files - 1 do 		
+	
+	
+	local w = image.width()
+	local h = image.height()		
+	local outImage = image.create( w, h , "basic" )
+	image.fillchannelb( 3,0 )	
+	
+	
+	for i = 1, layers do
 		
-				local fileInFullPath = util.getfile( PathIn, i ,ext , false )				
-				local num =  tonumber(string.match( fileInFullPath ,  "%d+" ))
-				
-				filesStr[num] = fileInFullPath				
-				
-		end					
+		if imgId == nil then
+			imgId = outImage
+			outImage = image.create( w, h , "basic" )
+			image.fillchannelb( 3,0 )	
+		end
 		
-	end	
-	for  i, val in ipairs(filesStr) do
-		util.msg(val)
+		for w_ = 0, w -1 do	
+				for h_ = 0, h-1 do				
+						
+					image.select( imgId )
+					local rCur,gCur,bCur,aCur = image.getpixelb( w_, h_ )									
+					
+					if aCur == 0 then
+						r,g,b,aL = image.getpixelb( math.max(0,w_ - 1), h_ )
+						r,g,b,aLU = image.getpixelb( math.max(0,w_ - 1), math.max(0,h_ - 1) )						
+						r,g,b,aU = image.getpixelb( w_, math.max(0,h_ - 1) )
+						r,g,b,aRU = image.getpixelb( math.min(w - 1, w_ + 1), math.max(0,h_ - 1) )
+						r,g,b,aR = image.getpixelb( math.min(w - 1, w_ + 1), h_ )
+						r,g,b,aRD = image.getpixelb( math.min(w - 1, w_ + 1), math.min(h - 1,h_ + 1) )
+						r,g,b,aD = image.getpixelb( w_, math.min(h - 1,h_ + 1) )
+						r,g,b,aLD = image.getpixelb( math.max(0,w_ - 1), math.min(h - 1,h_ + 1) )
+						
+						if aL ~= 0 or aLU ~= 0  or aU ~= 0 or aRU ~= 0 or aR ~= 0 or aRD ~= 0 or aD ~= 0 or aLD ~= 0 then
+							--util.msg(i)
+							image.select( outImage )
+							image.setchannelb( w_,h_, 3, 255 )
+							image.setpixelb( w_,h_, rO,gO,bO, 1) 						
+						end
+					else
+							image.select( outImage )
+							image.setchannelb( w_,h_, 3, 255 )
+							image.setpixelb( w_,h_, rCur,gCur,bCur, 1 )
+					end		
+									
+					--image.setchannelb( w_,h_, 3, a )			
+				end		
+		end	
+		
+		image.erase( imgId )
+		imgId = nil
 	end
 	
-	return filesStr
+	image.select( outImage )
+	image.save( s_getex( imgOut ), imgOut )		
+	
+	image.erase( outImage )	
+
 end
+

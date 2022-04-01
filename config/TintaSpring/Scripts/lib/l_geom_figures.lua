@@ -13,7 +13,7 @@ function s_createPolygon( sides, minRad, maxRad , xCent, yCent, bFill )
 
 
 
-	c_assert( sides > 3 and maxRad <= minRad , "s_createPolygon error: polygon was not created!: sides ",sides," maxLength ", minRad," minLength ", maxRad)
+	main.lassert( sides > 3 and maxRad <= minRad , "s_createPolygon error: polygon was not created!: sides ",sides," maxLength ", minRad," minLength ", maxRad)
 	
 	
 	polygonId = c_creategeom( "geom_polygon" )		
@@ -24,7 +24,7 @@ function s_createPolygon( sides, minRad, maxRad , xCent, yCent, bFill )
 	angle =  s_genRandTable( 0, 360, sides )
 	
 	for count = 1, sides do						
-		dist  = c_randint( minRad, maxRad )
+		dist  = main.randint( minRad, maxRad )
 		xPos, yPos = c_getdist( xCent, yCent, angle[count], dist )		
 		c_addgeomprop2i( polygonId, "point",  xPos, yPos )
 	end	
@@ -36,7 +36,7 @@ end
 
 function s_createRandSpline( points, minRad, maxRad , xCent, yCent, stepSpline )
 
-	c_assert( points > 3 and maxRad >= minRad , "s_createRandSpline error: splinr patch was not created!: sides ",points," maxRad ", maxRad," minRad ", minRad )
+	main.lassert( points > 3 and maxRad >= minRad , "s_createRandSpline error: splinr patch was not created!: sides ",points," maxRad ", maxRad," minRad ", minRad )
 
 	
 	splineId = c_creategeom( "geom_spline" )
@@ -47,9 +47,9 @@ function s_createRandSpline( points, minRad, maxRad , xCent, yCent, stepSpline )
 	--angle =  s_genRandTable( 0, 360, points )
 	
 	for count = 1, points do				
-		angle = c_randint( 0, 360 )
+		angle = main.randint( 0, 360 )
 		
-		dist  = c_randint( minRad, maxRad )
+		dist  = main.randint( minRad, maxRad )
 		xPos, yPos = c_getdist( xCent, yCent, angle, dist )
 		
 		c_addgeomprop2i( splineId, "point",  xPos, yPos )
@@ -62,7 +62,7 @@ end
 
 function s_createPolygonRandfill( sides, minLength, maxLength , xCent, yCent, fillProb)
 
-	c_assert( points > 3 and maxRad >= minRad , "s_createPolygonRandfill error: splinr patch was not created!: sides ",points," maxRad ", maxRad," minRad ", minRad )
+	main.lassert( points > 3 and maxRad >= minRad , "s_createPolygonRandfill error: splinr patch was not created!: sides ",points," maxRad ", maxRad," minRad ", minRad )
 	
 	
 	c_setgeomprop1b( splineId, "fill",  true )				
@@ -72,9 +72,9 @@ function s_createPolygonRandfill( sides, minLength, maxLength , xCent, yCent, fi
 	angle =  s_genRandTable( 0, 360, sides )
 	--util.msg( "s_createPolygon ", " sides ", sides )
 	for count = 1, sides do				
-		--angle = c_randint( 0, 360 )
+		--angle = main.randint( 0, 360 )
 		
-		dist  = c_randint( minLength, maxLength )
+		dist  = main.randint( minLength, maxLength )
 		xPos, yPos = c_getdist( xCent, yCent, angle[count], dist )
 		--util.msg("s_createPolygon ", " xPos ", xPos, " yPos ", yPos)
 		c_addgeomprop2i( polygonId, "point",  xPos, yPos )
@@ -114,7 +114,7 @@ function s_createPolygonPetal(  radius , xBegin, yBegin, angle )
 	c_addgeomprop2i( polyId, "point",   xBegin, yBegin )
 	c_addgeomprop2i( polyIdOutLine, "point",   xBegin, yBegin )
 	
-	xPos, yPos = c_getdist( xBegin, yBegin, angle - c_randint( 10, 30 ), c_randint( radius/4, radius ) )	
+	xPos, yPos = c_getdist( xBegin, yBegin, angle - main.randint( 10, 30 ), main.randint( radius/4, radius ) )	
 		
 	c_addgeomprop2i( polyIdOutLine, "point",  xPos, yPos )
 	c_addgeomprop2i( polyId, "point",  xPos, yPos )
@@ -130,7 +130,7 @@ function s_createPolygonPetal(  radius , xBegin, yBegin, angle )
 	
 	
 	
-	xPos, yPos = c_getdist( xBegin, yBegin, angle + c_randint( 10, 30 ), c_randint( radius/4, radius ) )	
+	xPos, yPos = c_getdist( xBegin, yBegin, angle + main.randint( 10, 30 ), main.randint( radius/4, radius ) )	
 		
 	c_addgeomprop2i ( polyIdOutLine, "point",  xPos, yPos )
 	c_addgeomprop2i( polyId, "point",  xPos, yPos )
@@ -159,7 +159,7 @@ function s_createPolyline( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step 
 
 
 	
-	c_assert( points >= 1 and minDev <= maxDev and step >= 0, "s_createPolyline error: wrong parameters points: ",points," or minDev ", minDev," or maxDev ", maxDev, " or step ", step )
+	main.lassert( points >= 1 and minDev <= maxDev and step >= 0, "s_createPolyline error: wrong parameters points: ",points," or minDev ", minDev," or maxDev ", maxDev, " or step ", step )
 	
 	
 	lineId = c_creategeom( "geom_polyline" )
@@ -172,7 +172,7 @@ function s_createPolyline( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step 
 	tabPos = s_genRandTable( 0, len, points )
 	
 	c_addgeomprop2i( lineId, "point",  xBeg, yBeg )
-	--c_setpixelb( xBeg, yBeg, 0,0,0,1 )
+	--image.setpixelb( xBeg, yBeg, 0,0,0,1 )
 	local xPre, yPre = c_getdist( xBeg, yBeg, angle, tabPos[1] )
 	
 	local mainangle = util.c_fromradtodeg( c_getdir( xBeg, yBeg, xEnd, yEnd ) )
@@ -182,10 +182,10 @@ function s_createPolyline( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step 
 		
 		xPre, yPre = c_getdist( xBeg, yBeg, mainangle, prelen+ tabPos[count] )
 		--util.msg(xPre," ", yPre)		
-		local lenDev = c_randint(minDev, maxDev)
+		local lenDev = main.randint(minDev, maxDev)
 		
 		local angle = 90
-		if c_randint( 0, 1 ) == 1 then
+		if main.randint( 0, 1 ) == 1 then
 			angle = 90
 		else
 			angle = -90
@@ -195,14 +195,14 @@ function s_createPolyline( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step 
 		--util.msg(lenDev)
 		local xp, yp = c_getdist( xPre, yPre, angle_, lenDev )
 		--util.msg(xp," ",yp)
-		--c_setpixelb(xp, yp, 0,255,0,1)
+		--image.setpixelb(xp, yp, 0,255,0,1)
 		
 		c_addgeomprop2i( lineId, "point",  xp, yp )
 		--xPre, yPre = xp, yp
 	end
 	
 	c_addgeomprop2i( lineId, "point",  xEnd, yEnd )
-	--c_setpixelb( xEnd, yEnd, 0,0,0,1 )
+	--image.setpixelb( xEnd, yEnd, 0,0,0,1 )
 	
 	c_calcgeom( lineId )
 	return lineId
@@ -225,7 +225,7 @@ function s_createSpline( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step )
 
 
 	
-	c_assert( points >= 1 and minDev <= maxDev and step >= 0, "s_createSpline error: wrong parameters points: ",points," or minDev ", minDev," or maxDev ", maxDev, " or step ", step )
+	main.lassert( points >= 1 and minDev <= maxDev and step >= 0, "s_createSpline error: wrong parameters points: ",points," or minDev ", minDev," or maxDev ", maxDev, " or step ", step )
 	
 	
 	lineId = c_creategeom( "geom_spline" )
@@ -238,7 +238,7 @@ function s_createSpline( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step )
 	tabPos = s_genRandTable( 0, len, points )
 	
 	c_addgeomprop2i( lineId, "point",  xBeg, yBeg )
-	--c_setpixelb( xBeg, yBeg, 0,0,0,1 )
+	--image.setpixelb( xBeg, yBeg, 0,0,0,1 )
 	local xPre, yPre = c_getdist(xBeg, yBeg, angle, tabPos[1] )
 	
 	local mainangle = util.c_fromradtodeg( c_getdir( xBeg, yBeg, xEnd, yEnd ) )
@@ -248,10 +248,10 @@ function s_createSpline( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step )
 		
 		xPre, yPre = c_getdist( xBeg, yBeg, mainangle, prelen + tabPos[count] )
 		--util.msg(tabPos[count])		
-		local lenDev = c_randint(minDev, maxDev)
+		local lenDev = main.randint(minDev, maxDev)
 		
 		local angle = 90
-		if c_randint( 0, 1 ) == 1 then
+		if main.randint( 0, 1 ) == 1 then
 			angle = 90
 		else
 			angle = -90
@@ -261,14 +261,14 @@ function s_createSpline( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step )
 		--util.msg(lenDev)
 		local xp, yp = c_getdist( xPre, yPre, angle_, lenDev )
 		--util.msg(xp," ",yp)
-		--c_setpixelb(xp, yp, 0,255,0,1)
+		--image.setpixelb(xp, yp, 0,255,0,1)
 		
 		c_addgeomprop2i( lineId, "point",  xp, yp )
 		--xPre, yPre = xp, yp
 	end
 	
 	c_addgeomprop2i( lineId, "point",  xEnd, yEnd )
-	--c_setpixelb( xEnd, yEnd, 0,0,0,1 )
+	--image.setpixelb( xEnd, yEnd, 0,0,0,1 )
 	
 	c_calcgeom( lineId )
 	return lineId
@@ -290,7 +290,7 @@ function s_createSpline2( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step )
 
 
 	
-	c_assert( points >= 1 and minDev <= maxDev and step >= 0, "s_createSpline error: wrong parameters points: ",points," or minDev ", minDev," or maxDev ", maxDev, " or step ", step )
+	main.lassert( points >= 1 and minDev <= maxDev and step >= 0, "s_createSpline error: wrong parameters points: ",points," or minDev ", minDev," or maxDev ", maxDev, " or step ", step )
 		
 	
 	lineId = c_creategeom( "geom_spline" )
@@ -303,7 +303,7 @@ function s_createSpline2( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step )
 	tabPos = s_genRandTable( 0, len, points )
 	
 	c_addgeomprop2i( lineId, "point",  xBeg, yBeg )
-	--c_setpixelb( xBeg, yBeg, 0,0,0,1 )
+	--image.setpixelb( xBeg, yBeg, 0,0,0,1 )
 	local xPre, yPre = c_getdist(xBeg, yBeg, angle, tabPos[1] )
 	
 	local mainangle = util.c_fromradtodeg( c_getdir( xBeg, yBeg, xEnd, yEnd ) )
@@ -313,10 +313,10 @@ function s_createSpline2( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step )
 		
 		xPre, yPre = c_getdist( xBeg, yBeg, mainangle, prelen + tabPos[count] )
 		--util.msg(tabPos[count])		
-		local lenDev = c_randint(minDev, maxDev)
+		local lenDev = main.randint(minDev, maxDev)
 		
 		local angle = 90
-		if c_randint( 0, 1 ) == 1 then
+		if main.randint( 0, 1 ) == 1 then
 			angle = 90
 		else
 			angle = -90
@@ -326,7 +326,7 @@ function s_createSpline2( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step )
 		--util.msg(lenDev)
 		local xp, yp = c_getdist( xPre, yPre, angle_, lenDev )
 		--util.msg(xp," ",yp)
-		--c_setpixelb(xp, yp, 0,255,0,1)
+		--image.setpixelb(xp, yp, 0,255,0,1)
 		xBeg = xp
 		yBeg =  yp	
 		c_addgeomprop2i( lineId, "point",  xp, yp )
@@ -334,7 +334,7 @@ function s_createSpline2( points, xBeg, yBeg, xEnd, yEnd, minDev, maxDev, step )
 	end
 	
 	c_addgeomprop2i( lineId, "point",  xEnd, yEnd )
-	--c_setpixelb( xEnd, yEnd, 0,0,0,1 )
+	--image.setpixelb( xEnd, yEnd, 0,0,0,1 )
 	
 	c_calcgeom( lineId )
 	return lineId
@@ -344,9 +344,9 @@ end
 
 function s_createCircImg( radius, colorR, colorG, colorB )
 
-	local image = c_createimg( radius*2 + 4, radius*2 + 4 , "basic" )
+	local image = image.create( radius*2 + 4, radius*2 + 4 , "basic" )
 	c_fillalphaf(0)
-	c_fillimgb(colorR, colorG, colorB )
+	image.fillb(colorR, colorG, colorB )
 	
 	circleId  = c_creategeom( "geom_circle" )	
 	c_setgeomprop1n( circleId, "circle_radius",  radius    )
@@ -359,13 +359,13 @@ function s_createCircImg( radius, colorR, colorG, colorB )
 		xp,yp  = c_getpoint( circleId, i )	
 		c_setalphaf( xp,yp, 1 )
 	end
-	c_delgeom(circleId)
+	image.erasegeom(circleId)
 	
 	util.msg( "c_gettasktype ", c_gettasktype() )
 	
 	if c_gettasktype() == 2 then	
 		c_sendimgresult("PNG", image)
-		c_delimg(image)
+		image.erase(image)
 	else	
 		return image	
 	end

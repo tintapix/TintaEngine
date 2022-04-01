@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<body bgcolor="#FFFFFF">
+&ensp;<p><b>
+Name: 
+</b>
+ image.clearstains
+</p>
+<p><b>
+Description: 
+</b>
+ Clears image from stains
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt Max objects in group
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real[ 0.0, 1.0 ] color group threashold default 0.0 Factor for colors grouping.
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.getcolors
+</p>
+<p><b>
+Description: 
+</b>
+ creates image with statistically collected colors
+</p>
+<p><b>
+Parameter: 
+</b>
+ Colors quantity
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real[0,1] color group threashold default 0. Factor for colors grouping.
+</p>
+<p><b>
+Return: 
+</b>
+ UInt index image with result pallete
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.priorcolor
+</p>
+<p><b>
+Description: 
+</b>
+ Sets prior pixel value in the current image. Walks around every pixel in the image and sets prior value.                    
+</p>
+<p><b>
+Parameter: 
+</b>
+ Integer Threshold - if pixels quantity around( considering the factor ) equal or more then this value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real[0,1] Coefficient of equivalence of the color ( by default 0.0 )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Integer passes - 1 by default
+</p>
+<p><b>
+Parameter: 
+</b>
+ Boolean with alpha
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.poster
+</p>
+<p><b>
+Description: 
+</b>
+    Pixel gets major pixel
+</p>
+<p><b>
+Parameter: 
+</b>
+ Pallete image id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.setpixelb
+</p>
+<p><b>
+Description: 
+</b>
+ Draws point in selected image
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int y coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte r
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte g
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte b
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real[0,1] Alpha factor. For mixing 1- default
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.setpixelf
+</p>
+<p><b>
+Description: 
+</b>
+ Draws point in the selected image
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int y coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real r
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real g
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real b
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real[0,1] Alpha factor. For mixing 1- default
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.selected
+</p>
+<p><b>
+Description: 
+</b>
+ Rerurns index of the selected image
+</p>
+<p><b>
+Return: 
+</b>
+ index of the selected image
+</p>
+<p><b>
+Return: 
+</b>
+ UInt index, if image was not selected, returns nil
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.select
+</p>
+<p><b>
+Description: 
+</b>
+ Selecting image in the container,
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt Image index
+</p>
+<p><b>
+Return: 
+</b>
+ true - if image was selected, false otherwise
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.clone
+</p>
+<p><b>
+Description: 
+</b>
+ Clone image                
+</p>
+<p><b>
+Return: 
+</b>
+ true - new image id 
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.save
+</p>
+<p><b>
+Description: 
+</b>
+ Saves selected image in to the file. c_saveimg("png","\\\\server\\Shared\\user\\test.png")
+</p>
+<p><b>
+Parameter: 
+</b>
+ String image type("png","jpeg" or "jpg")
+</p>
+<p><b>
+Parameter: 
+</b>
+ String Full path to the output file ("d:/test.png")
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.width
+</p>
+<p><b>
+Description: 
+</b>
+ Returns the selected image width
+</p>
+<p><b>
+Return: 
+</b>
+ Int Image width
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.height
+</p>
+<p><b>
+Description: 
+</b>
+ Returns the selected image height
+</p>
+<p><b>
+Return: 
+</b>
+ Int Image height
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.getpixelb
+</p>
+<p><b>
+Description: 
+</b>
+ Returns pixel value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int x coordinate value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int y coordinate value
+</p>
+<p><b>
+Return: 
+</b>
+ Byte r value
+</p>
+<p><b>
+Return: 
+</b>
+ Byte g value
+</p>
+<p><b>
+Return: 
+</b>
+ Byte b value
+</p>
+<p><b>
+Return: 
+</b>
+ Byte alpha value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.getpixelf
+</p>
+<p><b>
+Description: 
+</b>
+ Returns pixel value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int x coordinate value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int y coordinate value
+</p>
+<p><b>
+Return: 
+</b>
+ Real r value
+</p>
+<p><b>
+Return: 
+</b>
+ Real g value
+</p>
+<p><b>
+Return: 
+</b>
+ Real b value
+</p>
+<p><b>
+Return: 
+</b>
+ Real alpha value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.getindpixelb
+</p>
+<p><b>
+Description: 
+</b>
+ Returns pixel value by index in the selected image
+</p>
+<p><b>
+Parameter: 
+</b>
+ index value
+</p>
+<p><b>
+Return: 
+</b>
+ r value in bytes
+</p>
+<p><b>
+Return: 
+</b>
+ g value in bytes
+</p>
+<p><b>
+Return: 
+</b>
+ b value in bytes
+</p>
+<p><b>
+Return: 
+</b>
+ alpha value in bytes
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.getindpixelf
+</p>
+<p><b>
+Description: 
+</b>
+ Returns pixel value by index in the selected image
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt index value
+</p>
+<p><b>
+Return: 
+</b>
+ Real r value
+</p>
+<p><b>
+Return: 
+</b>
+ Real g value
+</p>
+<p><b>
+Return: 
+</b>
+ Real b value
+</p>
+<p><b>
+Return: 
+</b>
+ Real alpha value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.fillb
+</p>
+<p><b>
+Description: 
+</b>
+ Fills color channels in selected image with values
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte r value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte g value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte b value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.fillf
+</p>
+<p><b>
+Description: 
+</b>
+ Fills color channels in selected image with values
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real r value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real g value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real b value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.create
+</p>
+<p><b>
+Description: 
+</b>
+ Adds image in to the container
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt width
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt Height
+</p>
+<p><b>
+Parameter: 
+</b>
+ String  image types: "seamless", "basic"
+</p>
+<p><b>
+Parameter: 
+</b>
+ channels value 1 - 4
+</p>
+<p><b>
+Return: 
+</b>
+ UInt image created Index
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.read
+</p>
+<p><b>
+Description: 
+</b>
+ Reads the image from the file
+</p>
+<p><b>
+Parameter: 
+</b>
+ String Absolute path to the file ("d:/test.png")
+</p>
+<p><b>
+Parameter: 
+</b>
+ String image type("png","jpeg" or "jpg") - by default gets from path
+</p>
+<p><b>
+Parameter: 
+</b>
+ String new image type ("seamless", "common_image")  - by default common_image
+</p>
+<p><b>
+Return: 
+</b>
+ nil if the error occured,  otherwise image created index
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.fillchannelf
+</p>
+<p><b>
+Description: 
+</b>
+ Fills selected image channel with float values
+</p>
+<p><b>
+Parameter: 
+</b>
+ - (0,3) channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real alpha value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.setchannelf
+</p>
+<p><b>
+Description: 
+</b>
+ Assigns channel value
+</p>
+<p><b>
+Parameter: 
+</b>
+ - x pos
+</p>
+<p><b>
+Parameter: 
+</b>
+ - y pos
+</p>
+<p><b>
+Parameter: 
+</b>
+ - (0,3) channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ (0.0,1.0) value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.setchannelb
+</p>
+<p><b>
+Description: 
+</b>
+ Assigns channel value
+</p>
+<p><b>
+Parameter: 
+</b>
+ - x pos
+</p>
+<p><b>
+Parameter: 
+</b>
+ - y pos
+</p>
+<p><b>
+Parameter: 
+</b>
+ - (0,3) channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.mix
+</p>
+<p><b>
+Description: 
+</b>
+ Interpolation between selected and second image
+</p>
+<p><b>
+Parameter: 
+</b>
+ - second image id
+</p>
+<p><b>
+Parameter: 
+</b>
+ - x pos in destination image
+</p>
+<p><b>
+Parameter: 
+</b>
+ - y pos in destination image
+</p>
+<p><b>
+Parameter: 
+</b>
+ - (0,1) factor
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.mixchannel
+</p>
+<p><b>
+Description: 
+</b>
+ Mixing channels of selected and second image                
+</p>
+<p><b>
+Parameter: 
+</b>
+ - second image id
+</p>
+<p><b>
+Parameter: 
+</b>
+ - x pos in destination image
+</p>
+<p><b>
+Parameter: 
+</b>
+ - y pos in destination image
+</p>
+<p><b>
+Parameter: 
+</b>
+ - channel (0,3)
+</p>
+<p><b>
+Parameter: 
+</b>
+ - (0,1) factor
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.erase
+</p>
+<p><b>
+Description: 
+</b>
+ Deletes image from the container
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt Image index
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.eraseall
+</p>
+<p><b>
+Description: 
+</b>
+ Clears image container
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.fillchannelb
+</p>
+<p><b>
+Description: 
+</b>
+ Fills selected image channel with byte values
+</p>
+<p><b>
+Parameter: 
+</b>
+ - (0,3) channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte alpha value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.images
+</p>
+<p><b>
+Description: 
+</b>
+ Returns images quantity
+</p>
+<p><b>
+Return: 
+</b>
+ quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.channels
+</p>
+<p><b>
+Description: 
+</b>
+ Returns image channels quantity
+</p>
+<p><b>
+Return: 
+</b>
+ Channels quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ font.add
+</p>
+<p><b>
+Description: 
+</b>
+ adds new font in stack and makes the font selected
+</p>
+<p><b>
+Parameter: 
+</b>
+ string font name
+</p>
+<p><b>
+Parameter: 
+</b>
+ real font x scale factor(new_size_x = x_size * x_factor) if nil, then default = 1.0
+</p>
+<p><b>
+Parameter: 
+</b>
+ real font y scale factor(new_size_y = y_size * y_factor) if nil, then default = 1.0
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color r channel or nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color g channel or nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color b channel or nil
+</p>
+<p><b>
+Return: 
+</b>
+ unsigned int font id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ font.copy
+</p>
+<p><b>
+Description: 
+</b>
+ makes copy of hte font
+</p>
+<p><b>
+Parameter: 
+</b>
+ unsigned int font id to copy
+</p>
+<p><b>
+Return: 
+</b>
+ unsigned int new font id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ font.select
+</p>
+<p><b>
+Description: 
+</b>
+ select the font
+</p>
+<p><b>
+Parameter: 
+</b>
+un usigned int font id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ font.setcolor
+</p>
+<p><b>
+Description: 
+</b>
+ changes font color
+</p>
+<p><b>
+Parameter: 
+</b>
+ unsigned int font id
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color r channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color g channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color b channel
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ font.render
+</p>
+<p><b>
+Description: 
+</b>
+ draw text with selected font in to the selected image
+</p>
+<p><b>
+Parameter: 
+</b>
+ string text(\n as a new line)
+</p>
+<p><b>
+Parameter: 
+</b>
+ int x position of the text
+</p>
+<p><b>
+Parameter: 
+</b>
+ int y position of the text
+</p>
+<p><b>
+Parameter: 
+</b>
+ int x space between symbols in pixels or nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ int y space between symbols in pixels or nil
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ font.erase
+</p>
+<p><b>
+Description: 
+</b>
+ removes the font from the stack
+</p>
+<p><b>
+Parameter: 
+</b>
+ unsigned int font id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ font.eraseall
+</p>
+<p><b>
+Description: 
+</b>
+ removes all fonts from the stack
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.printver
+</p>
+<p><b>
+Description: 
+</b>
+ Prints library version
+</p>
+<p><b>
+Return: 
+</b>
+ String version
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.lassert
+</p>
+<p><b>
+Description: 
+</b>
+ Throws error with or without the message and terminates executing
+</p>
+<p><b>
+Parameter: 
+</b>
+ boolean expression throws if false
+</p>
+<p><b>
+Parameter: 
+</b>
+ String possible message
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.f
+</p>
+<p><b>
+Description: 
+</b>
+ Executs Script file on the first available unit
+</p>
+<p><b>
+Parameter: 
+</b>
+ String path to the script. If Path is not absolute("NoName.lua"), tries to find Script using config paths
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.fd
+</p>
+<p><b>
+Description: 
+</b>
+ Executs Script file ONLY on the children units
+</p>
+<p><b>
+Parameter: 
+</b>
+ String path to the script. If Path is not absolute("NoName.lua"), tries to find Script using config paths
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.fl
+</p>
+<p><b>
+Description: 
+</b>
+ Executs Script file ONLY on the local unit
+</p>
+<p><b>
+Parameter: 
+</b>
+ String path to the script. If Path is not absolute("NoName.lua"), tries to find Script using config paths
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.fu
+</p>
+<p><b>
+Description: 
+</b>
+ Sends script file for executing on any parent unit
+</p>
+<p><b>
+Parameter: 
+</b>
+ String path to the script. If Path is not absolute("NoName.lua"), tries to find Script using config paths
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.getangle
+</p>
+<p><b>
+Description: 
+</b>
+  
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real x1
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real y1
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real x2
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real y2		
+</p>
+<p><b>
+Return: 
+</b>
+ Real angle in degree
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.start
+</p>
+<p><b>
+Description: 
+</b>
+ Starts or resets executing timer            
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt period in milliseconds            
+</p>
+<p><b>
+Parameter: 
+</b>
+ String command to execute
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.stop
+</p>
+<p><b>
+Description: 
+</b>
+ Stops executing timer
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.rotpoint
+</p>
+<p><b>
+Description: 
+</b>
+ Rotates point around the other on angle 
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int - xCenter
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int - yCenter
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int - x
+</p>
+<p><b>
+Parameter: 
+</b>
+ Int - y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real - angle in degree
+</p>
+<p><b>
+Return: 
+</b>
+ Int  x
+</p>
+<p><b>
+Return: 
+</b>
+ Int  y
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.setrandseed
+</p>
+<p><b>
+Description: 
+</b>
+ Initializes seed for random number generator with current time (for main.randint generator)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.randint
+</p>
+<p><b>
+Description: 
+</b>
+ Generates integer random number [min,max]
+</p>
+<p><b>
+Parameter: 
+</b>
+ random min		
+</p>
+<p><b>
+Parameter: 
+</b>
+ random max
+</p>
+<p><b>
+Return: 
+</b>
+ integer random number
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.randintex
+</p>
+<p><b>
+Description: 
+</b>
+ Generates large integer random number [min,max] using mersenne twister 
+</p>
+<p><b>
+Parameter: 
+</b>
+ random min
+</p>
+<p><b>
+Parameter: 
+</b>
+ random max
+</p>
+<p><b>
+Return: 
+</b>
+ integer random number
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.randfloat
+</p>
+<p><b>
+Description: 
+</b>
+ Generates Real random number [0,1]							
+</p>
+<p><b>
+Return: 
+</b>
+ Real random number
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.calchash
+</p>
+<p><b>
+Description: 
+</b>
+ Calculates hash from the string
+</p>
+<p><b>
+Parameter: 
+</b>
+ String to calculate
+</p>
+<p><b>
+Return: 
+</b>
+ - integer data
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.getname
+</p>
+<p><b>
+Description: 
+</b>
+ Returns app name
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.uniqid
+</p>
+<p><b>
+Description: 
+</b>
+ Generates uniqal id (hashedunitname_year:mounth:day:hour:minute:second:milliseconds_randnumber)
+</p>
+<p><b>
+Return: 
+</b>
+ - integer data
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.getseed
+</p>
+<p><b>
+Description: 
+</b>
+  returns seed value for the random generator(generator main.randint)
+</p>
+<p><b>
+Return: 
+</b>
+ - integer data
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.readfile
+</p>
+<p><b>
+Description: 
+</b>
+ Reads text from file in to the vector (type "strs_vector")
+</p>
+<p><b>
+Parameter: 
+</b>
+ path
+</p>
+<p><b>
+Parameter: 
+</b>
+ boolean if true - reads all lines in one string with spaces instead of wordwrap( vector size == 1), false - default
+</p>
+<p><b>
+Return: 
+</b>
+ id of the vector type 'strs_vector'
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.writetofile
+</p>
+<p><b>
+Description: 
+</b>
+ Writes text from String vector 'strs_box' into the file
+</p>
+<p><b>
+Parameter: 
+</b>
+ path
+</p>
+<p><b>
+Parameter: 
+</b>
+ id of the vector type 'strs_vector'
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.isserver
+</p>
+<p><b>
+Description: 
+</b>
+ Determines has app child units or not
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.isserver
+</p>
+<p><b>
+Return: 
+</b>
+ mode,  true - if server mode
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.e
+</p>
+<p><b>
+Description: 
+</b>
+ executes buffer on the first available unit. e.g. main.e("c_delimg(10)") or main.e("script.lua",true)
+</p>
+<p><b>
+Parameter: 
+</b>
+ String - script data or path if second parameter is true
+</p>
+<p><b>
+Parameter: 
+</b>
+ Boolean - if true - reads buffer from path
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.el
+</p>
+<p><b>
+Description: 
+</b>
+ executes buffer ONLY on the local units. e.g. main.e("c_delimg(10)") or main.e("script.lua",true)
+</p>
+<p><b>
+Parameter: 
+</b>
+ String - script data or path if second parameter is true
+</p>
+<p><b>
+Parameter: 
+</b>
+ Boolean - if true - reads buffer from path
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.ed
+</p>
+<p><b>
+Description: 
+</b>
+ executes buffer ONLY on the children units. e.g. main.e("c_delimg(10)") or main.e("script.lua",true)
+</p>
+<p><b>
+Parameter: 
+</b>
+ String - script data or path if second parameter is true
+</p>
+<p><b>
+Parameter: 
+</b>
+ Boolean - if true - reads buffer from path
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.eu
+</p>
+<p><b>
+Description: 
+</b>
+ Sends buffer for executing on parrent unit. e.g. main.e("c_delimg(10)") or main.e("script.lua",true)
+</p>
+<p><b>
+Parameter: 
+</b>
+ String - script data or path if second parameter is true
+</p>
+<p><b>
+Parameter: 
+</b>
+ Boolean - if true - reads buffer from path
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.exit
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.tasks
+</p>
+<p><b>
+Description: 
+</b>
+ Returns tasks quantity in the queue
+</p>
+<p><b>
+Return: 
+</b>
+ tasks quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.cursorimg
+</p>
+<p><b>
+Description: 
+</b>
+ Returns cursor in image coordinates -1 -1 by default, if no image selected
+</p>
+<p><b>
+Return: 
+</b>
+ x pos
+</p>
+<p><b>
+Return: 
+</b>
+ y pos
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.keystate
+</p>
+<p><b>
+Description: 
+</b>
+ Returns key state
+</p>
+<p><b>
+Parameter: 
+</b>
+ Key:
+</p>
+<p><b>
+Return: 
+</b>
+ true - if key`s  pressed
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.executeshell
+</p>
+<p><b>
+Description: 
+</b>
+ Executes shell command. Path in script set "C:\\foto\\" and "\\\\user\\user\\test"
+</p>
+<p><b>
+Parameter: 
+</b>
+  - string to execute
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.regextoken
+</p>
+<p><b>
+Description: 
+</b>
+ Finds tokens using regular expressions, taking data from string parameter
+</p>
+<p><b>
+Parameter: 
+</b>
+ string regular expression
+</p>
+<p><b>
+Parameter: 
+</b>
+ string text
+</p>
+<p><b>
+Parameter: 
+</b>
+ string submatch options like "0,1" see http://www.cplusplus.com/reference/regex/regex_token_iterator/regex_token_iterator/
+</p>
+<p><b>
+Parameter: 
+</b>
+ int match mask:
+</p>
+<p><b>
+Return: 
+</b>
+ string vector id or zero_id == 0
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.regextokenex
+</p>
+<p><b>
+Description: 
+</b>
+ Finds tokens using regular expressions, taking data from string vector
+</p>
+<p><b>
+Parameter: 
+</b>
+ string regular expression
+</p>
+<p><b>
+Parameter: 
+</b>
+ int string vector id with text
+</p>
+<p><b>
+Parameter: 
+</b>
+ int pos in vector
+</p>
+<p><b>
+Parameter: 
+</b>
+ string submatch options like "0,-1" see http://www.cplusplus.com/reference/regex/regex_token_iterator/regex_token_iterator/
+</p>
+<p><b>
+Parameter: 
+</b>
+ int match mask:
+</p>
+<p><b>
+Return: 
+</b>
+ string vector id or zero_id == 0
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ main.regexmatch
+</p>
+<p><b>
+Description: 
+</b>
+	Finds matches using regular expressions. Data takes from vector string box
+</p>
+<p><b>
+Parameter: 
+</b>
+ string regular expression
+</p>
+<p><b>
+Parameter: 
+</b>
+ int string vector id with text
+</p>
+<p><b>
+Parameter: 
+</b>
+ int pos in vector
+</p>
+<p><b>
+Parameter: 
+</b>
+ int match mask:
+</p>
+<p><b>
+Return: 
+</b>
+ int matches count
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.create
+</p>
+<p><b>
+Description: 
+</b>
+ Creates box - 2d or 1d(stack) array. Useful for gpu calculation.
+</p>
+<p><b>
+Parameter: 
+</b>
+ String -  box type:
+</p>
+<p><b>
+Return: 
+</b>
+ - box id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.erase
+</p>
+<p><b>
+Description: 
+</b>
+ Deletes box
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.eraseall
+</p>
+<p><b>
+Description: 
+</b>
+ Deletes all boxes in the container
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.getvalf
+</p>
+<p><b>
+Description: 
+</b>
+ Returns float value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Return: 
+</b>
+ -  value
+</p>
+<p><b>
+Return: 
+</b>
+ -  boolean result true - if coordinate located in boundary
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.setvalf
+</p>
+<p><b>
+Description: 
+</b>
+ Assigns float value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.setval3f
+</p>
+<p><b>
+Description: 
+</b>
+ Assigns vector3f value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.getvali16
+</p>
+<p><b>
+Description: 
+</b>
+ Returns int16 value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Return: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.setvali16
+</p>
+<p><b>
+Description: 
+</b>
+ Assigns int16 value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.getvali32
+</p>
+<p><b>
+Description: 
+</b>
+ Returns int value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Return: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.getvalui8
+</p>
+<p><b>
+Description: 
+</b>
+ Returns byte value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Return: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.getval3f
+</p>
+<p><b>
+Description: 
+</b>
+ Returns vector3f value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Return: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.getvals
+</p>
+<p><b>
+Description: 
+</b>
+ Returns String value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Return: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.setvals
+</p>
+<p><b>
+Description: 
+</b>
+ Assigns String value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.setvali32
+</p>
+<p><b>
+Description: 
+</b>
+ Sets int value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.setvalui8
+</p>
+<p><b>
+Description: 
+</b>
+ Sets byte value in the selected coordinate. In vector boxes 'y' coordinate is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  x coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  y coordinate discarding in vector box type
+</p>
+<p><b>
+Parameter: 
+</b>
+ -  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.resize
+</p>
+<p><b>
+Description: 
+</b>
+ Resizes box with saving values in the selected coordinate. In vector boxes 'xMax,yMin,yMax' parameters is ignored
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ xMin or new size in vector boxes
+</p>
+<p><b>
+Parameter: 
+</b>
+ xMax is ignored in vector box type
+</p>
+<p><b>
+Parameter: 
+</b>
+ yMin	is ignored in vector box type
+</p>
+<p><b>
+Parameter: 
+</b>
+ yMax is ignored in vector box type
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.pushbacki16
+</p>
+<p><b>
+Description: 
+</b>
+ Pushes the value to the end of the vector box. Allowed only for vector boxes
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ int16 value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.pushbacks
+</p>
+<p><b>
+Description: 
+</b>
+ Pushes the value to the end of the vector box. Allowed only for vector boxes
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ String value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.pushbacki32
+</p>
+<p><b>
+Description: 
+</b>
+ Pushes the value to the end of the vector box. Allowed only for vector boxes
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ int32 value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.pushbackui8
+</p>
+<p><b>
+Description: 
+</b>
+ Pushes the value to the end of the vector box. Allowed only for vector boxes
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint8 value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.pushbackf
+</p>
+<p><b>
+Description: 
+</b>
+ Pushes the value to the end of the vector box. Allowed only for vector boxes
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.pushback3f
+</p>
+<p><b>
+Description: 
+</b>
+ Pushes the value to the end of the vector box. Allowed only for vector boxes
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.popbackf
+</p>
+<p><b>
+Description: 
+</b>
+ Removes last value from the float vector box.
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.popbacks
+</p>
+<p><b>
+Description: 
+</b>
+ Removes last value from the string vector box.
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.popback3f
+</p>
+<p><b>
+Description: 
+</b>
+ Removes last value from the vector3f vector box.
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.popbacki32
+</p>
+<p><b>
+Description: 
+</b>
+ Removes last value from the integer32 vector box.
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.popbackui8
+</p>
+<p><b>
+Description: 
+</b>
+ Removes last value from the byte vector box.
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.popbacki16
+</p>
+<p><b>
+Description: 
+</b>
+ Removes last value from the integer vector box.
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.elements
+</p>
+<p><b>
+Description: 
+</b>
+ Returns elements quantity in the box(size in vector)
+</p>
+<p><b>
+Parameter: 
+</b>
+ box id
+</p>
+<p><b>
+Return: 
+</b>
+ width
+</p>
+<p><b>
+Return: 
+</b>
+ height(1 in vector)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.clear
+</p>
+<p><b>
+Description: 
+</b>
+ Nulling all values in box without resizing
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ box.boxes
+</p>
+<p><b>
+Description: 
+</b>
+ Returns boxes quantity
+</p>
+<p><b>
+Return: 
+</b>
+ quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.clear
+</p>
+<p><b>
+Description: 
+</b>
+ Removes data from gpu program
+</p>
+<p><b>
+Parameter: 
+</b>
+ program name
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.create
+</p>
+<p><b>
+Description: 
+</b>
+ Creates gpu program
+</p>
+<p><b>
+Parameter: 
+</b>
+ program name or path, if program with this name already exists- overwrites the old version
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.exist
+</p>
+<p><b>
+Description: 
+</b>
+ Determines whether the program exists or not
+</p>
+<p><b>
+Parameter: 
+</b>
+ program name or path
+</p>
+<p><b>
+Return: 
+</b>
+ true if program exists
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.platdescrip
+</p>
+<p><b>
+Description: 
+</b>
+ Returns GPU description		
+</p>
+<p><b>
+Return: 
+</b>
+ GPU platforms description string
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.devdescrip
+</p>
+<p><b>
+Description: 
+</b>
+ Returns GPU description util.msg(ocl.devdescrip(0)) of all installed devices on the platform
+</p>
+<p><b>
+Parameter: 
+</b>
+ platform id
+</p>
+<p><b>
+Parameter: 
+</b>
+ device id or NILL
+</p>
+<p><b>
+Return: 
+</b>
+ GPU devices description string
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.programdescrip
+</p>
+<p><b>
+Description: 
+</b>
+ Returns GPU description util.msg(ocl.programdescrip(0,"program_name")) of all installed devices on the platform
+</p>
+<p><b>
+Parameter: 
+</b>
+ platform id
+</p>
+<p><b>
+Parameter: 
+</b>
+ Program name
+</p>
+<p><b>
+Return: 
+</b>
+ Program description string
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.platforms
+</p>
+<p><b>
+Description: 
+</b>
+ Returns GPU platforms quantity		
+</p>
+<p><b>
+Return: 
+</b>
+ GPU platforms quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.enabled
+</p>
+<p><b>
+Description: 
+</b>
+ Returns GPU availability		
+</p>
+<p><b>
+Return: 
+</b>
+ true if GPU functions enabled
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.setarray
+</p>
+<p><b>
+Description: 
+</b>
+ Assigns array argument
+</p>
+<p><b>
+Parameter: 
+</b>
+ Program name			
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint box id 
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint mem access mask
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.setimage
+</p>
+<p><b>
+Description: 
+</b>
+ Assigns array argument
+</p>
+<p><b>
+Parameter: 
+</b>
+ Program name
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint image id
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint mem access mask
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.setvalue
+</p>
+<p><b>
+Description: 
+</b>
+ Assigns value argument in to the gpu program
+</p>
+<p><b>
+Parameter: 
+</b>
+ Program name
+</p>
+<p><b>
+Parameter: 
+</b>
+ Value (bool,int8,uint8,int16,uint16,int32,uint32,int64,uint64,float)				
+</p>
+<p><b>
+Parameter: 
+</b>
+ String nil(int32 or float) or "bool","int8","uint8","int16","uint16","int32","uint32","int64","uint64","float"
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.execute
+</p>
+<p><b>
+Description: 
+</b>
+ Execute gpu program
+</p>
+<p><b>
+Parameter: 
+</b>
+ String Program name		
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint global width
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint global height(2 - dimensional) or nil           
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint global depth(3 - dimensional) or nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint position of the output parameter from 0, depends of setvalue and setvalue
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint grpup size x or nil default
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint grpup size y(2 - dimensional) or nil default
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint grpup size z(3 - dimensional) or nil default
+</p>
+</body>
+</html>

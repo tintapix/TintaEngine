@@ -23,7 +23,7 @@ function main()
 	for i = 0, files - 1 do 
 			local filFullPath = util.c_getfile(dirSrc, i ,extIn , false)
 			--filename =     util.c_getfile(dirSrc, i ,extIn , true )		
-			local fileout = string.format('%s%s%s%s%s', pathDist, "/", c_uniqid(), ".", extOut )		
+			local fileout = string.format('%s%s%s%s%s', pathDist, "/", main.uniqid(), ".", extOut )		
 			if parallel == true then
 				strRequest = string.format( "c_executefunc( \"/filters/image_filters\", \"getStainBlack\",\"%s\", \"%s\", \"%s\", \"%s\") ", filFullPath, fileout, extIn, extOut )							
 				c_executeparallel( strRequest, "" )				

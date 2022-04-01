@@ -1,0 +1,14 @@
+v_shader
+{	
+	file { "v_scroll.glsl" },		
+	auto#cam {"cameraView"},
+	//auto#timer {"timeElapsed"},
+	//manual#float#period { 100.0 }	
+},
+f_shader
+{	
+	file { "f_scroll.glsl" },		
+	manual#texture#image {"test.png"},	
+	manual#float#ratio { 0.0 },	
+	manual#float#factor { 0.0 },	
+},

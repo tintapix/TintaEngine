@@ -14,5 +14,5 @@ util.msg(stringPathIn)
 
 c_executeshell(string.format("copy \"%s\" \"%s\" ", stringPathIn, stringPathOut ))
 
---c_ed("c_executeshell(string.format(\"copy %s %s \", stringPathIn, stringPathOut ))")
+--main.ed("c_executeshell(string.format(\"copy %s %s \", stringPathIn, stringPathOut ))")
 

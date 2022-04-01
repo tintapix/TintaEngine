@@ -1,0 +1,12 @@
+v_shader
+{	
+	file {"v_filter.glsl"},		
+	auto#cam {"cameraView"},	
+},
+f_shader
+{	
+	file {"f_filter.glsl"},		
+	manual#texture#image {"t_text.png"},	
+	manual#float#factor {0.46},	
+	manual#fVec3#color { 0.25, 0.172, 0.1254},	
+},

@@ -1,0 +1,1084 @@
+﻿require "Scripts/lib/l_util"
+
+--s_addPatternImgVert
+--s_addImgRandom
+--s_addPatternImg
+--s_addPatternImgScale
+--s_addPatternImgChannel
+--s_addPatternImgInterpImg
+--s_circlegradient
+--s_vertgradient
+--s_addPatternImgVertRand
+--s_addPatternImgOther
+--s_addPatternImgOtherGradient
+--s_addRandomImgOther
+--s_addImgOtherFromMarkers
+
+
+
+--[[
+	adds pattern in vertical order 
+	interpolating to the palleteName
+]]--
+function s_addPatternImgVert( xSize, ySize, countAddIn,  imgDirPath, addImgEx, pathOut, between, maxRandOffset, palleteName, invertIn)
+			
+
+	--local exImage 	 = s_getex(imgPathIn)		
+	local exImageOut = s_getex(pathOut)	
+	
+	local arrColor = s_getpallete(palleteName)
+	
+	local rezImg = image.create( xSize, ySize , "basic" ) -- image.read( imgPathIn, exImage, imageType )	
+	
+	image.fillb(255,255,255)
+	image.fillchannelf(3,1)
+	
+	local stepX = between
+	local stepY = between
+	
+	
+	local posX = 0
+	local posY = math.floor(between/2)
+	local interpFactor = 1
+	
+	util.msg(interpFactor)
+	local yCount = 0
+	
+	local filesMax  = util.countfiles( imgDirPath, addImgEx )
+	
+	while yCount < countAddIn do			
+						
+						
+			local fileFullPath = util.getfile( imgDirPath, main.randintex( 0, filesMax - 1 ), addImgEx , false )
+			
+			local cRRand,cGRand,cBRand = util.unpackcolor( s_getRandomcolor(arrColor) )		
+			
+			local picToAdd = 0
+			
+			picToAdd = s_interpToColor( fileFullPath, nil, cRRand,cGRand,cBRand, 1, false )		 
+			
+			
+			image.select( picToAdd )
+			local w = image.width()
+			local h = image.height()
+			
+			stepY = h + between
+			
+			image.select( rezImg )						
+			
+			
+			local offsetY = maxRandOffset
+			if maxRandOffset > 0 then				
+				offsetY = main.randint(0,maxRandOffset)
+			end
+			image.mix( picToAdd, posX, posY + offsetY, 1  )			
+			
+			
+			image.erase( picToAdd )
+						
+			posY = posY + stepY		
+			yCount = yCount + 1
+	end		
+		
+		
+	image.select( rezImg )
+	image.save( exImageOut, pathOut )
+	image.erase( rezImg )
+	
+	util.msg("***s_addPatternImgVert finished")
+end
+
+
+
+function s_addImgRandom( width, height, patternsPathIn, addImgEx, pathOutIn, quantity, palleteNameIn, imgId, randAlpha  )
+				
+	local exImageOut = s_getex(pathOutIn)	
+		
+	
+	local picImg = nil
+	if imgId == nil then
+		picImg = image.create( width, height , "seamless" ) 			
+		image.fillb(255,255,255)	
+		image.fillchannelf(3,1)
+	else
+		picImg = imgId
+		image.select( picImg )
+	end
+	
+	local wRead = image.width()
+	local hRead = image.height()	
+			
+	local filesMax  = util.countfiles( patternsPathIn, addImgEx )	
+	
+	util.msg(filesMax)
+	local arrColor = s_getpallete( palleteNameIn )	
+	
+	for count = 0 , quantity do 				
+		
+		local fileFullPath = util.getfile( patternsPathIn, main.randintex( 0, filesMax - 1 ), addImgEx , false )		
+		local cRRand,cGRand,cBRand = util.unpackcolor( s_getRandomcolor(arrColor) )
+		
+		local picToAdd = s_interpToColor( fileFullPath,nil, cRRand,cGRand,cBRand, 1.0, false )
+				
+		image.select( picImg )			
+		
+		if randAlpha ~= nil and randAlpha == true then
+			image.mix( picToAdd, main.randint(0,wRead), main.randint(0,hRead), main.randfloat()  )										
+		else
+			image.mix( picToAdd, main.randint(0,wRead), main.randint(0,hRead), 1.0  )										
+		end
+		
+		image.erase( picToAdd )								
+		
+	end	
+	
+	image.select( picImg )
+	image.save( exImageOut, pathOutIn )
+	
+	if imgId == nil then
+		image.erase( picImg )
+	end
+	
+	util.msg("***s_addImgRandom finished")
+end
+
+
+
+
+--[[
+	adds pattern from the masked shape image in tile order.size depends of between parameter	
+	colored with pallete colors in random order
+	pattern image IS NOT CONVERTING in to the buffer
+	imgMaskIn - mask image (with alpha 0,1) xCount depends of width yCount depends of height 
+	palleteName - pallete name
+]]--
+function s_addPatternImg( xSize, ySize, imgMaskIn, patternsPathIn, addImgEx, pathOut, between, maxRandOffset, palleteName, randAlphaIn, typeArrange )
+			
+
+	--local exImage 	 = s_getex(imgPathIn)		
+	local exImageOut = s_getex( pathOut )		
+	local arrColor = nil
+	if  s_isstring( palleteName ) then
+		arrColor = s_getpallete( palleteName )	
+	end
+	local picImg = image.create( xSize, ySize , "basic" ) 
+	
+	image.fillb(255,255,255)
+	
+	-- template 
+	local picToGet = 0
+	if s_isstring( imgMaskIn ) == true  then		
+		picToGet = image.read( imgMaskIn, s_getex( imgMaskIn ), "basic" )	 
+	else
+		picToGet = imgMaskIn	 
+	end
+	
+	image.select( picToGet )
+	local wRead = image.width()
+	local hRead = image.height()
+
+	local stepX = between
+	local stepY = between
+	
+	
+	local posX = math.floor(between/2)
+	local posY = math.floor(between/2)
+	
+	local xCount = 0
+	local yCount = 0
+	local offsets = { -maxRandOffset,0, 0,0, maxRandOffset,0 }
+	local filesMax  = util.countfiles( patternsPathIn, addImgEx )	
+	
+	if typeArrange == nil or typeArrange == 0 then
+		
+		while yCount < hRead do			
+			while xCount < wRead do				
+							
+				image.select( picToGet )			
+				local r,g,b,a = image.getpixelb( xCount, yCount) 			
+				
+				local fileFullPath = util.getfile( patternsPathIn, main.randintex( 0, filesMax - 1 ), addImgEx , false )
+				if arrColor ~= nil then
+					r,g,b = util.unpackcolor( s_getRandomcolor(arrColor) )				
+				end
+							
+				local picToAdd = s_interpToColor( fileFullPath, nil, r,g,b, 1.0, false )
+				
+				image.select( picToAdd )
+								
+				stepX = between				
+				stepY = between
+				
+				image.select( picImg )			
+				
+				if a > 0 then			
+					local offsetX = 0				
+					local offsetY = 0
+					
+					if maxRandOffset > 0 then		
+						local pos = main.randint(1,5)				
+						offsetX = offsetX + offsets[pos]					
+						offsetY = 0
+					end				
+					
+					if randAlphaIn == true then
+						image.mix( picToAdd,  posX + offsetX, posY + offsetY, util.randfloat() )			
+					else
+						image.mix( picToAdd,  posX + offsetX, posY + offsetY, util.bytetofloat( a )  )								
+					end
+				end
+				
+				image.erase( picToAdd )
+							
+				posX = posX + stepX		
+				xCount = xCount + 1
+			end		
+			
+			posX = math.floor(between/2)
+			xCount = 0
+			yCount = yCount + 1			
+			posY = posY + stepY		
+		end	
+	else -- btick
+		local odd = false
+				
+		while yCount < hRead do			
+			while xCount < wRead do				
+							
+				image.select( picToGet )			
+				local r,g,b,a = image.getpixelb( xCount, yCount) 			
+				
+				local fileFullPath = util.getfile( patternsPathIn, main.randintex( 0, filesMax - 1 ), addImgEx , false )
+				if arrColor ~= nil then
+					r,g,b = util.unpackcolor( s_getRandomcolor(arrColor) )				
+				end
+							
+				local picToAdd = s_interpToColor( fileFullPath, nil, r,g,b, 1.0, false )
+				
+				image.select( picToAdd )					
+				local wMask = image.width()				
+				
+				stepX = between				
+				stepY = between
+				
+				image.select( picImg )			
+				
+				if a > 0 then			
+				
+					local offsetX = 0				
+					local offsetY = 0
+					
+					if maxRandOffset > 0 then		
+						local pos = main.randint(1,5)				
+						offsetX = offsetX + offsets[pos]					
+						offsetY = 0
+					end			
+					
+					if randAlphaIn == true then
+						image.mix( picToAdd, posX + offsetX, posY + offsetY, util.randfloat() )			
+					else
+						image.mix( picToAdd, posX + offsetX, posY + offsetY, util.bytetofloat( a )  )								
+					end
+				end
+				
+				image.erase( picToAdd )
+							
+				posX = posX + stepX		
+				
+				xCount = xCount + 1
+			end	-- while xCount < wRead
+			
+			odd = odd ~= true
+			if odd == false then
+				posX = math.floor(between/2)
+			else
+				posX = between 
+			end
+			
+			
+			
+			xCount = 0
+			yCount = yCount + 1
+			
+			posY = posY + stepY		
+		end		
+		
+	end
+	
+	if s_isstring(imgMaskIn) == true  then	
+		image.erase( picToGet )
+	end
+	image.select( picImg )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
+	
+	util.msg("***s_addPatternImg finished")
+end
+
+-------------------------------------------------------
+
+--[[
+	adds pattern in tile order takes color variant from imgToRead image pixels
+	pattern image interpolates to the palleteName color depends on imgToRead channelIn value in current position
+	pattern image IS NOT CONVERTING in to the buffer
+	arrayOutSize - spread palletete array to this size
+]]--
+function s_addPatternImgChannel( xSize, ySize, imgChanelPathIn, patternsPathIn, addImgEx, pathOut, between, maxRandOffset, palleteNameIn, arrayOutSize, channelIn, bInvert, factorInterpIn)
+	
+	local exImageOut = s_getex(pathOut)		
+	
+	local picImg = image.create( xSize, ySize , "basic" ) -- image.read( imgPathIn, exImage, imageType )	
+	
+	image.fillb(255,255,255)
+	
+	local picToGet = image.read( imgChanelPathIn, s_getex(imgChanelPathIn), "basic" )	
+	
+	image.select( picToGet )
+	local wRead = image.width()
+	local hRead = image.height()		
+	
+	local stepX = between
+	local stepY = between	
+	
+	local posX = math.floor(between/2)
+	local posY = math.floor(between/2)
+	
+	local xCount = 0
+	local yCount = 0
+	
+	local filesMax  = util.countfiles( patternsPathIn, addImgEx )
+	local factorInterp = 1
+	if factorInterpIn ~= nil then
+		factorInterp = factorInterpIn
+	end
+	local arrColor = s_getpallete(palleteNameIn)
+	local arrOut = s_buildColorArray( arrColor, arrayOutSize )
+	local sizeArr = s_arrlength(arrOut)
+	while xCount < wRead do			
+		while yCount < hRead do				
+						
+			image.select( picToGet )			
+			local r,g,b,a = image.getpixelf( xCount, yCount) 			
+						
+			image.select( picToGet )	
+			
+			local fileFullPath = util.getfile( patternsPathIn, main.randintex( 0, filesMax - 1 ), addImgEx , false )
+						
+			local f = a
+			if channelIn ==  0 then
+				f = r
+			elseif channelIn ==  1 then
+				f = g
+			elseif channelIn ==  2 then
+				f = b				
+			elseif channelIn ==  3 then
+				f = a				
+			elseif channelIn ==  4 then
+				local h,s,l = util.c_rgbtohsl( r,g,b )	
+				f = l
+			end
+						
+			if bInvert == true then 
+				f = 1 - f
+			end
+			local pos, color = s_getDiscreteColorByFactor( arrOut, sizeArr, f )
+			
+			local bR,bG,bB = util.unpackcolor( color )
+				
+			local picToAdd = s_interpToColor( fileFullPath, nil, bR,bG,bB, factorInterp, false )
+						
+			stepX = between				
+			stepY = between
+			
+			image.select( picImg )			
+			--a = main.randint(0,1)
+			if a > 0 then				
+				local offsetX = maxRandOffset
+				local offsetY = maxRandOffset
+				if maxRandOffset > 0 then
+					offsetX = main.randint(0,maxRandOffset)
+					offsetY = main.randint(0,maxRandOffset)
+				end
+				image.select( picImg )
+				image.mix( picToAdd, posX + offsetX, posY + offsetY, 1 )		
+				image.select( picToAdd )				
+			end
+			
+			image.erase( picToAdd )
+						
+			posY = posY + stepY		
+			yCount = yCount + 1
+		end		
+		
+		posY = math.floor(between/2)
+		yCount = 0
+		xCount = xCount + 1
+		
+		posX = posX + stepX		
+	end		
+	
+	image.erase( picToGet )
+	image.select( picImg )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
+	
+	util.msg("***s_addPatternImgChannel finished")
+end
+
+
+--[[
+	adds pattern in tile order using mask image
+	pattern image interpolates to the imagePathToInterpIn in random position
+	pallete is not uses
+	pattern image IS NOT CONVERTING in to the buffer
+	maskImgPathIn - mask image		
+]]--
+function s_addPatternImgInterpImg( xSize, ySize, maskImgPathIn, patternsPathIn, addImgEx, pathOut, between, maxRandOffset, imagePathToInterpIn, randOffset )
+			
+
+	--local exImage 	 = s_getex(imgPathIn)		
+	local exImageOut = s_getex(pathOut)	
+	
+	
+	local picImg = image.create( xSize, ySize , "basic" ) -- image.read( imgPathIn, exImage, imageType )	
+	
+	image.fillb(255,255,255)
+	
+	local picToGet = image.read( maskImgPathIn, s_getex(maskImgPathIn), "basic" )	 
+	image.select( picToGet )
+	local wRead = image.width()
+	local hRead = image.height()
+
+	local stepX = between
+	local stepY = between	
+	
+	local posX = math.floor(between/2)
+	local posY = math.floor(between/2)
+	
+	local xCount = 0
+	local yCount = 0
+	
+	local filesMax  = util.countfiles( patternsPathIn, addImgEx )	
+	local interpId  = image.read( imagePathToInterpIn, s_getex(imagePathToInterpIn), "basic" )
+	
+	while xCount < wRead do			
+		while yCount < hRead do				
+						
+			image.select( picToGet )			
+			local r,g,b,a = image.getpixelb( xCount, yCount) 			
+			
+			local fileFullPath = util.getfile( patternsPathIn, main.randintex( 0, filesMax - 1 ), addImgEx , false )
+						
+			local picToAdd = s_interpToImageId( fileFullPath, "", interpId, 1, true )			
+						
+			local w = image.width()
+			local h = image.height()
+
+			stepX = w + between				
+			stepY = h + between
+			
+			image.select( picImg )			
+			
+			if a > 0 then				
+				local offsetX = 0
+				local offsetY = 0
+				if randOffset == true then
+					offsetX = main.randint(0,maxRandOffset)
+					offsetY = main.randint(0,maxRandOffset)
+				end
+					image.mix( picToAdd, posX + offsetX, posY + offsetY, util.bytetofloat( a )  )											
+			end
+			
+			image.erase( picToAdd )
+						
+			posY = posY + stepY		
+			yCount = yCount + 1
+		end		
+		
+		posY = math.floor(between/2)
+		yCount = 0
+		xCount = xCount + 1
+		
+		posX = posX + stepX		
+	end		
+	
+	image.erase( interpId )	
+	image.erase( picToGet )
+	image.select( picImg )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
+	
+	util.msg("***s_addPatternImgInterpImg finished")
+end
+
+
+
+
+
+
+
+--[[
+	Draws circle gradient
+]]--
+function s_circlegradient( outPathIn, widthIn, heightIn, xPosIn, yPssIn, palleteNameIn, arrayOutSizeIn, bInvetIn )
+
+	local exImageOut = s_getex(outPathIn)	
+	
+	local arrColor = s_getpallete(palleteNameIn)
+	
+	local arrOut = s_buildColorArray( arrColor, arrayOutSizeIn )	
+	
+	local picImg = image.create( widthIn, heightIn , "basic" ) -- image.read( imgPathIn, exImage, imageType )	
+	image.select( picImg )
+	local w = image.width()
+	local h = image.height()
+	image.fillb(255,255,255)
+	
+	local xCount = 0
+	local yCount = 0
+		
+	local lenMax = s_get_length( 0, h - 1, xPosIn, yPssIn )
+	local sizeArr = s_arrlength(arrOut)
+	while xCount < w do			
+		while yCount < h do				
+						
+			local len = s_get_length(xCount, yCount, xPosIn, yPssIn )
+			
+			local f = math.min(len,lenMax)/lenMax
+			--util.util.msgf(f)
+			if bInvetIn == true then 
+				f = 1 - f
+			end
+			local pos, color = s_getDiscreteColorByFactor( arrOut,sizeArr, f )				
+			local bR,bG,bB = util.unpackcolor( color )
+			
+			local rMed = util.bytetofloat( bR )
+			local gMed = util.bytetofloat( bG )
+			local bMed = util.bytetofloat( bB )
+			--util.util.msgf(rMed, " ",gMed," ",bMed)
+			image.setchannelf(xCount,yCount,3,1.0)
+			image.setpixelf( xCount,yCount, rMed, gMed, bMed, 1.0)						
+			
+			yCount = yCount + 1
+		end		
+		yCount = 0
+		xCount = xCount + 1		
+	end		
+	
+	image.save( exImageOut, outPathIn )
+	image.erase( picImg )
+	
+	util.msg("***s_circlegradient finished")
+
+end
+
+--[[
+	Draws vert gradient
+]]--
+function s_vertgradient( outPathIn, widthIn, heightIn, palleteNameIn, arrayOutSizeIn, bInvetIn )
+
+	local exImageOut = s_getex(outPathIn)	
+	
+	local arrColor = s_getpallete(palleteNameIn)
+	
+	local arrOut = s_buildColorArray( arrColor, arrayOutSizeIn )	
+	
+	local picImg = image.create( widthIn, heightIn , "basic" ) -- image.read( imgPathIn, exImage, imageType )	
+	image.select( picImg )
+	local w = image.width()
+	local h = image.height()
+	image.fillb(255,255,255)
+	
+	local xCount = 0
+	local yCount = 0
+		
+	local lenMax = heightIn
+	local sizeArr = s_arrlength(arrOut)
+	while xCount < w do			
+		while yCount < h do				
+						
+			
+			
+			local f = yCount/lenMax
+			--util.util.msgf(f)
+			if bInvetIn == true then 
+				f = 1 - f
+			end
+			local pos, color = s_getDiscreteColorByFactor( arrOut,sizeArr, f )				
+			local bR,bG,bB = util.unpackcolor( color )
+			
+			local rMed = util.bytetofloat( bR )
+			local gMed = util.bytetofloat( bG )
+			local bMed = util.bytetofloat( bB )
+			
+			image.setchannelf(xCount,yCount,3,1.0)
+			image.setpixelf( xCount,yCount, rMed, gMed, bMed, 1.0)						
+				
+			yCount = yCount + 1
+		end		
+		yCount = 0
+		xCount = xCount + 1		
+	end		
+	
+	image.save( exImageOut, outPathIn )
+	image.erase( picImg )
+	
+	util.msg("***s_vertgradient finished")
+
+end
+
+
+
+
+
+--[[
+	adds pattern in vertical order randomly on y axis, x position is fixed on 0
+	interpolating to the palleteName
+]]--
+function s_addPatternImgVertRand( xSize, ySize, countAddIn,  imgDirPath, addImgEx, pathOut,   palleteName, interpFactorIn, channelIn, invertIn)
+			
+
+	--local exImage 	 = s_getex(imgPathIn)		
+	local exImageOut = s_getex( pathOut )		
+	local arrColor = s_getpallete( palleteName )	
+	local rezImg = image.create( xSize, ySize , "basic" ) -- image.read( imgPathIn, exImage, imageType )	
+	
+	image.fillb(255,255,255)
+	image.fillchannelf(3,1)
+	
+	local posX = 0
+	
+	local interpFactor = 1
+	
+	if interpFactorIn~= nil then
+		interpFactor = interpFactorIn
+	end
+	util.msg(interpFactor)
+	local count = 0
+	
+	local filesMax  = util.countfiles( imgDirPath, addImgEx )
+	
+	while count < countAddIn do			
+						
+						
+			local fileFullPath = util.getfile( imgDirPath, main.randintex( 0, filesMax - 1 ), addImgEx , false )
+			local cRRand,cGRand,cBRand = util.unpackcolor( s_getRandomcolor(arrColor) )		
+						
+			local picToAdd = 0
+			--[[if channelIn ~= nil then					
+				local cRRand2,cGRand2,cBRand2 = util.unpackcolor( s_getRandomcolor( arrColor ) )
+				picToAdd = s_interpToColorsByChannel( fileFullPath, nil, cRRand,cGRand,cBRand, cRRand2,cGRand2,cBRand2, channelIn ,  interpFactor )				
+			else]]--
+				picToAdd = s_interpToColor( fileFullPath,nil, cRRand,cGRand,cBRand, interpFactor, false )
+			--end					 	
+		
+			image.select( rezImg )			
+			image.mix( picToAdd, 0, main.randintex( 50, ySize-50 ), 1  )				
+			image.erase( picToAdd )						
+			
+			count = count + 1
+	end		
+		
+		
+	image.select( rezImg )
+	image.save( exImageOut, pathOut )
+	image.erase( rezImg )
+	
+	util.msg("***s_addPatternImgVertRand finished")
+end
+
+
+--[[
+	Adds images from the selected directory in pattern order: tile, brick without with the 
+	original color of the pattern image
+	widthIn  - width
+	heightIn - height
+	imageType - string parameter: "seamless" or "basic"
+	imgDirPath  - path to the directory with images to add
+	addImgEx 	- string parameter, file extension: "jpg", "jpeg", "png"
+	pathOut 	- output path for the result image	
+	countAdd    - quantity
+	between		- space
+	typeArrange - 0 - tile, 1 - brick
+	
+]]--
+function s_addPatternImgOther( widthIn, heightIn, imageType, imgDirPath, addImgEx, pathOut, countAdd, between, typeArrange, maxAlphaIn, bRandAlphaIn )
+			
+	main.lassert( typeArrange >= 0 and typeArrange < 2 , " Wrong typeArrange value!" )
+	--local exImage 	 = s_getex(imgPathIn)		
+	local exImageOut = s_getex(pathOut)	
+	
+	
+	--picImg = image.read( imgPathIn, exImage, imageType )	
+	local picImg = image.create( widthIn, heightIn , imageType )
+
+	image.fillb(255,255,255)
+	--local w = image.width()
+	--local h = image.height()	
+	image.fillchannelf(3,1)
+	
+	local stepX = between
+	local stepY = between
+	local alphaFactor = 1
+	if maxAlphaIn ~= nil then
+		alphaFactor = maxAlphaIn
+	end
+	if typeArrange == 0 then 
+		local posX = math.floor(between/2)
+		local posY = math.floor(between/2)
+		
+		local xCount = 0
+		local yCount = 0
+		
+		local filesMax  = util.countfiles( imgDirPath, addImgEx )	
+		
+		while xCount < countAdd do	
+			
+			
+			while yCount < countAdd do				
+				
+				local fileFullPath = util.getfile( imgDirPath, main.randintex( 0, filesMax - 1 ), addImgEx , false )			
+				--util.msg(fileFullPath)
+				local picAdd = image.read( fileFullPath, addImgEx )	
+				local w = image.width()
+				local h = image.height()
+	
+				stepX = w + between				
+				stepY = h + between
+				-- s_multalpha
+				image.select( picImg )					
+				if bRandAlphaIn == nil or bRandAlphaIn == false then
+					image.mix( picAdd, posX, posY, alphaFactor )
+				else
+					image.mix( picAdd, posX, posY, math.min(main.randfloat() , alphaFactor) )
+				end
+				image.erase( picAdd )
+				
+				posY = posY + stepY		
+				yCount = yCount + 1
+			end		
+			
+			posY = math.floor(between/2)
+			yCount = 0
+			xCount = xCount + 1
+			posX = posX + stepX		
+		end		
+	elseif typeArrange == 1 then
+			local posX = 0 --math.floor(between/2)
+			local posY = 0 --math.floor(between/2)
+		
+			local xCount = 0
+			local yCount = 0
+			local odd = false
+			local offset = 0
+			local filesMax  = util.countfiles( imgDirPath, addImgEx )	
+			while xCount < countAdd do				
+			
+				while yCount < countAdd do				
+					
+					local fileFullPath = util.getfile( imgDirPath, main.randintex( 0, filesMax - 1 ), addImgEx , false )			
+					local picAdd = image.read( fileFullPath, addImgEx )	
+					local w = image.width()
+					local h = image.height()
+					offset = h/2
+		
+					stepX = w + between				
+					stepY = h + between
+					-- s_multalpha
+					image.select( picImg )					
+					if bRandAlphaIn == nil or bRandAlphaIn == false then
+						image.mix( picAdd, posX, posY, alphaFactor )
+					else
+						image.mix( picAdd, posX, posY, main.randfloat() * alphaFactor )
+					end
+					image.erase( picAdd )
+					
+					posY = posY + stepY		
+					yCount = yCount + 1
+				end		
+				
+			posY = offset + math.floor(between/2)
+			if odd == true then
+				odd = false
+				posY = 0
+			else
+				odd = true
+			end
+			
+			
+			yCount = 0
+			xCount = xCount + 1
+			posX = posX + stepX		
+		end		
+
+	
+	end
+	
+	image.select( picImg )
+	image.save( "png", pathOut )
+	image.erase( picImg )
+	
+	util.msg("***s_addPatternImgOther finished")
+end
+
+
+--[[
+	Adds images from the selected directory in pattern order: tile, brick with gradient scaling for comics
+	pattern images converts in to the buffer
+	imgPathIn - src image path
+	imageType - string parameter: "seamless" or "basic"
+	imgDirPath - path to the directory with images to add
+	addImgEx - string parameter, file extension: "jpg", "jpeg", "png"
+	pathOut - output path for the result image	
+	typeArrange - 0 - tile, 1 - brick
+	
+]]--
+function s_addPatternImgOtherGradient( imgPathIn, imageType, imgDirPath, addImgEx, pathOut, countAdd, between, typeArrange )
+			
+	main.lassert( typeArrange >= 0 and typeArrange < 2 , " Wrong typeArrange value!" )
+	local exImage 	 = s_getex(imgPathIn)		
+	local exImageOut = s_getex(pathOut)	
+	
+	picImg = image.read( imgPathIn, exImage, imageType )	
+
+	
+
+	local stepX = between
+	local stepY = between
+	
+	if typeArrange == 0 then 
+		local posX = math.floor(between/2)
+		local posY = math.floor(between/2)
+		
+		local xCount = 0
+		local yCount = 0
+		
+		local filesMax  = util.countfiles( imgDirPath, addImgEx )	
+		while xCount < countAdd do	
+			
+			
+			while yCount < countAdd do				
+				
+				local fileFullPath = util.getfile( imgDirPath, main.randintex( 0, filesMax - 1 ), addImgEx , false )			
+					--local picAdd = image.read( fileFullPath, addImgEx )					
+					
+				local srcBuff = s_MaskfromImageAlpha( fileFullPath  )
+					
+				local xMin, xMax, yMin, yMax = c_extremebitmap(srcBuff)
+					
+				local xSize = xMax - xMin
+				local ySize = yMax - yMin
+					
+				c_scalebitmap(srcBuff, 1 - xCount/countAdd, 1 - xCount/countAdd )
+				
+				local picAdd = c_executefunc( "/effects/effect_fillcolor", "s_effect",srcBuff, 255,255,255, 0,0,0, 1, true )
+				image.erasebitmap(srcBuff)
+				
+				-- s_multalpha
+				image.select( picImg )					
+				
+				image.mix( picAdd, posX, posY )
+				image.erase( picAdd )
+				
+				posY = posY + stepY		
+				yCount = yCount + 1
+			end		
+			
+			posY = math.floor(between/2)
+			yCount = 0
+			xCount = xCount + 1
+			posX = posX + stepX		
+		end		
+	elseif typeArrange == 1 then
+			local posX = math.floor(between/2)
+			local posY = 0 --math.floor(between/2)
+		
+			local xCount = 0
+			local yCount = 0
+			local odd = false
+			local filesMax  = util.countfiles( imgDirPath, addImgEx )	
+			while xCount < countAdd do				
+				while yCount < countAdd do				
+					
+					local fileFullPath = util.getfile( imgDirPath, main.randintex( 0, filesMax - 1 ), addImgEx , false )			
+					--local picAdd = image.read( fileFullPath, addImgEx )					
+					
+					local srcBuff = s_MaskfromImageAlpha( fileFullPath  )
+					
+					local xMin, xMax, yMin, yMax = c_extremebitmap(srcBuff)
+					
+					local xSize = xMax - xMin
+					local ySize = yMax - yMin
+					
+					c_scalebitmap(srcBuff, 1 - xCount/countAdd, 1 - xCount/countAdd )
+					
+					local picAdd = c_executefunc( "/effects/effect_fillcolor", "s_effect",srcBuff, 255,255,255, 0,0,0, 1, true )
+					image.erasebitmap(srcBuff)	
+
+					-- s_multalpha
+					image.select( picImg )					
+					
+					image.mix( picAdd, posX, posY )
+					image.erase( picAdd )
+					
+					posY = posY + stepY		
+					yCount = yCount + 1
+				end		
+				
+			posY = math.floor(between/2)
+			if odd == true then
+				odd = false
+				posY = 0
+			else
+				odd = true
+			end
+			
+			
+			yCount = 0
+			xCount = xCount + 1
+			posX = posX + stepX		
+		end		
+
+	
+	end
+	
+	image.select( picImg )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
+	
+	util.msg("***s_addPatternImgOtherGradient finished")
+end
+
+
+
+--[[
+	Adds images from the selected directory in random positions 
+	imgPathIn - src image path
+	imageType - string parameter: "seamless" or "basic"
+	imgDirPath - path to the directory with images to add
+	addImgEx - string parameter, file extension: "jpg", "jpeg", "png"
+	pathOut - output path for the result image	
+	countAdd - how much images to add, if nil or 0 adds one time every image in the folder
+]]--
+function s_addRandomImgOther( imgPathIn, imageType, imgDirPath, addImgEx, pathOut, countAdd , randAlphaIn)
+			
+	local exImage = s_getex(imgPathIn)
+	
+	local exImageOut = s_getex(pathOut)	
+	
+	local picImg = image.read( imgPathIn, exImage, "seamless" )	
+	
+	local w = image.width()
+
+	local h = image.height()	
+	
+	local filesMax  = util.countfiles( imgDirPath, addImgEx )
+	
+	
+	if countAdd > 0 then
+		for i = 0, countAdd - 1 do 	
+				local fileFullPath = util.getfile( imgDirPath, main.randintex( 0, filesMax - 1 ), addImgEx , false )			
+				local picAdd = image.read( fileFullPath, addImgEx )
+						
+				-- s_multalpha
+				image.select( picImg )
+				if randAlphaIn == true then
+					image.mix( picAdd, main.randint(0, w), main.randint(0, h) , main.randfloat() )
+				else
+					image.mix( picAdd, main.randint(0, w), main.randint(0, h) )
+				end
+				image.erase( picAdd )
+		end		
+	else
+		
+		
+		for f = 0, filesMax - 1 do
+			local fileFullPath = util.getfile( imgDirPath, f , false )			
+			local picAdd = image.read( fileFullPath, addImgEx )
+					
+			-- s_multalpha
+			image.select( picImg )
+			if randAlphaIn == true then
+				image.mix( picAdd, main.randint(0, w), main.randint(0, h) , main.randfloat() )
+			else
+				image.mix( picAdd, main.randint(0, w), main.randint(0, h) )
+			end
+			image.erase( picAdd )
+		end
+		
+	end
+	
+	--s_drawlogo( picImg )
+	
+	
+	image.select( picImg )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
+	
+	
+	util.msg("***s_addRandomImgOther finished")
+end
+
+
+--[[
+	Adds images from the selected directory from red markers image
+	imgPathIn - src image path	
+	imgDirPath - path to the directory with images to add
+	addImgEx - string parameter, file extension: "jpg", "jpeg", "png"
+	pathOut - output path for the result image
+	markersPath - red markers	image path
+]]--
+function s_addImgOtherFromMarkers( imgPathIn, imgDirPath, addImgEx, pathOut, markersPath, randAlphaIn)
+
+--[[local box = s_boxFromImgRed( PathIn, 100, 100 )
+ 
+local q = box.elements(box)
+
+for i = 0, q - 2 do
+	util.msg ( " " ,box.getvali32(box,i) , " " , box.getvali32(box,i+1) )	
+end
+
+image.erase(box)
+--]]
+
+
+			
+	local exImage = s_getex(imgPathIn)
+	
+	local exImageOut = s_getex(pathOut)	
+	
+	local picImg = image.read( imgPathIn, exImage, "seamless" )	
+	
+	local w = image.width()
+
+	local h = image.height()	
+	
+	local filesMax  = util.countfiles( imgDirPath, addImgEx )
+	
+	local box = s_boxFromImgRed( markersPath, w, h )
+	local q = box.elements(box)
+	
+	for i = 0, q - 2 do	
+			local fileFullPath = util.getfile( imgDirPath, main.randintex( 0, filesMax - 1 ), addImgEx , false )			
+			local picAdd = image.read( fileFullPath, addImgEx )
+					
+			-- s_multalpha
+			image.select( picImg )
+			if randAlphaIn == true then
+				image.mix( picAdd, box.getvali32(box,i), box.getvali32(box,i+1) , main.randfloat() )
+			else
+				image.mix( picAdd, box.getvali32(box,i), box.getvali32(box,i+1) )
+			end
+			image.erase( picAdd )
+	end		
+	
+	image.erase(box)
+	image.select( picImg )
+	image.save( exImageOut, pathOut )
+	
+	image.erase( picImg )	
+	
+	util.msg("***s_addImgOtherFromBox finished")
+end
+
+

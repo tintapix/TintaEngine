@@ -1,0 +1,13 @@
+v_shader
+{	
+	file {"v_conveyor.glsl"},		
+	auto#cam {"cameraView"},
+},
+f_shader
+{	
+	file { "f_conveyor.glsl" },		
+	manual#texture#name { "aid.png" },		
+	manual#float#factor { 0.0 },	
+	manual#float#tiles { 2.0 },
+	//manual#float#alpha { 0.8 },
+},

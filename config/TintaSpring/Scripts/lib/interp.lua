@@ -11,6 +11,8 @@ s_interpToImageChannel
 s_interpToArrColorsDiscreteChannel
 s_interpToImagesByArray
 s_replaceColor
+s_injectImageChannel
+s_changeAlphaChannel
 ]]--
 
 --[[
@@ -21,19 +23,19 @@ function s_interpToColor( srcPath, destPath, bR, bG, bB, factor )
 	--util.msg("interpolating file: ", srcPath )
 	local picImg = 0
 	if s_isstring(srcPath) == true  then		
-		picImg = c_readimg( srcPath,  s_getex( srcPath ) )
+		picImg = image.read( srcPath,  s_getex( srcPath ) )
 	else
 		picImg = srcPath
 	end
 	
-	c_selimg( picImg )
+	image.select( picImg )
 	
-	local w1 = c_getwidth()
-	local h1 = c_getheight()
+	local w1 = image.width()
+	local h1 = image.height()
 	
-	local mainImage = c_createimg( w1, h1 , "basic" )	
-	c_fillimgb(255,255,255)
-	c_fillalphaf( 1 )
+	local mainImage = image.create( w1, h1 , "basic" )	
+	image.fillb(255,255,255)
+	image.fillchannelf( 3, 1 )
 
 	local rMed = util.bytetofloat( bR )
 	local gMed = util.bytetofloat( bG )
@@ -44,23 +46,23 @@ function s_interpToColor( srcPath, destPath, bR, bG, bB, factor )
 
 	for w_ = 0, w1 - 1 do			
 			for h_ = 0, h1 - 1 do	
-				c_selimg( picImg )
+				image.select( picImg )
 				
-				local r,g,b,a = c_getpixelf( w_, h_) 
+				local r,g,b,a = image.getpixelf( w_, h_) 
 								
-				local vr = util.c_cosinterp( r,rMed, factor )
+				local vr = util.cosinterp( r,rMed, factor )
 							
-				local vg = util.c_cosinterp( g,gMed, factor )
+				local vg = util.cosinterp( g,gMed, factor )
 				
-				local vb = util.c_cosinterp( b,bMed, factor )
+				local vb = util.cosinterp( b,bMed, factor )
 								
-				c_selimg( mainImage )
+				image.select( mainImage )
 				
 				if a > 0.0 then 												
-					c_setalphaf( w_,h_, a )
-					c_setpixelf( w_,h_, vr,vg,vb, 1 )				
+					image.setchannelf( w_,h_,3, a )
+					image.setpixelf( w_,h_, vr,vg,vb, 1 )				
 				else					
-					c_setalphaf( w_,h_, 0 )
+					image.setchannelf( w_,h_,3, 0 )
 				end
 				
 			end	
@@ -68,13 +70,13 @@ function s_interpToColor( srcPath, destPath, bR, bG, bB, factor )
 	end
 
 	if s_isstring(srcPath) == true  then
-		c_delimg( picImg )
+		image.erase( picImg )
 	end
 	
 	if destPath ~= nil then
-		c_selimg( mainImage )	
-		c_saveimg( s_getex( destPath ), destPath )	
-		c_delimg( mainImage )
+		image.select( mainImage )	
+		image.save( s_getex( destPath ), destPath )	
+		image.erase( mainImage )
 	else	
 		return mainImage;
 	end
@@ -93,15 +95,15 @@ end
 ]]--
 function s_interpToColors( srcPath, destPath, b1R, b1G, b1B, b2R, b2G, b2B, factor , interpType , radius )
 
-	c_assert( interpType >=0 and interpType <= 2, "Wrong interpolation type: ", interpType )
+	main.lassert( interpType >=0 and interpType <= 2, "Wrong interpolation type: ", interpType )
 	
-	local picImg = c_readimg( srcPath, s_getex( srcPath ) )
-	local w1 = c_getwidth()
-	local h1 = c_getheight()
+	local picImg = image.read( srcPath, s_getex( srcPath ) )
+	local w1 = image.width()
+	local h1 = image.height()
 	local destEx = s_getex( srcPath )
-	local mainImage = c_createimg( w1, h1 , "basic" )	
+	local mainImage = image.create( w1, h1 , "basic" )	
 
-	c_fillalphaf( 1 )
+	image.fillchannelf( 3, 1 )
 
 	local rMed1 = util.bytetofloat( b1R )
 	local gMed1 = util.bytetofloat( b1G )
@@ -115,36 +117,36 @@ function s_interpToColors( srcPath, destPath, b1R, b1G, b1B, b2R, b2G, b2B, fact
 	if interpType == 0 then -- vert
 		for w_ = 0, w1 - 1 do			
 				for h_ = 0, h1 - 1 do	
-					c_selimg( picImg )
+					image.select( picImg )
 					
-					local r,g,b,a = c_getpixelf( w_, h_) 
+					local r,g,b,a = image.getpixelf( w_, h_) 
 					
 					local vr = r
 					
 						
-					rMed = util.c_cosinterp( rMed1,rMed2, h_/h1 )
-					vr = util.c_cosinterp( r,rMed, factor )
+					rMed = util.cosinterp( rMed1,rMed2, h_/h1 )
+					vr = util.cosinterp( r,rMed, factor )
 					
 					
 					local vg = g
 					
-					gMed = util.c_cosinterp( gMed1,gMed2, h_/h1 )
-					vg = util.c_cosinterp( g,gMed, factor )
+					gMed = util.cosinterp( gMed1,gMed2, h_/h1 )
+					vg = util.cosinterp( g,gMed, factor )
 					
 					
 					local vb = b
 					
-					 bMed = util.c_cosinterp( bMed1,bMed2, h_/h1 )
-					 vb = util.c_cosinterp( b,bMed, factor )
+					 bMed = util.cosinterp( bMed1,bMed2, h_/h1 )
+					 vb = util.cosinterp( b,bMed, factor )
 					
 					
-					c_selimg( mainImage )
+					image.select( mainImage )
 					
 					if a > 0.0 then 												
-						c_setalphaf( w_,h_, a )
-						c_setpixelf( w_,h_, vr,vg,vb, 1 )				
+						image.setchannelf( w_,h_,3, a )
+						image.setpixelf( w_,h_, vr,vg,vb, 1 )				
 					else					
-						c_setalphaf( w_,h_, 0 )
+						image.setchannelf( w_,h_,3, 0 )
 					end
 					
 				end	
@@ -153,36 +155,36 @@ function s_interpToColors( srcPath, destPath, b1R, b1G, b1B, b2R, b2G, b2B, fact
 	elseif  interpType == 1 then -- hor
 		for w_ = 0, w1 - 1 do			
 				for h_ = 0, h1 - 1 do	
-					c_selimg( picImg )
+					image.select( picImg )
 					
-					local r,g,b,a = c_getpixelf( w_, h_) 
+					local r,g,b,a = image.getpixelf( w_, h_) 
 					
 					local vr = r
 					
 						
-					rMed = util.c_cosinterp( rMed1,rMed2, w_/w1 )
-					vr = util.c_cosinterp( r,rMed, factor )
+					rMed = util.cosinterp( rMed1,rMed2, w_/w1 )
+					vr = util.cosinterp( r,rMed, factor )
 					
 					
 					local vg = g
 					
-					gMed = util.c_cosinterp( gMed1,gMed2, w_/w1 )
-					vg = util.c_cosinterp( g,gMed, factor )
+					gMed = util.cosinterp( gMed1,gMed2, w_/w1 )
+					vg = util.cosinterp( g,gMed, factor )
 					
 					
 					local vb = b
 					
-					 bMed = util.c_cosinterp( bMed1,bMed2, w_/w1 )
-					 vb = util.c_cosinterp( b,bMed, factor )
+					 bMed = util.cosinterp( bMed1,bMed2, w_/w1 )
+					 vb = util.cosinterp( b,bMed, factor )
 					
 					
-					c_selimg( mainImage )
+					image.select( mainImage )
 					
 					if a > 0.0 then 												
-						c_setalphaf( w_,h_, a )
-						c_setpixelf( w_,h_, vr,vg,vb, 1 )				
+						image.setchannelf( w_,h_,3, a )
+						image.setpixelf( w_,h_, vr,vg,vb, 1 )				
 					else					
-						c_setalphaf( w_,h_, 0 )
+						image.setchannelf( w_,h_,3, 0 )
 					end
 					
 				end					
@@ -190,7 +192,7 @@ function s_interpToColors( srcPath, destPath, b1R, b1G, b1B, b2R, b2G, b2B, fact
 	elseif  interpType == 2 then -- circle
 	
 		
-		c_assert( radius > 0 , "Circle interpolation was chosen and radius == ", radius )
+		main.lassert( radius > 0 , "Circle interpolation was chosen and radius == ", radius )
 		
 		local xCent = w1 / 2
 		local yCent = h1 / 2	
@@ -198,32 +200,32 @@ function s_interpToColors( srcPath, destPath, b1R, b1G, b1B, b2R, b2G, b2B, fact
 		for w_ = 0, w1 - 1 do			
 				for h_ = 0, h1 - 1 do	
 				
-					c_selimg( picImg )
+					image.select( picImg )
 					
-					local len = math.min( s_get_length(xCent, yCent, w_, h_) , radius )					
-					local r,g,b,a = c_getpixelf( w_, h_) 					
+					local len = math.min( s_dist2(xCent, yCent, w_, h_) , radius )					
+					local r,g,b,a = image.getpixelf( w_, h_) 					
 					local vr = r					
 						
-					rMed = util.c_cosinterp( rMed1,rMed2, len/radius )
-					vr = util.c_cosinterp( r,rMed, factor )					
+					rMed = util.cosinterp( rMed1,rMed2, len/radius )
+					vr = util.cosinterp( r,rMed, factor )					
 					
 					local vg = g
 					
-					gMed = util.c_cosinterp( gMed1,gMed2, len/radius )
-					vg = util.c_cosinterp( g,gMed, factor )					
+					gMed = util.cosinterp( gMed1,gMed2, len/radius )
+					vg = util.cosinterp( g,gMed, factor )					
 					
 					local vb = b
 					
-					 bMed = util.c_cosinterp( bMed1,bMed2, len/radius )
-					 vb = util.c_cosinterp( b,bMed, factor )					
+					 bMed = util.cosinterp( bMed1,bMed2, len/radius )
+					 vb = util.cosinterp( b,bMed, factor )					
 					
-					c_selimg( mainImage )
+					image.select( mainImage )
 					
 					if a > 0.0 then 												
-						c_setalphaf( w_,h_, a )
-						c_setpixelf( w_,h_, vr,vg,vb, 1 )				
+						image.setchannelf( w_,h_,3, a )
+						image.setpixelf( w_,h_, vr,vg,vb, 1 )				
 					else					
-						c_setalphaf( w_,h_, 0 )
+						image.setchannelf( w_,h_,3, 0 )
 					end					
 				end					
 		end		
@@ -231,17 +233,17 @@ function s_interpToColors( srcPath, destPath, b1R, b1G, b1B, b2R, b2G, b2B, fact
 	end
 
 
-	c_selimg( mainImage )	
+	image.select( mainImage )	
 
 	--main_path = "c:/pic"
 	--path_ex = "png"
 	--folder = "/rez/"
 
-	--string_val = string.format('%s%s%s%s%s%s%s', main_path, folder,"tile_grunge ","_",c_uniqid(),".", path_ex )
-	c_saveimg( destEx, destPath )
+	--string_val = string.format('%s%s%s%s%s%s%s', main_path, folder,"tile_grunge ","_",main.uniqid(),".", path_ex )
+	image.save( destEx, destPath )
 
-	c_delimg( picImg )
-	c_delimg( mainImage )
+	image.erase( picImg )
+	image.erase( mainImage )
 
 	util.msg("***Executing s_interpToColors() finished.")
 
@@ -254,16 +256,16 @@ end
  ]]--
 function s_interpToColorsLight( srcPath, destPath, bR, bG, bB, bR2, bG2, bB2, reduce, invert  )
 
-	local picImg = c_readimg( srcPath, s_getex( srcPath ) )
-	local w1 = c_getwidth()
-	local h1 = c_getheight()
+	local picImg = image.read( srcPath, s_getex( srcPath ) )
+	local w1 = image.width()
+	local h1 = image.height()
 	local destEx = s_getex( srcPath )
-	local mainImage = c_createimg( w1, h1 , "basic" )	
+	local mainImage = image.create( w1, h1 , "basic" )	
 	
 	local catrom = c_creategeom( "geom_catrom" )
 
 
-	c_fillalphaf( 1 )
+	image.fillchannelf( 3, 1 )
 
 	local rMed = util.bytetofloat( bR )
 	local gMed = util.bytetofloat( bG )
@@ -273,9 +275,9 @@ function s_interpToColorsLight( srcPath, destPath, bR, bG, bB, bR2, bG2, bB2, re
 
 	for w_ = 0, w1 - 1 do			
 			for h_ = 0, h1 - 1 do	
-				c_selimg( picImg )
+				image.select( picImg )
 							
-				local r,g,b,a = c_getpixelf( w_, h_)									
+				local r,g,b,a = image.getpixelf( w_, h_)									
 				local h,s,l = util.c_rgbtohsl( r,g,b )				
 							
 				
@@ -289,7 +291,7 @@ function s_interpToColorsLight( srcPath, destPath, bR, bG, bB, bR2, bG2, bB2, re
 				local bl = b				
 				local al = a
 				
-				--util.util.msgf(rl, " ", gl," ", bl)
+				--util.msgf(rl, " ", gl," ", bl)
 						
 				
 				local factorEnd = 0
@@ -300,16 +302,16 @@ function s_interpToColorsLight( srcPath, destPath, bR, bG, bB, bR2, bG2, bB2, re
 				end			
 				
 				
-				local vr = util.c_cosinterp( rl,rMed, factorEnd )
-				local vg = util.c_cosinterp( gl,gMed, factorEnd )
-				local vb = util.c_cosinterp( bl,bMed, factorEnd )
+				local vr = util.cosinterp( rl,rMed, factorEnd )
+				local vg = util.cosinterp( gl,gMed, factorEnd )
+				local vb = util.cosinterp( bl,bMed, factorEnd )
 				
-				c_selimg( mainImage )
+				image.select( mainImage )
 				if al > 0.0 then 												
-					c_setalphaf( w_,h_, al )
-					c_setpixelf( w_,h_, vr,vg,vb, 1 )				
+					image.setchannelf( w_,h_,3, al )
+					image.setpixelf( w_,h_, vr,vg,vb, 1 )				
 				else					
-					c_setalphaf( w_,h_, 0 )
+					image.setchannelf( w_,h_,3, 0 )
 				end
 				
 				
@@ -318,13 +320,13 @@ function s_interpToColorsLight( srcPath, destPath, bR, bG, bB, bR2, bG2, bB2, re
 	end
 
 	
-	c_delgeom(catrom)
-	c_delimg( picImg )
+	image.erasegeom(catrom)
+	image.erase( picImg )
 	--util.msg("***Executing s_interpToColor() finished.")
 	
 	if destPath ~= "" then
-		c_saveimg( destEx, destPath )	
-		c_delimg( mainImage )
+		image.save( destEx, destPath )	
+		image.erase( mainImage )
 	else
 		return mainImage
 	end
@@ -344,15 +346,15 @@ channel == 5 - rand
 function s_interpToColorsByChannel( srcPath, destPath,  b1R, b1G, b1B, b2R, b2G, b2B, channel, factor )
 
 
-	c_assert( channel >=0 and channel <= 4, "Wrong channel value: ", channel )
-	local picImg = c_readimg( srcPath, s_getex( srcPath ) )
-	local w1 = c_getwidth()
-	local h1 = c_getheight()
+	main.lassert( channel >=0 and channel <= 4, "Wrong channel value: ", channel )
+	local picImg = image.read( srcPath, s_getex( srcPath ) )
+	local w1 = image.width()
+	local h1 = image.height()
 	local destEx = s_getex( srcPath )
 	
-	local mainImage = c_createimg( w1, h1 , "basic" )
+	local mainImage = image.create( w1, h1 , "basic" )
 
-	c_fillalphaf( 1 )
+	image.fillchannelf( 3,1 )
 
 	local rMed1 = util.bytetofloat( b1R )
 	local gMed1 = util.bytetofloat( b1G )
@@ -365,9 +367,9 @@ function s_interpToColorsByChannel( srcPath, destPath,  b1R, b1G, b1B, b2R, b2G,
 
 	for w_ = 0, w1 - 1 do			
 			for h_ = 0, h1 - 1 do	
-				c_selimg( picImg )
+				image.select( picImg )
 				
-				local r,g,b,a = c_getpixelf( w_, h_) 
+				local r,g,b,a = image.getpixelf( w_, h_) 
 							
 
 				local chFactor = 0
@@ -383,36 +385,36 @@ function s_interpToColorsByChannel( srcPath, destPath,  b1R, b1G, b1B, b2R, b2G,
 					local h,s,l = util.c_rgbtohsl( r,g,b )	
 					chFactor = l
 				elseif channel ==  5 then					
-					chFactor = c_randfloat()
+					chFactor = main.randfloat()
 				end		
 								
-				local rMed = util.c_cosinterp( rMed21,rMed2, factor * chFactor )						
-				vr = util.c_cosinterp( r,rMed, factor )
+				local rMed = util.cosinterp( rMed1,rMed2, factor * chFactor )						
+				vr = util.cosinterp( r,rMed, factor )
 					
-				local gMed = util.c_cosinterp( gMed21,gMed2, factor * chFactor )						
-				vg = util.c_cosinterp( g,gMed, factor )
+				local gMed = util.cosinterp( gMed1,gMed2, factor * chFactor )						
+				vg = util.cosinterp( g,gMed, factor )
 
-				local bMed = util.c_cosinterp( bMed21,bMed2, factor * chFactor )						
-				vb = util.c_cosinterp( b,bMed, factor )				
+				local bMed = util.cosinterp( bMed1,bMed2, factor * chFactor )						
+				vb = util.cosinterp( b,bMed, factor )				
 				
-				c_selimg( mainImage )
+				image.select( mainImage )
 				
 				if a > 0.0 then 												
-					c_setalphaf( w_,h_, a )
-					c_setpixelf( w_,h_, vr,vg,vb, 1 )				
+					image.setchannelf( w_,h_,3, a )
+					image.setpixelf( w_,h_, vr,vg,vb, 1 )				
 				else					
-					c_setalphaf( w_,h_, 0 )
+					image.setchannelf( w_,h_,3, 0 )
 				end				
 			end				
 	end
 
 	
-	c_delimg( picImg )
+	image.erase( picImg )
 	
 	if destPath ~= "" then
-		c_selimg( mainImage )	
-		c_saveimg( destEx, destPath )
-		c_delimg( mainImage )
+		image.select( mainImage )	
+		image.save( destEx, destPath )
+		image.erase( mainImage )
 	else
 		return mainImage
 	end
@@ -436,7 +438,7 @@ function s_interpToImageVal( pathIn, pathOut,  pathInterpImage , rIn, gIn, bIn, 
 	
 	local picImg = 0
 	if s_isstring(pathIn) == true  then
-		picImg = c_readimg( pathIn, s_getex( pathIn ) )
+		picImg = image.read( pathIn, s_getex( pathIn ) )
 	else
 		picImg = pathIn
 	end
@@ -444,75 +446,75 @@ function s_interpToImageVal( pathIn, pathOut,  pathInterpImage , rIn, gIn, bIn, 
 	local interpImg = 0
 	
 	if s_isstring(pathInterpImage) == true  then
-		interpImg = c_readimg( pathInterpImage, s_getex(pathInterpImage) )	
+		interpImg = image.read( pathInterpImage, s_getex(pathInterpImage) )	
 	else
 		interpImg = pathInterpImage
 	end
 	
-	c_selimg( picImg )
+	image.select( picImg )
 
-	local w = c_getwidth()
+	local w = image.width()
 
-	local h = c_getheight()	
+	local h = image.height()	
 	
-	c_selimg( interpImg )
+	image.select( interpImg )
 
-	local wi = c_getwidth()
+	local wi = image.width()
 
-	local hi = c_getheight()
+	local hi = image.height()
 	
 	
 	
-	local outImage = c_createimg( w, h , "basic" )
+	local outImage = image.create( w, h , "basic" )
 	
 	local offsetW = 0
 	local offsetH = 0
 	if bRandomPos == nil or bRandomPos == true then
-		offsetW = c_randint(0, wi - w)
-		offsetH = c_randint(0, hi - h)
+		offsetW = main.randint(0, wi - w)
+		offsetH = main.randint(0, hi - h)
 	end	
 		
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )										
+				image.select( picImg )										
 				
-				local r,g,b,a = c_getpixelf( w_, h_) 
-				local rb,gb,bb,ab = c_getpixelb( w_, h_)
+				local r,g,b,a = image.getpixelf( w_, h_) 
+				local rb,gb,bb,ab = image.getpixelb( w_, h_)
 								
 				
-				c_selimg( interpImg )					
+				image.select( interpImg )					
 				
 				local outr = r				
 				local outg = g				
 				local outb = b	
 					
 				if rb == rIn and  gb == gIn and bb == bIn then					
-					local ri,gi,bi = c_getpixelf( (w_+ offsetW)%wi, (h_+ offsetH)%hi) 												
-					outr = util.c_cosinterp( r,ri, factor )				
-					outg = util.c_cosinterp( g,gi, factor )				
-					outb = util.c_cosinterp( b,bi, factor )				
+					local ri,gi,bi = image.getpixelf( (w_+ offsetW)%wi, (h_+ offsetH)%hi) 												
+					outr = util.cosinterp( r,ri, factor )				
+					outg = util.cosinterp( g,gi, factor )				
+					outb = util.cosinterp( b,bi, factor )				
 				end
 				
-				c_selimg( outImage )
+				image.select( outImage )
 				
 				if ab > 0.0 then 												
-					c_setalphaf( w_,h_, a )
-					c_setpixelf( w_,h_, outr,outg,outb, 1 )				
+					image.setchannelf( w_,h_,3, a )
+					image.setpixelf( w_,h_, outr,outg,outb, 1 )				
 				else					
-					c_setalphaf( w_,h_, 0 )
+					image.setchannelf( w_,h_,3, 0 )
 				end			
 			end					
 	end	
 	
 	if pathOut ~= nil then
-		c_saveimg( s_getex(pathOut), pathOut )		
-		c_delimg( outImage )
+		image.save( s_getex(pathOut), pathOut )		
+		image.erase( outImage )
 	end
 	
-	c_delimg( picImg )
+	image.erase( picImg )
 	
-	c_delimg( interpImg )	
+	image.erase( interpImg )	
 	
 	
 	if pathOut == nil then
@@ -534,63 +536,63 @@ function s_interpToImage( pathIdIn, pathOut,  pathInterpImage ,  factor, bRandom
 	
 	if s_isstring(pathIdIn) == true  then
 		local exImage = s_getex(pathIdIn)	
-		picImg = c_readimg( pathIdIn, exImage )
+		picImg = image.read( pathIdIn, exImage )
 	else
 		picImg = pathIdIn
 	end
 	local interpImg = 0
 	
 	if s_isstring(pathInterpImage) == true  then
-		interpImg = c_readimg( pathInterpImage, s_getex(pathInterpImage) )	
+		interpImg = image.read( pathInterpImage, s_getex(pathInterpImage) )	
 	else
 		interpImg = pathInterpImage
 	end
 	
-	c_selimg( picImg )
+	image.select( picImg )
 
-	local w = c_getwidth()
+	local w = image.width()
 
-	local h = c_getheight()
+	local h = image.height()
 	
 	
-	c_selimg( interpImg )
+	image.select( interpImg )
 
-	local wi = c_getwidth()
+	local wi = image.width()
 
-	local hi = c_getheight()
+	local hi = image.height()
 		
-	local outImage = c_createimg( w, h , "basic" )
+	local outImage = image.create( w, h , "basic" )
 	
 	local offsetW = 0
 	local offsetH = 0
 	if bRandomPos == nil or bRandomPos == true then
-		offsetW = c_randint(0, wi - w)
-		offsetH = c_randint(0, hi - h)
+		offsetW = main.randint(0, wi - w)
+		offsetH = main.randint(0, hi - h)
 	end	
 	
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )										
+				image.select( picImg )										
 				
-				local r,g,b,a = c_getpixelf( w_, h_) 
+				local r,g,b,a = image.getpixelf( w_, h_) 
 				
-				c_selimg( interpImg )					
+				image.select( interpImg )					
 				
-				local ri,gi,bi = c_getpixelf( (w_+ offsetW)%wi, (h_+ offsetH)%hi) 			
+				local ri,gi,bi = image.getpixelf( (w_+ offsetW)%wi, (h_+ offsetH)%hi) 			
 								
-				local outr = util.c_cosinterp( r,ri, factor )				
-				local outg = util.c_cosinterp( g,gi, factor )				
-				local outb = util.c_cosinterp( b,bi, factor )				
+				local outr = util.cosinterp( r,ri, factor )				
+				local outg = util.cosinterp( g,gi, factor )				
+				local outb = util.cosinterp( b,bi, factor )				
 				
-				c_selimg( outImage )
+				image.select( outImage )
 				
 				if a > 0.0 then 												
-					c_setalphaf( w_,h_, a )
-					c_setpixelf( w_,h_, outr,outg,outb, 1 )				
+					image.setchannelf( w_,h_,3, a )
+					image.setpixelf( w_,h_, outr,outg,outb, 1 )				
 				else					
-					c_setalphaf( w_,h_, 0 )
+					image.setchannelf( w_,h_,3, 0 )
 				end				
 				
 			end		
@@ -598,16 +600,16 @@ function s_interpToImage( pathIdIn, pathOut,  pathInterpImage ,  factor, bRandom
 	
 	
 	if pathOut ~= nil then
-		c_saveimg( s_getex(pathOut)	, pathOut )		
-		c_delimg( outImage )
+		image.save( s_getex(pathOut)	, pathOut )		
+		image.erase( outImage )
 	end
 	
 	if s_isstring(pathIdIn) == true then
-		c_delimg( picImg )
+		image.erase( picImg )
 	end
 	
 	if s_isstring(pathInterpImage) == true then
-		c_delimg( interpImg )		
+		image.erase( interpImg )		
 	end
 	
 	
@@ -632,13 +634,13 @@ function s_interpToArrColorsDiscreteChannel( pathIn, pathOut , colorsIn, factorI
 	
 	local exImageOut = s_getex( pathOut )	
 	
-	local picImg = c_readimg( pathIn, exImage )	
+	local picImg = image.read( pathIn, exImage )	
 	
-	local w = c_getwidth()
+	local w = image.width()
 
-	local h = c_getheight()
+	local h = image.height()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	local alphaFore = 1	
 	local alphaBack = 0
@@ -647,9 +649,9 @@ function s_interpToArrColorsDiscreteChannel( pathIn, pathOut , colorsIn, factorI
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )										
+				image.select( picImg )										
 				
-				local r,g,b,a = c_getpixelf( w_, h_ ) 
+				local r,g,b,a = image.getpixelf( w_, h_ ) 
 				
 					
 				local f = 0
@@ -665,38 +667,38 @@ function s_interpToArrColorsDiscreteChannel( pathIn, pathOut , colorsIn, factorI
 					local h,s,l = util.c_rgbtohsl( r,g,b )	
 					f = l
 				elseif channel ==  5 then					
-					f = c_randfloat()				
+					f = main.randfloat()				
 				end
 				
 				if invertIn == true then
 					f = 1 - f
 				end
 				if bAlphaTestIn == false or a > 0.0 then 				
-					c_selimg( outImage )			
+					image.select( outImage )			
 
 					local pos, color = s_getDiscreteColorByFactor( colorsIn,sizeArr, f )				
 					
-					local bR,bG,bB = util.c_unpackcolor( color )
+					local bR,bG,bB = util.unpackcolor3( color )
 					
 					local rMed = util.bytetofloat( bR )
 					local gMed = util.bytetofloat( bG )
 					local bMed = util.bytetofloat( bB )
 		
-					local vr = util.c_cosinterp( r,rMed, factorIn )				
-					local vg = util.c_cosinterp( g,gMed, factorIn )
-					local vb = util.c_cosinterp( b,bMed, factorIn )
+					local vr = util.cosinterp( r,rMed, factorIn )				
+					local vg = util.cosinterp( g,gMed, factorIn )
+					local vb = util.cosinterp( b,bMed, factorIn )
 					
-					c_setpixelf( w_, h_, vr,vg,vb, 1 )					
+					image.setpixelf( w_, h_, vr,vg,vb, 1 )					
 										
-					c_setalphaf( w_, h_, a )	
+					image.setchannelf( w_, h_,3, a )	
 				end	
 			end		
 	end
-	c_selimg( outImage )
-	c_saveimg( exImageOut, pathOut )
-	c_delimg( picImg )
+	image.select( outImage )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
 	
-	c_delimg( outImage )
+	image.erase( outImage )
 	util.msg("***s_interpToArrColorsDiscreteChannel finished")
 end
 
@@ -719,9 +721,9 @@ function s_interpToImagesByArray( pathIn, pathOut , colorsIn, factorIn, invertIn
 		local filePos = math.max(i%filesMax,1)		
 		local pathInterp = util.c_getfile( imgDirIn, filePos - 1 , imgExIn , false ) 
 		
-		local interpImg = c_readimg( pathInterp, imgExIn )
-		wi = c_getwidth()
-		hi = c_getheight()
+		local interpImg = image.read( pathInterp, imgExIn )
+		wi = image.width()
+		hi = image.height()
 		util.msg(interpImg)
 		interpImgIds[i] = interpImg
 	end
@@ -731,12 +733,12 @@ function s_interpToImagesByArray( pathIn, pathOut , colorsIn, factorIn, invertIn
 	
 	local exImageOut = s_getex( pathOut )	
 	
-	local picImg = c_readimg( pathIn, exImage )	
+	local picImg = image.read( pathIn, exImage )	
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	local alphaFore = 1	
 	local alphaBack = 0
@@ -745,9 +747,9 @@ function s_interpToImagesByArray( pathIn, pathOut , colorsIn, factorIn, invertIn
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )										
+				image.select( picImg )										
 				
-				local r,g,b,a = c_getpixelf( w_, h_ ) 			
+				local r,g,b,a = image.getpixelf( w_, h_ ) 			
 					
 				local f = 0
 				if channel ==  0 then
@@ -762,7 +764,7 @@ function s_interpToImagesByArray( pathIn, pathOut , colorsIn, factorIn, invertIn
 					local h,s,l = util.c_rgbtohsl( r,g,b )	
 					f = l
 				elseif channel ==  5 then					
-					f = c_randfloat()				
+					f = main.randfloat()				
 				end
 				
 				if invertIn == true then
@@ -774,29 +776,29 @@ function s_interpToImagesByArray( pathIn, pathOut , colorsIn, factorIn, invertIn
 					local pos, color = s_getDiscreteColorByFactor( colorsIn,sizeArr, f )				
 					local key = math.max((pos+1)%filesMax,1)
 					
-					c_selimg( interpImgIds[key] )
-					local ri,gi,bi,ai = c_getpixelf( w_ % wi, h_ % hi )
+					image.select( interpImgIds[key] )
+					local ri,gi,bi,ai = image.getpixelf( w_ % wi, h_ % hi )
 					
-					local vr = util.c_cosinterp( r,ri, factorIn )				
-					local vg = util.c_cosinterp( g,gi, factorIn )
-					local vb = util.c_cosinterp( b,bi, factorIn )
+					local vr = util.cosinterp( r,ri, factorIn )				
+					local vg = util.cosinterp( g,gi, factorIn )
+					local vb = util.cosinterp( b,bi, factorIn )
 					
-					c_selimg( outImage )
-					c_setpixelf( w_, h_, vr,vg,vb, 1 )					
+					image.select( outImage )
+					image.setpixelf( w_, h_, vr,vg,vb, 1 )					
 										
-					c_setalphaf( w_, h_, a )	
+					image.setchannelf( w_, h_,3, a )	
 				end	
 			end		
 	end
-	c_selimg( outImage )
-	c_saveimg( exImageOut, pathOut )
-	c_delimg( picImg )
+	image.select( outImage )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
 	
-	c_delimg( outImage )
+	image.erase( outImage )
 	
 	
 	for i = 1, #interpImgIds do
-		c_delimg( i )
+		image.erase( i )
 	end
 	
 	
@@ -826,9 +828,9 @@ function s_replaceColor( pathIn, pathOut , colorsIn, factorIn, bAlphaTestIn , im
 		local filePos = math.max(i%filesMax,1)		
 		local pathInterp = util.c_getfile( imgDirIn, filePos - 1 , imgExIn , false ) 
 		
-		local interpImg = c_readimg( pathInterp, imgExIn )
-		wi = c_getwidth()
-		hi = c_getheight()
+		local interpImg = image.read( pathInterp, imgExIn )
+		wi = image.width()
+		hi = image.height()
 		util.msg(interpImg)
 		interpImgIds[i] = interpImg
 	end
@@ -838,12 +840,12 @@ function s_replaceColor( pathIn, pathOut , colorsIn, factorIn, bAlphaTestIn , im
 	
 	local exImageOut = s_getex( pathOut )	
 	
-	local picImg = c_readimg( pathIn, exImage )	
+	local picImg = image.read( pathIn, exImage )	
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	local alphaFore = 1	
 	local alphaBack = 0
@@ -852,9 +854,9 @@ function s_replaceColor( pathIn, pathOut , colorsIn, factorIn, bAlphaTestIn , im
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
-				c_selimg( picImg )										
+				image.select( picImg )										
 				
-				local r,g,b,a = c_getpixelb( w_, h_ ) 			
+				local r,g,b,a = image.getpixelb( w_, h_ ) 			
 										
 				
 				if bAlphaTestIn == false or a > 0 then 				
@@ -865,30 +867,30 @@ function s_replaceColor( pathIn, pathOut , colorsIn, factorIn, bAlphaTestIn , im
 					if pos ~= -1 then
 						local key = math.max((pos+1)%filesMax,1)
 						
-						c_selimg( interpImgIds[key] )
-						local ri,gi,bi,ai = c_getpixelf( w_ % wi, h_ % hi )
+						image.select( interpImgIds[key] )
+						local ri,gi,bi,ai = image.getpixelf( w_ % wi, h_ % hi )
 						
-						local vr = util.c_cosinterp( util.bytetofloat(r),ri, factorIn )				
-						local vg = util.c_cosinterp( util.bytetofloat(g),gi, factorIn )
-						local vb = util.c_cosinterp( util.bytetofloat(b),bi, factorIn )
+						local vr = util.cosinterp( util.bytetofloat(r),ri, factorIn )				
+						local vg = util.cosinterp( util.bytetofloat(g),gi, factorIn )
+						local vb = util.cosinterp( util.bytetofloat(b),bi, factorIn )
 						
-						c_selimg( outImage )
-						c_setpixelf( w_, h_, vr,vg,vb, 1 )					
+						image.select( outImage )
+						image.setpixelf( w_, h_, vr,vg,vb, 1 )					
 											
-						c_setalphaf( w_, h_, util.bytetofloat(a) )
+						image.setchannelf( w_, h_,3, util.bytetofloat(a) )
 					end					
 				end	
 			end		
 	end
-	c_selimg( outImage )
-	c_saveimg( exImageOut, pathOut )
-	c_delimg( picImg )
+	image.select( outImage )
+	image.save( exImageOut, pathOut )
+	image.erase( picImg )
 	
-	c_delimg( outImage )
+	image.erase( outImage )
 	
 	
 	for i = 1, #interpImgIds do
-		c_delimg( i )
+		image.erase( i )
 	end
 	
 	
@@ -915,23 +917,23 @@ end
 function s_injectImageChannel( mainImgIn, pathOutIn,  toInjectIn, channelIn, factorIn, xPosIn, yPosIn )
 
 		
-	local interpImg = c_readimg(  toInjectIn, s_getex(toInjectIn) )
+	local interpImg = image.read(  toInjectIn, s_getex(toInjectIn) )
 	
 	local picImageId = 0
 	
 	if s_isstring(mainImgIn) == true  then		
-		picImageId = c_readimg( mainImgIn, exImage )
+		picImageId = image.read( mainImgIn, exImage )
 	else
 		picImageId = mainImgIn
 	end
-	c_selimg( picImageId )
+	image.select( picImageId )
 	
-	local w = c_getwidth()
-	local h = c_getheight()		
+	local w = image.width()
+	local h = image.height()		
 	
-	c_selimg( interpImg )
-	local wi = c_getwidth()
-	local hi = c_getheight()		
+	image.select( interpImg )
+	local wi = image.width()
+	local hi = image.height()		
 	
 	local offsetX = xPosIn
 	local offsetY = yPosIn
@@ -939,12 +941,12 @@ function s_injectImageChannel( mainImgIn, pathOutIn,  toInjectIn, channelIn, fac
 	for w_ = 0, wi-1 do	
 			for h_ = 0, hi-1 do		
 			
-				c_selimg( picImageId )		
+				image.select( picImageId )		
 				local posX =  w_ + offsetX
 				local posY =  h_ + offsetY
 				if posX <  w - 1 and posY <  h - 1 then
 				
-					local r,g,b,a = c_getpixelf( posX, posY ) 
+					local r,g,b,a = image.getpixelf( posX, posY ) 
 					
 					local chFactor = 0
 					if channelIn ==  0 then
@@ -960,32 +962,32 @@ function s_injectImageChannel( mainImgIn, pathOutIn,  toInjectIn, channelIn, fac
 						chFactor = l				
 					end						
 					
-					c_selimg( interpImg )					
+					image.select( interpImg )					
 					
-					local ri,gi,bi,af = c_getpixelf(  (w_ + offsetX)%wi, (h_ + offsetY)%hi ) 							
+					local ri,gi,bi,af = image.getpixelf(  (w_ + offsetX)%wi, (h_ + offsetY)%hi ) 							
 					
 					local factorEnd = chFactor * factorIn * af
 					
-					local outr = util.c_cosinterp( r, ri, factorEnd )
-					local outg = util.c_cosinterp( g, gi, factorEnd )
-					local outb = util.c_cosinterp( b, bi, factorEnd )
+					local outr = util.cosinterp( r, ri, factorEnd )
+					local outg = util.cosinterp( g, gi, factorEnd )
+					local outb = util.cosinterp( b, bi, factorEnd )
 					
-					c_selimg( picImageId )				
+					image.select( picImageId )				
 					
-					c_setpixelf( w_ + offsetX, h_ + offsetY, outr,outg,outb, 1 )	
+					image.setpixelf( w_ + offsetX, h_ + offsetY, outr,outg,outb, 1 )	
 				end				
 				
 				
 			end		
 	end
 	
-	c_delimg( interpImg )	
+	image.erase( interpImg )	
 	util.msg( "finished" )
 	
 	if s_isstring( mainImgIn ) == true then
-		c_selimg( picImageId )
-		c_saveimg( "png", pathOutIn )
-		c_delimg( picImageId )
+		image.select( picImageId )
+		image.save( "png", pathOutIn )
+		image.erase( picImageId )
 	else
 		return picImageId
 	end	
@@ -1011,24 +1013,24 @@ end
 function s_changeAlphaChannel( mainImgIn, pathOutIn, channelImageIn, channelIn, factorIn, minValIn, maxValIn, xPosIn, yPosIn )
 
 		
-	local channeImgId = c_readimg(  channelImageIn, s_getex( channelImageIn ) )
+	local channeImgId = image.read(  channelImageIn, s_getex( channelImageIn ) )
 	
 	local picImageId = 0
 	
-	if s_isstring(mainImgIn) == true  then		
-		picImageId = c_readimg( mainImgIn, exImage )
-	else
-		picImageId = mainImgIn
-	end
-	c_selimg( picImageId )
+	--if s_isstring(mainImgIn) == true  then		
+		picImageId = image.read( mainImgIn, exImage )
+	--else
+	--	picImageId = mainImgIn
+	--end
+	image.select( picImageId )
 	
-	local w = c_getwidth()
-	local h = c_getheight()		
+	local w = image.width()
+	local h = image.height()		
 	
-	c_selimg( channeImgId )
+	image.select( channeImgId )
 	
-	local wi = c_getwidth()
-	local hi = c_getheight()		
+	local wi = image.width()
+	local hi = image.height()		
 	
 	local offsetX = xPosIn
 	local offsetY = yPosIn
@@ -1036,13 +1038,13 @@ function s_changeAlphaChannel( mainImgIn, pathOutIn, channelImageIn, channelIn, 
 	for w_ = 0, w - 1 do	
 			for h_ = 0, h - 1 do		
 			
-				c_selimg( picImageId )		
+				image.select( picImageId )		
 				
-				local r,g,b,a = c_getpixelf( w_, h_ ) 					
+				local r,g,b,a = image.getpixelf( w_, h_ ) 					
 				
-				c_selimg( channeImgId )					
+				image.select( channeImgId )					
 				
-				local ri,gi,bi,ai = c_getpixelf(  ( w_ + offsetX ) % wi, ( h_ + offsetY ) % hi ) 		
+				local ri,gi,bi,ai = image.getpixelf(  ( w_ + offsetX ) % wi, ( h_ + offsetY ) % hi ) 		
 
 				local chFactor = 0
 				if channelIn ==  0 then
@@ -1060,25 +1062,25 @@ function s_changeAlphaChannel( mainImgIn, pathOutIn, channelImageIn, channelIn, 
 				chFactor = math.min( math.max( minValIn, chFactor ), maxValIn ) 
 				local factorEnd = factorIn * a
 				
-				local aout = util.c_cosinterp( a, chFactor, factorEnd )				
+				local aout = util.cosinterp( a, chFactor, factorEnd )				
 				
-				c_selimg( picImageId )				
+				image.select( picImageId )				
 				
-				c_setpixelf( w_, h_, r,g,b, 1 )	
-				c_setalphaf( w_, h_, aout )					
+				image.setpixelf( w_, h_, r,g,b, 1 )	
+				image.setchannelf( w_, h_,3, aout )					
 			end		
 	end
 	
-	c_delimg( channeImgId )	
+	image.erase( channeImgId )	
 	util.msg( "s_changeAlphaChannel finished" )
 	
-	if s_isstring( mainImgIn ) == true then
-		c_selimg( picImageId )
-		c_saveimg( "png", pathOutIn )
-		c_delimg( picImageId )
-	else
-		return picImageId
-	end	
+	--if s_isstring( mainImgIn ) == true then
+		image.select( picImageId )
+		image.save( "png", pathOutIn )
+		image.erase( picImageId )
+	--lse
+	--	return picImageId
+	--end	
 end
 
 

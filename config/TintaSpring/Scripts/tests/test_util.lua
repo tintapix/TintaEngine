@@ -13,28 +13,28 @@ require "Scripts/lib/utf8data"
 function s_interpToColorChannelMap( pathIn,pathInMap,pathOut, rIn,gIn,bIn, channelIn, intensity )
 
 	if  s_isstring(pathIn) == true then			
-		picImg = c_readimg( pathIn,  s_getex( pathIn ) )
+		picImg = image.read( pathIn,  s_getex( pathIn ) )
 	else
 		picImg = pathIn
 	end	
 	
-	c_selimg( picImg )	
+	image.select( picImg )	
 	
-	local w = c_getwidth()
-	local h = c_getheight()
+	local w = image.width()
+	local h = image.height()
 	
 	local picImgMap = nil
 	
 	if  s_isstring(pathInMap) == true then			
-		picImgMap = c_readimg( pathInMap, s_getex( pathInMap ) )	
+		picImgMap = image.read( pathInMap, s_getex( pathInMap ) )	
 	else
 		picImgMap = pathInMap
 	end
 	
-	c_selimg( picImgMap )
+	image.select( picImgMap )
 	
-	local wM = c_getwidth()
-	local hM = c_getheight()
+	local wM = image.width()
+	local hM = image.height()
 	
 	local x = (wM - 1)/(w - 1)
 	local y = (hM - 1)/(h - 1)
@@ -43,20 +43,20 @@ function s_interpToColorChannelMap( pathIn,pathInMap,pathOut, rIn,gIn,bIn, chann
 	local gInterp = util.bytetofloat(gIn)
 	local bInterp = util.bytetofloat(bIn)
 
-	local outImage = c_createimg( w, h , "basic" )	
+	local outImage = image.create( w, h , "basic" )	
 	
 	for w_ = 0, w-1 do	
 			for h_ = 0, h-1 do		
 			
 				-- take color values
-				c_selimg( picImg )				
-				local rVal,gVal,bVal,aVal = c_getpixelf( w_, h_ )				
+				image.select( picImg )				
+				local rVal,gVal,bVal,aVal = image.getpixelf( w_, h_ )				
 				
 				-- take factor values from map
-				c_selimg( picImgMap )				
-				local r,g,b,a = c_getpixelf( math.floor(w_ * x), math.floor(h_ * y) )
+				image.select( picImgMap )				
+				local r,g,b,a = image.getpixelf( math.floor(w_ * x), math.floor(h_ * y) )
 				
-				c_selimg( outImage )				
+				image.select( outImage )				
 					
 				c_setalphaf( w_,h_, aVal )		
 
@@ -73,22 +73,22 @@ function s_interpToColorChannelMap( pathIn,pathInMap,pathOut, rIn,gIn,bIn, chann
 					factor = l					
 				end		
 				factor = factor * intensity
-				c_setpixelf( w_,h_, util.cosinterp(r,rInterp,factor),util.cosinterp(g,gInterp,factor),util.cosinterp(b,bInterp,factor), 1 )			
+				image.setpixelf( w_,h_, util.cosinterp(r,rInterp,factor),util.cosinterp(g,gInterp,factor),util.cosinterp(b,bInterp,factor), 1 )			
 				
 			end		
 	end
 		
 	if  s_isstring(pathIn) == true	then		
-		c_delimg( picImg )			
+		image.erase( picImg )			
 	end
 	if  s_isstring(pathInMap) == true	then		
-		c_delimg( picImgMap )			
+		image.erase( picImgMap )			
 	end	
 	
 	if pathOut ~= nil then
-		c_selimg( outImage )
-		--c_saveimg( s_getex( pathOut ), pathOut )
-		c_delimg( outImage )
+		image.select( outImage )
+		--image.save( s_getex( pathOut ), pathOut )
+		image.erase( outImage )
 	else
 		return outImage
 	end

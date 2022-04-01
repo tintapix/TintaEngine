@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugX64|Win32">
+      <Configuration>DebugX64</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugX64|x64">
+      <Configuration>DebugX64</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\glew\source\glew.c" />
+    <ClCompile Include="src\glew\source\glewinfo.c" />
+    <ClCompile Include="src\glew\source\visualinfo.c" />
+    <ClCompile Include="src\GL\tintaGLApp.cpp" />
+    <ClCompile Include="src\GL\tintaGLRenderer.cpp" />
+    <ClCompile Include="src\GL\tintaGLSLProgram.cpp" />
+    <ClCompile Include="src\GL\tintaGLSLShader.cpp" />
+    <ClCompile Include="src\GL\tintaWinGLRenderer.cpp" />
+    <ClCompile Include="src\GL\tintaGLVideoCap.cpp" />
+    <ClCompile Include="src\tintaAction.cpp" />
+    <ClCompile Include="src\tintaApp.cpp" />
+    <ClCompile Include="src\tintaAttributes.cpp" />
+    <ClCompile Include="src\tintaBillboard.cpp" />
+    <ClCompile Include="src\tintaBoundingVolume.cpp" />
+    <ClCompile Include="src\tintaBoxBV.cpp" />
+    <ClCompile Include="src\tintaCamera.cpp" />
+    <ClCompile Include="src\tintaCommands.cpp" />
+    <ClCompile Include="src\tintaCuller.cpp" />
+    <ClCompile Include="src\tintaDrawable.cpp" />
+    <ClCompile Include="src\tintaFrameBuffer.cpp" />
+    <ClCompile Include="src\tintaGeometry.cpp" />
+    <ClCompile Include="src\tintaGraphicaPrecompile.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\tintaGraphicConfig.cpp" />
+    <ClCompile Include="src\tintaGuiManager.cpp" />
+    <ClCompile Include="src\tintaImage.cpp" />
+    <ClCompile Include="src\tintaIndexBuffer.cpp" />
+    <ClCompile Include="src\tintaMaterial.cpp" />
+    <ClCompile Include="src\tintaMaterialParser.cpp" />
+    <ClCompile Include="src\tintaMeshParser.cpp" />
+    <ClCompile Include="src\tintaPlane.cpp" />
+    <ClCompile Include="src\tintaRGBAColor.cpp" />
+    <ClCompile Include="src\tintaRoot.cpp" />
+    <ClCompile Include="src\tintaSamplerBuffer.cpp" />
+    <ClCompile Include="src\tintaSceneManager.cpp" />
+    <ClCompile Include="src\tintaSpatial.cpp" />
+    <ClCompile Include="src\tintaSphereBV.cpp" />
+    <ClCompile Include="src\tintaTexture.cpp" />
+    <ClCompile Include="src\tintaTriangles.cpp" />
+    <ClCompile Include="src\tintaTriMesh.cpp" />
+    <ClCompile Include="src\tintaVertexBuffer.cpp" />
+    <ClCompile Include="src\tintaVisibleSet.cpp" />
+    <ClCompile Include="src\tintaWinApp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\glew\include\GL\eglew.h" />
+    <ClInclude Include="src\glew\include\GL\glew.h" />
+    <ClInclude Include="src\glew\include\GL\glxew.h" />
+    <ClInclude Include="src\glew\include\GL\wglew.h" />
+    <ClInclude Include="src\GL\tintaGLApp.h" />
+    <ClInclude Include="src\GL\tintaGLPredefine.h" />
+    <ClInclude Include="src\GL\tintaGLRenderer.h" />
+    <ClInclude Include="src\GL\tintaGLSLProgram.h" />
+    <ClInclude Include="src\GL\tintaGLSLShader.h" />
+    <ClInclude Include="src\GL\tintaWinGLRenderer.h" />
+    <ClInclude Include="src\GL\tintaGLVideoCap.h" />
+    <ClInclude Include="src\tintaBillboard.h" />
+    <ClInclude Include="src\tintaCommands.h" />
+    <ClInclude Include="src\tintaGuiManager.h" />
+    <ClInclude Include="src\tintaIVideoCap.h" />
+    <ClInclude Include="src\tintaAction.h" />
+    <ClInclude Include="src\tintaApp.h" />
+    <ClInclude Include="src\tintaAttributes.h" />
+    <ClInclude Include="src\tintaBoundingVolume.h" />
+    <ClInclude Include="src\tintaBoxBV.h" />
+    <ClInclude Include="src\tintaCamera.h" />
+    <ClInclude Include="src\tintaCameraFactory.h" />
+    <ClInclude Include="src\tintaCuller.h" />
+    <ClInclude Include="src\tintaDrawable.h" />
+    <ClInclude Include="src\tintaFrameBuffer.h" />
+    <ClInclude Include="src\tintaGeometry.h" />
+    <ClInclude Include="src\tintaGraphicaPrecompile.h" />
+    <ClInclude Include="src\tintaGraphicaPredefine.h" />
+    <ClInclude Include="src\tintaGraphicConfig.h" />
+    <ClInclude Include="src\tintaImage.h" />
+    <ClInclude Include="src\tintaIndexBuffer.h" />
+    <ClInclude Include="src\tintaITimerCallback.h" />
+    <ClInclude Include="src\tintaSamplerBuffer.h" />
+    <ClInclude Include="src\tintaShapeLocalEn.h" />
+    <ClInclude Include="src\tintaShapeLocalRu.h" />
+    <ClInclude Include="src\tintaVisibleObject.h" />
+    <ClInclude Include="src\tintaIWinContext.h" />
+    <ClInclude Include="src\tintaMaterial.h" />
+    <ClInclude Include="src\tintaMaterialParser.h" />
+    <ClInclude Include="src\tintaMeshParser.h" />
+    <ClInclude Include="src\tintaPlane.h" />
+    <ClInclude Include="src\tintaResource.h" />
+    <ClInclude Include="src\tintaResContainer.h" />
+    <ClInclude Include="src\tintaRGBAColor.h" />
+    <ClInclude Include="src\tintaRoot.h" />
+    <ClInclude Include="src\tintaSceneManager.h" />
+    <ClInclude Include="src\tintaSpatial.h" />
+    <ClInclude Include="src\tintaSphereBV.h" />
+    <ClInclude Include="src\tintaTexture.h" />
+    <ClInclude Include="src\tintaTriangles.h" />
+    <ClInclude Include="src\tintaTriMesh.h" />
+    <ClInclude Include="src\tintaVertexBuffer.h" />
+    <ClInclude Include="src\tintaVisibleSet.h" />
+    <ClInclude Include="src\tintaWinApp.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{93EE5E8E-9814-4395-93EF-A920FEA23E50}</ProjectGuid>
+    <RootNamespace>tintaShape</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectName>tintaShape</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\bin\Debug\</OutDir>
+    <IntDir>..\lib\Debug\tintaShape\</IntDir>
+    <IncludePath>$(IncludePath);C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v3.2\include;</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\bin\Release\</OutDir>
+    <IntDir>..\lib\Release\tintaShape\</IntDir>
+    <IncludePath>$(IncludePath);C:\Program Files (x86)\NVIDIA GPU Computing Toolkit\CUDA\v3.2\include;</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|x64'">
+    <OutDir>$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>src;..;../tintaCommon/src;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\include;src/glew/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;STATIC_LIB;TINTA_LIB;LUA_COMPAT_ALL;_CRT_SECURE_NO_DEPRECATE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <ProgramDataBaseFileName>../lib/Debug/tintaShape/</ProgramDataBaseFileName>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4100;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ObjectFileName>../lib/Debug/tintaShape/</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>tintaCommon.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\bin\Debug\tintaShape.exe</OutputFile>
+      <AdditionalLibraryDirectories>../lib/Debug;C:\Depend\x386\VC12;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapExports>false</MapExports>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary />
+      <TargetMachine>MachineX86</TargetMachine>
+      <ProgramDatabaseFile>..\bin\Debug\tintaShape.pdb</ProgramDatabaseFile>
+    </Link>
+    <Lib>
+      <OutputFile>../lib/Debug/tintaShape.lib</OutputFile>
+    </Lib>
+    <Lib>
+      <UseUnicodeResponseFiles>false</UseUnicodeResponseFiles>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>src;..;../tintaCommon/src;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\include;src/glew/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;GLEW_STATIC;STATIC_LIB;TINTA_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>
+      </PrecompiledHeaderOutputFile>
+      <ProgramDataBaseFileName>../lib/Release/tintaShape/</ProgramDataBaseFileName>
+      <WarningLevel>Level4</WarningLevel>
+      <DebugInformationFormat />
+      <DisableSpecificWarnings>4100;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AssemblerListingLocation>../lib/Release/tintaShape/</AssemblerListingLocation>
+      <ObjectFileName>../lib/Release/tintaShape/</ObjectFileName>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>tintaCommon.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\bin\Release\tintaShape.exe</OutputFile>
+      <AdditionalLibraryDirectories>C:\Depend\x386\VC12;../lib/Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ImportLibrary />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <Lib>
+      <OutputFile>../lib/Release/tintaShape.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugX64|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../molyBuild;..\;../Common/Src;..\include;../molyLuaLib/Src;..\molyPixelLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;CORE_NONCLIENT_BUILD;FREEIMAGE_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>molyGraphicaPrecompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)molyGraphicaPrecompile.pch</PrecompiledHeaderOutputFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>freetype.lib;../lib/Debug_No_CL/CommonUtil_d.lib;FreeImaged.lib;../lib/Debug_No_CL/LuaLib_d.lib;opengl32.lib;glu32.lib;c:\Depend\Dependencies\lib\Debug\OIS_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\bin\Debug_No_CL\Graphica_d.exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <ImportLibrary>..\lib\Debug_No_CL\Graphica_d.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

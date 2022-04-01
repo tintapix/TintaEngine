@@ -1,0 +1,1 @@
+#!/bashSTR="Hello World!"echo $STR    #SRCD="/cygdrive/d/mya/MyWords/"                #SRCD - SouRCe Directory - исходный каталог#TGTD="/cygdrive/d/"         				#TGTD - TarGeT Directory - конечный каталог#OF=$(date +%Y%m%d).7z  #OF - Output File - выходной файл#tar -cZf $TGTD$OF $SRCD#7z #dfff $TGTD$OF $SRCD -r 

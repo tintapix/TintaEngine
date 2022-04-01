@@ -53,6 +53,7 @@
 ]]--
 
 require "paths"
+require "Scripts/lib/l_util"
 
 local begTime = os.clock()
 
@@ -62,9 +63,9 @@ if seedInit == nil then
 	util.msg( os.time() )
 	seedInit = true
 end
-
+local kernelName = "OCL/mask.cl"
 --if ocl.exist("image.cl") ~= true then
-	ocl.create( "OCL/mask.cl", "image" )
+	ocl.create( kernelName, "image" )
 --end
 
 
@@ -82,9 +83,10 @@ end
 --ocl.setarray("image.cl", idA,  0x04)
 --ocl.setarray("image.cl", idB,  0x02)
 
-local PathIn = "C:/foto/IMG_20191126_153945.jpg"
-local outExt = "png"
-local PathOut = string.format( "%s/%s.%s", pic_dir_filtered, c_uniqid(), outExt )
+
+local PathIn = "C:/foto/IMG_20200121_170519.png"
+local ext = s_getex( PathIn )
+local PathOut = string.format( "%s/%s.%s", pic_dir_filtered, c_uniqid(), ext )
 
 local idRead = c_readimg( PathIn )
 
@@ -96,29 +98,25 @@ util.msg("point 1")
 --local idSave = c_createimg( w, h, "basic" )
 util.msg( "idRead:  ", idRead," w h: ",w ," ",h )
 
-ocl.setimage("OCL/mask.cl", idRead,  0x01 )
-ocl.setvalue("OCL/mask.cl",0)
-ocl.setvalue("OCL/mask.cl",0.5)
-ocl.setvalue("OCL/mask.cl",4)
+ocl.setimage(kernelName, idRead,  0x01 )
+ocl.setvalue(kernelName,0)
+ocl.setvalue(kernelName,0.5)
+ocl.setvalue(kernelName, c_channels( c_getimgsel() ))
 
 --ocl.setimage("image.cl", idSave,  0x02)
 
 
 -- 1 dimension
-ocl.execute( "OCL/mask.cl", w*h,0,0,  0, 0 )
+ocl.execute( kernelName, w*h,0,0,  0, 0 )
 --util.sleep(5000)
 
-ocl.clear("OCL/mask.cl")
+ocl.clear(kernelName)
 
 c_selimg(idRead)
 
-util.msg("point 2")
 
 
-c_saveimg( "jpg", PathOut )
-
-
-
+c_saveimg( ext, PathOut )
 
 c_delallimg()
 util.msg("finished")

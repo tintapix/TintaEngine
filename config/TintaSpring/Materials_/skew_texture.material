@@ -1,0 +1,13 @@
+v_shader
+{	
+	file {"v_skew_texture.glsl"},		
+	auto#cam {"cameraView"},
+},
+f_shader
+{	
+	file { "f_skew_texture.glsl" },		
+	manual#texture#name { "3132729095_2019111410138350_22887.png" },		
+	manual#float#factor { 0.0 },	
+	//manual#float#tiles { 2.0 },
+	//manual#float#alpha { 0.8 },
+},

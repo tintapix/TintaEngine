@@ -1,0 +1,12 @@
+v_shader
+{	
+	file {"v_random_coord.glsl"},
+	auto#cam{"cameraView"}	
+	
+},
+f_shader
+{	
+	file {"f_random_coord.glsl"},	
+	manual#texture#textureSun {"moon1.jpg"},	
+	//manual#int#seed { 8941345522 } ,	
+}

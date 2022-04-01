@@ -8,14 +8,14 @@ local filePathOut  = "D:/Work/SUMK_OSHOT_vs2015/bin/Debug/2_out.txt"
 
 local textVec = s_getStringArrayId( filePath, "utf8", false )
 
-local out = c_createbox(c_createbox"str_vector")
-local size = c_boxelements(textVec)
+local out = box.create(box.create"str_vector")
+local size = box.elements(textVec)
 
 local nameCount = 263
 local nameCountOld = 264
 
 for count = 1 , size do
-	local text = c_getvalboxs( textVec, count - 1 )	
+	local text = box.getvals( textVec, count - 1 )	
 	
 	local textOld = string.format("[Name%i]", nameCountOld )
 	
@@ -26,12 +26,12 @@ for count = 1 , size do
 		nameCountOld = nameCountOld + 1
 		
 	end
-	c_pushbackboxs( out, text )	
+	box.pushbacks( out, text )	
 end
 
 c_writetofile( filePathOut, out )
 
-c_delbox(textVec)
+image.erase(textVec)
 
 util.msg("finished")
 
@@ -44,15 +44,15 @@ local filePathOut  = "D:/Work/SUMK_OSHOT_vs2015/SUMKApp/data/db/DeviceError_out.
 
 local textVec = s_getStringArrayId( filePath, "utf8", false )
 
-local out = c_createbox(c_createbox"str_vector")
-local size = c_boxelements(textVec)
+local out = box.create(box.create"str_vector")
+local size = box.elements(textVec)
 
 local nameCount_ = 277
 local nameCount  = 81
 
 for count = 1 , size do
 
-	local text = c_getvalboxs( textVec, count - 1 )		
+	local text = box.getvals( textVec, count - 1 )		
 	
 	local secTest = string.format("[Name%i]", nameCount_ )
 	
@@ -63,13 +63,13 @@ for count = 1 , size do
 		nameCount_	= nameCount_ + 1
 	end
 	
-	c_pushbackboxs( out, text )	
+	box.pushbacks( out, text )	
 	
 end
 
 c_writetofile( filePathOut,  out )
 
-c_delbox(textVec)
+image.erase(textVec)
 
 ]]--
 
@@ -82,30 +82,30 @@ local filePathOut  = "D:/Work/SUMK_OSHOT_vs2015/bin/Debug/2_out.txt"
 
 local textVec = s_getStringArrayId( filePath, "utf8", false )
 
-local out = c_createbox(c_createbox"str_vector")
-local size = c_boxelements(textVec)
+local out = box.create(box.create"str_vector")
+local size = box.elements(textVec)
 
 local nameCount = 81
 
 for count = 1 , size do
-	local text = c_getvalboxs( textVec, count - 1 )	
+	local text = box.getvals( textVec, count - 1 )	
 	
 		
 	
 	local number = string.match(text,   "%d+" )
 	if number ~= nil then
 		local NameX = string.format("[Name%i]", nameCount )	
-		c_pushbackboxs( out, NameX )		
+		box.pushbacks( out, NameX )		
 		
 		
 		
 		local ID = string.format("ID = %i", number )	
 		
-		c_pushbackboxs( out, ID )		
+		box.pushbacks( out, ID )		
 		
 		local description  = string.sub(text, string.len(number + 1))
 		description = string.format("TextSimantics = %s", description )
-		c_pushbackboxs( out, description )
+		box.pushbacks( out, description )
 		nameCount = nameCount  + 1
 	end
 	
@@ -123,14 +123,14 @@ local filePath  = "D:/Work/SUMK_OSHOT_vs2015/bin/Debug/db/DeviceError.txt"
 local filePathOut  = "D:/Work/SUMK_OSHOT_vs2015/bin/Debug/err_out.txt"
 
 local textVec = s_getStringArrayId( filePath, "utf8", false )
-local out = c_createbox(c_createbox"str_vector")
+local out = box.create(box.create"str_vector")
 
-local size = c_boxelements(textVec)
+local size = box.elements(textVec)
 for count = 1 , size do
-	local text = c_getvalboxs( textVec, count - 1 )	
+	local text = box.getvals( textVec, count - 1 )	
 	local number = string.match(text,   "F%d+" )
 	if 	number ~= nil then
-		c_pushbackboxs( out, text )
+		box.pushbacks( out, text )
 	end
 end
 ]]--
@@ -141,11 +141,11 @@ local filePath  = "D:/Work/SUMK_OSHOT_vs2015/bin/Debug/db/DeviceError.txt"
 local filePathOut  = "D:/Work/SUMK_OSHOT_vs2015/bin/Debug/err_out.txt"
 
 local textVec = s_getStringArrayId( filePath, "utf8", false )
-local out = c_createbox(c_createbox"str_vector")
+local out = box.create(box.create"str_vector")
 
-local size = c_boxelements(textVec)
+local size = box.elements(textVec)
 for count = 1 , size do
-	local text = c_getvalboxs( textVec, count - 1 )	
+	local text = box.getvals( textVec, count - 1 )	
 	local descrSina = string.match(text,   "^TextSinamics" )	
 	local descrSew = string.match(text,   "^TextSew" )
 	
@@ -154,7 +154,7 @@ for count = 1 , size do
 		text = string.format("%s%s", text, "\"" )
 	end
 	
-	c_pushbackboxs( out, text )
+	box.pushbacks( out, text )
 end
 
 c_writetofile( filePathOut,  out )
@@ -169,22 +169,22 @@ local filePath  = "D:/Work/SUMK_OSHOT_vs2015/bin/Debug/sinamics.txt"
 local filePathOut  = "D:/Work/SUMK_OSHOT_vs2015/bin/Debug/err_out.txt"
 
 local textVec = s_getStringArrayId( filePath, "utf8", false )
-local out = c_createbox(c_createbox"str_vector")
+local out = box.create(box.create"str_vector")
 
-local size = c_boxelements(textVec)
+local size = box.elements(textVec)
 for count = 1 , size do
-	local text = c_getvalboxs( textVec, count - 1 )	
+	local text = box.getvals( textVec, count - 1 )	
 	local number = string.match(text,   "^F%d+" )
 	if 	number ~= nil then	
 		--util.msg(text)
-		c_pushbackboxs( out, text )
+		box.pushbacks( out, text )
 	end
 end
 c_writetofile( filePathOut,  out )
 
 
-c_delbox(textVec)
-c_delbox(out)
+image.erase(textVec)
+image.erase(out)
 ]]--
 
 
@@ -194,45 +194,45 @@ local filePath  = "D:/mya/TintaSpringBuildWin32_GPU/in.txt"
 local filePathOut  = "D:/mya/TintaSpringBuildWin32_GPU/out.txt"
 
 local textVec = s_getStringArrayId( filePath, "utf8", false )
-local inFile = c_createbox("str_vector")
-local outFile = c_createbox("str_vector")
+local inFile = box.create("str_vector")
+local outFile = box.create("str_vector")
 
 --[[
-local size = c_boxelements(textVec)
+local size = box.elements(textVec)
 for count = 1 , size do
-	local text = c_getvalboxs( textVec, count - 1 )	
+	local text = box.getvals( textVec, count - 1 )	
 	local number = string.match(text,   "address=" )
 	if 	number ~= nil then	
 		--util.msg(text)
-		c_pushbackboxs( inFile, text )
+		box.pushbacks( inFile, text )
 	else
-		c_pushbackboxs( outFile, text )
+		box.pushbacks( outFile, text )
 	end
 end
 ]]--
-local q = c_boxelements(textVec)
+local q = box.elements(textVec)
 
 startId = 1515
 
 for k = 0, q - 1 do	
-	val = c_getvalboxs( textVec, k )
+	val = box.getvals( textVec, k )
 	strFindName =  string.match( val, "icsId=\"%d+" ) 		
 	if strFindName == nil then
 		--util.msg("nill")
-		c_pushbackboxs( outFile, val )
+		box.pushbacks( outFile, val )
 	else
 		strFind = string.match(strFindName,  "%d+" )		
 		strNew = string.format( "icsId=\"%d", startId + tonumber( strFind ) )	
 		local final = string.gsub( val, strFindName, strNew )   	
-		c_pushbackboxs( outFile, final )
+		box.pushbacks( outFile, final )
 	end		
 	
 end
 
 c_writetofile( filePathOut, outFile )
 
-c_delbox( textVec )
-c_delbox( inFile )
-c_delbox( outFile )
+image.erase( textVec )
+image.erase( inFile )
+image.erase( outFile )
 
 util.msg("\nfinished")

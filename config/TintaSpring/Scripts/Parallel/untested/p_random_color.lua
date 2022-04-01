@@ -9,12 +9,12 @@ function main()
 	local extIn = "jpg"
 	local extOut = "png"
 	local factor = 0.98
-	local strRequest = string.format( "c_executefunc( \"/lib/l_util\", \"s_interpToColor\",\"%s\",\"%s\", c_randint(220,255), c_randint(217,217), c_randint(217,217), %f )" , "#1", "#2", factor )
+	local strRequest = string.format( "c_executefunc( \"/lib/l_util\", \"s_interpToColor\",\"%s\",\"%s\", main.randint(220,255), main.randint(217,217), main.randint(217,217), %f )" , "#1", "#2", factor )
 	
 	if c_gettasktype() == 1 then
 		s_fileOperParallel(dirSrc, pathDest, extOut, strRequest )
 	else
-		c_assert(false , "The operation is not parallel!")
+		main.lassert(false , "The operation is not parallel!")
 	end
 end
 -- for  explicit executing

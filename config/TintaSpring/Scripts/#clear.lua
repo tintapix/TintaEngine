@@ -1,5 +1,5 @@
 -- deletes all containers
-c_delallbitmap()
-c_delallboxes()
-c_delallgeom()
-c_delallimg()
+image.eraseallbitmap()
+image.eraseallboxes()
+image.eraseallgeom()
+image.eraseallimg()

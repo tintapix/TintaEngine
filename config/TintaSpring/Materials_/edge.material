@@ -1,0 +1,10 @@
+v_shader
+{	
+	file {"v_edge.glsl"},		
+	auto#cam {"cameraView"},	
+},
+f_shader
+{	
+	file {"f_edge.glsl"},		
+	manual#texture#image {"pixelart3.png"},			
+},

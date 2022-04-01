@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<body bgcolor="#FFFFFF">
+&ensp;<p><b>
+Name: 
+</b>
+ util.error
+</p>
+<p><b>
+Description: 
+</b>
+	Реализует функцию assert в lua. util.error( param , "Ошибочный параметр функции" )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Булевая если true то ничего непроисходит, если false, прекратит выполнение скрипта и выведет сообщение
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка с сообщением - не обязательный параметр
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.getval
+</p>
+<p><b>
+Description: 
+</b>
+ Returns value from tree config file
+</p>
+<p><b>
+Parameter: 
+</b>
+ String  - path
+</p>
+<p><b>
+Parameter: 
+</b>
+ String  - request
+</p>
+<p><b>
+Parameter: 
+</b>
+ String  - type return("double","string","bool")
+</p>
+<p><b>
+Return: 
+</b>
+ Real,String,bool
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.system
+</p>
+<p><b>
+Description: 
+</b>
+ Execute api system function system("command_text")
+</p>
+<p><b>
+Parameter: 
+</b>
+ String  - command
+</p>
+<p><b>
+Return: 
+</b>
+ Integer - result
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.cpucores
+</p>
+<p><b>
+Description: 
+</b>
+ Returns CPU cores
+</p>
+<p><b>
+Return: 
+</b>
+ cpu avalible cores
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.msg
+</p>
+<p><b>
+Description: 
+</b>
+	 Prints msg to the console and into the log file if used one
+</p>
+<p><b>
+Parameter: 
+</b>
+ Bool,String,Number - parameters comma separated  e.g.(  util.msg("test",100,true) )
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.msgf
+</p>
+<p><b>
+Description: 
+</b>
+	Prints message into the log file
+</p>
+<p><b>
+Parameter: 
+</b>
+ Bool,String,Number parameters comma separated e.g.( util.msgf("test",100,true) )
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.timestamp
+</p>
+<p><b>
+Description: 
+</b>
+ Log time stamps in log messages
+</p>
+<p><b>
+Parameter: 
+</b>
+ Bool true - show time stamps in log
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.bytetofloat
+</p>
+<p><b>
+Description: 
+</b>
+	converts byte value to the float
+</p>
+<p><b>
+Parameter: 
+</b>
+ byte value
+</p>
+<p><b>
+Return: 
+</b>
+ - Real data
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.floattobyte
+</p>
+<p><b>
+Description: 
+</b>
+	Converts float value to the byte
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real value
+</p>
+<p><b>
+Return: 
+</b>
+ - byte data
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.linterp
+</p>
+<p><b>
+Description: 
+</b>
+	Implements linear interpolation
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real param value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real param value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real param value[0,1]
+</p>
+<p><b>
+Return: 
+</b>
+ - Real
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.cosinterp
+</p>
+<p><b>
+Description: 
+</b>
+	Implements Cos interpolation
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real param value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real param value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real param value[0,1]
+</p>
+<p><b>
+Return: 
+</b>
+ - Real
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.cubeinterp
+</p>
+<p><b>
+Description: 
+</b>
+	Implements Cubic interpolation
+</p>
+<p><b>
+Parameter: 
+</b>
+ param value
+</p>
+<p><b>
+Parameter: 
+</b>
+ param value
+</p>
+<p><b>
+Parameter: 
+</b>
+ param value
+</p>
+<p><b>
+Parameter: 
+</b>
+ param value
+</p>
+<p><b>
+Parameter: 
+</b>
+ param value[0,1]
+</p>
+<p><b>
+Return: 
+</b>
+ - Real
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.smoothstep
+</p>
+<p><b>
+Description: 
+</b>
+	Implements smooth step function
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real param
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real param
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real param
+</p>
+<p><b>
+Return: 
+</b>
+ - Real
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.sleep
+</p>
+<p><b>
+Description: 
+</b>
+	Send to sleep executing thread
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt - time ms
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.countfiles
+</p>
+<p><b>
+Description: 
+</b>
+	Returns files quantity by the condition
+</p>
+<p><b>
+Parameter: 
+</b>
+ String - absolute or relative path to directory where to count
+</p>
+<p><b>
+Parameter: 
+</b>
+ String = "" - extension
+</p>
+<p><b>
+Return: 
+</b>
+ Int quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.getfile
+</p>
+<p><b>
+Description: 
+</b>
+	Returns file by the condition in directory
+</p>
+<p><b>
+Parameter: 
+</b>
+ String -  absolute or relative path to directory where to find
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt - position of file in list for iterating using c_countfiles
+</p>
+<p><b>
+Parameter: 
+</b>
+ String = "" - extension
+</p>
+<p><b>
+Parameter: 
+</b>
+ Bool ;- if false returns full path to file, if true only filename
+</p>
+<p><b>
+Return: 
+</b>
+ quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.fopened
+</p>
+<p><b>
+Description: 
+</b>
+	Returns opened file in the another process flag
+</p>
+<p><b>
+Parameter: 
+</b>
+ String path to the file
+</p>
+<p><b>
+Return: 
+</b>
+ - Boolean true, if file is opened in the another process
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.writetofile
+</p>
+<p><b>
+Description: 
+</b>
+ Writes text into the file
+</p>
+<p><b>
+Parameter: 
+</b>
+ path
+</p>
+<p><b>
+Parameter: 
+</b>
+ string data string
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.getdirectory
+</p>
+<p><b>
+Description: 
+</b>
+	Returns directory by the condition
+</p>
+<p><b>
+Parameter: 
+</b>
+ - absolute or relative path to directory where to find
+</p>
+<p><b>
+Parameter: 
+</b>
+ - position of file in list for iterating using c_countfiles
+</p>
+<p><b>
+Parameter: 
+</b>
+ - if true returns full path to file, if false only full filename
+</p>
+<p><b>
+Return: 
+</b>
+ quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.countdirectories
+</p>
+<p><b>
+Description: 
+</b>
+	Returns directories quantity by the condition
+</p>
+<p><b>
+Parameter: 
+</b>
+ - absolute or relative path to directory	where to count
+</p>
+<p><b>
+Return: 
+</b>
+ quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.isdirectory
+</p>
+<p><b>
+Description: 
+</b>
+	Determine if the path is directory
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.pow
+</p>
+<p><b>
+Description: 
+</b>
+	pow function
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.packcolor3
+</p>
+<p><b>
+Description: 
+</b>
+	Packs from byte form R G B into the unsigned form 0x00000
+</p>
+<p><b>
+Parameter: 
+</b>
+  byte R value
+</p>
+<p><b>
+Parameter: 
+</b>
+  byte G value
+</p>
+<p><b>
+Parameter: 
+</b>
+  byte B value
+</p>
+<p><b>
+Return: 
+</b>
+  - unsigned packed result
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.unpackcolor3
+</p>
+<p><b>
+Description: 
+</b>
+	Unpacks the unsigned form 0 in to the byte form R G B
+</p>
+<p><b>
+Parameter: 
+</b>
+  - unsigned packed value
+</p>
+<p><b>
+Return: 
+</b>
+  byte R result
+</p>
+<p><b>
+Return: 
+</b>
+  byte G result
+</p>
+<p><b>
+Return: 
+</b>
+  byte B result
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.packcolor4
+</p>
+<p><b>
+Description: 
+</b>
+	Packs from byte form R G B into the unsigned form 0x00000
+</p>
+<p><b>
+Parameter: 
+</b>
+  byte R value
+</p>
+<p><b>
+Parameter: 
+</b>
+  byte G value
+</p>
+<p><b>
+Parameter: 
+</b>
+  byte B value
+</p>
+<p><b>
+Parameter: 
+</b>
+  byte A value
+</p>
+<p><b>
+Return: 
+</b>
+  - unsigned packed result
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.unpackcolor4
+</p>
+<p><b>
+Description: 
+</b>
+	Unpacks the unsigned form 0 in to the byte form R G B
+</p>
+<p><b>
+Parameter: 
+</b>
+  - unsigned packed value
+</p>
+<p><b>
+Return: 
+</b>
+  byte R result
+</p>
+<p><b>
+Return: 
+</b>
+  byte G result
+</p>
+<p><b>
+Return: 
+</b>
+  byte B result
+</p>
+<p><b>
+Return: 
+</b>
+  byte A result
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.rgbtohsl
+</p>
+<p><b>
+Description: 
+</b>
+	Converts RGB to HSL
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real r
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real g
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real b
+</p>
+<p><b>
+Return: 
+</b>
+ Real h
+</p>
+<p><b>
+Return: 
+</b>
+ Real s
+</p>
+<p><b>
+Return: 
+</b>
+ Real l
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.hsltorgb
+</p>
+<p><b>
+Description: 
+</b>
+	Converts HSL to RGB
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real h
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real s
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real l
+</p>
+<p><b>
+Return: 
+</b>
+ Real r
+</p>
+<p><b>
+Return: 
+</b>
+ Real g
+</p>
+<p><b>
+Return: 
+</b>
+ Real b
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.fromdegtorad
+</p>
+<p><b>
+Description: 
+</b>
+	Converts angle from degree to radians
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real angle
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.fromradtodeg
+</p>
+<p><b>
+Description: 
+</b>
+	Converts angle from radians to degree
+</p>
+<p><b>
+Parameter: 
+</b>
+ Real angle
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ util.regexmatch
+</p>
+<p><b>
+Description: 
+</b>
+	Finds matches using regular expressions
+</p>
+<p><b>
+Parameter: 
+</b>
+ string regular expression
+</p>
+<p><b>
+Parameter: 
+</b>
+ string text
+</p>
+<p><b>
+Parameter: 
+</b>
+ int match mask:
+</p>
+<p><b>
+Return: 
+</b>
+ int matches count
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.create
+</p>
+<p><b>
+Description: 
+</b>
+ Creates image
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  - width
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  - height
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  - channels(1..6)
+</p>
+<p><b>
+Return: 
+</b>
+ UInt  - image id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.remove
+</p>
+<p><b>
+Description: 
+</b>
+ Deletes all image data and frees mamory
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  - image id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.read
+</p>
+<p><b>
+Description: 
+</b>
+ Reads image from the file: jpg(jpeg) or png
+</p>
+<p><b>
+Parameter: 
+</b>
+ String - absolute path to the file
+</p>
+<p><b>
+Return: 
+</b>
+ UInt  - image id
+</p>
+<p><b>
+Return: 
+</b>
+ UInt  - image width
+</p>
+<p><b>
+Return: 
+</b>
+ UInt  - image height
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.save
+</p>
+<p><b>
+Description: 
+</b>
+ Saves image th the file: jpg(jpeg) or png
+</p>
+<p><b>
+Return: 
+</b>
+ UInt  - image id
+</p>
+<p><b>
+Parameter: 
+</b>
+ String - absolute path to save the file
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.set
+</p>
+<p><b>
+Description: 
+</b>
+ Sets value the channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  - image id
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  -  position x(0,width-1)
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  -  position y(0,height-1)
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte value
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  -  channel(1..6)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.fill
+</p>
+<p><b>
+Description: 
+</b>
+ Fills image with values
+</p>
+<p><b>
+Parameter: 
+</b>
+ Byte value
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  - image id
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  -  channel(1..6)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ image.get
+</p>
+<p><b>
+Description: 
+</b>
+ Gets value the channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  - image id
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  -  position x(0,width-1)
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  -  position y(0,height-1)
+</p>
+<p><b>
+Parameter: 
+</b>
+ UInt  -  channel(1..6)
+</p>
+<p><b>
+Return: 
+</b>
+ Byte value
+</p>
+</body>
+</html>

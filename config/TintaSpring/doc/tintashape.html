@@ -1,0 +1,3069 @@
+<!DOCTYPE html>
+<body bgcolor="#FFFFFF">
+&ensp;<p><b>
+Name: 
+</b>
+ point.add
+</p>
+<p><b>
+Description: 
+</b>
+ Adds points layer
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ x - position(window coordinates)
+</p>
+<p><b>
+Parameter: 
+</b>
+ y - position(window coordinates)
+</p>
+<p><b>
+Parameter: 
+</b>
+ r - 0..1.0 color R value
+</p>
+<p><b>
+Parameter: 
+</b>
+ g - 0..1.0 color G value
+</p>
+<p><b>
+Parameter: 
+</b>
+ b - 0..1.0 color B value
+</p>
+<p><b>
+Parameter: 
+</b>
+ a - 0..1.0 color A value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.move
+</p>
+<p><b>
+Description: 
+</b>
+ Moves point to the position
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ index - point index
+</p>
+<p><b>
+Parameter: 
+</b>
+ x
+</p>
+<p><b>
+Parameter: 
+</b>
+ y
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.getpos
+</p>
+<p><b>
+Description: 
+</b>
+ Gets point position
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ index - point index
+</p>
+<p><b>
+Return: 
+</b>
+ x
+</p>
+<p><b>
+Return: 
+</b>
+ y
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.setcolor
+</p>
+<p><b>
+Description: 
+</b>
+ Sets point color
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ index - point index
+</p>
+<p><b>
+Parameter: 
+</b>
+ r
+</p>
+<p><b>
+Parameter: 
+</b>
+ g
+</p>
+<p><b>
+Parameter: 
+</b>
+ b
+</p>
+<p><b>
+Parameter: 
+</b>
+ a
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.getcolor
+</p>
+<p><b>
+Description: 
+</b>
+ Gets point color
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ index - point index
+</p>
+<p><b>
+Return: 
+</b>
+ r
+</p>
+<p><b>
+Return: 
+</b>
+ g
+</p>
+<p><b>
+Return: 
+</b>
+ b
+</p>
+<p><b>
+Return: 
+</b>
+ a
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.setsize
+</p>
+<p><b>
+Description: 
+</b>
+ Sets points size
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ size
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.getsize
+</p>
+<p><b>
+Description: 
+</b>
+ Gets points size
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Return: 
+</b>
+ size
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.del
+</p>
+<p><b>
+Description: 
+</b>
+ Deletes point from the layer(use d3.find to get index)
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ index - point index
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.find
+</p>
+<p><b>
+Description: 
+</b>
+ Trying to find point in position
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ x - position(window coordinates)
+</p>
+<p><b>
+Parameter: 
+</b>
+ y - position(window coordinates)
+</p>
+<p><b>
+Return: 
+</b>
+ Uint point index or nil
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.points
+</p>
+<p><b>
+Description: 
+</b>
+ Returns points quantity
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Return: 
+</b>
+ Uint points quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.addlayer
+</p>
+<p><b>
+Description: 
+</b>
+ Adds points layer
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - point size
+</p>
+<p><b>
+Parameter: 
+</b>
+ type - points layer primitive type("point","line","linestrip","polygon")
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.findlayer
+</p>
+<p><b>
+Description: 
+</b>
+ Find layer by coordinate
+</p>
+<p><b>
+Parameter: 
+</b>
+ x - position
+</p>
+<p><b>
+Parameter: 
+</b>
+ y - position
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.dellayer
+</p>
+<p><b>
+Description: 
+</b>
+ Deletes points layer
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.dellayer
+</p>
+<p><b>
+Description: 
+</b>
+ Deletes all point layers
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.filllayer
+</p>
+<p><b>
+Description: 
+</b>
+ Fill layer with points in 0,0 coordinate and color
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ Quantity - points quantity
+</p>
+<p><b>
+Parameter: 
+</b>
+ r - channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ g - channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ b - channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ a - channel
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.swap
+</p>
+<p><b>
+Description: 
+</b>
+ Меняет слои местами
+</p>
+<p><b>
+Parameter: 
+</b>
+ name1 - первый слой 
+</p>
+<p><b>
+Parameter: 
+</b>
+ name2 - второй слой
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.movelayer
+</p>
+<p><b>
+Description: 
+</b>
+ Shift points layer
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ Float x shift
+</p>
+<p><b>
+Parameter: 
+</b>
+ Float y shift
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ point.arraypos
+</p>
+<p><b>
+Description: 
+</b>
+ Gets positions from array
+</p>
+<p><b>
+Parameter: 
+</b>
+ name - points layer name
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id - array ID
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.getpos
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает координаты объекта в сцене например: d3.getpos("Enemy1")
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя объекта
+</p>
+<p><b>
+Return: 
+</b>
+ Число с плавающей точкой x
+</p>
+<p><b>
+Return: 
+</b>
+ Число с плавающей точкой y
+</p>
+<p><b>
+Return: 
+</b>
+ Число с плавающей точкой z
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.sbadd
+</p>
+<p><b>
+Description: 
+</b>
+ add 4 - component sampler buffer
+</p>
+<p><b>
+Parameter: 
+</b>
+ string unique name
+</p>
+<p><b>
+Parameter: 
+</b>
+ bool true - dynamic, false - static buffer(if nil default)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.sbdel
+</p>
+<p><b>
+Description: 
+</b>
+ Delete sampler buffer
+</p>
+<p><b>
+Parameter: 
+</b>
+ string unique name
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.sbresize
+</p>
+<p><b>
+Description: 
+</b>
+ Resize buffer
+</p>
+<p><b>
+Parameter: 
+</b>
+ string unique name
+</p>
+<p><b>
+Parameter: 
+</b>
+ int number of the 4 - component elements
+</p>
+<p><b>
+Parameter: 
+</b>
+ bool - if true - fill buffer with 0 value( nil default false)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.sbsize
+</p>
+<p><b>
+Description: 
+</b>
+ Return buffer 4 - component elements quantity
+</p>
+<p><b>
+Parameter: 
+</b>
+ string unique name
+</p>
+<p><b>
+Return: 
+</b>
+ elements quantity
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.sbsetchannel
+</p>
+<p><b>
+Description: 
+</b>
+ Set channel value of element in sampler buffer
+</p>
+<p><b>
+Parameter: 
+</b>
+ string unique name
+</p>
+<p><b>
+Parameter: 
+</b>
+ int element index
+</p>
+<p><b>
+Parameter: 
+</b>
+ int channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ float  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.sbgetchannel
+</p>
+<p><b>
+Description: 
+</b>
+ Get channel value of element in sampler buffer
+</p>
+<p><b>
+Parameter: 
+</b>
+ string unique name
+</p>
+<p><b>
+Parameter: 
+</b>
+ int element index
+</p>
+<p><b>
+Parameter: 
+</b>
+ int channel
+</p>
+<p><b>
+Return: 
+</b>
+ float  value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.visible
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает признак видимости объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя объекта
+</p>
+<p><b>
+Return: 
+</b>
+ Булевое true - виден
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setmaterial
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет к объекту материал, если его нет в списке и делает его двигает его на передний план
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя материала
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.crosspoint
+</p>
+<p><b>
+Description: 
+</b>
+ Определяет пересечение точки в протранстве с объектом, согласно его габаритам( по умолчанию сфера)
+</p>
+<p><b>
+Parameter: 
+</b>
+ Object type: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Object name
+</p>
+<p><b>
+Parameter: 
+</b>
+ x координата
+</p>
+<p><b>
+Parameter: 
+</b>
+ y координата
+</p>
+<p><b>
+Parameter: 
+</b>
+ z координата
+</p>
+<p><b>
+Return: 
+</b>
+ true - если перечечение найдено
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.mousepos
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает положение мыши в оконных координатах
+</p>
+<p><b>
+Return: 
+</b>
+ x coordinate
+</p>
+<p><b>
+Return: 
+</b>
+ y coordinate
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setvisible
+</p>
+<p><b>
+Description: 
+</b>
+ Делает объект и все его дочерние объекты видимым или нет
+</p>
+<p><b>
+Parameter: 
+</b>
+ Object type: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Object name
+</p>
+<p><b>
+Parameter: 
+</b>
+ Boolean visible
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setvariable
+</p>
+<p><b>
+Description: 
+</b>
+ Задает новое значение для "manual" переменной в материале
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя материала
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя переменной
+</p>
+<p><b>
+Parameter: 
+</b>
+ Ряд значений в зависимости от типа переменной:
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.getorient
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает кватернион ориентации объекта  x y z w
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Entity name
+</p>
+<p><b>
+Return: 
+</b>
+ Real x
+</p>
+<p><b>
+Return: 
+</b>
+ Real y
+</p>
+<p><b>
+Return: 
+</b>
+ Real z
+</p>
+<p><b>
+Return: 
+</b>
+ Real w
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.camlookat
+</p>
+<p><b>
+Description: 
+</b>
+ Поворачивает камеру в сторону объекта, можно использовать в паре с getpos
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя камеры или пустая строка. По умолчанию главная камера - d3.camlookat("","Enemy1")
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setorient
+</p>
+<p><b>
+Description: 
+</b>
+ Задает кватернион ориентации объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объеата
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой x
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой z
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой w
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setparent
+</p>
+<p><b>
+Description: 
+</b>
+ Устанавливает иерархию объектов
+</p>
+<p><b>
+Parameter: 
+</b>
+  Тип объекта: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя дочернего объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя додительского объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.rotate
+</p>
+<p><b>
+Description: 
+</b>
+ Поворачивает объект на угол: d3.rotate("enemy1", 0.3, 0.0, 100.0 )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой угол по оси X
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой угол по оси Y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой угол по оси Z
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой скорость поворота (градусов / миллисек) или 0
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка обработчик по завершению или пустая строка например "remove(\"bullet\")"
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.rotatecycle
+</p>
+<p><b>
+Description: 
+</b>
+ Начинает циклично вращать объект: d3.rotatecycle("Enemy1", 0.1,0.1,0.2 )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой угол по оси x (градусов / миллисек)
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой угол по оси y (градусов / миллисек)
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой угол по оси z (градусов / миллисек)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.moveto
+</p>
+<p><b>
+Description: 
+</b>
+ Премещает объект в координату d3.setpos("Enemy1", 10.0,100.0,0.0 )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой координата x
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой координата y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой координата z
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой скорость перемещения(позиций/мсек) или 0
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка обработчик по завершению или пустая строка например "remove(\"bullet\")"
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.getdestpos
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает координаты положения точки в направлении от объекта на расстоянии: d3.getdestpos("Enemy1", 10.0,5.0,10.0, 35.0 )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой угол отклонение от положения вперед по оси X
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой угол отклонение от положения вперед по оси Y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой угол отклонение от положения вперед по оси Z
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой расстояние
+</p>
+<p><b>
+Return: 
+</b>
+ Число с плавающей точкой x
+</p>
+<p><b>
+Return: 
+</b>
+ Число с плавающей точкой y
+</p>
+<p><b>
+Return: 
+</b>
+ Число с плавающей точкой z
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.moveorient
+</p>
+<p><b>
+Description: 
+</b>
+ Перемещает объект на расстояние согласно ориентации: d3.moveorient( "Enemy1", 100.0,13.0,5.0 ) или d3.moveon( "Enemy1", 100.0,13.0,5.0, 0.0 ), работает только для родительских объектов
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой расстояние по оси x
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой расстояние по оси y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой расстояние по оси z
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой скорость (позиций/мсек) или 0
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка обработчик по завершению или пустая строка например "remove(\"bullet\")"
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.moveon
+</p>
+<p><b>
+Description: 
+</b>
+ Перемещает объект на расстояние вдоль осей
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой расстояние по оси x
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой расстояние по оси y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой расстояние по оси z
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой скорость (позиций/мсек) или 0
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка обработчик по завершению или пустая строка например "remove(\"bullet\")"
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.mulscale
+</p>
+<p><b>
+Description: 
+</b>
+ Умножает значение  масштабирования на коэффициент
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей коэфициент по оси x
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей коэфициент по оси y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей коэфициент по оси z
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.scale
+</p>
+<p><b>
+Description: 
+</b>
+ Pflftn значение  масштабирования
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей коэфициент по оси x
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей коэфициент по оси y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей коэфициент по оси z
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.getscale
+</p>
+<p><b>
+Description: 
+</b>
+ Задает койфициент масштабирования
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+<p><b>
+Return: 
+</b>
+ Число с плавающей коэфициент по оси x
+</p>
+<p><b>
+Return: 
+</b>
+ Число с плавающей коэфициент по оси y
+</p>
+<p><b>
+Return: 
+</b>
+ Число с плавающей коэфициент по оси z
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.status
+</p>
+<p><b>
+Description: 
+</b>
+ Выводит на кончоль состояние сцены
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.genname
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка текстовый префикс: d3.genname("Object")
+</p>
+<p><b>
+Description: 
+</b>
+ Генерирует уникальное имя
+</p>
+<p><b>
+Return: 
+</b>
+ Строка имя
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.wareframemode
+</p>
+<p><b>
+Description: 
+</b>
+ Включает режим отображения объектов в виде каркасов
+</p>
+<p><b>
+Parameter: 
+</b>
+ Булевое true - включить, false - выключить
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.imagesize
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает размеры изображения
+</p>
+<p><b>
+Parameter: 
+</b>
+ Name - имя изображения
+</p>
+<p><b>
+Return: 
+</b>
+ Uint w
+</p>
+<p><b>
+Return: 
+</b>
+ Uint h
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addplane
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет плоскость в сцену: d3.addplane( "main_plane", 100000,100000, 10, 10, "tile.material" )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя плоскости
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой длина
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой высота
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число w количество точек по длине
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число h количество точек по высоте
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя материала(опционально)
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя родительского объекта(опционально)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addbox
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет параллелепипед в сцену: d3.addbox( "Box1", 10,10,10, false, "lightvert.material" )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой ширина
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой высота
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой глубина
+</p>
+<p><b>
+Parameter: 
+</b>
+ Булевое всегда false 
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя материала(опционально)
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя родительского объекта(опционально)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addbillboard
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет плоскость в сцену, всегда обращенную по поси z к камере: d3.addbillboard( "billboard", 100,100, 5, 5, "color.material" )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя плоскости
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой длина
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой высота
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число w количество точек по длине
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число h количество точек по высоте
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя материала(опционально)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.winsize
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает размеры окна
+</p>
+<p><b>
+Parameter: 
+</b>
+ name
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое w
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое h
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addsphere
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет сферу в сцену: d3.addsphere( "Sphere1", 5,10,5, false , "fill_black.material" )	
+</p>
+<p><b>
+Parameter: 
+</b>
+ имя объект
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой радиус
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число количество точек по z
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число количество точек по радиусу
+</p>
+<p><b>
+Parameter: 
+</b>
+ Булевое всегда false 
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя материала(опционально)
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя родительского объекта(опционально)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addfront
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет слой GUI
+</p>
+<p><b>
+Parameter: 
+</b>
+ name
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей положение x {-1,1}
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей положение y {-1,1}
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей w
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей h
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое количество узлов по x 
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое количество узлов по y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Материал name
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addback
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет слой GUI
+</p>
+<p><b>
+Parameter: 
+</b>
+ name
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей положение x {-1,1}
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей положение y {-1,1}
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей w
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей h
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое количество узлов по x
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое количество узлов по y
+</p>
+<p><b>
+Parameter: 
+</b>
+ Материал name
+</p>
+<p><b>
+Parameter: 
+</b>
+ Опционально. Родительский объект name
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addmesh
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет готовый каркас в сцену: d3.addmesh( "Mesh1", "box.mmesh", "lightvert.material" )
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя каркаса
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя материала(опционально)
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя родительского объекта(опционально)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.aspectratio
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает соотношение сторон окна по принципу max/min или 1
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setclear
+</p>
+<p><b>
+Description: 
+</b>
+ Установить цвет заднего фона
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой r в диапазоне от 0.0 до 1.0
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой g в диапазоне от 0.0 до 1.0
+</p>
+<p><b>
+Parameter: 
+</b>
+ Число с плавающей точкой b в диапазоне от 0.0 до 1.0
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.e
+</p>
+<p><b>
+Description: 
+</b>
+ выполнить файл сценария lua: d3.e("test.lua")
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя сценария
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.remove
+</p>
+<p><b>
+Description: 
+</b>
+ Удалить объект из сцены
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Булевый Удалить все дочерние объекты или nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.getparent
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает имя родительского объекта, если таковой имеется
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ имя объекта
+</p>
+<p><b>
+Return: 
+</b>
+ Имя родительского объекта или nil
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.removeall
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Description: 
+</b>
+ Удалить все объекты из сцены
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.init
+</p>
+<p><b>
+Description: 
+</b>
+ Пытается переинициализировать, еще не задействованные ресурсы
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.stop
+</p>
+<p><b>
+Description: 
+</b>
+ Удалить все действия по таймеру для объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setresolution
+</p>
+<p><b>
+Description: 
+</b>
+ Поменять разрешение экрана
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число ширина 
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число высота
+</p>
+<p><b>
+Parameter: 
+</b>
+ Булевое установить полноэкранный режим, true - полноэкранный
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.screenshot
+</p>
+<p><b>
+Description: 
+</b>
+ Сделать снимок экрана и сохранить в файл
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка необязательный префикс для имени
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка необязательный абсолютный путь к директории вида  /home/screens
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.layerback
+</p>
+<p><b>
+Description: 
+</b>
+ Сдвигает слой в очереди отрисовки назад на 1 положение 
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка Имя объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.layerfront
+</p>
+<p><b>
+Description: 
+</b>
+ Сдвигает слой в очереди отрисовки вперед на 1 положение
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка Имя объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.layerswap
+</p>
+<p><b>
+Description: 
+</b>
+ Меняет местами слои в очереди отрисовки
+</p>
+<p><b>
+Parameter: 
+</b>
+ Тип объекта: "back", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя первого слоя
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя второго слоя
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.manual
+</p>
+<p><b>
+Description: 
+</b>
+ Начинает отрисовку каждого кадра вручную по указанному периоду таймера
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое Период таймера
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.gettime
+</p>
+<p><b>
+Description: 
+</b>
+ 
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addtimer
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет скрипт для исполнения по таймеру
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число период в миллисекундах
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка текст скрипта. Может быть пустой строкой или nil. Вызвать d3.settimer позже
+</p>
+<p><b>
+Return: 
+</b>
+ Целое - id таймера или nil
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.settimer
+</p>
+<p><b>
+Description: 
+</b>
+ Обновляет таймер
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число id таймера
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка текст скрипта. Если nil, то не обновляет эти данные 
+</p>
+<p><b>
+Return: 
+</b>
+ Целое число период в миллисекундах. Если nil или <= 0, то не обновляет эти данные 
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.delimage
+</p>
+<p><b>
+Description: 
+</b>
+ Удаляет текстуру из видеопамяти и изображение из хранилища ресурсов
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя изображения (имя файла)
+</p>
+<p><b>
+Return: 
+</b>
+ true if image was deleted
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setchannel
+</p>
+<p><b>
+Description: 
+</b>
+ Set image channel value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Image name(image filename)
+</p>
+<p><b>
+Parameter: 
+</b>
+ x position
+</p>
+<p><b>
+Parameter: 
+</b>
+ y position
+</p>
+<p><b>
+Parameter: 
+</b>
+ channel(0-4)
+</p>
+<p><b>
+Parameter: 
+</b>
+ Float value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.getchannel
+</p>
+<p><b>
+Description: 
+</b>
+ Returns image channel value
+</p>
+<p><b>
+Parameter: 
+</b>
+ Image name(image filename)
+</p>
+<p><b>
+Parameter: 
+</b>
+ x position
+</p>
+<p><b>
+Parameter: 
+</b>
+ y position
+</p>
+<p><b>
+Parameter: 
+</b>
+ channel(0-4)
+</p>
+<p><b>
+Return: 
+</b>
+ Float value
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addmaterial
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет новый материалл и компилирует все шейдерные программы, связанные с ним
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя материалла
+</p>
+<p><b>
+Parameter: 
+</b>
+ Путь к материаллу. Может быть nil(поиск по путям из настройки)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.deltexture
+</p>
+<p><b>
+Description: 
+</b>
+ Удаляет текстуру из видеопамяти
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя текстуры (имя файла)
+</p>
+<p><b>
+Return: 
+</b>
+ true если текстура была удалена
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.loadtexture
+</p>
+<p><b>
+Description: 
+</b>
+ Загружает текстуру в видео память и добавляет изображение в ресурсы
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя текстуры (имя файла)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addimage
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет или перезаписывает изображение в ресурсы
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка имя изображения (имя файла)
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setkey
+</p>
+<p><b>
+Description: 
+</b>
+ Добавляет скрипт для исполнения по нажатию или отжатию клавиши
+</p>
+<p><b>
+Parameter: 
+</b>
+ Код клавиши:
+</p>
+<p><b>
+Parameter: 
+</b>
+ Строка текст скрипта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Булевая true - по нажатию вниз, false - вверх, для колеса мыши(ML_MOUSE_WEEL) true - прокрутка вперед
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.keypressed
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает состояние клавиши
+</p>
+<p><b>
+Parameter: 
+</b>
+ Код клавиши см setkey
+</p>
+<p><b>
+Return: 
+</b>
+ Булевое true - клавиша нажата
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.roll
+</p>
+<p><b>
+Description: 
+</b>
+ Делает  Roll поворот
+</p>
+<p><b>
+Parameter: 
+</b>
+ Object type: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Угол в градусах
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.yaw
+</p>
+<p><b>
+Description: 
+</b>
+ Делает Yaw поворот
+</p>
+<p><b>
+Parameter: 
+</b>
+ Object type: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Угол в градусах
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.pitch
+</p>
+<p><b>
+Description: 
+</b>
+ Делает Pitch поворот
+</p>
+<p><b>
+Parameter: 
+</b>
+ Object type: "back", "scene", "front","camera"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ Угол в градусах
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.exists
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает признак наличия объекта или слоя в сцене по имени
+</p>
+<p><b>
+Parameter: 
+</b>
+ @param Тип объекта: "back", "scene", "front"
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя объекта, слоя
+</p>
+<p><b>
+Return: 
+</b>
+ Булевое true - присутствует
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.deltimer
+</p>
+<p><b>
+Description: 
+</b>
+ Удаляет таймер
+</p>
+<p><b>
+Parameter: 
+</b>
+ Целое число идентификатор таймера
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.deltimers
+</p>
+<p><b>
+Description: 
+</b>
+ Удаляет все таймеры
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.setcursor
+</p>
+<p><b>
+Description: 
+</b>
+ Установить изображение курсора
+</p>
+<p><b>
+Parameter: 
+</b>
+ Путь к ".cur" файлу.
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.copyfont
+</p>
+<p><b>
+Description: 
+</b>
+ makes copy of hte font
+</p>
+<p><b>
+Parameter: 
+</b>
+ unsigned int font id to copy
+</p>
+<p><b>
+Return: 
+</b>
+ unsigned int new font id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.addfont
+</p>
+<p><b>
+Description: 
+</b>
+ adds new font in stack and makes the font selected
+</p>
+<p><b>
+Parameter: 
+</b>
+ string font name
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color r channel or nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color g channel or nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color b channel or nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ scale factor X or nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ scale factor Y or nil
+</p>
+<p><b>
+Return: 
+</b>
+ unsigned int font id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.selfont
+</p>
+<p><b>
+Description: 
+</b>
+ select the font
+</p>
+<p><b>
+Parameter: 
+</b>
+un usigned int font id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.delfont
+</p>
+<p><b>
+Description: 
+</b>
+ removes the font from the stack
+</p>
+<p><b>
+Parameter: 
+</b>
+ unsigned int font id
+</p>
+<p><b>
+Return: 
+</b>
+ true if font was deleted
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.delallfont
+</p>
+<p><b>
+Description: 
+</b>
+ removes all fonts from the stack
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.fontcolor
+</p>
+<p><b>
+Description: 
+</b>
+ changes font color
+</p>
+<p><b>
+Parameter: 
+</b>
+ unsigned int font id
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color r channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color g channel
+</p>
+<p><b>
+Parameter: 
+</b>
+ int font color b channel
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ d3.rendertext
+</p>
+<p><b>
+Description: 
+</b>
+ draw text with selected font in to the selected image
+</p>
+<p><b>
+Parameter: 
+</b>
+ string text(\n as a new line)
+</p>
+<p><b>
+Parameter: 
+</b>
+ int x position of the text
+</p>
+<p><b>
+Parameter: 
+</b>
+ int y position of the text
+</p>
+<p><b>
+Parameter: 
+</b>
+ int x space between symbols in pixels or nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ int y space between symbols in pixels or nil
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.del
+</p>
+<p><b>
+Description: 
+</b>
+ Удаляет массив(вектор) значений
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.size
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает размер массива
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+<p><b>
+Return: 
+</b>
+ размер
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.resize
+</p>
+<p><b>
+Description: 
+</b>
+ Изменяет размер массива
+</p>
+<p><b>
+Parameter: 
+</b>
+ Array id
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.delall
+</p>
+<p><b>
+Description: 
+</b>
+ Удаляет все массивы
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.addf
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив значений с плавающей запятой) Добавляет массив(вектор) значений с плавающей запятой
+</p>
+<p><b>
+Return: 
+</b>
+ Id объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.getf
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив значений с плавающей запятой)Возвращает значение по индексу
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ индекс в массиве( 0 < index < array_size)
+</p>
+<p><b>
+Return: 
+</b>
+ значение
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.popf
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив значений с плавающей запятой)Удаляет уменьшает размер массива на 1 отбрасывая последнее значение
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.pushf
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив значений с плавающей запятой)Добавляет значение в конец массива, увеличивая его на 1
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ значение
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.setf
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив значений с плавающей запятой)Задает значение по индексу
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ индекс в массиве( 0 < index < array_size)
+</p>
+<p><b>
+Parameter: 
+</b>
+ значение
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.addi
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив целочисленных значений) Добавляет массив(вектор) целочисленных значений
+</p>
+<p><b>
+Return: 
+</b>
+ Id объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.geti
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив целочисленных значений)Возвращает значение по индексу
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ индекс в массиве( 0 < index < array_size)
+</p>
+<p><b>
+Return: 
+</b>
+ значение
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.popi
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив целочисленных значений)Удаляет уменьшает размер массива на 1 отбрасывая последнее значение
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.pushi
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив целочисленных значений)Добавляет значение в конец массива, увеличивая его на 1
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ значение
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ array.seti
+</p>
+<p><b>
+Description: 
+</b>
+ (Массив целочисленных значений)Задает значение по индексу
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id объекта
+</p>
+<p><b>
+Parameter: 
+</b>
+ индекс в массиве( 0 < index < array_size)
+</p>
+<p><b>
+Parameter: 
+</b>
+ значение
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.create
+</p>
+<p><b>
+Description: 
+</b>
+ Создает OCL программу или очищает данные если она уже сущществует
+</p>
+<p><b>
+Parameter: 
+</b>
+ имя программы или путь к файлу с ней
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.platdescrip
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает описание платформы
+</p>
+<p><b>
+Return: 
+</b>
+ описание платформы
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.exist
+</p>
+<p><b>
+Description: 
+</b>
+ Определяет признак уже созданной программы
+</p>
+<p><b>
+Parameter: 
+</b>
+ имя программы
+</p>
+<p><b>
+Return: 
+</b>
+ true - если уже создана
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.devdescrip
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает описания устройства GPU util.msg(ocl.devdescrip(0,60))
+</p>
+<p><b>
+Parameter: 
+</b>
+ device id
+</p>
+<p><b>
+Parameter: 
+</b>
+ Флаг запрашиваемого рписания, полное описание списком - GPUDevAll = 60		
+</p>
+<p><b>
+Return: 
+</b>
+ описание
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.platforms
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает количество GPU платформ
+</p>
+<p><b>
+Return: 
+</b>
+ количество GPU платформ
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.enabled
+</p>
+<p><b>
+Description: 
+</b>
+ Возвращает признак возможности GPU расчета
+</p>
+<p><b>
+Return: 
+</b>
+ true - если возможен
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.clear
+</p>
+<p><b>
+Description: 
+</b>
+ Очищает данные по программе
+</p>
+<p><b>
+Parameter: 
+</b>
+ имя программы
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.remove
+</p>
+<p><b>
+Description: 
+</b>
+ Удаляет программу
+</p>
+<p><b>
+Parameter: 
+</b>
+ имя программы
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.setarray
+</p>
+<p><b>
+Description: 
+</b>
+ Задать массив данных вход/выход для расчета
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя программы
+</p>
+<p><b>
+Parameter: 
+</b>
+ Id массива
+</p>
+<p><b>
+Parameter: 
+</b>
+ Маска параметра
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.setvalue
+</p>
+<p><b>
+Description: 
+</b>
+ Задать поле данных вход/выход для расчета
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя программы
+</p>
+<p><b>
+Parameter: 
+</b>
+ Значение типа: int8,int16,int32,int64,float,double
+</p>
+&ensp;<p><b>
+Name: 
+</b>
+ ocl.execute
+</p>
+<p><b>
+Description: 
+</b>
+ Выполнить программу и вернуть результат
+</p>
+<p><b>
+Parameter: 
+</b>
+ Имя программы
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint глобальная ширина массива данных
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint глобальная высота массива данных(2 - мерный массив) или nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint глобальная глубина массива данных(3 - мерный массив) или nil
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint положение порядковый номер параметра с выходными данными, заданными setarray или setvalue
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint размер группы по x или nil по умолчанию
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint размер группы по y(2 - мерный массив) или nil по умолчанию
+</p>
+<p><b>
+Parameter: 
+</b>
+ uint размер группы по z(3 - мерный массив) или nil по умолчанию
+</p>
+</body>
+</html>

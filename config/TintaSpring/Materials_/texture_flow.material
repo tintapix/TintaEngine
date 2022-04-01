@@ -1,0 +1,13 @@
+v_shader
+{	
+	file {"v_texture_flow.glsl"},
+	auto#cam{"cameraView"}	
+},
+f_shader
+{	
+	file {"f_texture_flow.glsl"},	
+	manual#texture#textureSun {"3132729095_2017831123543340_28375lsd4.png"},	
+	//auto#randValue{"randReal"},
+	auto#timeElapsed {"timeElapsed"},			
+	
+}
